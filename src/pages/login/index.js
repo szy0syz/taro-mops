@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, OpenData, Input, Button } from '@tarojs/components'
+import { View, Text, Input, Button } from '@tarojs/components'
 
 import './index.scss'
 
@@ -52,7 +52,6 @@ class Login extends Component {
       <View className='login-page' id='login-page'>
         <View className='title'>您好，请登录</View>
         <View className='title-des'>内部系统，授权访问</View>
-        <OpenData type='userAvatarUrl'  />
         <View className='bgtopWrap'>
           <View className='loginWrap'>
             <View className='inpuWrapMpblie'>
@@ -61,7 +60,10 @@ class Login extends Component {
             <View className='inpuWrapMpblie'>
               <Input type='string' name='username' maxLength='4' placeholder='请输入姓名' value={this.props.username} onInput={this.getUsername} />
             </View>
-            <Button className='button' onClick={this.onHandleLogin.bind(this)}>登录</Button>
+            <Button className='button' onClick={this.onHandleLogin}>登录</Button>
+            <View className='see-des'>
+              无需输入密码<Text>后台验证身份</Text>
+            </View>
           </View>
         </View>
       </View>
