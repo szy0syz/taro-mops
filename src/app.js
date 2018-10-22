@@ -1,40 +1,49 @@
-import Taro, { Component } from '@tarojs/taro'
 import '@tarojs/async-await'
+import Taro, { Component } from '@tarojs/taro'
 import { Provider } from '@tarojs/redux'
+import Home from './pages/home'
+import dva from './utils/dva'
+import models from './models'
 
-import Index from './pages/index'
+import './styles/base.scss'
 
-import configStore from './store'
 
-import './app.scss'
-
-const store = configStore()
+const dvaApp = dva.createApp({
+  initialState: {},
+  models: models,
+});
+const store = dvaApp.getStore();
 
 class App extends Component {
 
   config = {
     pages: [
-      'pages/index/index',
-      'pages/login/index',
-      'pages/welcome/index',
+      'pages/home/index',
+      'pages/cart/index',
       'pages/user/index',
-      'pages/about/index'
+      'pages/detail/index',
+      'pages/about/index',
+      'pages/size/index',
+      'pages/login/index',
+      'pages/message/index',
+      'pages/couponList/index',
+      'pages/order/index'
     ],
     window: {
-      backgroundTextStyle: 'light',
+      backgroundTextStyle: 'dark',
       navigationBarBackgroundColor: '#fff',
-      navigationBarTitleText: 'WeChat',
+      navigationBarTitleText: '时装衣橱',
       navigationBarTextStyle: 'black'
     },
     tabBar: {
       list: [{
-        pagePath: "pages/index/index",
+        pagePath: "pages/home/index",
         text: "首页",
         iconPath: "./images/tab/home.png",
         selectedIconPath: "./images/tab/home-active.png"
       }, {
-        pagePath: "pages/login/index",
-        text: "衣袋",
+        pagePath: "pages/cart/index",
+        text: "开单",
         iconPath: "./images/tab/cart.png",
         selectedIconPath: "./images/tab/cart-active.png"
       },{
@@ -50,20 +59,14 @@ class App extends Component {
     }
   }
 
-  componentDidMount () {}
+  componentDidMount() {
 
-  componentDidShow () {}
+  }
 
-  componentDidHide () {}
-
-  componentCatchError () {}
-
-  render () {
-    return (
-      <Provider store={store}>
-        <Index />
-      </Provider>
-    )
+  render() {
+    return (<Provider store={store}>
+      <Home />
+    </Provider>);
   }
 }
 

@@ -14,9 +14,10 @@ export default class About extends Component {
   render() {
     return (
       <View className='about-page'>
-        <View>云南云农农业科技有限公司</View>
-        <View>公司简介1</View>
-        <View>公司简介2</View>
+        <View>云南云农科技有限公司</View>
+        <View>公司介绍1</View>
+        <View>公司介绍2</View>
+        <View>公司介绍3</View>
       </View>
     )
   }

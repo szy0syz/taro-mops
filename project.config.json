@@ -1,8 +1,8 @@
 {
   "miniprogramRoot": "./dist",
-  "projectname": "taro-mops",
-  "description": "erp",
-  "appid": "touristappid",
+  "projectname": "taro-msparis",
+  "description": "",
+  "appid": "wxd2a161b3c8752b6f",
   "setting": {
     "urlCheck": true,
     "es6": false,

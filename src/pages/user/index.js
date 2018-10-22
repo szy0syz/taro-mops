@@ -1,18 +1,23 @@
 import Taro, { Component } from '@tarojs/taro';
 import { View, Image, Text, Icon } from '@tarojs/components';
+import { connect } from '@tarojs/redux';
 import './index.scss';
 import message_img from '../../images/user/message.png';
 import avatar_img from '../../images/user/avatar.png';
 import coupon_img from '../../images/user/coupon.png';
 import deposit_img from '../../images/user/deposit.png';
 
+@connect(({user,common}) => ({
+  ...user,
+  ...common,
+}))
 export default class User extends Component {
   config = {
     navigationBarTitleText: '我的',
   };
 
   goPage = (e) => {
-    if (e.currentTarget.dataset.url == '/pages/login/index' && this.props.access_token) {
+    if(e.currentTarget.dataset.url == '/pages/login/index' && this.props.access_token) {
       return;
     }
     Taro.navigateTo({
@@ -21,7 +26,7 @@ export default class User extends Component {
   }
 
   goToPage = (e) => {
-    if (!this.props.access_token) {
+    if(!this.props.access_token) {
       Taro.navigateTo({
         url: '/pages/login/index',
       })
@@ -34,7 +39,7 @@ export default class User extends Component {
 
   outLogin = (e) => {
     e.stopPropagation();
-    if (!this.props.access_token) {
+    if(!this.props.access_token) {
       Taro.navigateTo({
         url: '/pages/login/index',
       })
@@ -43,49 +48,49 @@ export default class User extends Component {
     Taro.showModal({
       content: '是否退出当前账号？'
     })
-      .then(res => {
-        if (res.confirm) {
-          Taro.removeStorageSync('user_info');
-          Taro.removeStorageSync('access_token');
-          this.props.dispatch({
-            type: 'cart/init',
-          });
-          this.props.dispatch({
-            type: 'common/save',
-            payload: {
-              access_token: '',
-              invitation_code: '',
-              mobile: '',
-              nickname: '',
-              new_user: '',
-              is_has_buy_card: '',
-              erroMessage: '',
-            },
-          });
-          this.props.dispatch({
-            type: 'login/save',
-            payload: {
-              access_token: '',
-              invitation_code: '',
-              mobile: '',
-              nickname: '',
-              new_user: '',
-              is_has_buy_card: '',
-              erroMessage: '',
-            },
-          });
-        }
-      })
+    .then(res => {
+      if (res.confirm) {
+        Taro.removeStorageSync('user_info');
+        Taro.removeStorageSync('access_token');
+        this.props.dispatch({
+          type: 'cart/init',
+        });
+        this.props.dispatch({
+          type: 'common/save',
+          payload: {
+            access_token: '',
+            invitation_code: '',
+            mobile: '',
+            nickname: '',
+            new_user: '',
+            is_has_buy_card: '',
+            erroMessage: '',
+          },
+        });
+        this.props.dispatch({
+          type: 'login/save',
+          payload: {
+            access_token: '',
+            invitation_code: '',
+            mobile: '',
+            nickname: '',
+            new_user: '',
+            is_has_buy_card: '',
+            erroMessage: '',
+          },
+        });
+      }
+    })
   }
 
   render() {
-    const { mobile, nickname, list } = this.props;
+    const { mobile, coupon_number, nickname, list } = this.props;
     return (
       <View className='user-page'>
         <View className='not-login'>
           <View className='to-login' data-url='/pages/login/index' onClick={this.goPage}>
             <View className='left'>
-              <View className={mobile ? 'name black' : 'name '}>{nickname || '请登录 >'}</View>
+              <View className={mobile ? 'name black' : 'name '}>{ nickname || '请登录 >'}</View>
               <View>
                 <View className='msg' data-url='/pages/message/index' onClick={this.goToPage}>
                   <Image mode='widthFix' src={message_img} />
@@ -121,6 +126,16 @@ export default class User extends Component {
                   </View>
                 )}
               </View>
+            </View>
+          </View>
+          <View className='item' data-url='/pages/couponList/index' onClick={this.goToPage}>
+            <View className='left'>
+              <Image className='icon-left' src={coupon_img} />
+              <Text>MOPS</Text>
+            </View>
+            <View className='right'>
+              {coupon_number && <View className='num'>{coupon_number}</View>}
+              <View className='iconfont icon-more arrow'></View>
             </View>
           </View>
           <View className='item' data-url='/pages/about/index' onClick={this.goPage}>
