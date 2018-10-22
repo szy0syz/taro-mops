@@ -16,7 +16,9 @@ class App extends Component {
     pages: [
       'pages/index/index',
       'pages/login/index',
-      'pages/welcome/index'
+      'pages/welcome/index',
+      'pages/user/index',
+      'pages/about/index'
     ],
     window: {
       backgroundTextStyle: 'light',
@@ -36,7 +38,7 @@ class App extends Component {
         iconPath: "./images/tab/cart.png",
         selectedIconPath: "./images/tab/cart-active.png"
       },{
-        pagePath: "pages/welcome/index",
+        pagePath: "pages/user/index",
         text: "我的",
         iconPath: "./images/tab/user.png",
         selectedIconPath: "./images/tab/user-active.png"

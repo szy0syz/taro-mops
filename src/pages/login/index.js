@@ -6,7 +6,7 @@ import './index.scss'
 class Login extends Component {
 
   config = {
-    navigationBarTitleText: '登录'
+    navigationBarTitleText: '云农农业科技-MOPS系统'
   }
 
   constructor(props) {
@@ -58,9 +58,9 @@ class Login extends Component {
               <Input type='number' name='mobile' maxLength='11' placeholder='请输入手机号' value={this.props.mobile} onInput={this.onHandleMobile} />
             </View>
             <View className='inpuWrapMpblie'>
-              <Input type='string' name='username' maxLength='4' placeholder='请输入姓名' value={this.props.username} onInput={this.getUsername} />
+              <Input type='string' name='username' maxLength='4' placeholder='请输入员工姓名' value={this.props.username} onInput={this.getUsername} />
             </View>
-            <Button className='button' onClick={this.onHandleLogin}>登录</Button>
+            <Button className='button' onClick={this.onHandleLogin}>验  证</Button>
             <View className='see-des'>
               无需输入密码<Text>后台验证身份</Text>
             </View>
