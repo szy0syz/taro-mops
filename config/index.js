@@ -1,6 +1,6 @@
 const config = {
-  projectName: 'taro-msparis',
-  date: '2018-9-27',
+  projectName: 'taro-mops',
+  date: '2018-10-22',
   // 设计稿尺寸
   designWidth: 750,
   sourceRoot: 'src',
