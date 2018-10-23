@@ -116,13 +116,6 @@ export default class Login extends Component {
   }
 
   render() {
-    const { sending, smsTime } = this.props;
-    if (typeof window === 'undefined') {
-      this.setState({
-        sending,
-        smsTime
-      })
-    }
     return (
       <View className='login-page' id='login-page'>
         <View className='title'>您好，请登录</View>

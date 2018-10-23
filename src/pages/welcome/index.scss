@@ -1,0 +1,44 @@
+@import "../../styles/mixin";
+.container {
+  @include wh(100%, 100%);
+  overflow: scroll;
+  -webkit-overflow-scrolling: touch;
+  font-family: "PingFangSC-Light", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+  background: #fff;
+  text-align: center;
+
+  .title {
+    font-size: 48px;
+    font-weight: 600;
+  }
+
+  .btn-login {
+    top: 580px;
+    width: 92%;
+    height: 90px;
+    line-height: 90px;
+    margin: 2px auto;
+    font-size: 32px;
+    color: #fff;
+    background: #333;
+    text-align: center;
+    font-weight: 600;
+    margin-top: 40px;
+  }
+
+  .user-avatar{
+    text-align: center;
+    margin-top: 60px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    overflow: hidden;
+    text-align: center;
+  }
+
+  .user-username {
+    margin-top: 20rpx;
+  }
+}
