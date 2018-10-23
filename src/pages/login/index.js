@@ -139,7 +139,7 @@ export default class Login extends Component {
             <View className='see-des' onClick={this.getVoiceCode}>
               无需输入密码
               <Text>后台验证身份</Text>
-            </View>     
+            </View>
           </View>
         </View>
       </View>
