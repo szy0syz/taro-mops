@@ -42,7 +42,7 @@ export default class Index extends Component {
       title: '云农农业科技-MOPS系统',
       path: '/pages/home/index',
     }
-  };
+  }
 
   // 小程序上拉加载
   onReachBottom() {
@@ -71,6 +71,7 @@ export default class Index extends Component {
         </View>
         <Text className='recommend'>为你推荐</Text>
         <GoodsList list={products_list} loading={effects['home/product']} /> */}
+        <MySwiper></MySwiper>
       </View>
     )
   }
