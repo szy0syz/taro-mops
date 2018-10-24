@@ -26,20 +26,22 @@ export default class Login extends Component {
     this.props.dispatch({
       type: 'login/save',
       payload: { username },
-    });
+    })
   }
 
 
   login = () => {
-    if (this.props.mobile == '' || this.props.mobile.length != 11 || this.props.code == '' || this.props.code.length != 4) {
+    if (this.props.mobile == '' || this.props.mobile.length != 11 || this.props.code == '') {
       this.showToast('请输入有效的手机号或输入有效验证码！');
       return false;
     }
+    console.log(this.props.code)
     this.props.dispatch({
       type: 'login/login',
       payload: {
         code: this.props.code,
         mobile: this.props.mobile,
+        username: this.props.username
       },
     });
   }
@@ -115,6 +117,17 @@ export default class Login extends Component {
     });
   }
 
+  componentDidMount = () => {
+    Taro.login().then(data => {
+      if (data && data.code) {
+        this.props.dispatch({
+          type: 'login/save',
+          payload: { code: data.code },
+        })
+      }
+    })
+  }
+
   render() {
     return (
       <View className='login-page' id='login-page'>
@@ -126,7 +139,7 @@ export default class Login extends Component {
               <Input type='number' name='mobile' maxLength='11' placeholder='请输入手机号' value={this.props.mobile} onInput={this.getMobile} />
             </View>
             <View className='inpuWrapMpblie'>
-              <Input type='string' name='username' maxLength='4' placeholder='请输入员工姓名' value={this.props.username} onInput={this.getUsername} />
+              <Input type='string' name='username' placeholder='请输入员工姓名' value={this.props.username} onInput={this.getUsername} />
             </View>
             <Button className='button' onClick={this.login}>验  证</Button>
             <View className='see-des' onClick={this.getVoiceCode}>

@@ -22,8 +22,8 @@ export default {
 
   effects: {
     * login(_, { call, put, select }) {
-      const { code, mobile } = yield select(state => state.login);
-      const res = yield call(login.login, { code, mobile});
+      const { code, mobile, username } = yield select(state => state.login);
+      const res = yield call(login.login, { code, mobile, username});
       if (res.status == 'ok') {
         const userInfo = {
           access_token: res.data.access_token,
