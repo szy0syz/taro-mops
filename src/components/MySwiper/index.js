@@ -23,7 +23,7 @@ export default class MySwiper extends Component {
     const { stats, home } = this.props;
     return (
       <Swiper
-        className={!home ? 'swiper-container' : 'swiper'}
+        className='swiper-container'
         circular
         indicatorDots
         indicatorColor='#999'
@@ -31,7 +31,12 @@ export default class MySwiper extends Component {
       >
         { stats.map((item, index) => (
           <SwiperItem key={index}>
-            <View>{item}</View>
+            <View className='box'>
+              <Text className='item-title'>本月毛利</Text>
+              <Text className='item-number'>￥59384.00</Text>
+              <Text className='item-title'>本月销售</Text>
+              <Text className='item-number'>￥420842.00</Text>
+            </View>
           </SwiperItem>
         ))}
       </Swiper>
