@@ -7,6 +7,7 @@ export default {
     brands: [],
     products_list: [],
     page: 1,
+    keyword: ''
   },
   effects: {
     * load(_, {call, put}) {

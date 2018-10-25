@@ -1,8 +1,8 @@
 import Taro, { Component } from '@tarojs/taro';
-import { View, Text, Image } from '@tarojs/components';
+import { View, Text } from '@tarojs/components';
+import { AtSearchBar, AtIcon } from 'taro-ui'
 import { connect } from '@tarojs/redux';
 import MySwiper from '../../components/MySwiper';
-import GoodsList from '../../components/GoodsList';
 import './index.scss';
 
 @connect(({ home, cart, loading }) => ({
@@ -29,7 +29,7 @@ export default class Index extends Component {
         index: 1,
         text: String(this.props.items.length),
       })
-    }else {
+    } else {
       Taro.removeTabBarBadge({
         index: 1,
       })
@@ -58,20 +58,39 @@ export default class Index extends Component {
   }
 
   render() {
-    const { banner, brands, products_list, effects } = this.props;
+    const { keyword } = this.props;
     return (
       <View className='home-page'>
-        {/* <MySwiper banner={banner} home /> */}
-        {/* <View className='nav-list'>
-          { brands.map((item, index) => (
-            <View className='nav-item' key={index}>
-              <Image mode='widthFix' src={item.image_src}></Image>
+        <View className='upper-area'>
+          <AtSearchBar
+            showActionButton
+            value={keyword}
+            onChange={this.onChange.bind(this)}
+          />
+          <MySwiper></MySwiper>
+          <View className='title-column'>
+            <View>
+              <Text>￥1688.00</Text>
+              <Text>本月销售</Text>
             </View>
-          ))}
+            <View className='item-text'>
+              <View>
+                <AtIcon value='clock' size='30' color='#F00'></AtIcon>
+                <Text>资金</Text>
+              </View>
+              <View>
+                <AtIcon value='calendar' size='29' color='#F00'></AtIcon>
+                <Text>订单</Text>
+              </View>
+            </View>
+            <View>
+              <Text>￥711548.00</Text>
+              <Text>库存金额</Text>
+            </View>
+          </View>
         </View>
-        <Text className='recommend'>为你推荐</Text>
-        <GoodsList list={products_list} loading={effects['home/product']} /> */}
-        <MySwiper></MySwiper>
+        <View>
+        </View>
       </View>
     )
   }
