@@ -32,9 +32,9 @@ class App extends Component {
     ],
     window: {
       backgroundTextStyle: 'dark',
-      navigationBarBackgroundColor: '#fff',
+      navigationBarBackgroundColor: '#21b5a9',
       navigationBarTitleText: '时装衣橱',
-      navigationBarTextStyle: 'black'
+      navigationBarTextStyle: 'white'
     },
     tabBar: {
       list: [{
@@ -44,7 +44,17 @@ class App extends Component {
         selectedIconPath: "./images/tab/home-active.png"
       }, {
         pagePath: "pages/cart/index",
-        text: "开单",
+        text: "明细",
+        iconPath: "./images/tab/cart.png",
+        selectedIconPath: "./images/tab/cart-active.png"
+      }, {
+        pagePath: "pages/cart/index",
+        text: "",
+        iconPath: "./images/icon/plus.png",
+        selectedIconPath: "./images/icon/plus.png"
+      }, {
+        pagePath: "pages/cart/index",
+        text: "报表",
         iconPath: "./images/tab/cart.png",
         selectedIconPath: "./images/tab/cart-active.png"
       },{

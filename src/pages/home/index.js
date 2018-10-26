@@ -91,6 +91,28 @@ export default class Index extends Component {
         </View>
         <View>
         </View>
+        <View className='grid-menu'>
+          <View>
+            <View className='menu-icon'>
+              <AtIcon value='analytics' size='26' color='#fff'></AtIcon>
+            </View>
+            <View className='menu-text'>客户管理</View>
+            <View className='menu-text' style='color: #2bb2a7'>￥12150.00</View>
+          </View>
+          <View>
+            <View className='menu-icon'>
+              <AtIcon value='bullet-list' size='26' color='#fff'></AtIcon>
+            </View>
+            <View className='menu-text'>商品查看</View>
+          </View>
+          <View>
+            <View className='menu-icon'>
+              <AtIcon value='money' size='26' color='#fff'></AtIcon>
+            </View>
+            <View className='menu-text'>供应商管理</View>
+            <View className='menu-text' style='color: #2bb2a7'>￥29880.00</View>
+          </View>
+        </View>
       </View>
     )
   }
