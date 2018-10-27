@@ -21,8 +21,19 @@ swiper-item {
 
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
+
+  View {
+    &:last-child {
+      margin-top: 40rpx;
+    }
+  }
+
+  View>Text {
+    display: block;
+    text-align: center;
+  }
 
   .item-title {
     font-size: 28rpx;
@@ -30,8 +41,8 @@ swiper-item {
   }
 
   .item-number {
-    margin-top: -8rpx;
     font-size: 34rpx;
     color: #fff;
+    margin-top: 16rpx;
   }
 }

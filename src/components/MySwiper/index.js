@@ -29,13 +29,17 @@ export default class MySwiper extends Component {
         indicatorColor='#999'
         indicatorActiveColor='#bf708f'
       >
-        { stats.map((item, index) => (
+        {stats.map((item, index) => (
           <SwiperItem key={index}>
             <View className='box'>
-              <Text className='item-title'>本月毛利</Text>
-              <Text className='item-number'>￥59384.00</Text>
-              <Text className='item-title'>本月销售</Text>
-              <Text className='item-number'>￥420842.00</Text>
+              <View>
+                <Text className='item-title'>本月毛利</Text>
+                <Text className='item-number'>￥59384.00</Text>
+              </View>
+              <View>
+                <Text className='item-title'>本月销售</Text>
+                <Text className='item-number'>￥420842.00</Text>
+              </View>
             </View>
           </SwiperItem>
         ))}
