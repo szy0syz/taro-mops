@@ -63,29 +63,30 @@ export default class Index extends Component {
       <View className='home-page'>
         <View className='upper-area'>
           <AtSearchBar
+            placeholder='搜索商品名称/规格/条形码/助记码'
             showActionButton
             value={keyword}
             onChange={this.onChange.bind(this)}
           />
           <MySwiper></MySwiper>
           <View className='title-column'>
-            <View>
-              <Text>￥1688.00</Text>
-              <Text>本月销售</Text>
+            <View className='item-stats'>
+              <Text style='font-size: 30rpx;'>￥1688.00</Text>
+              <Text style='padding-top:6rpx;' className='column-lable'>本月销售</Text>
             </View>
             <View className='item-text'>
               <View>
-                <AtIcon value='clock' size='30' color='#F00'></AtIcon>
-                <Text>资金</Text>
+                <AtIcon value='credit-card' size='26' color='#fff'></AtIcon>
+                <Text className='column-lable'>资金</Text>
               </View>
               <View>
-                <AtIcon value='calendar' size='29' color='#F00'></AtIcon>
-                <Text>订单</Text>
+                <AtIcon value='calendar' size='25' color='#fff'></AtIcon>
+                <Text className='column-lable'>订单</Text>
               </View>
             </View>
-            <View>
-              <Text>￥711548.00</Text>
-              <Text>库存金额</Text>
+            <View className='item-stats'>
+              <Text style='font-size: 30rpx;'>￥711548.00</Text>
+              <Text style='padding-top:6rpx;' className='column-lable'>库存金额</Text>
             </View>
           </View>
         </View>
@@ -94,7 +95,7 @@ export default class Index extends Component {
         <View className='grid-menu'>
           <View>
             <View className='menu-icon'>
-              <AtIcon value='analytics' size='26' color='#fff'></AtIcon>
+              <AtIcon value='user' size='26' color='#fff'></AtIcon>
             </View>
             <View className='menu-text'>客户管理</View>
             <View className='menu-text' style='color: #2bb2a7'>￥12150.00</View>

@@ -4,7 +4,6 @@
   width: 100%;
   max-height: 70%;
   height: 70%;
-  border: 1px dashed blueviolet;
 }
 
 swiper-item {
@@ -15,10 +14,10 @@ swiper-item {
 }
 
 .box {
-  height: 80%;
-  width: 55%;
+  height: 350rpx;
+  width: 350rpx;
   border-radius: 50%;
-  border: 16px solid #ddd;
+  border: 30rpx solid rgba(242,242,242, 0.3);
 
   display: flex;
   flex-direction: column;
@@ -27,10 +26,12 @@ swiper-item {
 
   .item-title {
     font-size: 28rpx;
+    color: #dddddd;
   }
 
   .item-number {
     margin-top: -8rpx;
     font-size: 34rpx;
+    color: #fff;
   }
 }

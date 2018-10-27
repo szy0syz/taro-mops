@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro';
-import { Swiper, SwiperItem, View } from '@tarojs/components';
+import { Swiper, SwiperItem, View, Text } from '@tarojs/components';
 import PropTypes from 'prop-types';
 import './index.scss';
 
