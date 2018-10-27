@@ -18,6 +18,7 @@ class App extends Component {
 
   config = {
     pages: [
+      'pages/list/index',
       'pages/home/index',
       'pages/cart/index',
       'pages/user/index',
@@ -29,11 +30,12 @@ class App extends Component {
       'pages/couponList/index',
       'pages/welcome/index',
       'pages/order/index'
+      
     ],
     window: {
       backgroundTextStyle: 'dark',
       navigationBarBackgroundColor: '#21b5a9',
-      navigationBarTitleText: '时装衣橱',
+      navigationBarTitleText: '云农农业科技',
       navigationBarTextStyle: 'white'
     },
     tabBar: {
@@ -43,7 +45,7 @@ class App extends Component {
         iconPath: "./images/tab/home.png",
         selectedIconPath: "./images/tab/home-active.png"
       }, {
-        pagePath: "pages/cart/index",
+        pagePath: "pages/list/index",
         text: "明细",
         iconPath: "./images/tab/cart.png",
         selectedIconPath: "./images/tab/cart-active.png"

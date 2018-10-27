@@ -1,0 +1,35 @@
+@import "../../styles/mixin";
+
+.page-container {
+    height: 100%;
+    background-color: #eee;
+    position: relative;
+}
+
+.tabs-container {
+    position: absolute;
+    top: 20rpx;
+    left: 4%;
+    width: 96%;
+    
+    .at-tabs__header {
+        background-color: rgba(0,0,0,0);
+    }
+
+    View.at-tabs-pane {
+        background-color: #fff;
+    }
+
+    View.at-tabs__item {
+        background-color: blue;
+        margin-bottom: 30rpx;
+        padding: 30rpx 10rpx;
+        width: 36rpx;
+        border-radius: 20rpx 0 0 20rpx;
+        writing-mode: vertical-rl;
+        &:first-child {
+            margin-top: 30rpx;
+        }
+        color: rgba(248,248,248,0.9);
+    }
+}
