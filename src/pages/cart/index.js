@@ -26,7 +26,7 @@ export default class Cart extends Component {
   }
 
   clothingNumExplain() {
-    const content = "“会员每次免费租4件”可付费多租一件，5件封顶；VIP每次免费可租4件会员+1件VIP美衣或者2件会员+2件VIP美衣，或者3件VIP美衣；可付费多租1-2件，5件封顶；";
+    const content = '“会员每次免费租4件”可付费多租一件，5件封顶；VIP每次免费可租4件会员+1件VIP美衣或者2件会员+2件VIP美衣，或者3件VIP美衣；可付费多租1-2件，5件封顶；';
     Taro.showModal({
       content,
       showCancel: false,
@@ -76,24 +76,24 @@ export default class Cart extends Component {
     const { items } = this.props;
     const isH5 = typeof window !== 'undefined';
     return (
-      <View className="cart-page">
+      <View className='cart-page'>
       {items.length == 0 ? (
-        <View className="empty">
-          <Image mode="widthFix" src="http://static-r.msparis.com/uploads/b/c/bcffdaebb616ab8264f9cfc7ca3e6a4e.png" />
-          <Button type="primary" className="am-button" onClick={this.goHome}>立即去挑选美衣</Button>
+        <View className='empty'>
+          <Image mode='widthFix' src='http://static-r.msparis.com/uploads/b/c/bcffdaebb616ab8264f9cfc7ca3e6a4e.png' />
+          <Button type='primary' className='am-button' onClick={this.goHome}>立即去挑选美衣</Button>
         </View>
       ) : (
-        <View className="isLogin">
-          <Image onClick={this.clothingNumExplain} mode="widthFix" src="https://static-rs.msparis.com/uploads/1/0/106494e4c47110f6c0e4ea40e15ad446.png"/>
+        <View className='isLogin'>
+          <Image onClick={this.clothingNumExplain} mode='widthFix' src='https://static-rs.msparis.com/uploads/1/0/106494e4c47110f6c0e4ea40e15ad446.png'/>
           <ClothingsItem clothing={items} onDeleteClothing={this.onDeleteClothing} />
-          <View className="bottom-count" style={!isH5 && 'bottom:0;'}>
-            <View className="fj">
+          <View className='bottom-count' style={!isH5 && 'bottom:0;'}>
+            <View className='fj'>
               <View>
                 合计：
                 <Text className={!items.length ? 'disabled price' : 'price'}>0.00</Text>
               </View>
-              <Button className="cart-btn" onClick={this.buy} disabled={!items.length}>下单</Button>
-              <View className="info">
+              <Button className='cart-btn' onClick={this.buy} disabled={!items.length}>下单</Button>
+              <View className='info'>
                 如有失效美衣，建议删除，以免占用衣袋件数
               </View>
             </View>

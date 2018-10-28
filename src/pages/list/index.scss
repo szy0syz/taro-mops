@@ -1,35 +1,50 @@
 @import "../../styles/mixin";
-
 .page-container {
     height: 100%;
     background-color: #eee;
     position: relative;
 }
 
+.at-tabs__item--active {
+    background-color: red;
+}
+
 .tabs-container {
     position: absolute;
     top: 20rpx;
-    left: 4%;
-    width: 96%;
-    
+    left: 3%;
+    width: 97%;
     .at-tabs__header {
-        background-color: rgba(0,0,0,0);
+        background-color: rgba(0, 0, 0, 0);
     }
-
     View.at-tabs-pane {
         background-color: #fff;
     }
 
+    
+
     View.at-tabs__item {
-        background-color: blue;
+        background-color: #bbb;
         margin-bottom: 30rpx;
         padding: 30rpx 10rpx;
-        width: 36rpx;
+        width: 42rpx;
         border-radius: 20rpx 0 0 20rpx;
         writing-mode: vertical-rl;
         &:first-child {
             margin-top: 30rpx;
         }
-        color: rgba(248,248,248,0.9);
+        color: rgba(248, 248, 248, 0.9);
+    }
+    View.at-tabs__item:nth-child(1) {
+        background-color: rgba(112, 159, 239, 1);
+    }
+    View.at-tabs__item:nth-child(2) {
+        background-color: rgba(241, 181, 85, 1);
+    }
+    View.at-tabs__item:nth-child(3) {
+        background-color: rgba(238, 103, 117, 1);
+    }
+    View.at-tabs__item:nth-child(4) {
+        background-color: rgba(114, 192, 116, 1);
     }
 }
