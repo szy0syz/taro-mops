@@ -5,12 +5,9 @@
     position: relative;
 }
 
-.at-tabs__item--active {
-    background-color: red;
-}
-
 .tabs-container {
     position: absolute;
+    height: 95%;
     top: 20rpx;
     left: 3%;
     width: 97%;
@@ -20,9 +17,6 @@
     View.at-tabs-pane {
         background-color: #fff;
     }
-
-    
-
     View.at-tabs__item {
         background-color: #bbb;
         margin-bottom: 30rpx;
@@ -46,5 +40,30 @@
     }
     View.at-tabs__item:nth-child(4) {
         background-color: rgba(114, 192, 116, 1);
+    }
+}
+
+.tab-box {
+    position: relative;
+    padding: 16rpx;
+    font-size: 26rpx;
+    display: flex;
+    align-items: stretch;
+
+    .picker {
+        padding-right: 12rpx;
+        border-bottom:1px dashed #000;
+    }
+
+    .at-icon-chevron-down {
+        margin-top: -5rpx;
+    }
+
+    .selectedDate {
+        position: absolute;
+        right: 20rpx;
+        margin-top: -2rpx;
+        padding: 0 30rpx;   //增大有效接触面积
+        margin-right: -30rpx;
     }
 }
