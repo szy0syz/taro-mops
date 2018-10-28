@@ -1,7 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
 import { connect } from '@tarojs/redux'
 import { View, Text } from '@tarojs/components'
-import { AtTabs, AtTabsPane, Picker, AtIcon } from 'taro-ui'
+import { AtTabs, AtTabsPane, Picker, AtIcon, AtInput, AtTag } from 'taro-ui'
 import './index.scss';
 
 @connect(({ list }) => ({
@@ -28,6 +28,11 @@ export default class List extends Component {
     this.props.dispatch({ type: 'list/save', payload: { dateEnd: e.detail.value } })
   }
 
+  onSaleTypeChange = (e) => {
+    console.log(e)
+    this.props.dispatch({ type: 'list/save', payload: { saleSearchType: e.detail.value } })
+  }
+
   render() {
     return (
       <View className='page-container'>
@@ -46,16 +51,48 @@ export default class List extends Component {
           >
             <AtTabsPane style='background-color: #fff;' tabDirection='vertical' current={this.props.current} index={0}>
               <View className='tab-box'>
-                <Picker mode='date' onChange={this.onDateStartChange}>
-                  <Text className='picker'>{this.props.dateStart}</Text>
-                </Picker>
-                <AtIcon value='chevron-down' color='#aaa'></AtIcon>
-                <Text style='padding: 0 18rpx;'>到</Text>
-                <Picker mode='date' onChange={this.onDateEndChange}>
-                  <Text className='picker'>{this.props.dateEnd}</Text>
-                </Picker>
-                <AtIcon value='chevron-down' color='#aaa'></AtIcon>
-                <AtIcon className='selectedDate' value='calendar'></AtIcon>
+                <View className='box-header'>
+                  <Picker mode='date' onChange={this.onDateStartChange}>
+                    <Text className='picker'>{this.props.dateStart}</Text>
+                  </Picker>
+                  <AtIcon value='chevron-down' color='#aaa'></AtIcon>
+                  <Text style='padding: 0 18rpx;'>到</Text>
+                  <Picker mode='date' onChange={this.onDateEndChange}>
+                    <Text className='picker'>{this.props.dateEnd}</Text>
+                  </Picker>
+                  <AtIcon value='chevron-down' color='#aaa'></AtIcon>
+                  <AtIcon className='selectedDate' value='calendar'></AtIcon>
+                </View>
+                <View className='box-search'>
+                  <Text>销售订单</Text>
+                  <View>
+                    <Picker className='searchType' mode='selector' range={this.props.saleSearchTypes} onChange={this.onSaleTypeChange}>
+                      <Text>
+                        {this.props.saleSearchTypes[this.props.saleSearchType]}
+                      </Text>
+                      <AtIcon value='chevron-down' style='margin-left: 5rpx;' color='#aaa'></AtIcon>
+                    </Picker>
+                    <View className='searchInput'>
+                      <AtInput
+                        clear
+                        border={false}
+                        placeholder='点击清除按钮清空内容'
+                        type='text'
+                        value={this.state.value4}
+                        onChange={this.handleChange.bind(this)}
+                      />
+                    </View>
+                  </View>
+                </View>
+                <View className='box-body'>
+                  <View>
+                    <Text>合计：￥{this.props.saleOrders.total}</Text>
+                    <View>
+                      <AtTag style='height: 20rpx;margin:0 30rpx 0 20rpx;' circle>开单</AtTag>
+                      <AtTag active type='primary' circle>标签</AtTag>
+                    </View>
+                  </View>
+                </View>
               </View>
             </AtTabsPane>
             <AtTabsPane tabDirection='vertical' current={this.props.current} index={1}>

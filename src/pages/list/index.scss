@@ -44,26 +44,50 @@
 }
 
 .tab-box {
+    padding: 16rpx 20rpx;
+}
+
+.box-header {
     position: relative;
-    padding: 16rpx;
     font-size: 26rpx;
     display: flex;
-    align-items: stretch;
-
     .picker {
         padding-right: 12rpx;
-        border-bottom:1px dashed #000;
+        border-bottom: 1px dashed #000;
     }
-
     .at-icon-chevron-down {
         margin-top: -5rpx;
     }
-
     .selectedDate {
         position: absolute;
         right: 20rpx;
         margin-top: -2rpx;
-        padding: 0 30rpx;   //增大有效接触面积
+        padding: 0 30rpx; //增大有效接触面积
         margin-right: -30rpx;
+    }
+}
+
+.box-search {
+    .searchType {
+        display: inline-block;
+    }
+    .searchInput {
+        display: inline-block;
+    }
+}
+
+.box-body {
+    &>View:first-child {
+        display: flex;
+        justify-content: space-between;
+        align-content: center;
+        padding-bottom: 12rpx;
+        border-bottom: 2rpx solid #bbb;
+    }
+    .at-tag--circle {
+        height: 56rpx;
+    }
+    .at-tag {
+        padding: 0 26rpx;
     }
 }
