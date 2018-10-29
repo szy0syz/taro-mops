@@ -68,21 +68,36 @@
 }
 
 .box-search {
+    &>Text:first-child {
+        display: block;
+        text-align: center;
+        padding: 20rpx 0 10rpx 0;
+        font-size: 28rpx;
+        border-bottom: 2rpx solid rgba(112, 159, 239, 1);
+        color: rgba(112, 159, 239, 1);
+    }
     .searchType {
         display: inline-block;
+        background-color: #eee;
+        padding: 4rpx 8rpx;
+        border-radius: 12rpx;
     }
     .searchInput {
         display: inline-block;
+        padding: 0 20rpx;
     }
 }
 
 .box-body {
     &>View:first-child {
         display: flex;
+        height: 60rpx;
+        line-height: 60rpx;
         justify-content: space-between;
         align-content: center;
-        padding-bottom: 12rpx;
+        padding: 10rpx 0;
         border-bottom: 2rpx solid #bbb;
+        color: rgba(112, 159, 239, 1);
     }
     .at-tag--circle {
         height: 56rpx;
