@@ -1,7 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
 import { connect } from '@tarojs/redux'
 import { View, Text } from '@tarojs/components'
-import { AtTabs, AtTabsPane, Picker, AtIcon, AtInput, AtTag } from 'taro-ui'
+import { AtTabs, AtTabsPane, Picker, AtIcon, AtInput, AtTag, AtList, AtListItem } from 'taro-ui'
 import './index.scss';
 
 @connect(({ list }) => ({
@@ -90,6 +90,20 @@ export default class List extends Component {
                     <View>
                       <AtTag style='height: 20rpx;margin:0 30rpx 0 20rpx;' circle>开单</AtTag>
                       <AtTag active type='primary' circle>标签</AtTag>
+                    </View>
+                  </View>
+                  <View style='width:100%;padding:16rpx 8rpx;'>
+                    <View style='padding-right: 10rpx;'>
+                      <Text>2018-10-25 15:58</Text>
+                      <AtTag size='small' className='bill-tag shipped'>已发货</AtTag>
+                      <AtTag size='small' className='bill-tag payment'>已收款</AtTag>
+                    </View>
+                    <View className='bill-body'>
+                      <Text>呈贡农药经营部</Text>
+                      <View>
+                        <Text>￥8720.00</Text>
+                        <AtIcon value='chevron-right' color='#aaa'></AtIcon>
+                      </View>
                     </View>
                   </View>
                 </View>
