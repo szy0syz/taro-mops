@@ -61,7 +61,7 @@ export default class List extends Component {
                     <Text className='picker'>{this.props.dateEnd}</Text>
                   </Picker>
                   <AtIcon value='chevron-down' color='#aaa'></AtIcon>
-                  <AtIcon className='selectedDate' value='calendar'></AtIcon>
+                  <AtIcon className='selectedDate' color='#777' value='calendar'></AtIcon>
                 </View>
                 <View className='box-search'>
                   <Text>销售订单</Text>

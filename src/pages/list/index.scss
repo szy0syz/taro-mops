@@ -53,7 +53,7 @@
     display: flex;
     .picker {
         padding-right: 12rpx;
-        border-bottom: 1px dashed #000;
+        
     }
     .at-icon-chevron-down {
         margin-top: -5rpx;
@@ -68,6 +68,7 @@
 }
 
 .box-search {
+    font-size: 26rpx;
     &>Text:first-child {
         display: block;
         text-align: center;
@@ -79,12 +80,20 @@
     .searchType {
         display: inline-block;
         background-color: #eee;
-        padding: 4rpx 8rpx;
+        padding: 4rpx 12rpx;
         border-radius: 12rpx;
     }
     .searchInput {
+        width: 76%;
         display: inline-block;
-        padding: 0 20rpx;
+        padding-left: 20rpx;
+        input {
+            background-color: #eee;
+            height: 10rpx;
+            font-size: 26rpx;
+            padding: 2rpx 4rpx 4rpx 0;
+            border-radius: 12rpx;
+        }
     }
 }
 
@@ -110,13 +119,11 @@
         padding: 16rpx 8rpx;
         border-bottom: 3rpx solid #ddd;
     }
-
     .bill-item {
-        color: rgba(115,115,115,1);
+        color: rgba(115, 115, 115, 1);
         font-size: 26rpx;
     }
-
-    .bill-item > View {
+    .bill-item>View {
         width: 100%;
         margin-bottom: 10rpx;
     }
@@ -131,7 +138,6 @@
         margin-left: 12rpx;
         background-color: #1fb7a6;
     }
-    
     .bill-tag.shipped {
         background-color: rgba(238, 103, 117, 1);
     }
