@@ -106,22 +106,41 @@
     .at-tag {
         padding: 0 26rpx;
     }
+    .bill-item {
+        padding: 16rpx 8rpx;
+        border-bottom: 3rpx solid #ddd;
+    }
+
+    .bill-item {
+        color: rgba(115,115,115,1);
+        font-size: 26rpx;
+    }
+
+    .bill-item > View {
+        width: 100%;
+        margin-bottom: 10rpx;
+    }
     .bill-tag {
         float: right;
         color: #fff;
         padding: 0 10rpx;
         right: 40rpx;
     }
+    .bill-opt.writing {
+        color: #fff;
+        margin-left: 12rpx;
+        background-color: #1fb7a6;
+    }
+    
     .bill-tag.shipped {
         background-color: rgba(238, 103, 117, 1);
     }
-
     .bill-tag.payment {
         background-color: rgba(114, 192, 116, 1);
     }
-
     .bill-body {
-        width: 100%;
+        margin-top: 18rpx;
+        color: #000;
         display: flex;
         flex-direction: row;
         justify-content: space-between;

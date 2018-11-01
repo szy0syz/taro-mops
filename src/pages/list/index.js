@@ -88,23 +88,58 @@ export default class List extends Component {
                   <View>
                     <Text>合计：￥{this.props.saleOrders.total}</Text>
                     <View>
-                      <AtTag style='height: 20rpx;margin:0 30rpx 0 20rpx;' circle>开单</AtTag>
                       <AtTag active type='primary' circle>标签</AtTag>
+                      <AtTag circle className='bill-opt writing'>开单</AtTag>
                     </View>
                   </View>
-                  <View style='width:100%;padding:16rpx 8rpx;'>
-                    <View style='padding-right: 10rpx;'>
+                  <View className='bill-item'>
+                    <View>
                       <Text>2018-10-25 15:58</Text>
                       <AtTag size='small' className='bill-tag shipped'>已发货</AtTag>
                       <AtTag size='small' className='bill-tag payment'>已收款</AtTag>
                     </View>
                     <View className='bill-body'>
-                      <Text>呈贡农药经营部</Text>
+                      <Text>呈贡农药经营部3</Text>
+                      <View>
+                        <Text>￥4400.00</Text>
+                        <AtIcon value='chevron-right' color='#aaa'></AtIcon>
+                      </View>
+                    </View>
+                    <Text>
+                      20181101000003
+                    </Text>
+                  </View>
+                  <View className='bill-item'>
+                    <View>
+                      <Text>2018-10-25 15:58</Text>
+                      <AtTag size='small' className='bill-tag shipped'>已发货</AtTag>
+                    </View>
+                    <View className='bill-body'>
+                      <Text>呈贡农药经营部2</Text>
+                      <View>
+                        <Text>￥3220.00</Text>
+                        <AtIcon value='chevron-right' color='#aaa'></AtIcon>
+                      </View>
+                    </View>
+                    <Text>
+                      20181101000002
+                    </Text>
+                  </View>
+                  <View className='bill-item'>
+                    <View>
+                      <Text>2018-10-25 15:58</Text>
+                      <AtTag size='small' className='bill-tag payment'>已收款</AtTag>
+                    </View>
+                    <View className='bill-body'>
+                      <Text>呈贡农药经营部1</Text>
                       <View>
                         <Text>￥8720.00</Text>
                         <AtIcon value='chevron-right' color='#aaa'></AtIcon>
                       </View>
                     </View>
+                    <Text>
+                      20181101000001
+                    </Text>
                   </View>
                 </View>
               </View>
