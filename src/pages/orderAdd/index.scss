@@ -1,0 +1,45 @@
+@import "../../styles/mixin";
+
+.order-page {
+  min-height: 100vh;
+  background-color: #eee;
+  font-size: 28rpx;
+}
+
+.order-wrapper {
+  background-color: #fff;
+  min-width: 60vh;
+  height: 200rpx;
+  
+  .custom-listItem {
+    font-size: 28rpx;
+  }
+  
+  .at-list__item .item-extra__info {
+    font-size: 28rpx;
+    overflow: inherit;
+    color: #111;
+  }
+}
+
+.order-content {
+  margin-top: 20rpx;
+  background-color: #fff;
+  min-width: 100%;
+  height: 380rpx;
+
+  &>View:first-child, &>View:nth-child(2){
+    padding: 12rpx 0;
+    display: flex;
+    justify-content: space-around;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .custom-button {
+    padding: 0 10rpx;
+    color: #fff;
+  }
+
+  
+  
+}

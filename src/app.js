@@ -18,6 +18,7 @@ class App extends Component {
 
   config = {
     pages: [
+      'pages/orderAdd/index',
       'pages/list/index',
       'pages/home/index',
       'pages/cart/index',
@@ -28,9 +29,7 @@ class App extends Component {
       'pages/login/index',
       'pages/message/index',
       'pages/couponList/index',
-      'pages/welcome/index',
-      'pages/order/index'
-      
+      'pages/welcome/index'
     ],
     window: {
       backgroundTextStyle: 'dark',
