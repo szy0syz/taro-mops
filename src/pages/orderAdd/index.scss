@@ -3,7 +3,7 @@
 .order-page {
   min-height: 100vh;
   background-color: #eee;
-  font-size: 28rpx;
+  font-size: 30rpx;
 }
 
 .order-wrapper {
@@ -12,11 +12,11 @@
   height: 200rpx;
   
   .custom-listItem {
-    font-size: 28rpx;
+    font-size: 30rpx;
   }
   
   .at-list__item .item-extra__info {
-    font-size: 28rpx;
+    font-size: 30rpx;
     overflow: inherit;
     color: #111;
   }
@@ -26,13 +26,15 @@
   margin-top: 20rpx;
   background-color: #fff;
   min-width: 100%;
-  height: 380rpx;
+
+  &>View {
+    border-bottom: 1px solid #ddd;
+  }
 
   &>View:first-child, &>View:nth-child(2){
     padding: 12rpx 0;
     display: flex;
     justify-content: space-around;
-    border-bottom: 1px solid #ddd;
   }
 
   .custom-button {
@@ -40,6 +42,49 @@
     color: #fff;
   }
 
-  
-  
+  &>View:nth-child(4) {
+    padding: 24rpx 0;
+    display: flex;
+    justify-content: space-around;
+
+    Image {
+      height: 80rpx;
+      width: 80rpx;
+    }
+  }
+
+  &>View:last-child {
+    color: #888;
+    border-bottom: none;
+    padding: 24rpx 0 24rpx 24rpx;
+    &>View {
+      background-color: #eee;
+      padding: 16rpx;
+      width: 9vw;
+      height: 60rpx;
+      z-index: -1;
+      border-radius: 10rpx;
+      border: 1px solid #aaa;
+      margin: 30rpx 30rpx 0 0;
+    }
+  }
+}
+
+.remark {
+  height: 40rpx;
+  padding: 20rpx;
+  padding-bottom: 10rpx;
+  margin-bottom: 24rpx;
+  border-bottom: 1px solid #fff;
+}
+
+View.at-checkbox {
+  background-color: transparent;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+
+  View.at-checkbox__option {
+    width: 40vw;
+  }
 }

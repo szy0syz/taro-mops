@@ -1,7 +1,7 @@
 import Taro, { Component } from '@tarojs/taro';
-import { View, Button, Text } from '@tarojs/components';
+import { View, Button, Text, Image, Input } from '@tarojs/components';
 import { connect } from '@tarojs/redux';
-import { AtList, AtListItem } from "taro-ui"
+import { AtList, AtListItem, AtIcon, AtCheckbox } from "taro-ui"
 import './index.scss'
 
 @connect(({ order }) => ({
@@ -10,7 +10,23 @@ import './index.scss'
 export default class Order extends Component {
   constructor() {
     super(...arguments);
-    this.state = {}
+    this.state = {
+      checkedList: ['list2'],
+      checkboxOption: [{
+        value: 'list1',
+        label: '有欠款'
+      }, {
+        value: 'list2',
+        label: '已发货'
+      }, {
+        value: 'list3',
+        label: '已收款'
+      }, {
+        value: 'list4',
+        label: '已同步'
+      }]
+    }
+
   }
 
   config = {
@@ -18,6 +34,12 @@ export default class Order extends Component {
   }
 
   componentWillMount = () => {
+  }
+
+  handleChange(value) {
+    this.setState({
+      checkedList: value
+    })
   }
 
   render() {
@@ -52,7 +74,7 @@ export default class Order extends Component {
         <View className='order-content'>
           <View>
             <Button style='background-color: rgba(241, 181, 85, 1);' className='custom-button' size='mini'>调用模板</Button>
-            <Button style='background-color: #1fb7a6;'  className='custom-button' size='mini'>存为模板</Button>
+            <Button style='background-color: #1fb7a6;' className='custom-button' size='mini'>存为模板</Button>
           </View>
           <View>
             <Text>选择货品(5.00)</Text>
@@ -62,17 +84,28 @@ export default class Order extends Component {
             商品明细
           </View>
           <View>
-            添加&&扫描
+            <Image src='http://cdn.jerryshi.com/picgo/scanAdd.png'></Image>
+            <Image src='http://cdn.jerryshi.com/picgo/plusAdd.png'></Image>
+          </View>
+          <View>
+            票据影像
+            <View>
+              <AtIcon value='file-new' size='34' color='#fff'></AtIcon>
+            </View>
           </View>
         </View>
-        <View className='order-wrapper'>
-          2
+        <View style='background-color: transparent;' className='remark'>
+          <View>
+            <Input placeholder='备注(最多100字)'></Input>
+          </View>
         </View>
-        <View className='order-wrapper'>
-          3
-        </View>
-        <View className='order-wrapper'>
-          4
+        <View>
+          <AtCheckbox
+            style='background-color: #aaa;'
+            options={this.state.checkboxOption}
+            selectedList={this.state.checkedList}
+            onChange={this.handleChange.bind(this)}
+          />
         </View>
       </View>
     )
