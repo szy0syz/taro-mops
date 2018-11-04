@@ -1,6 +1,6 @@
-import Taro, { Component } from '@tarojs/taro';
-import { View, Button, Text, Image, Input, Picker } from '@tarojs/components';
-import { connect } from '@tarojs/redux';
+import Taro, { Component } from '@tarojs/taro'
+import { connect } from '@tarojs/redux'
+import { View, Button, Text, Image, Input, Picker } from '@tarojs/components'
 import { AtList, AtListItem, AtIcon, AtCheckbox, AtButton } from 'taro-ui'
 import './index.scss'
 
@@ -11,16 +11,6 @@ export default class Order extends Component {
   constructor() {
     super(...arguments);
     this.state = {
-      billData: {
-        billDate: '',
-        customer: '',
-        products: [],
-        staff: '',
-        storekeeper: '',
-        amountRec: 0,
-        paymentMethod: '',
-        billTags: []
-      },
       checkedList: ['list2'],
       checkboxOption: [{
         value: 'list1',
@@ -78,30 +68,36 @@ export default class Order extends Component {
     navigationBarTitleText: '开单',
   }
 
-  componentWillMount = () => {
+  componentDidMount = () => {
+    this.props.dispatch({
+      type: 'order/init'
+    })
   }
 
   handleChange(value) {
-    let billData = Object.assign({}, this.state.billData, { billTags: value })
-    console.log(billData)
+    console.log(value)
     // this.setState({
     //   billData
     // })
   }
 
   handleBillDateChange(value) {
-    let billData = Object.assign({}, this.state.billData, { billTags: value })
-    console.log(billData)
+    this.props.dispatch({
+      type: 'order/save',
+      payload: {
+        billDate: value.detail.value
+      }
+    })
   }
 
   render() {
     return (
       <View className='order-page'>
         <View className='order-wrapper'>
-          <Picker className='date-selector' mode='date' range={this.state.storekeeperList} rangeKey='name' onChange={this.handleBillDateChange}>
+          <Picker className='date-selector' mode='date' onChange={this.handleBillDateChange}>
             <View className='picker'>
-              {this.state.storekeeperChecked.name}
-              <AtIcon value='chevron-right' size='22' color='#999'></AtIcon>
+              {this.props.billDate}
+              <AtIcon value='chevron-right' size='26' color='#c7c7cc'></AtIcon>
             </View>
           </Picker>
           <AtList>
