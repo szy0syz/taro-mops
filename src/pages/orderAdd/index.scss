@@ -1,119 +1,130 @@
 @import "../../styles/mixin";
-
 .order-page {
-  min-width: 100%;
-  min-height: 100vh;
-  background-color: #eee;
-  font-size: 30rpx;
-  padding-bottom: 80rpx;
+    min-width: 100%;
+    min-height: 100vh;
+    background-color: #eee;
+    font-size: 30rpx;
+    padding-bottom: 80rpx;
 }
 
 .order-wrapper {
-  background-color: #fff;
-  min-width: 60vh;
-  height: 200rpx;
-  
-  .custom-listItem {
-    font-size: 30rpx;
-  }
-  
-  .at-list__item .item-extra__info {
-    font-size: 30rpx;
-    overflow: inherit;
-    color: #111;
-  }
+    background-color: #fff;
+    min-width: 60vh;
+    height: 200rpx;
+    .custom-listItem {
+        font-size: 30rpx;
+    }
+    .at-list__item .item-extra__info {
+        font-size: 30rpx;
+        overflow: inherit;
+        color: #111;
+    }
 }
 
 .order-content {
-  margin-top: 20rpx;
-  background-color: #fff;
-  min-width: 100%;
-
-  &>View {
-    border-bottom: 1px solid #ddd;
-  }
-
-  &>View:first-child, &>View:nth-child(2){
-    padding: 12rpx 0;
-    display: flex;
-    justify-content: space-around;
-  }
-
-  .custom-button {
-    padding: 0 10rpx;
-    color: #fff;
-  }
-
-  &>View:nth-child(4) {
-    padding: 24rpx 0;
-    display: flex;
-    justify-content: space-around;
-
-    Image {
-      height: 80rpx;
-      width: 80rpx;
-    }
-  }
-
-  &>View:last-child {
-    color: #888;
-    border-bottom: none;
-    padding: 24rpx 0 24rpx 24rpx;
+    margin-top: 20rpx;
+    background-color: #fff;
     &>View {
-      background-color: #eee;
-      padding: 16rpx;
-      width: 9vw;
-      height: 60rpx;
-      z-index: -1;
-      border-radius: 10rpx;
-      border: 1px solid #aaa;
-      margin: 30rpx 30rpx 0 0;
+        border-bottom: 1px solid #ddd;
     }
-  }
+    &>View:first-child,
+    &>View:nth-child(2) {
+        padding: 12rpx 0;
+        display: flex;
+        justify-content: space-around;
+    }
+    .custom-button {
+        padding: 0 10rpx;
+        color: #fff;
+    }
+
+    &>View:nth-child(4) {
+        padding: 24rpx 0;
+        display: flex;
+        justify-content: space-around;
+        Image {
+            height: 80rpx;
+            width: 80rpx;
+        }
+    }
+    &>View:last-child {
+        color: #888;
+        border-bottom: none;
+        padding: 24rpx 0 24rpx 24rpx;
+        &>View {
+            background-color: #eee;
+            padding: 16rpx;
+            width: 9vw;
+            height: 60rpx;
+            z-index: -1;
+            border-radius: 10rpx;
+            border: 1px solid #aaa;
+            margin: 30rpx 30rpx 0 0;
+        }
+    }
+    &>View:nth-child(3) {
+        padding: 12rpx 18rpx;
+    }
+    .order-item {
+        @include fja;
+        padding: 8rpx 8rpx;
+        border-bottom: 1px solid #888;
+        box-shadow: 2px 2px 5px #888888;
+
+        &>View {
+          width: 68%;
+
+          &>View {
+            margin-top: 6rpx;
+          }
+        }
+    }
+    .order-cell {
+        @include fja;
+        font: 24rpx sans-serif;
+    }
 }
 
 .remark {
-  height: 40rpx;
-  padding: 20rpx;
-  padding-bottom: 10rpx;
-  margin-bottom: 24rpx;
-  border-bottom: 1px solid #fff;
+    height: 40rpx;
+    padding: 20rpx;
+    padding-bottom: 10rpx;
+    margin-bottom: 24rpx;
+    border-bottom: 1px solid #fff;
 }
 
 View.at-checkbox {
-  background-color: transparent;
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-
-  View.at-checkbox__option {
-    width: 40vw;
-  }
+    background-color: transparent;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    View.at-checkbox__option {
+        width: 40vw;
+    }
 }
 
 View.toolbar {
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  min-width: 100%;
-  height: 8vh;
-  background-color: #fff;
-  @include fja(space-around);
-  padding: 10rpx 0 10rpx 0;
-
-  View.at-button--primary, View.at-button--secondary {
-    height: 80rpx;
-    line-height: 80rpx;
-  }
-  View.at-button--primary {
-    background-color: $color-primary;
-    border: 1px solid $color-primary;
-  }
-
-  View.at-button--secondary {
-    color: $color-primary;
-    border: 1px solid $color-primary;
-  }
-  
+    z-index: 10;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    height: 8vh;
+    background-color: #fff;
+    @include fja(space-around);
+    padding: 10rpx 0 10rpx 0;
+    View.at-button--primary,
+    View.at-button--secondary {
+        height: 80rpx;
+        line-height: 80rpx;
+    }
+    View.at-button--primary {
+        background-color: $color-primary;
+        border: 1px solid $color-primary;
+    }
+    View.at-button--secondary {
+        color: $color-primary;
+        border: 1px solid $color-primary;
+    }
 }

@@ -81,7 +81,51 @@ export default class Order extends Component {
             <Text>合计金额：￥2080.00</Text>
           </View>
           <View>
-            detail
+            <View className='order-item'>
+              <AtIcon value='add-circle' size='46' color='#00F'></AtIcon>
+              <View>
+                <Text>敌杀死</Text>
+                <View className='order-cell'>
+                  <Text>单价：￥66.00</Text>
+                  <Text>数量：10.00公斤</Text>
+                </View>
+                <View className='order-cell'>
+                  <Text>规格：200g 水乳剂</Text>
+                  <Text>金额：￥660.00</Text>
+                </View>
+              </View>
+              <AtIcon value='subtract-circle' size='30' color='#F00'></AtIcon>
+            </View>
+            <View className='order-item'>
+              <AtIcon value='add-circle' size='46' color='#00F'></AtIcon>
+              <View>
+                <Text>敌百强</Text>
+                <View className='order-cell'>
+                  <Text>单价：￥66.00</Text>
+                  <Text>数量：10.00公斤</Text>
+                </View>
+                <View className='order-cell'>
+                  <Text>规格：200g 水乳剂</Text>
+                  <Text>金额：￥660.00</Text>
+                </View>
+              </View>
+              <AtIcon value='subtract-circle' size='30' color='#F00'></AtIcon>
+            </View>
+            <View className='order-item'>
+              <AtIcon value='add-circle' size='46' color='#00F'></AtIcon>
+              <View>
+                <Text>敌百万</Text>
+                <View className='order-cell'>
+                  <Text>单价：￥66.00</Text>
+                  <Text>数量：10.00公斤</Text>
+                </View>
+                <View className='order-cell'>
+                  <Text>规格：200g 水乳剂</Text>
+                  <Text>金额：￥660.00</Text>
+                </View>
+              </View>
+              <AtIcon value='subtract-circle' size='30' color='#F00'></AtIcon>
+            </View>
           </View>
           <View>
             <Image src='http://cdn.jerryshi.com/picgo/scanAdd.png'></Image>
