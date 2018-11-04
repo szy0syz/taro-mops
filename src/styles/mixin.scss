@@ -1,6 +1,6 @@
 /* colors
 -------------------------- */
-$color-primary : #D87182 !default;
+$color-primary : #2bb2a7 !default;
 $color-dark : #333 !default;
 $color-dark2 : #666 !default;
 $color-light: #888 !default;
@@ -35,7 +35,7 @@ $tag-dark:#555 !default;
   background-size: 100% 100%;
 }
 
-// 定位上下左右居中
+// 定位水平垂直居中
 @mixin center {
   position: absolute;
   top: 50%;
@@ -43,14 +43,14 @@ $tag-dark:#555 !default;
   transform: translate(-50%, -50%);
 }
 
-// 定位上下居中
+// 定位垂直居中
 @mixin ct {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
 }
 
-// 定位左右居中
+// 定位水平居中
 @mixin cl {
   position: absolute;
   left: 50%;
@@ -73,4 +73,11 @@ $tag-dark:#555 !default;
 @mixin fj($type: space-between) {
   display: flex;
   justify-content: $type;
+}
+
+// flex 布局和 子元素 对其方式
+@mixin fja($type1: space-between, $type2: center) {
+  display: flex;
+  justify-content: $type1;
+  align-items: $type2;
 }

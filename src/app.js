@@ -6,7 +6,8 @@ import dva from './utils/dva'
 import models from './models'
 
 import './styles/base.scss'
-
+import './styles/iconfont.scss'
+import './styles/iconfont2.scss'
 
 const dvaApp = dva.createApp({
   initialState: {},

@@ -1,7 +1,7 @@
 import Taro, { Component } from '@tarojs/taro';
 import { View, Button, Text, Image, Input } from '@tarojs/components';
 import { connect } from '@tarojs/redux';
-import { AtList, AtListItem, AtIcon, AtCheckbox } from "taro-ui"
+import { AtList, AtListItem, AtIcon, AtCheckbox, AtButton } from 'taro-ui'
 import './index.scss'
 
 @connect(({ order }) => ({
@@ -81,7 +81,7 @@ export default class Order extends Component {
             <Text>合计金额：￥2080.00</Text>
           </View>
           <View>
-            商品明细
+            detail
           </View>
           <View>
             <Image src='http://cdn.jerryshi.com/picgo/scanAdd.png'></Image>
@@ -90,7 +90,7 @@ export default class Order extends Component {
           <View>
             票据影像
             <View>
-              <AtIcon value='file-new' size='34' color='#fff'></AtIcon>
+              <AtIcon value='camera' size='34' color='#fff'></AtIcon>
             </View>
           </View>
         </View>
@@ -106,6 +106,16 @@ export default class Order extends Component {
             selectedList={this.state.checkedList}
             onChange={this.handleChange.bind(this)}
           />
+        </View>
+        <View className='toolbar'>
+          <View style='padding:8rpx;background-color: rgba(114, 192, 116, 1); border-radius: 14rpx;'>
+            <AtIcon value='iconfont icon-sharem1' size='34' color='#fff'></AtIcon>
+          </View>
+          <AtButton size='normal' type='secondary'>在开一单</AtButton>
+          <AtButton size='normal' type='primary'>确认保存</AtButton>
+          <View style='padding:6rpx;background-color: rgba(112, 159, 239, 1); border-radius: 14rpx;'>
+            <AtIcon value='iconfont icon-shangchuan' size='36' color='#fff'></AtIcon>
+          </View>
         </View>
       </View>
     )
