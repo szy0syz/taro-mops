@@ -74,11 +74,35 @@ export default class Order extends Component {
     })
   }
 
-  handleChange(value) {
-    console.log(value)
-    // this.setState({
-    //   billData
-    // })
+  handleBillTagsChange(value) {
+    this.props.dispatch({
+      type: 'order/save',
+      payload: {
+        billTags: [...value, ...this.props.billTags]
+      }
+    })
+  }
+
+  handleCommonChange(type, e) {
+    let payload, value = e.detail.value
+    switch (type) {
+      case 'payment':
+        payload = {
+          paymentMethod: this.props.payTypes.filter(item => item.id === value)
+        }
+        break;
+      case 'storekeeper':
+        payload = {
+          storekeeper: this.props.storekeeperList.filter(item => item.id === value)
+        }
+        break;
+      default:
+        break;
+    }
+    this.props.dispatch({
+      type: 'order/save',
+      payload
+    })
   }
 
   handleBillDateChange(value) {
@@ -90,7 +114,14 @@ export default class Order extends Component {
     })
   }
 
+  handleWaiting() {
+    Taro.showToast({
+      title: '功能开发中',
+    })
+  }
+
   render() {
+    const { products } = this.props
     return (
       <View className='order-page'>
         <View className='order-wrapper'>
@@ -125,77 +156,34 @@ export default class Order extends Component {
         </View>
         <View className='order-content'>
           <View>
-            <Button style='background-color: rgba(241, 181, 85, 1);' className='custom-button' size='mini'>调用模板</Button>
-            <Button style='background-color: #1fb7a6;' className='custom-button' size='mini'>存为模板</Button>
+            <Button onClick={this.handleWaiting} style='background-color: rgba(241, 181, 85, 1);' className='custom-button' size='mini'>调用模板</Button>
+            <Button onClick={this.handleWaiting} style='background-color: #1fb7a6;' className='custom-button' size='mini'>存为模板</Button>
           </View>
           <View>
             <Text>选择货品(4)</Text>
             <Text>合计金额：￥2080.00</Text>
           </View>
           <View>
-            <View className='order-item'>
-              <Image className='m-img' src='http://cdn.jerryshi.com/picgo/20181104150040.png'></Image>
-              <View>
-                <Text>敌杀死</Text>
-                <View className='order-cell'>
-                  <Text>单价：￥66.00</Text>
-                  <Text>数量：10.00公斤</Text>
+            {products.map(item => (
+              <View key={item.id} className='order-item'>
+                <Image className='m-img' src={item.url}></Image>
+                <View>
+                  <Text>{item.name}</Text>
+                  <View className='order-cell'>
+                    <Text>单价：￥{item.price}</Text>
+                    <Text>数量：{item.qty}公斤</Text>
+                  </View>
+                  <View className='order-cell'>
+                    <Text>规格：{item.model}</Text>
+                    <Text>金额：￥{item.amount}</Text>
+                  </View>
                 </View>
-                <View className='order-cell'>
-                  <Text>规格：200g 水乳剂</Text>
-                  <Text>金额：￥660.00</Text>
-                </View>
+                <AtIcon value='subtract-circle' size='30' color='#F00'></AtIcon>
               </View>
-              <AtIcon value='subtract-circle' size='30' color='#F00'></AtIcon>
-            </View>
-            <View className='order-item'>
-              <Image className='m-img' src='http://cdn.jerryshi.com/picgo/20181104150040.png'></Image>
-              <View>
-                <Text>敌百强</Text>
-                <View className='order-cell'>
-                  <Text>单价：￥66.00</Text>
-                  <Text>数量：10.00公斤</Text>
-                </View>
-                <View className='order-cell'>
-                  <Text>规格：200g 水乳剂</Text>
-                  <Text>金额：￥660.00</Text>
-                </View>
-              </View>
-              <AtIcon value='subtract-circle' size='30' color='#F00'></AtIcon>
-            </View>
-            <View className='order-item'>
-              <Image className='m-img' src='http://cdn.jerryshi.com/picgo/20181104150040.png'></Image>
-              <View>
-                <Text>敌百万</Text>
-                <View className='order-cell'>
-                  <Text>单价：￥66.00</Text>
-                  <Text>数量：10.00公斤</Text>
-                </View>
-                <View className='order-cell'>
-                  <Text>规格：200g 水乳剂</Text>
-                  <Text>金额：￥660.00</Text>
-                </View>
-              </View>
-              <AtIcon value='subtract-circle' size='30' color='#F00'></AtIcon>
-            </View>
-            <View className='order-item'>
-              <Image className='m-img' src='http://cdn.jerryshi.com/picgo/20181104150040.png'></Image>
-              <View>
-                <Text>敌千万</Text>
-                <View className='order-cell'>
-                  <Text>单价：￥66.00</Text>
-                  <Text>数量：10.00公斤</Text>
-                </View>
-                <View className='order-cell'>
-                  <Text>规格：200g 水乳剂</Text>
-                  <Text>金额：￥660.00</Text>
-                </View>
-              </View>
-              <AtIcon value='subtract-circle' size='30' color='#F00'></AtIcon>
-            </View>
+            ))}
           </View>
           <View>
-            <Image src='http://cdn.jerryshi.com/picgo/scanAdd.png'></Image>
+            <Image onClick={this.handleWaiting} src='http://cdn.jerryshi.com/picgo/scanAdd.png' />
             <Image src='http://cdn.jerryshi.com/picgo/plusAdd.png'></Image>
           </View>
         </View>
@@ -206,7 +194,7 @@ export default class Order extends Component {
           </View>
           <View>
             <Text>结算方式</Text>
-            <Picker mode='selector' range={this.state.payTypes} rangeKey='key' onChange={this.onChange}>
+            <Picker mode='selector' range={this.state.payTypes} rangeKey='key' onChange={this.handleCommonChange.bind(this, 'payment')}>
               <View className='picker'>
                 {this.state.payTypeChecked.key}
                 <AtIcon value='chevron-right' size='22' color='#999'></AtIcon>
@@ -219,7 +207,7 @@ export default class Order extends Component {
           </View>
           <View>
             <Text>出库员</Text>
-            <Picker mode='selector' range={this.state.storekeeperList} rangeKey='name' onChange={this.onChange}>
+            <Picker mode='selector' range={this.state.storekeeperList} rangeKey='name' onChange={this.handleCommonChange.bind(this, 'storekeeper')}>
               <View className='picker'>
                 {this.state.storekeeperChecked.name}
                 <AtIcon value='chevron-right' size='22' color='#999'></AtIcon>
@@ -228,7 +216,7 @@ export default class Order extends Component {
           </View>
           <View>
             <Text>票据影像</Text>
-            <View>
+            <View onClick={this.handleWaiting} >
               <AtIcon value='camera' size='34' color='#fff'></AtIcon>
             </View>
           </View>
@@ -241,9 +229,9 @@ export default class Order extends Component {
         <View>
           <AtCheckbox
             style='background-color: #aaa;'
-            options={this.state.checkboxOption}
-            selectedList={this.state.checkedList}
-            onChange={this.handleChange.bind(this)}
+            options={this.props.tagList}
+            selectedList={this.props.billTags}
+            onChange={this.handleBillTagsChange}
           />
         </View>
         <View className='toolbar'>

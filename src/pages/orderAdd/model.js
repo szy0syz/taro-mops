@@ -5,7 +5,44 @@ export default {
   state: {
     billDate: '',
     customer: '',
-    products: [],
+    products: [
+      {
+        id: '111',
+        name: '敌杀死',
+        model: '200g 水乳剂',
+        price: 23.00,
+        qty: 12,
+        amount: 666.00,
+        url: 'http://cdn.jerryshi.com/picgo/20181104150040.png'
+      },
+      {
+        id: '222',
+        name: '敌百强',
+        model: '200g 水乳剂',
+        qty: 22,
+        price: 23.00,
+        amount: 23232.00,
+        url: 'http://cdn.jerryshi.com/picgo/20181104150040.png'
+      },
+      {
+        id: '333',
+        name: '敌百万',
+        model: '201g 水乳剂',
+        qty: 33,
+        price: 23.00,
+        amount: 1232.00,
+        url: 'http://cdn.jerryshi.com/picgo/20181104150040.png'
+      },
+      {
+        id: '333',
+        name: '敌百万',
+        model: '201g 水乳剂',
+        qty: 55,
+        price: 23.00,
+        amount: 77888.00,
+        url: 'http://cdn.jerryshi.com/picgo/20181104150040.png'
+      }
+    ],
     staff: '',
     storekeeper: {
       name: '李四四',
@@ -17,22 +54,35 @@ export default {
       value: 'v1'
     },
     billTags: [],
+    tagList: [{
+      value: 'v1',
+      label: '有欠款'
+    }, {
+      value: 'v2',
+      label: '已发货'
+    }, {
+      value: 'v3',
+      label: '已收款'
+    }, {
+      value: 'v4',
+      label: '已同步'
+    }],
     payTypes: [
       {
-        key: '银行汇款',
-        value: 'v1'
+        name: '银行汇款',
+        id: 'v1'
       },
       {
-        key: '现金',
-        value: 'v2'
+        name: '现金',
+        id: 'v2'
       },
       {
-        key: '微信',
-        value: 'v3'
+        name: '微信',
+        id: 'v3'
       },
       {
-        key: '支付宝',
-        value: 'v4'
+        name: '支付宝',
+        id: 'v4'
       }
     ],
     storekeeperList: [
@@ -56,7 +106,7 @@ export default {
       let initDate = {
         billDate
       }
-      return {...state, ...initDate}
+      return { ...state, ...initDate }
     }
   },
 };
