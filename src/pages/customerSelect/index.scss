@@ -1,0 +1,44 @@
+@import "../../styles/mixin";
+.page {
+    @include wh(100%, 100%);
+    box-sizing: border-box;
+    background-color: rgba(236,241,245,1);
+
+    &>View {
+        border: 1px solid red;
+        box-sizing: border-box;
+    }
+
+    .header {
+        height: 10%;
+        width: 100%;
+        background-color: #fff;
+    }
+
+    .body {
+        height: 76%;
+        width: 100%;
+        background-color: #fff;
+    }
+
+    .footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 10%;
+        width: 100%;
+        overflow: hidden;
+        background-color: #fff;
+        border-bottom-left-radius: 20rpx;
+        border-bottom-right-radius: 20rpx;
+        @include fja(center, center);
+
+        View.at-button--secondary {
+            border: none;
+            color: $color-primary;
+            font-size: 32rpx;
+            margin-bottom: -10rpx;
+        }
+    }
+}
