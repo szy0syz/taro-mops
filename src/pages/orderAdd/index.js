@@ -11,20 +11,6 @@ export default class Order extends Component {
   constructor() {
     super(...arguments);
     this.state = {
-      checkedList: ['list2'],
-      checkboxOption: [{
-        value: 'list1',
-        label: '有欠款'
-      }, {
-        value: 'list2',
-        label: '已发货'
-      }, {
-        value: 'list3',
-        label: '已收款'
-      }, {
-        value: 'list4',
-        label: '已同步'
-      }],
       payTypes: [
         {
           key: '银行汇款',
@@ -78,7 +64,7 @@ export default class Order extends Component {
     this.props.dispatch({
       type: 'order/save',
       payload: {
-        billTags: [...value, ...this.props.billTags]
+        billTags: Array.from(new Set([...value, ...this.props.billTags]))
       }
     })
   }
@@ -116,7 +102,20 @@ export default class Order extends Component {
 
   handleWaiting() {
     Taro.showToast({
-      title: '功能开发中',
+      title: '功能开发中'
+    })
+  }
+
+  handleSave() {
+    Taro.showToast({
+      title: '异步请求'
+    })
+    console.log(this.props)
+  }
+
+  handleAgain() {
+    Taro.showToast({
+      title: '再开一单'
     })
   }
 
@@ -194,7 +193,7 @@ export default class Order extends Component {
           </View>
           <View>
             <Text>结算方式</Text>
-            <Picker mode='selector' range={this.state.payTypes} rangeKey='key' onChange={this.handleCommonChange.bind(this, 'payment')}>
+            <Picker mode='selector' range={this.props.payTypes} rangeKey='key' onChange={this.handleCommonChange.bind(this, 'payment')}>
               <View className='picker'>
                 {this.state.payTypeChecked.key}
                 <AtIcon value='chevron-right' size='22' color='#999'></AtIcon>
@@ -238,8 +237,8 @@ export default class Order extends Component {
           <View style='padding:8rpx;background-color: rgba(114, 192, 116, 1); border-radius: 14rpx;'>
             <AtIcon value='iconfont icon-sharem1' size='34' color='#fff'></AtIcon>
           </View>
-          <AtButton size='normal' type='secondary'>在开一单</AtButton>
-          <AtButton size='normal' type='primary'>确认保存</AtButton>
+          <AtButton onClick={this.handleAgain} size='normal' type='secondary'>再开一单</AtButton>
+          <AtButton onClick={this.handleSave} size='normal' type='primary'>确认保存</AtButton>
           <View style='padding:6rpx;background-color: rgba(112, 159, 239, 1); border-radius: 14rpx;'>
             <AtIcon value='iconfont icon-shangchuan' size='36' color='#fff'></AtIcon>
           </View>

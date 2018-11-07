@@ -56,16 +56,16 @@ export default {
     billTags: [],
     tagList: [{
       value: 'v1',
-      label: '有欠款'
-    }, {
-      value: 'v2',
       label: '已发货'
     }, {
-      value: 'v3',
+      value: 'v2',
       label: '已收款'
     }, {
-      value: 'v4',
+      value: 'v3',
       label: '已同步'
+    }, {
+      value: 'v4',
+      label: '已收货'
     }],
     payTypes: [
       {
