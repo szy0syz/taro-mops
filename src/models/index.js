@@ -4,7 +4,7 @@ import home from '../pages/home/model'
 import user from '../pages/user/model'
 import list from '../pages/list/model'
 import login from '../pages/login/model'
-import order from '../pages/orderAdd/model'
+import order from '../pages/order/model'
 
 export default [
   common,

@@ -28,16 +28,21 @@ export default class Order extends Component {
   }
 
   handleCommonChange(type, e) {
-    let payload, index = e.detail.value
+    let payload, value = e.detail.value
     switch (type) {
       case 'payment':
         payload = {
-          paymentMethod: this.props.payTypes[index]
+          paymentMethod: this.props.payTypes[value]
         }
         break;
       case 'storekeeper':
         payload = {
-          storekeeper: this.props.storekeeperList[index]
+          storekeeper: this.props.storekeeperList[value]
+        }
+        break;
+      case 'amountRec':
+        payload = {
+          amountRec: new Number(value).toFixed(2)
         }
         break;
       default:
@@ -60,6 +65,7 @@ export default class Order extends Component {
 
   handleWaiting() {
     Taro.showToast({
+      icon: 'none',
       title: '功能开发中'
     })
   }
@@ -72,6 +78,9 @@ export default class Order extends Component {
   }
 
   handleAgain() {
+    this.props.dispatch({
+      type: 'order/empty'
+    })
     Taro.showToast({
       title: '再开一单'
     })
@@ -147,7 +156,7 @@ export default class Order extends Component {
         <View className='order-wrapper order-footer'>
           <View>
             <Text>应收金额</Text>
-            <Input type='digit' placeholder='0.00' className='input-amount'></Input>
+            <Input value={this.props.amountRec} onChange={this.handleCommonChange.bind(this, 'amountRec')} type='digit' placeholder='0.00' className='input-amount'></Input>
           </View>
           <View>
             <Text>结算方式</Text>
@@ -192,12 +201,12 @@ export default class Order extends Component {
           />
         </View>
         <View className='toolbar'>
-          <View style='padding:8rpx;background-color: rgba(114, 192, 116, 1); border-radius: 14rpx;'>
+          <View onClick={this.handleWaiting} style='padding:8rpx;background-color: rgba(114, 192, 116, 1); border-radius: 14rpx;'>
             <AtIcon value='iconfont icon-sharem1' size='34' color='#fff'></AtIcon>
           </View>
           <AtButton onClick={this.handleAgain} size='normal' type='secondary'>再开一单</AtButton>
           <AtButton onClick={this.handleSave} size='normal' type='primary'>确认保存</AtButton>
-          <View style='padding:6rpx;background-color: rgba(112, 159, 239, 1); border-radius: 14rpx;'>
+          <View onClick={this.handleWaiting} style='padding:6rpx;background-color: rgba(112, 159, 239, 1); border-radius: 14rpx;'>
             <AtIcon value='iconfont icon-shangchuan' size='36' color='#fff'></AtIcon>
           </View>
         </View>

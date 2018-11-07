@@ -44,29 +44,30 @@ export default {
       }
     ],
     staff: '',
+    amountRec: 0,
     storekeeper: {
       name: '李四四',
       id: 'lss'
     },
-    amountRec: 0,
     paymentMethod: {
       name: '银行汇款',
       id: 'v1'
     },
     billTags: [],
-    tagList: [{
-      value: 'v1',
-      label: '已发货'
-    }, {
-      value: 'v2',
-      label: '已收款'
-    }, {
-      value: 'v3',
-      label: '已同步'
-    }, {
-      value: 'v4',
-      label: '已收货'
-    }],
+    tagList: [
+      {
+        value: 'v1',
+        label: '已发货'
+      }, {
+        value: 'v2',
+        label: '已收款'
+      }, {
+        value: 'v3',
+        label: '已同步'
+      }, {
+        value: 'v4',
+        label: '已收货'
+      }],
     payTypes: [
       {
         name: '银行汇款',
@@ -107,6 +108,19 @@ export default {
         billDate
       }
       return { ...state, ...initDate }
+    },
+    empty(state) {
+      const newBillData = {
+        billDate: new Date().toLocaleDateString().split(' ')[0].replace(/\//g, '-'),
+        customer: '',
+        products: [],
+        staff: null,
+        amountRec: 0.00,
+        storekeeper: null,
+        paymentMethod: null,
+        billTags: []
+      }
+      return { ...state, ...newBillData }
     }
   },
 };
