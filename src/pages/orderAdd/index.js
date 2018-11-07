@@ -8,48 +8,6 @@ import './index.scss'
   ...order,
 }))
 export default class Order extends Component {
-  constructor() {
-    super(...arguments);
-    this.state = {
-      payTypes: [
-        {
-          key: '银行汇款',
-          value: 'v1'
-        },
-        {
-          key: '现金',
-          value: 'v2'
-        },
-        {
-          key: '微信',
-          value: 'v3'
-        },
-        {
-          key: '支付宝',
-          value: 'v4'
-        }
-      ],
-      payTypeChecked: {
-        key: '银行汇款',
-        value: 'v1'
-      },
-      storekeeperList: [
-        {
-          name: '李四四',
-          id: 'lss'
-        },
-        {
-          name: '王五五',
-          id: 'wmz'
-        }
-      ],
-      storekeeperChecked: {
-        name: '李四四',
-        id: 'lss'
-      }
-    }
-  }
-
   config = {
     navigationBarTitleText: '开单',
   }
@@ -70,16 +28,16 @@ export default class Order extends Component {
   }
 
   handleCommonChange(type, e) {
-    let payload, value = e.detail.value
+    let payload, index = e.detail.value
     switch (type) {
       case 'payment':
         payload = {
-          paymentMethod: this.props.payTypes.filter(item => item.id === value)
+          paymentMethod: this.props.payTypes[index]
         }
         break;
       case 'storekeeper':
         payload = {
-          storekeeper: this.props.storekeeperList.filter(item => item.id === value)
+          storekeeper: this.props.storekeeperList[index]
         }
         break;
       default:
@@ -193,9 +151,9 @@ export default class Order extends Component {
           </View>
           <View>
             <Text>结算方式</Text>
-            <Picker mode='selector' range={this.props.payTypes} rangeKey='key' onChange={this.handleCommonChange.bind(this, 'payment')}>
+            <Picker mode='selector' range={this.props.payTypes} rangeKey='name' onChange={this.handleCommonChange.bind(this, 'payment')}>
               <View className='picker'>
-                {this.state.payTypeChecked.key}
+                {this.props.paymentMethod.name}
                 <AtIcon value='chevron-right' size='22' color='#999'></AtIcon>
               </View>
             </Picker>
@@ -206,9 +164,9 @@ export default class Order extends Component {
           </View>
           <View>
             <Text>出库员</Text>
-            <Picker mode='selector' range={this.state.storekeeperList} rangeKey='name' onChange={this.handleCommonChange.bind(this, 'storekeeper')}>
+            <Picker mode='selector' range={this.props.storekeeperList} rangeKey='name' onChange={this.handleCommonChange.bind(this, 'storekeeper')}>
               <View className='picker'>
-                {this.state.storekeeperChecked.name}
+                {this.props.storekeeper.name}
                 <AtIcon value='chevron-right' size='22' color='#999'></AtIcon>
               </View>
             </Picker>

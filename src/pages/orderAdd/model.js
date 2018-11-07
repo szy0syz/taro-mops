@@ -50,8 +50,8 @@ export default {
     },
     amountRec: 0,
     paymentMethod: {
-      key: '银行汇款',
-      value: 'v1'
+      name: '银行汇款',
+      id: 'v1'
     },
     billTags: [],
     tagList: [{
