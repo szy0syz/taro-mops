@@ -86,8 +86,23 @@ export default class Order extends Component {
     })
   }
 
+  handleRedirect(path) {
+    Taro.redirectTo({
+      url: `/pages/${path}/index`
+    })
+  }
+
+  handleScanCode() {
+    Taro.scanCode().then((data) => {
+      console.log(data)
+      Taro.showToast({
+        title: '扫描成功'
+      })
+    })
+  }
+
   render() {
-    const { products } = this.props
+    const { products, customer } = this.props
     return (
       <View className='order-page'>
         <View className='order-wrapper'>
@@ -99,7 +114,6 @@ export default class Order extends Component {
           </Picker>
           <AtList>
             <AtListItem
-              className='custom-listItem'
               title='日期'
               iconInfo={{
                 size: 28,
@@ -108,9 +122,10 @@ export default class Order extends Component {
               }}
             />
             <AtListItem
+              onClick={this.handleRedirect.bind(this, 'customerSelect')}
               className='custom-listItem'
               title='客户'
-              extraText='呈贡农药一店'
+              extraText={customer.name}
               arrow='right'
               iconInfo={{
                 size: 28,
@@ -126,8 +141,8 @@ export default class Order extends Component {
             <Button onClick={this.handleWaiting} style='background-color: #1fb7a6;' className='custom-button' size='mini'>存为模板</Button>
           </View>
           <View>
-            <Text>选择货品(4)</Text>
-            <Text>合计金额：￥2080.00</Text>
+            <Text>选择货品({products.length || 0})</Text>
+            <Text>合计金额：￥{products.reduce((sum, item) => sum += item.amount, 0).toFixed(2)}</Text>
           </View>
           <View>
             {products.map(item => (
@@ -149,14 +164,14 @@ export default class Order extends Component {
             ))}
           </View>
           <View>
-            <Image onClick={this.handleWaiting} src='http://cdn.jerryshi.com/picgo/scanAdd.png' />
+            <Image onClick={this.handleScanCode} src='http://cdn.jerryshi.com/picgo/scanAdd.png' />
             <Image src='http://cdn.jerryshi.com/picgo/plusAdd.png'></Image>
           </View>
         </View>
         <View className='order-wrapper order-footer'>
           <View>
             <Text>应收金额</Text>
-            <Input value={this.props.amountRec} onChange={this.handleCommonChange.bind(this, 'amountRec')} type='digit' placeholder='0.00' className='input-amount'></Input>
+            <Input value={'￥' + this.props.amountRec.toFixed(2)} onChange={this.handleCommonChange.bind(this, 'amountRec')} type='digit' placeholder='0.00' className='input-amount'></Input>
           </View>
           <View>
             <Text>结算方式</Text>

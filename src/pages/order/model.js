@@ -4,7 +4,7 @@ export default {
   namespace: 'order',
   state: {
     billDate: '',
-    customer: '',
+    customer: {},
     products: [
       {
         id: '111',
@@ -44,7 +44,7 @@ export default {
       }
     ],
     staff: '',
-    amountRec: 0,
+    amountRec: 0.00,
     storekeeper: {
       name: '李四四',
       id: 'lss'

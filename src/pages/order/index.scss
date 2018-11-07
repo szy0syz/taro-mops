@@ -19,6 +19,12 @@
     height: 200rpx;
     .custom-listItem {
         font-size: 30rpx;
+        View.item-extra__info {
+            margin-right: 10rpx;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
     }
     .at-list__item .item-extra__info {
         font-size: 30rpx;
