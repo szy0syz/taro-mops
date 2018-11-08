@@ -1,11 +1,12 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, ScrollView } from '@tarojs/components'
+import { View, ScrollView, Input } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
-import { AtButton, AtList, AtListItem } from 'taro-ui'
+import { AtButton, AtList, AtListItem, Picker, AtIcon } from 'taro-ui'
 
 import './index.scss';
 
-@connect(({ common, order }) => ({
+@connect(({ common, order, customerSelect }) => ({
+  ...customerSelect,
   ...common,
   ...order
 }))
@@ -40,7 +41,14 @@ export default class CustomerSelect extends Component {
     return (
       <View className='page'>
         <View className='header'>
+          <Picker mode='selector' range={this.props.searchTypes} rangeKey='key' onChange={this.onChange}>
+            <View className='customer-type'>
+              {this.props.searchType.key}
+              <AtIcon value='chevron-down' size='28' color='rgba(117, 117, 119, 1)'></AtIcon>
+            </View>
+          </Picker>
 
+          <Input></Input>
         </View>
         <View className='body'>
           <ScrollView

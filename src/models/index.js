@@ -5,6 +5,7 @@ import user from '../pages/user/model'
 import list from '../pages/list/model'
 import login from '../pages/login/model'
 import order from '../pages/order/model'
+import customerSelect from '../pages/customerSelect/model'
 
 export default [
   common,
@@ -13,5 +14,6 @@ export default [
   user,
   list,
   login,
-  order
+  order,
+  customerSelect
 ]
