@@ -1,7 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, ScrollView, Input, Image, Text } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
-import { AtButton, AtList, Picker, AtIcon } from 'taro-ui'
+import { AtButton, AtList, Picker, AtIcon, AtBadge } from 'taro-ui'
 
 import './index.scss';
 
@@ -77,7 +77,10 @@ export default class ProductSelect extends Component {
           </ScrollView>
         </View>
         <View className='footer'>
-          <AtButton onClick={this.handleAddCustomer} type='secondary' size='small'>添加客户</AtButton>
+          <AtBadge value='10'>
+            <AtIcon value='shopping-bag' size='30' color='#2bb2a7'></AtIcon>
+          </AtBadge>
+          <AtButton onClick={this.handleAddCustomer} type='secondary' size='small'>选好了</AtButton>
         </View>
       </View>
     )
