@@ -15,15 +15,15 @@ export default {
         amount: 666.00,
         url: 'http://cdn.jerryshi.com/picgo/20181104150040.png'
       },
-      // {
-      //   id: '222',
-      //   name: '敌百强',
-      //   model: '200g 水乳剂',
-      //   qty: 22,
-      //   price: 23.00,
-      //   amount: 23232.00,
-      //   url: 'http://cdn.jerryshi.com/picgo/20181104150040.png'
-      // },
+      {
+        id: '222',
+        name: '敌百强',
+        model: '200g 水乳剂',
+        qty: 22,
+        price: 23.00,
+        amount: 23232.00,
+        url: 'http://cdn.jerryshi.com/picgo/20181104150040.png'
+      },
       // {
       //   id: '333',
       //   name: '敌百万',
@@ -54,18 +54,19 @@ export default {
       id: 'v1'
     },
     billTags: [],
+    remark: '444',
     tagList: [
       {
-        value: 'v1',
+        value: 'shipped',
         label: '已发货'
       }, {
-        value: 'v2',
+        value: 'paid',
         label: '已收款'
       }, {
-        value: 'v3',
+        value: 'uploaded',
         label: '已同步'
       }, {
-        value: 'v4',
+        value: 'received',
         label: '已收货'
       }],
     payTypes: [

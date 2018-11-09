@@ -18,11 +18,18 @@ export default class Order extends Component {
     })
   }
 
-  handleBillTagsChange(value) {
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log(nextProps)
+    console.log(nextState)
+    return true
+  }
+
+  handleBillTagsChange(billTags) {
+    console.log(billTags)
     this.props.dispatch({
       type: 'order/save',
       payload: {
-        billTags: Array.from(new Set([...value, ...this.props.billTags]))
+        billTags
       }
     })
   }
@@ -40,9 +47,9 @@ export default class Order extends Component {
           storekeeper: this.props.storekeeperList[value]
         }
         break;
-      case 'amountRec':
+      case 'remark':
         payload = {
-          amountRec: new Number(value).toFixed(2)
+          remark: value
         }
         break;
       default:
@@ -102,7 +109,8 @@ export default class Order extends Component {
   }
 
   render() {
-    const { products, customer } = this.props
+    const { products, customer, remark } = this.props
+    const amountRRR = this.props.products.reduce((sum, item) => sum += item.amount, 0).toFixed(2)
     return (
       <View className='order-page'>
         <View className='order-wrapper'>
@@ -165,13 +173,16 @@ export default class Order extends Component {
           </View>
           <View>
             <Image onClick={this.handleScanCode} src='http://cdn.jerryshi.com/picgo/scanAdd.png' />
-            <Image src='http://cdn.jerryshi.com/picgo/plusAdd.png'></Image>
+            <Image
+              onClick={this.handleRedirect.bind(this, 'productSelect')}
+              src='http://cdn.jerryshi.com/picgo/plusAdd.png'
+            />
           </View>
         </View>
         <View className='order-wrapper order-footer'>
           <View>
             <Text>应收金额</Text>
-            <Input value={'￥' + this.props.amountRec.toFixed(2)} onChange={this.handleCommonChange.bind(this, 'amountRec')} type='digit' placeholder='0.00' className='input-amount'></Input>
+            <Input value={amountRRR} disabled type='digit' placeholder='0.00' className='input-amount'></Input>
           </View>
           <View>
             <Text>结算方式</Text>
@@ -204,7 +215,7 @@ export default class Order extends Component {
         </View>
         <View style='background-color: transparent;' className='remark'>
           <View>
-            <Input placeholder='备注(最多100字)'></Input>
+            <Input value={remark} onChange={this.handleCommonChange.bind(this, 'remark')} placeholder='备注(最多100字)'></Input>
           </View>
         </View>
         <View>
