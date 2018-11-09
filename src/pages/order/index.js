@@ -146,7 +146,7 @@ export default class Order extends Component {
           </View>
           <View>
             {products.map(item => (
-              <View key={item.id} className='order-item'>
+              <View key={item.fid} className='order-item'>
                 <Image className='m-img' src={item.url}></Image>
                 <View>
                   <Text>{item.name}</Text>
