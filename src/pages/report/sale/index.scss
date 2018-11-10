@@ -10,17 +10,10 @@
       @include fja(center, center)
     }
 
-    .header,
-    .body {
-      padding: 20rpx;
-      background-color: #bbb;
-      border-bottom: 1px sol #ddd;
-    }
-
     .header {
+      padding: 20rpx;
       height: 130rpx;
-      background-color: #eee;
-      
+      border-bottom: 1px solid #ddd;
       &>view {
         height: 70rpx;
         @include fja(flex-start, center);
@@ -28,6 +21,7 @@
       .datetime-label{
         width: 18%;
         height: 100%;
+        color: #888;
         line-height: 70rpx;
       }
       .datetime-btns {
@@ -39,15 +33,54 @@
         justify-content: space-around;
         align-content: center;
         padding-top: 6rpx;
-        
-        // .at-button--small {
-
-        // }
 
         .at-button--secondary {
           border: 1px solid $color-primary;
           color: $color-primary;
 
+        }
+      }
+
+      .date-picker {
+        margin-left: 26rpx;
+      }
+    }
+
+    .body {
+      padding: 0;
+      .chart {
+        width: 100%;
+        height: 560rpx;
+        background-color: #ddd;
+      }
+
+      .stats {
+        padding: 20rpx 0;
+        border-bottom: 1px solid #ddd;
+        @include fja(space-around, center);
+        &>View:first-child {
+          border-right: 1px solid $color-primary;
+        }
+        &>View {
+          width: 50%;
+          display: inline-flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .stats-num {
+          color: $color-primary;
+        }
+      }
+
+      .more {
+        margin: 30rpx 0;
+        margin-bottom: 14rpx;
+        text-align: center;
+        .at-button--small {
+          background-color: $color-primary;
+          color: #fff;
         }
       }
     }

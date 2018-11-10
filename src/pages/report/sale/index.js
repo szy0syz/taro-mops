@@ -1,6 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
-import { AtIcon, AtButton } from 'taro-ui'
+import { AtIcon, AtButton, AtList, AtListItem } from 'taro-ui'
+import DatePicker from '../../../components/DatePicker'
 import './index.scss'
 
 export default class ReportSale extends Component {
@@ -28,14 +29,36 @@ export default class ReportSale extends Component {
             </View>
           </View>
           <View style='padding-top: 4rpx;'>
-            <Text className='datetime-label'>日期范文</Text>
-            <View className='datetime-picker'>
-              
+            <Text className='datetime-label'>日期范围</Text>
+            <View className='date-picker'>
+              <DatePicker></DatePicker>
             </View>
           </View>
         </View>
         <View className='body'>
-          Body
+          <View className='chart'>
+
+          </View>
+          <View className='stats'>
+            <View>
+              <Text>销售额</Text>
+              <Text className='stats-num'>￥265280.00</Text>
+            </View>
+            <View>
+              <Text>销售笔数</Text>
+              <Text className='stats-num'>23.00笔</Text>
+            </View>
+          </View>
+          <View className='list'>
+            <AtList>
+              <AtListItem title='销售额排行榜/客户' arrow='right' />
+              <AtListItem title='销售额排行榜/商品' arrow='right' />
+              <AtListItem title='销售额排行榜/地区' arrow='right' />
+            </AtList>
+          </View>
+          <View className='more'>
+            <AtButton size='small'>查看详细</AtButton>
+          </View>
         </View>
       </View>
     )

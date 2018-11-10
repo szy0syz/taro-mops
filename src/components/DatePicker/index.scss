@@ -1,0 +1,11 @@
+@import "../../styles/mixin";
+.picker-container {
+    @include fja();
+    .picker {
+        @include fja(center, center);
+
+        &>Text {
+          margin-right: 6rpx;
+        }
+    }
+}
