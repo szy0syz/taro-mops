@@ -1,7 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
 import { connect } from '@tarojs/redux'
 import { View, Text } from '@tarojs/components'
-import { AtTabs, AtTabsPane, Picker, AtIcon, AtInput, AtTag, AtList, AtListItem } from 'taro-ui'
+import { AtTabs, AtTabsPane, Picker, AtIcon, AtInput, AtTag } from 'taro-ui'
 import './index.scss';
 
 @connect(({ list }) => ({

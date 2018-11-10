@@ -1,8 +1,12 @@
-import Taro, { Component } from '@tarojs/taro';
-import { Swiper, SwiperItem, View, Text } from '@tarojs/components';
-import PropTypes from 'prop-types';
-import './index.scss';
+import Taro, { Component } from '@tarojs/taro'
+import { Swiper, SwiperItem, View, Text } from '@tarojs/components'
+import { connect } from '@tarojs/redux'
+import PropTypes from 'prop-types'
+import './index.scss'
 
+@connect(({ home }) => ({
+  ...home
+}))
 export default class MySwiper extends Component {
   constructor() {
     super(...arguments);
@@ -15,12 +19,12 @@ export default class MySwiper extends Component {
   };
 
   static defaultProps = {
-    stats: ['我是一', '我是二', '我是三'],
+    stats: [],
     home: false
   };
 
   render() {
-    const { stats, home } = this.props;
+    const { swiperData } = this.props;
     return (
       <Swiper
         className='swiper-container'
@@ -29,16 +33,16 @@ export default class MySwiper extends Component {
         indicatorColor='#999'
         indicatorActiveColor='#bf708f'
       >
-        {stats.map((item, index) => (
+        {swiperData.map((item, index) => (
           <SwiperItem key={index}>
             <View className='box'>
               <View>
-                <Text className='item-title'>本月毛利</Text>
-                <Text className='item-number'>￥59384.00</Text>
+                <Text className='item-title'>{item[0].label}</Text>
+                <Text className='item-number'>￥{item[0].value.toFixed(2)}</Text>
               </View>
               <View>
-                <Text className='item-title'>本月销售</Text>
-                <Text className='item-number'>￥420842.00</Text>
+                <Text className='item-title'>{item[1].label}</Text>
+                <Text className='item-number'>￥{item[1].value.toFixed(2)}</Text>
               </View>
             </View>
           </SwiperItem>

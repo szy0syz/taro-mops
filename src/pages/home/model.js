@@ -7,7 +7,39 @@ export default {
     brands: [],
     products_list: [],
     page: 1,
-    keyword: ''
+    keyword: '',
+    swiperData: [
+      [
+        {
+          label: '本月毛利',
+          value: 53000.00
+        },
+        {
+          label: '本月销售',
+          value: 155000.00
+        }
+      ],
+      [
+        {
+          label: '本季毛利',
+          value: 93000.00
+        },
+        {
+          label: '本季销售',
+          value: 355000.00
+        }
+      ],
+      [
+        {
+          label: '本年毛利',
+          value: 9199000.00
+        },
+        {
+          label: '本年销售',
+          value: 194876000.00
+        }
+      ]
+    ]
   },
   effects: {
     * load(_, {call, put}) {

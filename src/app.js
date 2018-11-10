@@ -51,18 +51,18 @@ class App extends Component {
       }, {
         pagePath: "pages/list/index",
         text: "明细",
-        iconPath: "./images/tab/cart.png",
-        selectedIconPath: "./images/tab/cart-active.png"
+        iconPath: "./images/tab/list2.png",
+        selectedIconPath: "./images/tab/list2-act.png"
       }, {
         pagePath: "pages/cart/index",
-        text: "",
+        text: "开单",
         iconPath: "./images/icon/plus.png",
         selectedIconPath: "./images/icon/plus.png"
       }, {
         pagePath: "pages/cart/index",
         text: "报表",
-        iconPath: "./images/tab/cart.png",
-        selectedIconPath: "./images/tab/cart-active.png"
+        iconPath: "./images/tab/report2.png",
+        selectedIconPath: "./images/tab/report2-act.png"
       },{
         pagePath: "pages/user/index",
         text: "我的",
