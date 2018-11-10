@@ -1,0 +1,54 @@
+@import "../../../styles/mixin";
+.page-container {
+    @include wh(100%, 100%);
+
+    .title {
+      width: 100%;
+      height: 70rpx;
+      color: $color-primary;
+      border-bottom: 1px solid #ccc;
+      @include fja(center, center)
+    }
+
+    .header,
+    .body {
+      padding: 20rpx;
+      background-color: #bbb;
+      border-bottom: 1px sol #ddd;
+    }
+
+    .header {
+      height: 130rpx;
+      background-color: #eee;
+      
+      &>view {
+        height: 70rpx;
+        @include fja(flex-start, center);
+      }
+      .datetime-label{
+        width: 18%;
+        height: 100%;
+        line-height: 70rpx;
+      }
+      .datetime-btns {
+        margin-left: 10rpx;
+        box-sizing: border-box;
+        width: 76%;
+        height: 100%;
+        display: inline-flex;
+        justify-content: space-around;
+        align-content: center;
+        padding-top: 6rpx;
+        
+        // .at-button--small {
+
+        // }
+
+        .at-button--secondary {
+          border: 1px solid $color-primary;
+          color: $color-primary;
+
+        }
+      }
+    }
+}
