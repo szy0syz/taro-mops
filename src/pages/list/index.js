@@ -34,6 +34,7 @@ export default class List extends Component {
   }
 
   render() {
+    const {saleOrders} = this.props
     return (
       <View className='page-container'>
         <View className='tabs-container'>
@@ -86,72 +87,43 @@ export default class List extends Component {
                 </View>
                 <View className='box-body'>
                   <View>
-                    <Text>合计：￥{this.props.saleOrders.total}</Text>
+                    <Text>合计：￥{this.props.saleOrders.total.toFixed(2)}</Text>
                     <View>
                       <AtTag active type='primary' circle>标签</AtTag>
                       <AtTag circle className='bill-opt writing'>开单</AtTag>
                     </View>
                   </View>
-                  <View className='bill-item'>
-                    <View>
-                      <Text>2018-10-25 15:58</Text>
-                      <AtTag size='small' className='bill-tag shipped'>已发货</AtTag>
-                      <AtTag size='small' className='bill-tag payment'>已收款</AtTag>
-                    </View>
-                    <View className='bill-body'>
-                      <Text>呈贡农药经营部3</Text>
+                  {saleOrders.data.map(item => (
+                    <View key={item.number} className='bill-item'>
                       <View>
-                        <Text>￥4400.00</Text>
-                        <AtIcon value='chevron-right' color='#aaa'></AtIcon>
+                        <Text>{item.datetime}</Text>
+                        {item.tags.map(tag => (
+                          <AtTag key={tag.key} size='small' className={`bill-tag ${tag.value}`}>{tag.key}</AtTag>
+                        ))}
                       </View>
-                    </View>
-                    <Text>
-                      20181101000003
-                    </Text>
-                  </View>
-                  <View className='bill-item'>
-                    <View>
-                      <Text>2018-10-25 15:58</Text>
-                      <AtTag size='small' className='bill-tag shipped'>已发货</AtTag>
-                    </View>
-                    <View className='bill-body'>
-                      <Text>呈贡农药经营部2</Text>
-                      <View>
-                        <Text>￥3220.00</Text>
-                        <AtIcon value='chevron-right' color='#aaa'></AtIcon>
+                      <View className='bill-body'>
+                        <Text>{item.customer}</Text>
+                        <View>
+                          <Text>￥{item.total.toFixed(2)}</Text>
+                          <AtIcon value='chevron-right' color='#aaa'></AtIcon>
+                        </View>
                       </View>
-                    </View>
-                    <Text>
-                      20181101000002
+                      <Text>
+                        20181101000003
                     </Text>
-                  </View>
-                  <View className='bill-item'>
-                    <View>
-                      <Text>2018-10-25 15:58</Text>
-                      <AtTag size='small' className='bill-tag payment'>已收款</AtTag>
                     </View>
-                    <View className='bill-body'>
-                      <Text>呈贡农药经营部1</Text>
-                      <View>
-                        <Text>￥8720.00</Text>
-                        <AtIcon value='chevron-right' color='#aaa'></AtIcon>
-                      </View>
-                    </View>
-                    <Text>
-                      20181101000001
-                    </Text>
-                  </View>
+                  ))}
                 </View>
               </View>
             </AtTabsPane>
             <AtTabsPane tabDirection='vertical' current={this.props.current} index={1}>
-              <View style='background-color: #fff;font-size:18px;text-align:center;height:200px;'>标签页二的内容</View>
+              <View style='background-color: #fff;font-size:18px;text-align:center;height:200px;'>采购页面</View>
             </AtTabsPane>
             <AtTabsPane tabDirection='vertical' current={this.props.current} index={2}>
-              <View style='background-color: #fff;font-size:18px;text-align:center;height:200px;'>标签页三的内容</View>
+              <View style='background-color: #fff;font-size:18px;text-align:center;height:200px;'>应收页面</View>
             </AtTabsPane>
             <AtTabsPane tabDirection='vertical' current={this.props.current} index={3}>
-              <View style='background-color: #fff;font-size:18px;text-align:center;height:200px;'>标签页四的内容</View>
+              <View style='background-color: #fff;font-size:18px;text-align:center;height:200px;'>应付页面</View>
             </AtTabsPane>
           </AtTabs>
         </View>

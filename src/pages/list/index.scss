@@ -141,8 +141,14 @@
     .bill-tag.shipped {
         background-color: rgba(238, 103, 117, 1);
     }
-    .bill-tag.payment {
+    .bill-tag.paid {
         background-color: rgba(114, 192, 116, 1);
+    }
+    .bill-tag.uploaded {
+        background-color: rgba(112, 159, 239, 1);
+    }
+    .bill-tag.received {
+        background-color: rgba(241, 181, 85, 1);
     }
     .bill-body {
         margin-top: 18rpx;

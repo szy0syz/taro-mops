@@ -54,7 +54,7 @@ export default {
       id: 'v1'
     },
     billTags: [],
-    remark: '444',
+    remark: '',
     tagList: [
       {
         value: 'shipped',
