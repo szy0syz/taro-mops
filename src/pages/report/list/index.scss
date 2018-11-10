@@ -1,10 +1,20 @@
 @import "../../../styles/mixin";
 
-.about-page {
-  @include wh(100%, 100%);
-  padding: 0 40px;
+.echarts {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
   box-sizing: border-box;
-  div,view {
-    margin-bottom: 30px;
-  }
+}
+
+ec-canvas {
+  width: 100%;
+  height: 100%;
 }

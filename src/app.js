@@ -20,6 +20,8 @@ class App extends Component {
   config = {
     pages: [
       'pages/report/sale/index',
+      'pages/report/list/index',
+
       'pages/home/index',
       'pages/order/index',
       'pages/productSelect/index',
@@ -34,7 +36,7 @@ class App extends Component {
       'pages/message/index',
       'pages/couponList/index',
       'pages/welcome/index',
-      'pages/report/list/index',
+      
       
     ],
     window: {

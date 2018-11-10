@@ -23,6 +23,9 @@ const config = {
   defineConstants: {},
   // 小程序端专用配置
   weapp: {
+    compile: {
+      exclude: ['src/components/ec-canvas/echarts.js']
+    },
     module: {
       postcss: {
         autoprefixer: {
