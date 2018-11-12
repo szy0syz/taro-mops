@@ -122,7 +122,7 @@ export default class Echarts extends Component {
   config = {
     navigationBarTitleText: 'echarts-for-weixin 示例项目',
     navigationBarTextStyle: 'black',
-    navigationBarTitleText: 'WxParse 使用示例',
+    navigationBarTitleText: 'eacharts 使用示例',
     backgroundColor: '#eeeeee',
     backgroundTextStyle: 'light',
     usingComponents: {

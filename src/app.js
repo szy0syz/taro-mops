@@ -19,13 +19,12 @@ class App extends Component {
 
   config = {
     pages: [
+      'pages/order/index',
+      'pages/report/sale/index',
       'pages/report/echarts/echarts',
       'pages/report/list/index',
-      'pages/report/sale/index',
-      
-      
       'pages/home/index',
-      'pages/order/index',
+      
       'pages/productSelect/index',
       'pages/customerSelect/index',
       'pages/list/index',
@@ -38,8 +37,6 @@ class App extends Component {
       'pages/message/index',
       'pages/couponList/index',
       'pages/welcome/index',
-      
-      
     ],
     window: {
       backgroundTextStyle: 'dark',

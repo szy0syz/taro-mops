@@ -15,7 +15,11 @@ export default class CustomerSelect extends Component {
     navigationBarTitleText: '选择客户',
   }
 
-  componentDidMount = () => { }
+  componentDidMount = () => {
+    this.props.dispatch({
+      type: 'customerSelect/getCustomers'
+    })
+  }
 
   handleAddCustomer() {
     Taro.showToast({
