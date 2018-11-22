@@ -42,7 +42,24 @@ export default class ProductSelect extends Component {
     Taro.redirectTo({
       url: '/pages/order/index'
     })
-    
+  }
+
+  handleSearch(e) {
+    const val = e.target.value
+    if(val.length > 1) {
+      this.props.dispatch({
+        type: 'productSelect/fetchProducts',
+        payload: {
+          keyword: val
+        }
+      })
+    }
+  }
+
+  handleConfirm() {
+    Taro.redirectTo({
+      url: '/pages/order/index'
+    })
   }
 
   render() {
@@ -56,7 +73,7 @@ export default class ProductSelect extends Component {
               <AtIcon value='chevron-down' size='28' color='rgba(117, 117, 119, 1)'></AtIcon>
             </View>
           </Picker>
-          <Input placeholder='支持中文和助记码'></Input>
+          <Input type='string' name='keyword' placeholder='请输入查询关键字' value={this.props.keyword} onInput={this.handleSearch} />
         </View>
         <View className='body'>
           <ScrollView
@@ -70,12 +87,12 @@ export default class ProductSelect extends Component {
                 <View key={item.fid} className='order-item'>
                   <Image className='product-img' src={item.url ? item.url : 'http://cdn.jerryshi.com/picgo/20181104150040.png'}></Image>
                   <View>
-                    <Text>{item.name}</Text>
+                    <Text>{item.MaterialName}</Text>
                     <View className='order-cell'>
-                      <Text>单价：￥{item.price.toFixed(2)}</Text>
+                      <Text>单价：￥{Number(item.MaterialPrice).toFixed(2)}</Text>
                     </View>
                     <View className='order-cell'>
-                      <Text>规格：{item.model}</Text>
+                      <Text>规格：{item.MaterialModel}</Text>
                     </View>
                   </View>
                   <AtIcon onClick={this.handleSelected.bind(this,item)} value='add' size='34' color='#2bb2a7'></AtIcon>
@@ -93,7 +110,7 @@ export default class ProductSelect extends Component {
             <Text style='color:#2bb2a7;'>￥{products.reduce((sum,val) => sum += val.amount, 0)}.00</Text>
           </View>
           <View className='select-btn' >
-            <AtButton onClick={this.handleAddCustomer} type='secondary' size='small'>选好了</AtButton>
+            <AtButton onClick={this.handleConfirm} type='secondary' size='small'>选好了</AtButton>
           </View>
         </View>
       </View>
