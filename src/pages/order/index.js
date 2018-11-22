@@ -133,7 +133,7 @@ export default class Order extends Component {
               onClick={this.handleRedirect.bind(this, 'customerSelect')}
               className='custom-listItem'
               title='客户'
-              extraText={customer.name}
+              extraText={customer.CustomerName}
               arrow='right'
               iconInfo={{
                 size: 28,

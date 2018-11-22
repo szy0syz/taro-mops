@@ -1,17 +1,15 @@
-import Request from '../../utils/request';
+import Request from '../../utils/request'
 
-// 老用户登录
 export const postCustomers = data => Request({
-  url: '/bd/customers',
+  url: '/eas/customers',
   method: 'POST',
   data,
-});
+})
 
-// 获取手机验证码
 export const getCustomers = data => Request({
-  url: '/bd/customers',
+  url: '/eas/customers',
   method: 'GET',
   data,
-});
+})
 
 

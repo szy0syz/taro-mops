@@ -2,6 +2,7 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, ScrollView, Input } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 import { AtButton, AtList, AtListItem, Picker, AtIcon } from 'taro-ui'
+import _ from 'underscore'
 
 import './index.scss';
 
@@ -16,9 +17,9 @@ export default class CustomerSelect extends Component {
   }
 
   componentDidMount = () => {
-    this.props.dispatch({
-      type: 'customerSelect/getCustomers'
-    })
+    // this.props.dispatch({
+    //   type: 'customerSelect/getCustomers'
+    // })
   }
 
   handleAddCustomer() {
@@ -40,6 +41,19 @@ export default class CustomerSelect extends Component {
     })
   }
 
+  // TODO: _.throttle...
+  handleKeyword(e) {
+    const val = e.target.value
+    if(val.length > 1) {
+      this.props.dispatch({
+        type: 'customerSelect/getCustomers',
+        payload: {
+          keyword: val
+        }
+      })
+    }
+  }
+
   render() {
     const { customerList } = this.props
     return (
@@ -51,8 +65,7 @@ export default class CustomerSelect extends Component {
               <AtIcon value='chevron-down' size='28' color='rgba(117, 117, 119, 1)'></AtIcon>
             </View>
           </Picker>
-
-          <Input></Input>
+          <Input type='string' name='keyword' placeholder='请输入查询关键字' value={this.props.keyword} onInput={this.handleKeyword} />
         </View>
         <View className='body'>
           <ScrollView
@@ -64,12 +77,12 @@ export default class CustomerSelect extends Component {
             <AtList>
               {customerList.map(item => (
                 <AtListItem
-                  key={item.fid}
+                  key={item.FID}
                   onClick={this.handleSelected.bind(this, item)}
-                  title={item.name}
+                  title={item.CustomerName}
                   arrow='right'
-                  note={`应收款：￥${item.amountRec}`}
-                  extraText={item.area}
+                  note={`应收款：￥${item.amountRec || 0}`}
+                  extraText={item.CustomerArea}
                 />
               ))}
             </AtList>
