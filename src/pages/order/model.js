@@ -1,4 +1,4 @@
-// import * as homeApi from './service';
+import * as Service from './service'
 
 export default {
   namespace: 'order',
@@ -61,7 +61,12 @@ export default {
       }
     ]
   },
-  effects: {},
+  effects: {
+    * create({payload}, { put, call }) {
+      const res = yield call(Service.post, payload)
+      console.log(res)
+    }
+  },
   reducers: {
     save(state, { payload }) {
       return { ...state, ...payload }

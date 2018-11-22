@@ -80,9 +80,6 @@ export default class Order extends Component {
 
   handleSave() {
     let { billDate, billTags, customer, products, remark, staff, storekeeper, paymentMethod } = this.props
-    Taro.showToast({
-      title: '异步请求'
-    })
     // 奇葩需求和奇葩api
     billDate = dayjs()
       .set('month', billDate.split('-')[1] - 1)
@@ -99,6 +96,10 @@ export default class Order extends Component {
       paymentMethod
     }
     console.log(payload)
+    this.props.dispatch({
+      type: 'order/create',
+      payload
+    })
   }
 
   handleAgain() {

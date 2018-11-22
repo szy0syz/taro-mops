@@ -21,20 +21,26 @@ export default (options = { method: 'GET', data: {} }) => {
     },
     method: options.method.toUpperCase(),
   }).then((res) => {
-    const { statusCode, data } = res;
+    const { statusCode, data } = res
+    console.log(res)
     if (statusCode >= 200 && statusCode < 300) {
       if (!noConsole) {
         console.log(`${new Date().toLocaleString()}【 M=${options.url} 】【接口响应：】`,res.data);
       }
-      if (!data.success) {
+      if (data.success && data.msg) {
         Taro.showToast({
-          title: `${res.data.error.message}~` || res.data.error.code,
+          title: `${data.msg}`,
           icon: 'none',
           mask: true,
-        });
+        })
       }
       return data;
     } else {
+      Taro.showToast({
+        title: `${data.msg}`,
+        icon: 'none',
+        mask: true,
+      })
       throw new Error(`网络请求错误，状态码${statusCode}`);
     }
   })
