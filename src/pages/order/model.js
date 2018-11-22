@@ -5,44 +5,7 @@ export default {
   state: {
     billDate: '',
     customer: {},
-    products: [
-      {
-        id: '111',
-        name: '敌杀死',
-        model: '200g 水乳剂',
-        price: 23.00,
-        qty: 12,
-        amount: 666.00,
-        url: 'http://cdn.jerryshi.com/picgo/20181104150040.png'
-      },
-      {
-        id: '222',
-        name: '敌百强',
-        model: '200g 水乳剂',
-        qty: 22,
-        price: 23.00,
-        amount: 23232.00,
-        url: 'http://cdn.jerryshi.com/picgo/20181104150040.png'
-      },
-      // {
-      //   id: '333',
-      //   name: '敌百万',
-      //   model: '201g 水乳剂',
-      //   qty: 33,
-      //   price: 23.00,
-      //   amount: 1232.00,
-      //   url: 'http://cdn.jerryshi.com/picgo/20181104150040.png'
-      // },
-      // {
-      //   id: '333',
-      //   name: '敌百万',
-      //   model: '201g 水乳剂',
-      //   qty: 55,
-      //   price: 23.00,
-      //   amount: 77888.00,
-      //   url: 'http://cdn.jerryshi.com/picgo/20181104150040.png'
-      // }
-    ],
+    products: [],
     staff: '',
     amountRec: 0.00,
     storekeeper: {

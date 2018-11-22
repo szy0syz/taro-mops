@@ -19,13 +19,14 @@ class App extends Component {
 
   config = {
     pages: [
+      'pages/productSelect/index',
       'pages/order/index',
       'pages/report/sale/index',
       'pages/report/echarts/echarts',
       'pages/report/list/index',
       'pages/home/index',
       
-      'pages/productSelect/index',
+      
       'pages/customerSelect/index',
       'pages/list/index',
       'pages/cart/index',

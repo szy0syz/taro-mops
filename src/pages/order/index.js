@@ -1,4 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
+import dayjs from 'dayjs'
 import { connect } from '@tarojs/redux'
 import { View, Button, Text, Image, Input, Picker } from '@tarojs/components'
 import { AtList, AtListItem, AtIcon, AtCheckbox, AtButton } from 'taro-ui'
@@ -78,10 +79,26 @@ export default class Order extends Component {
   }
 
   handleSave() {
+    let { billDate, billTags, customer, products, remark, staff, storekeeper, paymentMethod } = this.props
     Taro.showToast({
       title: '异步请求'
     })
-    console.log(this.props)
+    // 奇葩需求和奇葩api
+    billDate = dayjs()
+      .set('month', billDate.split('-')[1] - 1)
+      .set('date', billDate.split('-')[2])
+      .valueOf()
+    let payload = {
+      billDate,
+      billTags,
+      customer,
+      products,
+      remark,
+      staff,
+      storekeeper,
+      paymentMethod
+    }
+    console.log(payload)
   }
 
   handleAgain() {
@@ -106,6 +123,10 @@ export default class Order extends Component {
         title: '扫描成功'
       })
     })
+  }
+
+  handleRemoveItem(item) {
+    console.log(item)
   }
 
   render() {
@@ -154,20 +175,20 @@ export default class Order extends Component {
           </View>
           <View>
             {products.map(item => (
-              <View key={item.fid} className='order-item'>
-                <Image className='m-img' src={item.url}></Image>
+              <View key={item.FID} className='order-item'>
+                <Image className='m-img' src={item.MaterialUrl}></Image>
                 <View>
-                  <Text>{item.name}</Text>
+                  <Text>{item.MaterialName}</Text>
                   <View className='order-cell'>
-                    <Text>单价：￥{item.price}</Text>
-                    <Text>数量：{item.qty}公斤</Text>
+                    <Text>单价：￥{Number(item.MaterialPrice).toFixed(2)}</Text>
+                    <Text>数量：{Number(item.qty).toFixed(2)}公斤</Text>
                   </View>
                   <View className='order-cell'>
-                    <Text>规格：{item.model}</Text>
-                    <Text>金额：￥{item.amount}</Text>
+                    <Text>规格：{item.MaterialModel}</Text>
+                    <Text>金额：￥{Number(item.amount).toFixed(2)}</Text>
                   </View>
                 </View>
-                <AtIcon value='subtract-circle' size='30' color='#F00'></AtIcon>
+                <AtIcon onClick={this.handleRemoveItem.bind(this, item)} value='subtract-circle' size='30' color='#F00'></AtIcon>
               </View>
             ))}
           </View>
