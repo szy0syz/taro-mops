@@ -13,8 +13,10 @@ export default class List extends Component {
   };
 
   componentDidMount = () => {
-
-  };
+    this.props.dispatch({
+      type: 'list/loadSaleOrders'
+    })
+  }
 
   handleClick = (index) => {
     this.props.dispatch({ type: 'list/save', payload: { current: index } })
@@ -35,6 +37,12 @@ export default class List extends Component {
 
   render() {
     const {saleOrders} = this.props
+    const tagList = {
+      paid: '已收款',
+      shipped: '已发货',
+      received: '已收货',
+      uploaded: '已同步'
+    }
     return (
       <View className='page-container'>
         <View className='tabs-container'>
@@ -43,6 +51,7 @@ export default class List extends Component {
             height='100%'
             tabDirection='vertical'
             tabList={[
+              { title: '订 单' },
               { title: '销 售' },
               { title: '采 购' },
               { title: '应 收' },
@@ -87,29 +96,29 @@ export default class List extends Component {
                 </View>
                 <View className='box-body'>
                   <View>
-                    <Text>合计：￥{this.props.saleOrders.total.toFixed(2)}</Text>
+                    <Text>合计：￥{this.props.saleOrderAmount.toFixed(2)}</Text>
                     <View>
                       <AtTag active type='primary' circle>标签</AtTag>
                       <AtTag circle className='bill-opt writing'>开单</AtTag>
                     </View>
                   </View>
-                  {saleOrders.data.map(item => (
-                    <View key={item.number} className='bill-item'>
+                  {saleOrders.map(item => (
+                    <View key={item._id} className='bill-item'>
                       <View>
-                        <Text>{item.datetime}</Text>
-                        {item.tags.map(tag => (
-                          <AtTag key={tag.key} size='small' className={`bill-tag ${tag.value}`}>{tag.key}</AtTag>
+                        <Text>{item.billDate}</Text>
+                        {item.billTags.map(tag => (
+                          <AtTag key={tag} size='small' className={`bill-tag ${tag}`}>{tagList[tag]}</AtTag>
                         ))}
                       </View>
                       <View className='bill-body'>
-                        <Text>{item.customer}</Text>
+                        <Text>{item.customer.CustomerName}</Text>
                         <View>
-                          <Text>￥{item.total.toFixed(2)}</Text>
+                          <Text>￥{item.amount.toFixed(2)}</Text>
                           <AtIcon value='chevron-right' color='#aaa'></AtIcon>
                         </View>
                       </View>
                       <Text>
-                        20181101000003
+                        {item.number}
                     </Text>
                     </View>
                   ))}
@@ -117,13 +126,16 @@ export default class List extends Component {
               </View>
             </AtTabsPane>
             <AtTabsPane tabDirection='vertical' current={this.props.current} index={1}>
-              <View style='background-color: #fff;font-size:18px;text-align:center;height:200px;'>采购页面</View>
+              <View style='background-color: #fff;font-size:18px;text-align:center;height:200px;'>【EAS销售出库单】</View>
             </AtTabsPane>
             <AtTabsPane tabDirection='vertical' current={this.props.current} index={2}>
-              <View style='background-color: #fff;font-size:18px;text-align:center;height:200px;'>应收页面</View>
+              <View style='background-color: #fff;font-size:18px;text-align:center;height:200px;'>【EAS采购入库单】</View>
             </AtTabsPane>
             <AtTabsPane tabDirection='vertical' current={this.props.current} index={3}>
-              <View style='background-color: #fff;font-size:18px;text-align:center;height:200px;'>应付页面</View>
+              <View style='background-color: #fff;font-size:18px;text-align:center;height:200px;'>【EAS应收单】</View>
+            </AtTabsPane>
+            <AtTabsPane tabDirection='vertical' current={this.props.current} index={4}>
+              <View style='background-color: #fff;font-size:18px;text-align:center;height:200px;'>【EAS应付单】</View>
             </AtTabsPane>
           </AtTabs>
         </View>

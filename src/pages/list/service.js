@@ -1,12 +1,12 @@
 import Request from '../../utils/request';
 
-export const homepage = data => Request({
-  url: '/homepage-v3',
+export const loadSaleOrders = data => Request({
+  url: '/saleorder',
   method: 'GET',
   data,
 })
 
-export const product = data => Request({
+export const load = data => Request({
   url: '/product/filter',
   method: 'GET',
   data,

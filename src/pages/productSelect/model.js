@@ -31,7 +31,6 @@ export default {
         type: 'save',
         payload
       })
-      console.log(res.data)
       if (res.data.length > 0) {
         yield put({
           type: 'save',

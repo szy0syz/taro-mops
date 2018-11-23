@@ -1,4 +1,4 @@
-import * as homeApi from './service';
+import * as Service from './service'
 
 export default {
   namespace: 'home',
@@ -42,33 +42,41 @@ export default {
     ]
   },
   effects: {
-    * load(_, {call, put}) {
-      const { status, data } = yield call(homeApi.homepage, {});
-      if (status === 'ok') {
-        yield put({ type: 'save',payload: {
-          banner: data.banner,
-          brands: data.brands
-        } });
-      }
-    },
-    * product(_, {call, put, select}) {
-      const { page, products_list } = yield select(state => state.home);
-      const { status, data } = yield call(homeApi.product, {
-        page,
-        mode: 1,
-        type: 0,
-        filter: 'sort:recomm|c:330602',
-      });
-      if (status === 'ok') {
-        yield put({ type: 'save',payload: {
-          products_list: page > 1 ? [...products_list,...data.rows] : data.rows,
-        } });
-      }
+    * load(_, {call}) {
+      const { data } = yield call(Service.load, {})
+      console.log(data)
     }
+    // * load(_, { call, put }) {
+    //   const { status, data } = yield call(homeApi.homepage, {});
+    //   if (status === 'ok') {
+    //     yield put({
+    //       type: 'save', payload: {
+    //         banner: data.banner,
+    //         brands: data.brands
+    //       }
+    //     });
+    //   }
+    // },
+    // * product(_, { call, put, select }) {
+    //   const { page, products_list } = yield select(state => state.home);
+    //   const { status, data } = yield call(homeApi.product, {
+    //     page,
+    //     mode: 1,
+    //     type: 0,
+    //     filter: 'sort:recomm|c:330602',
+    //   });
+    //   if (status === 'ok') {
+    //     yield put({
+    //       type: 'save', payload: {
+    //         products_list: page > 1 ? [...products_list, ...data.rows] : data.rows,
+    //       }
+    //     });
+    //   }
+    // }
   },
   reducers: {
     save(state, { payload }) {
-      return {...state, ...payload};
+      return { ...state, ...payload };
     },
   },
 };

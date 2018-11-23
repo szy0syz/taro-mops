@@ -62,9 +62,9 @@ export default {
     ]
   },
   effects: {
-    * create({payload}, { put, call }) {
+    * create({payload}, { call }) {
       const res = yield call(Service.post, payload)
-      console.log(res)
+      console.info('创建订单',res.data.number)
     }
   },
   reducers: {

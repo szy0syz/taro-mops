@@ -16,12 +16,12 @@ export default class Index extends Component {
   };
 
   componentDidMount = () => {
-    this.props.dispatch({
-      type: 'home/load',
-    });
-    this.props.dispatch({
-      type: 'home/product',
-    });
+    // this.props.dispatch({
+    //   type: 'home/load',
+    // });
+    // this.props.dispatch({
+    //   type: 'home/product',
+    // });
 
     // 设置衣袋小红点
     if (this.props.items.length > 0) {

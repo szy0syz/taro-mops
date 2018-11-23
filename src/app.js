@@ -19,17 +19,18 @@ class App extends Component {
 
   config = {
     pages: [
+      'pages/list/index',
+      'pages/report/list/index',
       'pages/order/index',
       'pages/productSelect/index',
       
       'pages/report/sale/index',
       'pages/report/echarts/echarts',
-      'pages/report/list/index',
+      
       'pages/home/index',
       
-      
       'pages/customerSelect/index',
-      'pages/list/index',
+      
       'pages/cart/index',
       'pages/user/index',
       'pages/detail/index',
@@ -58,7 +59,7 @@ class App extends Component {
         iconPath: "./images/tab/list2.png",
         selectedIconPath: "./images/tab/list2-act.png"
       }, {
-        pagePath: "pages/cart/index",
+        pagePath: "pages/order/index",
         text: "开单",
         iconPath: "./images/icon/plus.png",
         selectedIconPath: "./images/icon/plus.png"
