@@ -36,9 +36,7 @@ export default class CustomerSelect extends Component {
         customer
       }
     })
-    Taro.redirectTo({
-      url: '/pages/order/index'
-    })
+    Taro.switchTab({url: 'pages/order/index'})
   }
 
   // TODO: _.throttle...

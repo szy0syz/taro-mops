@@ -11,6 +11,7 @@ export default {
     current: 0,
     dateStart: dayjs().subtract(1, 'month').format('YYYY-MM-DD'),
     dateEnd: dayjs().format('YYYY-MM-DD'),
+    billTags: [],
     saleSearchTypes: ['客户', '单号', '备注'],
     saleSearchType: 0,
     saleOrderAmount: 842090.00,
@@ -18,8 +19,8 @@ export default {
   },
   effects: {
     * loadSaleOrders(_, { call, select, put }) {
-      const { dateStart, dateEnd } = yield select(state => state.list)
-      let { data } = yield call(Service.loadSaleOrders, { dateStart, dateEnd })
+      const { dateStart, dateEnd, billTags } = yield select(state => state.list)
+      let { data } = yield call(Service.loadSaleOrders, { dateStart, dateEnd, billTags })
 
       let saleOrderAmount = 0
       if(data.length > 0) {
