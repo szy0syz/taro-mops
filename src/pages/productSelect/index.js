@@ -50,9 +50,7 @@ export default class ProductSelect extends Component {
   }
 
   handleConfirm() {
-    Taro.redirectTo({
-      url: '/pages/order/index'
-    })
+    Taro.switchTab({url: '/pages/order/index'})
   }
 
   handleModalCancel() {
