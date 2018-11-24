@@ -4,11 +4,12 @@
     @include fja(space-around);
     flex-wrap: wrap;
     align-content: center;
-}
 
-view.at-button--small {
-    margin-bottom: 24rpx;
-    width: 28vw;
-    color: $color-primary;
-    border-color: $color-primary;
+    view.card-box {
+        margin-bottom: 12px;
+    }
+
+    .card-body {
+        @include fja;
+    }
 }

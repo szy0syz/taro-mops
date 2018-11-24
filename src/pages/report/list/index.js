@@ -26,14 +26,14 @@ export default class ReportList extends Component {
         },
         {
           name: '及时库存',
-          path: '/pages/report/sale/index'
+          path: '/pages/report/inventory/index'
         }
       ]
     }
   }
 
   handleNav = (url) => {
-    Taro.switchTab({url})
+    Taro.navigateTo({url})
   }
 
   render() {
