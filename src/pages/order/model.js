@@ -1,6 +1,4 @@
-import Taro from '@tarojs/taro'
 import dayjs from 'dayjs'
-
 import * as Service from './service'
 
 
@@ -67,11 +65,9 @@ export default {
   },
   effects: {
     * create({payload}, { call }) {
-      const { data } = yield call(Service.post, payload)
+      const { data, success } = yield call(Service.post, payload)
       console.info('创建订单',data.number)
-      if(data.success) {
-        Taro.switchTab({url: '/pages/order/index'})
-      }
+      return Boolean(success)
     }
   },
   reducers: {

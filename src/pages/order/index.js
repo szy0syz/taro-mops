@@ -89,10 +89,15 @@ export default class Order extends Component {
       storekeeper,
       paymentMethod
     }
-    console.log(payload)
     this.props.dispatch({
       type: 'order/create',
       payload
+    }).then(isCreated => {
+      if (isCreated) {
+        setTimeout(() => {
+          Taro.switchTab({ url: '/pages/list/index' })
+        }, 1500)
+      }
     })
   }
 
