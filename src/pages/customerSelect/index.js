@@ -52,7 +52,6 @@ export default class CustomerSelect extends Component {
 
   render() {
     const { customerList } = this.props
-    console.log('customerSelect redner func()~~!')
     return (
       <View className='page'>
         <View className='header'>

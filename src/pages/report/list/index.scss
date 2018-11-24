@@ -1,20 +1,32 @@
 @import "../../../styles/mixin";
+// .echarts {
+//     position: absolute;
+//     top: 0;
+//     bottom: 0;
+//     left: 0;
+//     right: 0;
+//     display: flex;
+//     flex-direction: column;
+//     align-items: center;
+//     justify-content: space-between;
+//     box-sizing: border-box;
+// }
 
-.echarts {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
+// ec-canvas {
+//     width: 100%;
+//     height: 100%;
+// }
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  box-sizing: border-box;
+.container {
+    padding: 30rpx 10rpx;
+    @include fja(space-around);
+    flex-wrap: wrap;
+    align-content: center;
 }
 
-ec-canvas {
-  width: 100%;
-  height: 100%;
+view.at-button--small {
+    margin-bottom: 24rpx;
+    width: 28vw;
+    color: $color-primary;
+    border-color: $color-primary;
 }

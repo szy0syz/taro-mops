@@ -11,10 +11,16 @@ export default class ReportSale extends Component {
 
   componentDidMount = () => { }
 
+  handleNavList = () => {
+    Taro.redirectTo({
+      url: '/pages/report/list/index'
+    })
+  }
+
   render() {
     return (
       <View className='page-container'>
-        <View className='title'>
+        <View onClick={this.handleNavList} className='title'>
           <Text style='padding-right: 10rpx;'>销售统计</Text>
           <AtIcon value='chevron-down' size='26' color='#2bb2a7'></AtIcon>
         </View>

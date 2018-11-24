@@ -21,12 +21,14 @@ class App extends Component {
     pages: [
       'pages/home/index',
       'pages/list/index',
-      'pages/report/list/index',
       'pages/order/index',
       'pages/productSelect/index',
+
+      'pages/report/list/index',
       'pages/report/sale/index',
       'pages/report/echarts/echarts',
       'pages/customerSelect/index',
+
       'pages/cart/index',
       'pages/user/index',
       'pages/detail/index',
