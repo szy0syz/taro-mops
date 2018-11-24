@@ -2,8 +2,6 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, ScrollView, Input } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 import { AtButton, AtList, AtListItem, Picker, AtIcon } from 'taro-ui'
-import _ from 'underscore'
-
 import './index.scss';
 
 @connect(({ common, order, customerSelect }) => ({
@@ -54,6 +52,7 @@ export default class CustomerSelect extends Component {
 
   render() {
     const { customerList } = this.props
+    console.log('customerSelect redner func()~~!')
     return (
       <View className='page'>
         <View className='header'>

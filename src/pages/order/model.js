@@ -1,9 +1,13 @@
+import Taro from '@tarojs/taro'
+import dayjs from 'dayjs'
+
 import * as Service from './service'
+
 
 export default {
   namespace: 'order',
   state: {
-    billDate: '',
+    billDate: dayjs().format('YYYY-MM-DD'),
     customer: {},
     products: [],
     staff: '',
@@ -63,8 +67,11 @@ export default {
   },
   effects: {
     * create({payload}, { call }) {
-      const res = yield call(Service.post, payload)
-      console.info('创建订单',res.data.number)
+      const { data } = yield call(Service.post, payload)
+      console.info('创建订单',data.number)
+      if(data.success) {
+        Taro.switchTab({url: '/pages/order/index'})
+      }
     }
   },
   reducers: {

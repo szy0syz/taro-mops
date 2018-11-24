@@ -10,16 +10,29 @@ import './index.scss';
 export default class List extends Component {
   config = {
     navigationBarTitleText: '明细',
-  };
+  }
 
-  componentDidMount = () => {
+  // bug
+  // componentWillMount = () => {}
+
+  componentDidShow = () => {
     this.props.dispatch({
       type: 'list/loadSaleOrders'
     })
   }
 
+  // componentDidMount = () => {
+  //   this.props.dispatch({
+  //     type: 'list/loadSaleOrders'
+  //   })
+  // }
+
   handleClick = (index) => {
     this.props.dispatch({ type: 'list/save', payload: { current: index } })
+  }
+
+  handleInputChange = (keyword) => {
+    this.props.dispatch({ type: 'list/save', payload: { keyword } })
   }
 
   onDateStartChange = e => {
@@ -36,13 +49,7 @@ export default class List extends Component {
   }
 
   render() {
-    const {saleOrders} = this.props
-    const tagList = {
-      paid: '已收款',
-      shipped: '已发货',
-      received: '已收货',
-      uploaded: '已同步'
-    }
+    const { tagList, saleOrders, saleSearchTypes, saleSearchType, keyword } = this.props
     return (
       <View className='page-container'>
         <View className='tabs-container'>
@@ -53,9 +60,7 @@ export default class List extends Component {
             tabList={[
               { title: '订 单' },
               { title: '销 售' },
-              { title: '采 购' },
-              { title: '应 收' },
-              { title: '应 付' }
+              { title: '应 收' }
             ]}
             onClick={this.handleClick}
           >
@@ -76,20 +81,19 @@ export default class List extends Component {
                 <View className='box-search'>
                   <Text>销售订单</Text>
                   <View>
-                    <Picker className='searchType' mode='selector' range={this.props.saleSearchTypes} onChange={this.onSaleTypeChange}>
+                    <Picker className='searchType' mode='selector' range={saleSearchTypes} onChange={this.onSaleTypeChange}>
                       <Text>
-                        {this.props.saleSearchTypes[this.props.saleSearchType]}
+                        {saleSearchTypes[saleSearchType]}
                       </Text>
                       <AtIcon value='chevron-down' style='margin-left: 5rpx;' color='#aaa'></AtIcon>
                     </Picker>
                     <View className='searchInput'>
                       <AtInput
-                        clear
                         border={false}
-                        placeholder='点击清除按钮清空内容'
+                        placeholder='请输入关键字'
                         type='text'
-                        value={this.state.value4}
-                        onChange={this.handleChange.bind(this)}
+                        value={keyword}
+                        onChange={this.handleInputChange.bind(this)}
                       />
                     </View>
                   </View>
@@ -99,14 +103,14 @@ export default class List extends Component {
                     <Text>合计：￥{this.props.saleOrderAmount.toFixed(2)}</Text>
                     <View>
                       <AtTag active type='primary' circle>标签</AtTag>
-                      <AtTag circle className='bill-opt writing'>开单</AtTag>
+                      {/* <AtTag circle className='bill-opt writing'>开单</AtTag> */}
                     </View>
                   </View>
                   {saleOrders.map(item => (
                     <View key={item._id} className='bill-item'>
                       <View>
                         <Text>{item.billDate}</Text>
-                        {item.billTags.map(tag => (
+                        {item.billTags && item.billTags.map(tag => (
                           <AtTag key={tag} size='small' className={`bill-tag ${tag}`}>{tagList[tag]}</AtTag>
                         ))}
                       </View>
@@ -119,7 +123,7 @@ export default class List extends Component {
                       </View>
                       <Text>
                         {item.number}
-                    </Text>
+                      </Text>
                     </View>
                   ))}
                 </View>
@@ -128,14 +132,8 @@ export default class List extends Component {
             <AtTabsPane tabDirection='vertical' current={this.props.current} index={1}>
               <View style='background-color: #fff;font-size:18px;text-align:center;height:200px;'>【EAS销售出库单】</View>
             </AtTabsPane>
-            <AtTabsPane tabDirection='vertical' current={this.props.current} index={2}>
-              <View style='background-color: #fff;font-size:18px;text-align:center;height:200px;'>【EAS采购入库单】</View>
-            </AtTabsPane>
             <AtTabsPane tabDirection='vertical' current={this.props.current} index={3}>
               <View style='background-color: #fff;font-size:18px;text-align:center;height:200px;'>【EAS应收单】</View>
-            </AtTabsPane>
-            <AtTabsPane tabDirection='vertical' current={this.props.current} index={4}>
-              <View style='background-color: #fff;font-size:18px;text-align:center;height:200px;'>【EAS应付单】</View>
             </AtTabsPane>
           </AtTabs>
         </View>

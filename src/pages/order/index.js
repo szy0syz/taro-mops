@@ -19,12 +19,6 @@ export default class Order extends Component {
     })
   }
 
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   console.log(nextProps)
-  //   console.log(nextState)
-  //   return true
-  // }
-
   handleBillTagsChange(billTags) {
     console.log(billTags)
     this.props.dispatch({

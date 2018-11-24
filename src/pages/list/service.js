@@ -1,7 +1,7 @@
 import Request from '../../utils/request';
 
 export const loadSaleOrders = data => Request({
-  url: '/saleorder',
+  url: '/saleorders',
   method: 'GET',
   data,
 })

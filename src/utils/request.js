@@ -1,10 +1,12 @@
 import Taro from '@tarojs/taro';
 import { baseUrl, noConsole } from '../config';
 
-const request_data = {
-  platform: 'wap',
-  rent_mode: 2,
-};
+// const request_data = {
+//   platform: 'wap',
+//   rent_mode: 2,
+// };
+
+const request_data = {}
 
 export default (options = { method: 'GET', data: {} }) => {
   if (!noConsole) {
