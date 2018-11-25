@@ -115,7 +115,7 @@ export default class User extends Component {
           </View>
         </View>
         <View className='login'>
-          <View className='card'>
+          {/* <View className='card'>
             <View className='type type0'>
               <View className='operation'>
                 <View className='txt'>{mobile ? 'VIP会员用户' : '您还不是会员'}</View>
@@ -127,7 +127,7 @@ export default class User extends Component {
                 )}
               </View>
             </View>
-          </View>
+          </View> */}
           <View className='item' data-url='/pages/couponList/index' onClick={this.goToPage}>
             <View className='left'>
               <Image className='icon-left' src={coupon_img} />

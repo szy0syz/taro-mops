@@ -50,7 +50,7 @@
     margin: 2px auto;
     font-size: 32px;
     color: #fff;
-    background: #333;
+    background: $color-primary;
     text-align: center;
     font-weight: 600;
     margin-top: 40px;
@@ -90,7 +90,7 @@
     height: 80px;
     margin: 20px auto 0px auto;
     overflow: hidden;
-    border-bottom: 1px solid #f8f8f8;
+    border-bottom: 1px solid $color-primary;
     input {
       border: 0;
       height: 80px;

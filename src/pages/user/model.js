@@ -3,7 +3,7 @@ export default {
   state: {
     list: [
       {
-        txt: '待支付',
+        txt: '待同步',
         img: 'http://static-r.msparis.com/uploads/d/e/de473a00fca2dae58c16decbd538347a.png',
         num: 0,
         link: '/userOrder.html?type=1',
@@ -24,7 +24,7 @@ export default {
         type: 9, // 已发货的类型海伦正在加，后续会补上
       },
       {
-        txt: '待归还',
+        txt: '已收款',
         img: 'http://static-r.msparis.com/uploads/e/9/e94bc2b990c1f87611529dba0a194c6e.png',
         num: 0,
         link: '/userOrder.html?type=6',
