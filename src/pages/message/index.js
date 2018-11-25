@@ -1,11 +1,7 @@
 import Taro, { Component } from '@tarojs/taro';
 import { View, Image } from '@tarojs/components';
-import { connect } from '@tarojs/redux';
 import './index.scss';
 
-@connect(({message}) => ({
-  ...message,
-}))
 export default class Message extends Component {
   config = {
     navigationBarTitleText: '系统消息',

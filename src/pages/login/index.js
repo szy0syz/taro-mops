@@ -10,7 +10,7 @@ let setIntervalTime = null;
 }))
 export default class Login extends Component {
   config = {
-    navigationBarTitleText: '云农农业科技-MOPS系统',
+    navigationBarTitleText: 'MOPS系统-登录',
   };
 
   getMobile = (event) => {

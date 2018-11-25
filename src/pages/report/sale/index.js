@@ -12,7 +12,7 @@ export default class ReportSale extends Component {
   componentDidMount = () => { }
 
   handleNavList = () => {
-    Taro.redirectTo({
+    Taro.navigateTo({
       url: '/pages/report/list/index'
     })
   }

@@ -110,8 +110,8 @@ export default class Order extends Component {
     })
   }
 
-  handleRedirect(path) {
-    Taro.redirectTo({
+  handleNavigate(path) {
+    Taro.navigateTo({
       url: `/pages/${path}/index`
     })
   }
@@ -151,7 +151,7 @@ export default class Order extends Component {
               }}
             />
             <AtListItem
-              onClick={this.handleRedirect.bind(this, 'customerSelect')}
+              onClick={this.handleNavigate.bind(this, 'customerSelect')}
               className='custom-listItem'
               title='客户'
               extraText={customer.CustomerName}
@@ -195,7 +195,7 @@ export default class Order extends Component {
           <View>
             <Image onClick={this.handleScanCode} src='http://cdn.jerryshi.com/picgo/scanAdd.png' />
             <Image
-              onClick={this.handleRedirect.bind(this, 'productSelect')}
+              onClick={this.handleNavigate.bind(this, 'productSelect')}
               src='http://cdn.jerryshi.com/picgo/plusAdd.png'
             />
           </View>

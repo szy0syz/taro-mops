@@ -19,8 +19,11 @@ class App extends Component {
 
   config = {
     pages: [
-      'pages/report/inventory/index',
       'pages/home/index',
+      'pages/message/index',
+      'pages/login/index',
+      'pages/report/inventory/index',
+      
       'pages/list/index',
       'pages/order/index',
       'pages/productSelect/index',
@@ -36,8 +39,8 @@ class App extends Component {
       'pages/detail/index',
       'pages/about/index',
       'pages/size/index',
-      'pages/login/index',
-      'pages/message/index',
+      
+      
       'pages/couponList/index',
       'pages/welcome/index',
     ],
@@ -64,7 +67,7 @@ class App extends Component {
         iconPath: "./images/icon/plus.png",
         selectedIconPath: "./images/icon/plus.png"
       }, {
-        pagePath: "pages/report/sale/index",
+        pagePath: "pages/report/list/index",
         text: "报表",
         iconPath: "./images/tab/report2.png",
         selectedIconPath: "./images/tab/report2-act.png"
