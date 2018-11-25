@@ -9,6 +9,14 @@
         margin-bottom: 12px;
     }
 
+    view.at-card {
+        border: 2PX solid $color-primary;
+    }
+
+    view.at-card-header {
+        border-bottom: 1PX solid $color-primary;
+    }
+
     .card-body {
         @include fja;
     }
