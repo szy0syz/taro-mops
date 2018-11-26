@@ -35,6 +35,10 @@ export default class List extends Component {
     this.props.dispatch({ type: 'list/save', payload: { keyword } })
   }
 
+  handleDetail = (_id) => {
+    Taro.navigateTo({url: `/pages/detail/index?_id=${_id}`})
+  }
+
   onDateStartChange = e => {
     this.props.dispatch({ type: 'list/save', payload: { dateStart: e.detail.value } })
   }
@@ -44,7 +48,6 @@ export default class List extends Component {
   }
 
   onSaleTypeChange = (e) => {
-    console.log(e)
     this.props.dispatch({ type: 'list/save', payload: { saleSearchType: e.detail.value } })
   }
 
@@ -107,7 +110,7 @@ export default class List extends Component {
                     </View>
                   </View>
                   {saleOrders.map(item => (
-                    <View key={item._id} className='bill-item'>
+                    <View key={item._id} className='bill-item' onClick={this.handleDetail.bind(this, item._id)}>
                       <View>
                         <Text>{item.billDate}</Text>
                         {item.billTags && item.billTags.map(tag => (

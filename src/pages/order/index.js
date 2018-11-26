@@ -8,9 +8,9 @@ import './index.scss'
 @connect(({ order }) => ({
   ...order,
 }))
-export default class Order extends Component {
+export default class Detail extends Component {
   config = {
-    navigationBarTitleText: '开单',
+    navigationBarTitleText: '销售订单',
   }
 
   componentDidMount = () => {
