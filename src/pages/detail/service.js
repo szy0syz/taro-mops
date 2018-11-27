@@ -5,8 +5,8 @@ export const fetchById = _id => Request({
   method: 'GET'
 })
 
-export const post = data => Request({
-  url: '/saleorders',
+export const syncOrder = data => Request({
+  url: '/eas/syncOrder',
   method: 'POST',
   data
 })

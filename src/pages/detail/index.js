@@ -17,7 +17,7 @@ export default class Order extends Component {
   componentDidMount = async () => {
     const { _id } = this.$router.params
 
-    const { data:payload } = await fetchById(_id)
+    const { data: payload } = await fetchById(_id)
 
     this.props.dispatch({
       type: 'detail/save',
@@ -122,6 +122,16 @@ export default class Order extends Component {
     })
   }
 
+  handleUploadImg() {
+    Taro.chooseImage({
+      count: 1,
+      sizeType: ['original', 'compressed'],
+      sourceType: ['album', 'camera'],
+    }).then(data => {
+      console.log(data)
+    })
+  }
+
   handleScanCode() {
     Taro.scanCode().then((data) => {
       console.log(data)
@@ -133,6 +143,19 @@ export default class Order extends Component {
 
   handleRemoveItem(item) {
     console.log(item)
+    
+
+  }
+
+  handleSyncOrder() {
+    // TODO: check status isSync
+    const { _id } = this.props
+    this.props.dispatch({
+      type: 'detail/syncOrder',
+      payload: {
+        _id
+      }
+    })
   }
 
   render() {
@@ -235,7 +258,7 @@ export default class Order extends Component {
           </View>
           <View>
             <Text>票据影像</Text>
-            <View onClick={this.handleWaiting} >
+            <View onClick={this.handleUploadImg} >
               <AtIcon value='camera' size='34' color='#fff'></AtIcon>
             </View>
           </View>
@@ -259,7 +282,7 @@ export default class Order extends Component {
           </View>
           <AtButton onClick={this.handleAgain} size='normal' type='secondary'>再开一单</AtButton>
           <AtButton onClick={this.handleSave} size='normal' type='primary'>确认保存</AtButton>
-          <View onClick={this.handleWaiting} style='padding:6rpx;background-color: rgba(112, 159, 239, 1); border-radius: 14rpx;'>
+          <View onClick={this.handleSyncOrder} style='padding:6rpx;background-color: rgba(112, 159, 239, 1); border-radius: 14rpx;'>
             <AtIcon value='iconfont icon-shangchuan' size='36' color='#fff'></AtIcon>
           </View>
         </View>

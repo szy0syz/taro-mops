@@ -5,6 +5,7 @@ import * as Service from './service'
 export default {
   namespace: 'detail',
   state: {
+    _id: '',
     billDate: dayjs().format('YYYY-MM-DD'),
     customer: {},
     products: [],
@@ -64,10 +65,15 @@ export default {
     ]
   },
   effects: {
-    * create({payload}, { call }) {
+    * create({ payload }, { call }) {
       const { data, success } = yield call(Service.post, payload)
-      console.info('创建订单',data.number)
+      console.info('创建订单', data.number)
       return Boolean(success)
+    },
+
+    * syncOrder({ payload }, { call }) {
+      const { data } = yield call(Service.syncOrder, payload)
+      console.log(data)
     }
   },
   reducers: {
