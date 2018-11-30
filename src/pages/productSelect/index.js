@@ -27,9 +27,7 @@ export default class ProductSelect extends Component {
       }
     }
   }
-
-  componentDidMount = () => { }
-
+  
   handleSelected(product) {
     this.setState({
       currentItem: product,
@@ -118,7 +116,7 @@ export default class ProductSelect extends Component {
                   name='price'
                   title='单价：'
                   type='digit'
-                  value={Number(this.state.currentItem.MaterialPrice).toFixed(2)}
+                  value={this.state.currentItem.MaterialPrice}
                   onChange={this.handleModalChange.bind(this, 'price')}
                 >
                   <Text>元</Text>

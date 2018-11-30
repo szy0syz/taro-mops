@@ -260,7 +260,7 @@ export default class Detail extends Component {
           </View>
           <AtButton onClick={this.handleAgain} size='normal' type='secondary'>再开一单</AtButton>
           <AtButton onClick={this.handleSave} size='normal' type='primary'>确认保存</AtButton>
-          <View onClick={this.handleWaiting} style='padding:6rpx;background-color: rgba(112, 159, 239, 1); border-radius: 14rpx;'>
+          <View onClick={this.handleSyncOrder} style='padding:6rpx;background-color: rgba(112, 159, 239, 1); border-radius: 14rpx;'>
             <AtIcon value='iconfont icon-shangchuan' size='36' color='#fff'></AtIcon>
           </View>
         </View>
