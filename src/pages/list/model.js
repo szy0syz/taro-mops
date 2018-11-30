@@ -45,7 +45,7 @@ export default {
       let { data: saleOrders } = yield call(Service.loadSaleOrders, { dateStart, dateEnd, billTags })
 
       let saleOrderAmount = 0
-      console.log('Array.isArray(saleOrders) && saleOrders.length > 0', Array.isArray(saleOrders) && saleOrders.length > 0)
+      // console.log('Array.isArray(saleOrders) && saleOrders.length > 0', Array.isArray(saleOrders) && saleOrders.length > 0)
       if (Array.isArray(saleOrders) && saleOrders.length > 0) {
         saleOrderAmount = saleOrders.reduce((sum, item) => sum += calcTotal(item.products, 'amount'), 0)
         saleOrders = saleOrders.map(order => {
@@ -54,14 +54,13 @@ export default {
           return order
         })
       }
-      console.log('[effects]loadSaleOrders  - saleOrders:', saleOrders, saleOrderAmount)
+
       yield put({
         type: 'save',
         payload: {
           saleOrderAmount,
           saleOrders,
-          orders: saleOrders,
-          keyword: '哈哈儿'
+          orders: saleOrders
         }
       })
     }

@@ -129,6 +129,13 @@ export default class Detail extends Component {
     console.log(item)
   }
 
+  handleSyncOrder = () => {
+    Taro.showToast({
+      icon: 'none',
+      title: '请先保存再同步'
+    })
+  }
+
   render() {
     const { products, customer, remark } = this.props
     const amountRRR = this.props.products.reduce((sum, item) => sum += item.amount, 0).toFixed(2)

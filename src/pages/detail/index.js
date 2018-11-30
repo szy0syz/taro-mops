@@ -18,7 +18,7 @@ export default class Order extends Component {
     const { _id } = this.$router.params
 
     const { data: payload } = await fetchById(_id)
-
+    console.log('~~~payload', payload)
     this.props.dispatch({
       type: 'detail/save',
       payload
@@ -144,12 +144,17 @@ export default class Order extends Component {
   handleRemoveItem(item) {
     console.log(item)
     
-
   }
 
   handleSyncOrder() {
-    // TODO: check status isSync
-    const { _id } = this.props
+    const { _id, isSynced } = this.props
+    if (isSynced) {
+      Taro.showToast({
+        title: '该单据已同步'
+      })
+      return
+    }
+    
     this.props.dispatch({
       type: 'detail/syncOrder',
       payload: {
@@ -159,7 +164,7 @@ export default class Order extends Component {
   }
 
   render() {
-    const { products, customer, remark } = this.props
+    const { products, customer, remark, isSynced } = this.props
     const amountRRR = this.props.products.reduce((sum, item) => sum += item.amount, 0).toFixed(2)
     return (
       <View className='order-page'>
@@ -283,7 +288,7 @@ export default class Order extends Component {
           <AtButton onClick={this.handleAgain} size='normal' type='secondary'>再开一单</AtButton>
           <AtButton onClick={this.handleSave} size='normal' type='primary'>确认保存</AtButton>
           <View onClick={this.handleSyncOrder} style='padding:6rpx;background-color: rgba(112, 159, 239, 1); border-radius: 14rpx;'>
-            <AtIcon value='iconfont icon-shangchuan' size='36' color='#fff'></AtIcon>
+            <AtIcon value={`iconfont ${isSynced ? 'icon-confirm' : 'icon-shangchuan'}`} size='36' color='#fff'></AtIcon>
           </View>
         </View>
       </View>

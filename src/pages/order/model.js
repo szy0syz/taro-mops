@@ -20,6 +20,9 @@ export default {
     },
     billTags: [],
     remark: '',
+    isSynced: false,
+    isRemovedInEAS: false,
+    saleIssueBill: null,
     tagList: [
       {
         value: 'shipped',
