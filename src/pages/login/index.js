@@ -190,7 +190,7 @@ export default class Login extends Component {
         <View className='bgtopWrap'>
           <View className='loginWrap'>
             <View className='inpuWrapNumber'>
-              <Input disabled={true} type='number' name='mobile' maxLength='11' placeholder='请验证手机号' value={this.props.mobile} />
+              <Input disabled type='number' name='mobile' maxLength='11' placeholder='请验证手机号' value={this.props.mobile} />
               <Button size='mini' className='numberWrap' openType='getPhoneNumber' onGetPhoneNumber={this.onGetPhoneNumber} >验证手机号</Button>
             </View>
             <View className='inpuWrapMpblie'>
