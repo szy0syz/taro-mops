@@ -1,7 +1,9 @@
 import Taro, { Component } from '@tarojs/taro';
 import { View, Text, Input, Button } from '@tarojs/components';
 import { connect } from '@tarojs/redux';
+import { code2Session, cryptData } from './service'
 import './index.scss';
+
 
 let setIntervalTime = null;
 
@@ -11,39 +13,37 @@ let setIntervalTime = null;
 export default class Login extends Component {
   config = {
     navigationBarTitleText: 'MOPS系统-登录',
-  };
-
-  getMobile = (event) => {
-    const mobile = event.target.value;
-    this.props.dispatch({
-      type: 'login/save',
-      payload: { mobile },
-    });
   }
 
-  getUsername = (event) => {
-    const username = event.target.value;
+  handleInputValue = (key, event) => {
+    const { value } = event.target
+    let payload
+
+    switch (key) {
+      case 'mobile':
+        payload = { mobile: value }
+        break;
+      case 'username':
+        payload = { username: value }
+        break;
+      case 'easid':
+        payload = { easid: value }
+        break;
+    }
     this.props.dispatch({
       type: 'login/save',
-      payload: { username },
+      payload
     })
   }
 
-
-  login = () => {
-    if (this.props.mobile == '' || this.props.mobile.length != 11 || this.props.code == '') {
-      this.showToast('请输入有效的手机号或输入有效验证码！');
-      return false;
+  handleLogin = () => {
+    if (this.props.mobile == '' || this.props.mobile.length != 11) {
+      this.showToast('请输入有效的手机号！')
+      return false
     }
-    console.log(this.props.code)
-    this.props.dispatch({
-      type: 'login/login',
-      payload: {
-        code: this.props.code,
-        mobile: this.props.mobile,
-        username: this.props.username
-      },
-    });
+    // const { openid, nickName, mobile, username, avatar, city, province } = this.props
+    // let payload = { openid, nickName, mobile, username, avatar, city, province }
+    this.props.dispatch({ type: 'login/login' })
   }
 
   sendSms = () => {
@@ -118,14 +118,68 @@ export default class Login extends Component {
   }
 
   componentDidMount = () => {
-    Taro.login().then(data => {
-      if (data && data.code) {
-        this.props.dispatch({
-          type: 'login/save',
-          payload: { code: data.code },
-        })
-      }
+    Taro.login()
+      .then(data => {
+        console.log(data)
+        if (data && data.code) {
+          this.props.dispatch({
+            type: 'login/save',
+            payload: { jsCode: data.code },
+          })
+          return code2Session({ js_code: data.code })
+        }
+        return false
+      })
+      .then(res => {
+        if (res) {
+          const { openid, session_key: sessionKey } = res.data
+          this.props.dispatch({
+            type: 'login/save',
+            payload: { openid, sessionKey },
+          })
+        }
+      })
+  }
+
+  onGetUserInfo = async (res) => {
+    const { detail } = res
+    if (detail.errMsg === "getUserInfo:ok") {
+      // 获取用户信息成功
+      const { avatarUrl: avatar, city, nickName, province } = detail.userInfo
+      console.log(detail.userInfo)
+      this.props.dispatch({
+        type: 'login/save',
+        payload: { avatar, city, nickName, province },
+      })
+      this.handleLogin()
+    }
+
+    // 没必要去解密拿openid，已经拿到
+    // const res = await cryptData({
+    //   session_key: this.props.sessionKey,
+    //   encryptedData: data.detail.encryptedData,
+    //   iv: data.detail.iv
+    // })
+  }
+
+  onGetPhoneNumber = async (data) => {
+    const { encryptedData, iv } = data.detail
+    const { sessionKey } = this.props
+    console.log(sessionKey, encryptedData, iv)
+    const res = await cryptData({
+      session_key: sessionKey,
+      encryptedData,
+      iv
     })
+    const { purePhoneNumber:mobile } = res.data
+    if (mobile) {
+      this.props.dispatch({
+        type: 'login/save',
+        payload: { mobile }
+      })
+    } else {
+      this.showToast('验证手机号失败')
+    }
   }
 
   render() {
@@ -135,16 +189,19 @@ export default class Login extends Component {
         <View className='title-des'>内部系统，授权访问</View>
         <View className='bgtopWrap'>
           <View className='loginWrap'>
-            <View className='inpuWrapMpblie'>
-              <Input type='number' name='mobile' maxLength='11' placeholder='请输入手机号' value={this.props.mobile} onInput={this.getMobile} />
+            <View className='inpuWrapNumber'>
+              <Input disabled={true} type='number' name='mobile' maxLength='11' placeholder='请验证手机号' value={this.props.mobile} />
+              <Button size='mini' className='numberWrap' openType='getPhoneNumber' onGetPhoneNumber={this.onGetPhoneNumber} >验证手机号</Button>
             </View>
             <View className='inpuWrapMpblie'>
-              <Input type='string' name='username' placeholder='请输入员工姓名' value={this.props.username} onInput={this.getUsername} />
+              <Input type='string' name='username' placeholder='请输入员工姓名' value={this.props.username} onInput={this.handleInputValue.bind(this, 'username')} />
             </View>
-            <Button className='button' onClick={this.login}>验  证</Button>
-            <View className='see-des' onClick={this.getVoiceCode}>
-              无需输入密码
-              <Text>后台验证身份</Text>
+            <View className='inpuWrapMpblie'>
+              <Input type='number' name='easid' placeholder='请输入EAS工号' value={this.props.easid} onInput={this.handleInputValue.bind(this, 'easid')} />
+            </View>
+            <Button className='button' openType='getUserInfo' onGetUserInfo={this.onGetUserInfo} >登  录</Button>
+            <View className='see-des'>
+              <Text>无需输入密码 后台审核登录</Text>
             </View>
           </View>
         </View>

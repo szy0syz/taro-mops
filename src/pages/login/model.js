@@ -5,74 +5,80 @@ export default {
   namespace: 'login',
   state: {
     mobile: '',
-    code: '',
     username: '',
-    invitation_code: '',
-    invitation_code_from: '',
+    easid: '',
     access_token: '',
-    nickname: '',
-    new_user: '',
-    is_has_buy_card: '', // 用户是否买过卡
-    smsText: '发送验证码',
     sending: 0,
     smsTime: 30,
     erroMessage: '',
-    type: 4, // 1微信 2QQ 3新浪 4.微信公众号 5.支付宝生活号 6.京东 7.返利
+    // 微信数据----------
+    jsCode: '',
+    sessionKey: '',
+    openid: '',
+    avatar: '',
+    nickName: '',
+    city: '',
+    province: ''
   },
 
   effects: {
-    * login(_, { call, put, select }) {
-      const { code, mobile, username } = yield select(state => state.login);
-      const res = yield call(login.login, { code, mobile, username});
-      if (res.status == 'ok') {
-        const userInfo = {
-          access_token: res.data.access_token,
-          invitation_code: res.data.invitation_code,
-          mobile: res.data.mobile,
-          nickname: res.data.nickname,
-          new_user: res.data.new_user,
-          is_has_buy_card: res.data.is_has_buy_card,
-          erroMessage: '',
-        };
+    * login(_, { call, select }) {
+      const { openid, nickName, mobile, username, avatar, city, province } = yield select(state => state.login)
+      const res = yield call(login.login, { openid, nickName, mobile, username, avatar, city, province })
+      console.log(res)
 
-        Taro.setStorageSync('user_info', userInfo);
-        Taro.setStorageSync('access_token', res.data.access_token);
 
-        yield put({ type: 'common/save',
-          payload: {
-            access_token: res.data.access_token,
-            invitation_code: res.data.invitation_code,
-            mobile: res.data.mobile,
-            nickname: res.data.nickname,
-            new_user: res.data.new_user,
-            is_has_buy_card: res.data.is_has_buy_card,
-            erroMessage: '',
-            code:'',
-          },
-        });
 
-        yield put({ type: 'save',
-          payload: {
-            access_token: res.data.access_token,
-            invitation_code: res.data.invitation_code,
-            mobile: res.data.mobile,
-            nickname: res.data.nickname,
-            new_user: res.data.new_user,
-            is_has_buy_card: res.data.is_has_buy_card,
-            erroMessage: '',
-            code: '',
-          },
-        });
 
-        Taro.showToast({
-          title: '登录成功，欢迎回来～～～',
-          icon: 'none',
-        });
+      // if (res.status == 'ok') {
+      //   const userInfo = {
+      //     access_token: res.data.access_token,
+      //     invitation_code: res.data.invitation_code,
+      //     mobile: res.data.mobile,
+      //     nickname: res.data.nickname,
+      //     new_user: res.data.new_user,
+      //     is_has_buy_card: res.data.is_has_buy_card,
+      //     erroMessage: '',
+      //   };
 
-        setTimeout(() => {
-          Taro.navigateBack();
-        }, 1000);
-      }
+      //   Taro.setStorageSync('user_info', userInfo);
+      //   Taro.setStorageSync('access_token', res.data.access_token);
+
+      //   yield put({ type: 'common/save',
+      //     payload: {
+      //       access_token: res.data.access_token,
+      //       invitation_code: res.data.invitation_code,
+      //       mobile: res.data.mobile,
+      //       nickname: res.data.nickname,
+      //       new_user: res.data.new_user,
+      //       is_has_buy_card: res.data.is_has_buy_card,
+      //       erroMessage: '',
+      //       code:'',
+      //     },
+      //   });
+
+      //   yield put({ type: 'save',
+      //     payload: {
+      //       access_token: res.data.access_token,
+      //       invitation_code: res.data.invitation_code,
+      //       mobile: res.data.mobile,
+      //       nickname: res.data.nickname,
+      //       new_user: res.data.new_user,
+      //       is_has_buy_card: res.data.is_has_buy_card,
+      //       erroMessage: '',
+      //       code: '',
+      //     },
+      //   });
+
+      //   Taro.showToast({
+      //     title: '登录成功，欢迎回来～～～',
+      //     icon: 'none',
+      //   });
+
+      //   setTimeout(() => {
+      //     Taro.navigateBack();
+      //   }, 1000);
+      // }
     },
 
     * sendSms(_, { call, put, select }) {

@@ -131,9 +131,10 @@
   }
 
   .numberWrap{
+    padding: 0;
     width: 198px;
     height: 74px;
-    border: 1px solid #FFFFFF;
+    border: none;
     font-size: 28px;
     border-radius: 6px;
     text-align: center;
@@ -141,7 +142,7 @@
     float: right;
     margin-left: 20px;
     background: #FFF;
-    color: #D64761;
+    color: $color-primary;
   }
 
   .erroMessage{

@@ -1,11 +1,5 @@
 import Request from '../../utils/request';
 
-// 老用户登录
-export const login = data => Request({
-  url: '/user/login',
-  method: 'POST',
-  data,
-});
 
 // 获取手机验证码
 export const getSms = data => Request({
@@ -28,3 +22,22 @@ export const getReceive = data => Request({
   data,
 });
 
+///////////
+
+export const code2Session = data => Request({
+  url: '/mina/openidAndSessionKey',
+  method: 'get',
+  data
+})
+
+export const cryptData = data => Request({
+  url: '/mina/cryptData',
+  method: 'post',
+  data
+})
+
+export const login = data => Request({
+  url: '/mina/login',
+  method: 'post',
+  data
+})
