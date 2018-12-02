@@ -18,17 +18,33 @@ export default {
     avatar: '',
     nickName: '',
     city: '',
-    province: ''
+    province: '',
+    // --------data
+    userInfo: null,
+    token: ''
   },
 
   effects: {
-    * login(_, { call, select }) {
+    * login(_, { call, put, select }) {
       const { openid, easid, nickName, mobile, username: userName, avatar, city, province } = yield select(state => state.login)
       const res = yield call(login.login, { openid, easid, nickName, mobile, userName, avatar, city, province })
-      console.log(res)
 
-
-
+      if (res.success) {
+        yield put({
+          type: 'save',
+          payload: {
+            userInfo: res.data,
+            token: res.token
+          }
+        })
+        Taro.setStorage({ key: 'token', data: res.token })
+        Taro.setStorage({ key: 'userInfo', data: res.data })
+        setTimeout(() => {
+          Taro.switchTab({
+            url: '/pages/home/index',
+          })
+        }, 1000)
+      }
 
       // if (res.status == 'ok') {
       //   const userInfo = {

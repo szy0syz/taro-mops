@@ -165,7 +165,6 @@ export default class Login extends Component {
   onGetPhoneNumber = async (data) => {
     const { encryptedData, iv } = data.detail
     const { sessionKey } = this.props
-    console.log(sessionKey, encryptedData, iv)
     const res = await cryptData({
       session_key: sessionKey,
       encryptedData,

@@ -6,7 +6,9 @@ import { baseUrl, noConsole } from '../config';
 //   rent_mode: 2,
 // };
 
+const token = Taro.getStorageSync('token')
 const request_data = {}
+
 
 export default (options = { method: 'GET', data: {} }) => {
   if (!noConsole) {
@@ -20,6 +22,8 @@ export default (options = { method: 'GET', data: {} }) => {
     },
     header: {
       'Content-Type': 'application/json',
+      'jerry-header': 'jerry2018',
+      'Authorization': `Bearer ${token}`
     },
     method: options.method.toUpperCase(),
   }).then((res) => {
