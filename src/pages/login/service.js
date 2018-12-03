@@ -25,19 +25,19 @@ export const getReceive = data => Request({
 ///////////
 
 export const code2Session = data => Request({
-  url: '/mina/openidAndSessionKey',
+  url: '/public/mina/openidAndSessionKey',
   method: 'get',
   data
 })
 
 export const cryptData = data => Request({
-  url: '/mina/cryptData',
+  url: '/public/mina/cryptData',
   method: 'post',
   data
 })
 
 export const login = data => Request({
-  url: '/mina/login',
+  url: '/public/mina/login',
   method: 'post',
   data
 })

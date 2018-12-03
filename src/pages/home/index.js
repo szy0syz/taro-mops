@@ -1,9 +1,8 @@
-import Taro, { Component } from '@tarojs/taro';
-import { View, Text, Image } from '@tarojs/components';
-import { AtSearchBar, AtIcon } from 'taro-ui'
-import { connect } from '@tarojs/redux';
-import MySwiper from '../../components/MySwiper';
-import './index.scss';
+import Taro, { Component } from '@tarojs/taro'
+import { View, Text, Image } from '@tarojs/components'
+import { AtSearchBar } from 'taro-ui'
+import { connect } from '@tarojs/redux'
+import './index.scss'
 
 @connect(({ home, cart, loading }) => ({
   ...home,
@@ -16,18 +15,8 @@ export default class Index extends Component {
   };
 
   componentDidMount = () => {
-    // 设置衣袋小红点
-    if (this.props.items.length > 0) {
-      Taro.setTabBarBadge({
-        index: 1,
-        text: String(this.props.items.length),
-      })
-    } else {
-      Taro.removeTabBarBadge({
-        index: 1,
-      })
-    }
-  };
+    
+  }
 
   //分享
   onShareAppMessage() {

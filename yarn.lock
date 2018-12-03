@@ -213,66 +213,66 @@
     component-type "^1.2.1"
     join-component "^1.1.0"
 
-"@tarojs/async-await@1.2.0-beta.1":
-  version "1.2.0-beta.1"
-  resolved "http://registry.npm.taobao.org/@tarojs/async-await/download/@tarojs/async-await-1.2.0-beta.1.tgz#eb03211e4fa792a0d6fcddc78c79f8ce0dbd8c64"
+"@tarojs/async-await@1.2.0-beta.4":
+  version "1.2.0-beta.4"
+  resolved "http://r.cnpmjs.org/@tarojs/async-await/download/@tarojs/async-await-1.2.0-beta.4.tgz#ef143db5116382d46d31e3472753f89484e990a5"
   dependencies:
     promise-polyfill "^7.1.2"
     regenerator-runtime "^0.11.1"
 
-"@tarojs/components@1.2.0-beta.1":
-  version "1.2.0-beta.1"
-  resolved "http://registry.npm.taobao.org/@tarojs/components/download/@tarojs/components-1.2.0-beta.1.tgz#e7dac00e0168485c4b6056165b9631466fb64bfb"
+"@tarojs/components@1.2.0-beta.4":
+  version "1.2.0-beta.4"
+  resolved "http://r.cnpmjs.org/@tarojs/components/download/@tarojs/components-1.2.0-beta.4.tgz#9d00944911392adb83cd5ba1e144bc526f951482"
   dependencies:
     classnames "^2.2.5"
     nervjs "^1.3.0"
     omit.js "^1.0.0"
     weui "^1.1.2"
 
-"@tarojs/plugin-babel@1.2.0-beta.1":
-  version "1.2.0-beta.1"
-  resolved "http://registry.npm.taobao.org/@tarojs/plugin-babel/download/@tarojs/plugin-babel-1.2.0-beta.1.tgz#784ce6d28c23412bedcc3edb54f04cc7e1190a99"
+"@tarojs/plugin-babel@1.2.0-beta.4":
+  version "1.2.0-beta.4"
+  resolved "http://r.cnpmjs.org/@tarojs/plugin-babel/download/@tarojs/plugin-babel-1.2.0-beta.4.tgz#910bbaf63d38944c346ad2e08c12aa829348303a"
   dependencies:
     babel-core "^6.26.0"
 
-"@tarojs/plugin-csso@1.2.0-beta.1":
-  version "1.2.0-beta.1"
-  resolved "http://registry.npm.taobao.org/@tarojs/plugin-csso/download/@tarojs/plugin-csso-1.2.0-beta.1.tgz#429d1df8c0c878779711a7ccd9134591c025d43a"
+"@tarojs/plugin-csso@1.2.0-beta.4":
+  version "1.2.0-beta.4"
+  resolved "http://r.cnpmjs.org/@tarojs/plugin-csso/download/@tarojs/plugin-csso-1.2.0-beta.4.tgz#070a401f4192d69fd75f29fc0e16fc227ffd84c1"
   dependencies:
     csso "^3.5.0"
 
-"@tarojs/plugin-sass@1.2.0-beta.1":
-  version "1.2.0-beta.1"
-  resolved "http://registry.npm.taobao.org/@tarojs/plugin-sass/download/@tarojs/plugin-sass-1.2.0-beta.1.tgz#bd704226b65e292d5943cc5abef33f570f55f328"
+"@tarojs/plugin-sass@1.2.0-beta.4":
+  version "1.2.0-beta.4"
+  resolved "http://r.cnpmjs.org/@tarojs/plugin-sass/download/@tarojs/plugin-sass-1.2.0-beta.4.tgz#ee3d9c699e3c1e69d134081ce1d38c67e31fa335"
   dependencies:
     node-sass "^4.8.3"
 
-"@tarojs/plugin-uglifyjs@1.2.0-beta.1":
-  version "1.2.0-beta.1"
-  resolved "http://registry.npm.taobao.org/@tarojs/plugin-uglifyjs/download/@tarojs/plugin-uglifyjs-1.2.0-beta.1.tgz#1115659cb2efe659517431c0633120f426aed460"
+"@tarojs/plugin-uglifyjs@1.2.0-beta.4":
+  version "1.2.0-beta.4"
+  resolved "http://r.cnpmjs.org/@tarojs/plugin-uglifyjs/download/@tarojs/plugin-uglifyjs-1.2.0-beta.4.tgz#9890c3d5089e09dc1fc57a6a29341e7e2f7e673a"
   dependencies:
     uglify-js "^3.3.24"
 
-"@tarojs/redux-h5@1.2.0-beta.1":
-  version "1.2.0-beta.1"
-  resolved "http://registry.npm.taobao.org/@tarojs/redux-h5/download/@tarojs/redux-h5-1.2.0-beta.1.tgz#c9921e5ab8241d34c3d2560e9197a6149dffa0ed"
+"@tarojs/redux-h5@1.2.0-beta.4":
+  version "1.2.0-beta.4"
+  resolved "http://r.cnpmjs.org/@tarojs/redux-h5/download/@tarojs/redux-h5-1.2.0-beta.4.tgz#18d20127924f92591dfecbbe94c678cc3d331fcf"
   dependencies:
-    "@tarojs/taro-h5" "1.2.0-beta.1"
+    "@tarojs/taro-h5" "1.2.0-beta.4"
     hoist-non-react-statics "^2.5.0"
     invariant "^2.2.4"
     loose-envify "^1.1.0"
     prop-types "^15.6.1"
     redux "^4.0.0"
 
-"@tarojs/redux@1.2.0-beta.1":
-  version "1.2.0-beta.1"
-  resolved "http://registry.npm.taobao.org/@tarojs/redux/download/@tarojs/redux-1.2.0-beta.1.tgz#04f5897582cc626a4450afa98b85abab830cef8f"
+"@tarojs/redux@1.2.0-beta.4":
+  version "1.2.0-beta.4"
+  resolved "http://r.cnpmjs.org/@tarojs/redux/download/@tarojs/redux-1.2.0-beta.4.tgz#abb4fa2da7dcde10b4530fe74df7fa94e86bd36f"
   dependencies:
-    "@tarojs/utils" "1.2.0-beta.1"
+    "@tarojs/utils" "1.2.0-beta.4"
 
-"@tarojs/rn-runner@1.2.0-beta.1":
-  version "1.2.0-beta.1"
-  resolved "http://registry.npm.taobao.org/@tarojs/rn-runner/download/@tarojs/rn-runner-1.2.0-beta.1.tgz#e140ba734ec3869dbec89de62ec1c68b22ae1668"
+"@tarojs/rn-runner@1.2.0-beta.4":
+  version "1.2.0-beta.4"
+  resolved "http://r.cnpmjs.org/@tarojs/rn-runner/download/@tarojs/rn-runner-1.2.0-beta.4.tgz#cc849a24ed7caf827877ac376c647d2ff0b81239"
   dependencies:
     "@expo/bunyan" "1.8.10"
     babel-runtime "^6.9.2"
@@ -290,42 +290,42 @@
     rimraf "^2.6.1"
     xdl "48.1.4"
 
-"@tarojs/router@1.2.0-beta.1":
-  version "1.2.0-beta.1"
-  resolved "http://registry.npm.taobao.org/@tarojs/router/download/@tarojs/router-1.2.0-beta.1.tgz#93300e95a2126d11b02c2424fea60e867b0bf56b"
+"@tarojs/router@1.2.0-beta.4":
+  version "1.2.0-beta.4"
+  resolved "http://r.cnpmjs.org/@tarojs/router/download/@tarojs/router-1.2.0-beta.4.tgz#f779bd58ffff910e18c783c41fbe4b417a904267"
   dependencies:
     resolve-pathname "^2.2.0"
 
-"@tarojs/taro-h5@1.2.0-beta.1":
-  version "1.2.0-beta.1"
-  resolved "http://registry.npm.taobao.org/@tarojs/taro-h5/download/@tarojs/taro-h5-1.2.0-beta.1.tgz#774b34daf98adeaf014dba78dca67c3b4aab1a9a"
+"@tarojs/taro-h5@1.2.0-beta.4":
+  version "1.2.0-beta.4"
+  resolved "http://r.cnpmjs.org/@tarojs/taro-h5/download/@tarojs/taro-h5-1.2.0-beta.4.tgz#a5d8adb334214c25b7cb036546dede089af6dd0a"
   dependencies:
-    "@tarojs/taro" "1.2.0-beta.1"
+    "@tarojs/taro" "1.2.0-beta.4"
     base64-js "^1.3.0"
     jsonp-retry "^1.0.3"
     mobile-detect "^1.4.2"
     whatwg-fetch "^2.0.4"
 
-"@tarojs/taro-weapp@1.2.0-beta.1":
-  version "1.2.0-beta.1"
-  resolved "http://registry.npm.taobao.org/@tarojs/taro-weapp/download/@tarojs/taro-weapp-1.2.0-beta.1.tgz#9ef73580a2d2b4ed9903bac4aab154df179eb73c"
+"@tarojs/taro-weapp@1.2.0-beta.4":
+  version "1.2.0-beta.4"
+  resolved "http://r.cnpmjs.org/@tarojs/taro-weapp/download/@tarojs/taro-weapp-1.2.0-beta.4.tgz#bdfb2d5f90a4600d325b12ace7db0981d7296920"
   dependencies:
-    "@tarojs/taro" "1.2.0-beta.1"
-    "@tarojs/utils" "1.2.0-beta.1"
+    "@tarojs/taro" "1.2.0-beta.4"
+    "@tarojs/utils" "1.2.0-beta.4"
     lodash "^4.17.10"
     prop-types "^15.6.1"
 
-"@tarojs/taro@1.2.0-beta.1":
-  version "1.2.0-beta.1"
-  resolved "http://registry.npm.taobao.org/@tarojs/taro/download/@tarojs/taro-1.2.0-beta.1.tgz#89e08478ccc71f424c78b16d10f1346aa13698e8"
+"@tarojs/taro@1.2.0-beta.4":
+  version "1.2.0-beta.4"
+  resolved "http://r.cnpmjs.org/@tarojs/taro/download/@tarojs/taro-1.2.0-beta.4.tgz#0bbf5c882da38a61cfdeabbe77162c2ff58f1e3e"
 
-"@tarojs/utils@1.2.0-beta.1":
-  version "1.2.0-beta.1"
-  resolved "http://registry.npm.taobao.org/@tarojs/utils/download/@tarojs/utils-1.2.0-beta.1.tgz#562ce8914462abdcecf22bd55d72ed5de2138898"
+"@tarojs/utils@1.2.0-beta.4":
+  version "1.2.0-beta.4"
+  resolved "http://r.cnpmjs.org/@tarojs/utils/download/@tarojs/utils-1.2.0-beta.4.tgz#2bcfad075976e00eafeba287406ba815b7d90b1d"
 
-"@tarojs/webpack-runner@1.2.0-beta.1":
-  version "1.2.0-beta.1"
-  resolved "http://registry.npm.taobao.org/@tarojs/webpack-runner/download/@tarojs/webpack-runner-1.2.0-beta.1.tgz#42ebfb0986427865dfe3e5110e3b69a122da461a"
+"@tarojs/webpack-runner@1.2.0-beta.4":
+  version "1.2.0-beta.4"
+  resolved "http://r.cnpmjs.org/@tarojs/webpack-runner/download/@tarojs/webpack-runner-1.2.0-beta.4.tgz#20d019aa3fa000ef751ea4aea6c7466b53331fb7"
   dependencies:
     "@types/lodash" "^4.14.116"
     autoprefixer "^8.6.4"
@@ -350,8 +350,8 @@
     postcss-csso "^3.0.0"
     postcss-loader "^2.1.3"
     postcss-modules "^1.4.1"
-    postcss-plugin-constparse "1.2.0-beta.1"
-    postcss-pxtransform "1.2.0-beta.1"
+    postcss-plugin-constparse "1.2.0-beta.4"
+    postcss-pxtransform "1.2.0-beta.4"
     resolve "^1.8.1"
     resolve-url-loader "^2.3.0"
     sass-loader "^7.0.3"
@@ -2699,11 +2699,11 @@ escodegen@1.x.x:
   optionalDependencies:
     source-map "~0.6.1"
 
-eslint-config-taro@1.2.0-beta.1:
-  version "1.2.0-beta.1"
-  resolved "http://registry.npm.taobao.org/eslint-config-taro/download/eslint-config-taro-1.2.0-beta.1.tgz#4ecb10f79fc9fad1d44bebae7258db26ad0f0a94"
+eslint-config-taro@1.2.0-beta.4:
+  version "1.2.0-beta.4"
+  resolved "http://r.cnpmjs.org/eslint-config-taro/download/eslint-config-taro-1.2.0-beta.4.tgz#ed3cc7775ba21e1e42c1cd62eeef6231b1a29718"
   dependencies:
-    eslint-plugin-taro "1.2.0-beta.1"
+    eslint-plugin-taro "1.2.0-beta.4"
 
 eslint-import-resolver-node@^0.3.1:
   version "0.3.2"
@@ -2744,9 +2744,9 @@ eslint-plugin-react@^7.8.2:
     jsx-ast-utils "^2.0.1"
     prop-types "^15.6.2"
 
-eslint-plugin-taro@1.2.0-beta.1:
-  version "1.2.0-beta.1"
-  resolved "http://registry.npm.taobao.org/eslint-plugin-taro/download/eslint-plugin-taro-1.2.0-beta.1.tgz#293176e1bc6a8bdcea6124a96f7a5864c3ad39ab"
+eslint-plugin-taro@1.2.0-beta.4:
+  version "1.2.0-beta.4"
+  resolved "http://r.cnpmjs.org/eslint-plugin-taro/download/eslint-plugin-taro-1.2.0-beta.4.tgz#24e8114c7060cfa665322415bfb09fedac4c7a90"
   dependencies:
     has "^1.0.1"
 
@@ -5585,9 +5585,9 @@ postcss-modules@^1.4.1:
     postcss "^7.0.1"
     string-hash "^1.1.1"
 
-postcss-plugin-constparse@1.2.0-beta.1:
-  version "1.2.0-beta.1"
-  resolved "http://registry.npm.taobao.org/postcss-plugin-constparse/download/postcss-plugin-constparse-1.2.0-beta.1.tgz#9e47b72fb13480572aa7779db0fe0aa64a2a7b10"
+postcss-plugin-constparse@1.2.0-beta.4:
+  version "1.2.0-beta.4"
+  resolved "http://r.cnpmjs.org/postcss-plugin-constparse/download/postcss-plugin-constparse-1.2.0-beta.4.tgz#4f3d1f23190fb217eab73b8aeb700a00ca1e98ff"
   dependencies:
     postcss "^6.0.22"
 
@@ -5598,9 +5598,9 @@ postcss-pxtorem@^4.0.1:
     object-assign "^4.1.0"
     postcss "^5.2.10"
 
-postcss-pxtransform@1.2.0-beta.1:
-  version "1.2.0-beta.1"
-  resolved "http://registry.npm.taobao.org/postcss-pxtransform/download/postcss-pxtransform-1.2.0-beta.1.tgz#ac437fa05ca0a61bebd8d7dba3d67aa2e2b09d53"
+postcss-pxtransform@1.2.0-beta.4:
+  version "1.2.0-beta.4"
+  resolved "http://r.cnpmjs.org/postcss-pxtransform/download/postcss-pxtransform-1.2.0-beta.4.tgz#e34bf3248bdabdeff857de8a4f53f810703eaed8"
   dependencies:
     postcss "^6.0.16"
     postcss-pxtorem "^4.0.1"

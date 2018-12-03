@@ -18,7 +18,7 @@ export default class Order extends Component {
     const { _id } = this.$router.params
 
     const { data: payload } = await fetchById(_id)
-    console.log('~~~payload', payload)
+
     this.props.dispatch({
       type: 'detail/save',
       payload
