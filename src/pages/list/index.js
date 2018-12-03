@@ -57,7 +57,7 @@ export default class List extends Component {
       <View className='page-container'>
         <View className='tabs-container'>
           <AtTabs
-            current={this.state.current}
+            current={this.props.current}
             height='100%'
             tabDirection='vertical'
             tabList={[
@@ -135,7 +135,7 @@ export default class List extends Component {
             <AtTabsPane tabDirection='vertical' current={this.props.current} index={1}>
               <View style='background-color: #fff;font-size:18px;text-align:center;height:200px;'>【EAS销售出库单】</View>
             </AtTabsPane>
-            <AtTabsPane tabDirection='vertical' current={this.props.current} index={3}>
+            <AtTabsPane tabDirection='vertical' current={this.props.current} index={2}>
               <View style='background-color: #fff;font-size:18px;text-align:center;height:200px;'>【EAS应收单】</View>
             </AtTabsPane>
           </AtTabs>
