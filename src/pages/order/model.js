@@ -67,22 +67,24 @@ export default {
     ]
   },
   effects: {
-    * create({payload}, { call }) {
+    * create({ payload }, { call }) {
       const { data, success } = yield call(Service.post, payload)
-      console.info('创建订单',data.number)
+      console.info('创建订单', data.number)
       return Boolean(success)
-    }
+    },
+    * init(_, { select, put }) {
+      const { userName, easid, easfid = null } = yield select(state => state.login.userInfo)
+      yield put({
+        type: 'save',
+        payload: {
+          staff: { userName, easid, easfid }
+        }
+      })
+    },
   },
   reducers: {
     save(state, { payload }) {
       return { ...state, ...payload }
-    },
-    init(state) {
-      const billDate = new Date().toLocaleDateString().split(' ')[0].replace(/\//g, '-')
-      let initDate = {
-        billDate
-      }
-      return { ...state, ...initDate }
     },
     empty(state) {
       const newBillData = {

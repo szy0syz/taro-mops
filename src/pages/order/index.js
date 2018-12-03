@@ -66,6 +66,7 @@ export default class Detail extends Component {
   }
 
   handleWaiting() {
+    console.log(this.props.staff)
     Taro.showToast({
       icon: 'none',
       title: '功能开发中'
@@ -137,7 +138,7 @@ export default class Detail extends Component {
   }
 
   render() {
-    const { products, customer, remark } = this.props
+    const { products, customer, remark, staff } = this.props
     const amountRRR = this.props.products.reduce((sum, item) => sum += item.amount, 0).toFixed(2)
     return (
       <View className='order-page'>
@@ -223,7 +224,7 @@ export default class Detail extends Component {
           </View>
           <View>
             <Text>业务员</Text>
-            <Text>张三三</Text>
+            <Text>{staff.userName}</Text>
           </View>
           <View>
             <Text>出库员</Text>

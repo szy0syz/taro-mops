@@ -122,6 +122,17 @@ export default {
     save(state, { payload: data }) {
       return { ...state, ...data };
     },
+    init(state) {
+      let data
+      if (process.env.NODE_ENV === 'development') {
+        data = {
+          mobile: '13759440044',
+          username: '施振宇',
+          easid: 205
+        }
+      }
+      return { ...state, ...data }
+    }
   },
 
 };

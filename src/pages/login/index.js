@@ -118,6 +118,9 @@ export default class Login extends Component {
   }
 
   componentDidMount = () => {
+    this.props.dispatch({
+      type: 'login/init'
+    })
     Taro.login()
       .then(data => {
         console.log(data)

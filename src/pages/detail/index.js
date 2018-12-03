@@ -16,9 +16,14 @@ export default class Order extends Component {
 
   componentDidMount = async () => {
     const { _id } = this.$router.params
-
-    const { data: payload } = await fetchById(_id)
-
+    const { userName, easid, easfid = null } = Taro.getStorageSync('userInfo')
+    let { data: payload } = await fetchById(_id)
+    payload.billDate = dayjs(payload.billDate).format('YYYY-MM-DD')
+    payload.staff = {
+      userName,
+      easid,
+      easfid
+    }
     this.props.dispatch({
       type: 'detail/save',
       payload
@@ -164,7 +169,7 @@ export default class Order extends Component {
   }
 
   render() {
-    const { products, customer, remark, isSynced } = this.props
+    const { products, customer, remark, isSynced, staff } = this.props
     const amountRRR = this.props.products.reduce((sum, item) => sum += item.amount, 0).toFixed(2)
     return (
       <View className='order-page'>
@@ -250,7 +255,7 @@ export default class Order extends Component {
           </View>
           <View>
             <Text>业务员</Text>
-            <Text>张三三</Text>
+            <Text>{staff.userName}</Text>
           </View>
           <View>
             <Text>出库员</Text>

@@ -80,13 +80,6 @@ export default {
     save(state, { payload }) {
       return { ...state, ...payload }
     },
-    init(state) {
-      const billDate = new Date().toLocaleDateString().split(' ')[0].replace(/\//g, '-')
-      let initDate = {
-        billDate
-      }
-      return { ...state, ...initDate }
-    },
     empty(state) {
       const newBillData = {
         billDate: new Date().toLocaleDateString().split(' ')[0].replace(/\//g, '-'),
