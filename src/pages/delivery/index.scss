@@ -1,0 +1,46 @@
+@import "../../styles/mixin";
+.delivery-page {
+    @include wh(100%, 100%);
+    box-sizing: border-box;
+    background-color: #eee;
+    font-size: 30rpx;
+
+    .content {
+      background-color: #fff;
+
+      .item {
+        padding: 0 28px;
+        height: 72px;
+        line-height: 72px;
+        border-bottom: 1px solid #bbb;
+        overflow: hidden;
+        @include fja;
+
+        .item-title {
+          width: 45%;
+        }
+        .item-body {
+          width: 55%;
+          padding-right: 120px;
+        }
+
+        .item-float {
+          padding: 0;
+          width: 80px;
+          position: absolute;
+          right: 10px;
+          text-align: center;
+        }
+
+        .item-sms {
+          display: flex;
+          flex-direction: row;
+
+          .title {
+            @include fja(space-around);
+          }
+        }
+      }
+
+    }
+}

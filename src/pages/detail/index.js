@@ -266,6 +266,10 @@ export default class Order extends Component {
               </View>
             </Picker>
           </View>
+          <View onClick={this.handleNavigate.bind(this, 'delivery')}>
+            <Text>物流</Text>
+            <AtIcon value='chevron-right' size='22' color='#999'></AtIcon>
+          </View>
           <View>
             <Text>票据影像</Text>
             <View onClick={this.handleUploadImg} >
