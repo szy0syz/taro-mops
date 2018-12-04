@@ -7,6 +7,7 @@ export default {
   state: {
     _id: '',
     billDate: dayjs().format('YYYY-MM-DD'),
+    number: '',
     customer: {},
     products: [],
     staff: '',

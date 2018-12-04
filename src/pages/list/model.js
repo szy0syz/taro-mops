@@ -22,22 +22,8 @@ export default {
     },
     saleSearchType: 0,
     saleOrderAmount: 0,
-    saleOrders: [{
-      _id: '111',
-      amount: 999,
-      billDate: '2018-11-24',
-      customer: { CustomerName: '张三' },
-      number: 'SO2018112432893829'
-    }],
-    orders: [
-      {
-        _id: '111',
-        amount: 999,
-        billDate: '2018-11-24',
-        customer: { CustomerName: '张三' },
-        number: 'SO2018112432893829'
-      }
-    ]
+    saleOrders: [],
+    orders: []
   },
   effects: {
     * loadSaleOrders(_, { call, select, put }) {

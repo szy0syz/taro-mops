@@ -8,9 +8,12 @@ let dispatch;
 
 function createApp(opt) {
   // redux日志
-  // opt.onAction = [createLogger()];
-  app = create(opt);
-  app.use(createLoading({}));
+  if (process.env.NODE_ENV === 'development') {
+    opt.onAction = [createLogger()]
+  }
+  
+  app = create(opt)
+  app.use(createLoading({}))
 
   if (!global.registered) opt.models.forEach(model => app.model(model));
   global.registered = true;

@@ -11,7 +11,7 @@ import './index.scss'
 }))
 export default class Order extends Component {
   config = {
-    navigationBarTitleText: '开单',
+    navigationBarTitleText: '订单',
   }
 
   componentDidMount = async () => {
