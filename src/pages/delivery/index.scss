@@ -1,46 +1,86 @@
-@import "../../styles/mixin";
+@import '../../styles/mixin';
 .delivery-page {
-    @include wh(100%, 100%);
-    box-sizing: border-box;
-    background-color: #eee;
-    font-size: 30rpx;
+  @include wh(100%, 100%);
+  box-sizing: border-box;
+  background-color: #eee;
+  font-size: 30rpx;
 
-    .content {
-      background-color: #fff;
+  .content {
+    background-color: #fff;
 
-      .item {
-        padding: 0 28px;
-        height: 72px;
-        line-height: 72px;
-        border-bottom: 1px solid #bbb;
-        overflow: hidden;
-        @include fja;
+    .item {
+      padding: 0 28px;
+      height: 80px;
+      line-height: 80px;
+      border-bottom: 1px solid #bbb;
+      overflow: hidden;
+      @include fja;
 
-        .item-title {
-          width: 45%;
-        }
-        .item-body {
-          width: 55%;
-          padding-right: 120px;
-        }
-
-        .item-float {
-          padding: 0;
-          width: 80px;
-          position: absolute;
-          right: 10px;
-          text-align: center;
-        }
-
-        .item-sms {
-          display: flex;
-          flex-direction: row;
-
-          .title {
-            @include fja(space-around);
-          }
-        }
+      .item-title {
+        width: 45%;
+      }
+      .item-body {
+        width: 55%;
+        padding-right: 120px;
       }
 
+      .item-float {
+        padding: 0;
+        width: 80px;
+        position: absolute;
+        right: 10px;
+        text-align: center;
+      }
     }
+  }
+}
+
+.item-sms {
+  padding: 20px 28px;
+}
+
+.sms-title {
+  @include fja(space-between);
+
+  & > Text:nth-child(2) {
+    color: #999;
+  }
+}
+
+.sms-body {
+  padding: 20px 0;
+}
+
+.remark {
+  color: #888;
+  padding: 30px 28px;
+  & > View {
+    margin-bottom: 10px;
+  }
+}
+
+.toolbar {
+  z-index: 10;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  height: 80px;
+  background-color: #fff;
+  padding: 20px 28px;
+  @include fja(space-between);
+  View.at-button {
+    width: 36vw;
+    height: 78px;
+    line-height: 78px;
+  }
+  View.at-button--primary {
+    background-color: $color-primary;
+    border: 1px solid $color-primary;
+  }
+  View.at-button--secondary {
+    color: $color-primary;
+    border: 1px solid $color-primary;
+  }
 }
