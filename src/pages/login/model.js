@@ -45,27 +45,7 @@ export default {
           })
         }, 1000)
       }
-    },
-
-    * sendSms(_, { call, put, select }) {
-      const { mobile } = yield select(state => state.login);
-      const res = yield call(login.getSms, { mobile });
-      if (res.status == 'ok') {
-        yield put({ type: 'save', payload: { sending: 1, erroMessage: '' } });
-      } else {
-        yield put({ type: 'save', payload: { sending: 2, erroMessage: res.error && res.error.message } });
-      }
-    },
-
-    * sendSmsVoice(_, { call, put, select }) {
-      const { mobile } = yield select(state => state.login);
-      const res = yield call(login.getSmsVoice, { mobile });
-      if (res.status == 'ok') {
-        yield put({ type: 'save', payload: { sending: 1, erroMessage: '' } });
-      } else {
-        yield put({ type: 'save', payload: { sending: 2, erroMessage: res.error && res.error.message } });
-      }
-    },
+    }
   },
 
   reducers: {
