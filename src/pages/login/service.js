@@ -20,8 +20,8 @@ export const login = data => Request({
   data
 })
 
-export const vaild = data => Request({
-  url: '/public/mina/vaild',
+export const verify = data => Request({
+  url: '/public/mina/verify',
   method: 'post',
   data
 })
