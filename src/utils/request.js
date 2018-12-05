@@ -22,7 +22,6 @@ export default (options = { method: 'GET', data: {} }) => {
     },
     header: {
       'Content-Type': 'application/json',
-      'jerry-header': 'jerry2018',
       'Authorization': `Bearer ${token}`
     },
     method: options.method.toUpperCase(),
@@ -36,12 +35,16 @@ export default (options = { method: 'GET', data: {} }) => {
       if (data.success && data.msg) {
         Taro.showToast({
           title: `${data.msg}`,
-          icon: 'none',
+          icon: 'success',
           mask: true,
         })
       }
       return data;
-    } else {
+    } else if(statusCode === 401) {
+      // 权限错误
+      Taro.navigateTo({ url: '/pages/login/index?toast=1&duration=3000&msg=鉴权已失效，请重新登录'})
+    } 
+    else {
       Taro.showToast({
         title: `${data.msg}`,
         icon: 'none',

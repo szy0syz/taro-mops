@@ -66,26 +66,6 @@ export default class Login extends Component {
     });
   }
 
-  setIntervalTime = () => {
-    clearInterval(setIntervalTime);
-    let numConst = 30;
-    setIntervalTime = setInterval(() => {
-      numConst--;
-      this.props.dispatch({
-        type: 'login/save',
-        payload: { sending: 1, smsTime: numConst },
-      });
-
-      if (numConst == 0 || (this.props.erroMessage && this.props.erroMessage != '')) {
-        clearInterval(setIntervalTime);
-        this.props.dispatch({
-          type: 'login/save',
-          payload: { sending: 2, erroMessage: '', smsTime: 30 },
-        });
-      }
-    }, 1000);
-  }
-
   // tips
   showToast(text) {
     Taro.showToast({
@@ -118,6 +98,19 @@ export default class Login extends Component {
   }
 
   componentDidMount = () => {
+    //-----------------------------------//
+    // 鉴权失败时，单据路由参数显示轻提示。
+    const { toast, duration, msg:title } = this.$router.params
+    if(toast === '1') {
+      Taro.showToast({
+        title,
+        duration: Number(duration),
+        icon: 'none'
+      })
+    }
+    //-----------------------------------//
+    // Taro.showLoading({title: '验证中', mask: true})
+    
     this.props.dispatch({
       type: 'login/init'
     })

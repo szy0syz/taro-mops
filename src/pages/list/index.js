@@ -16,6 +16,7 @@ export default class List extends Component {
   // componentWillMount = () => {}
 
   componentDidShow = () => {
+    console.log('componentDidShow~~~')
     this.props.dispatch({
       type: 'list/loadSaleOrders'
     })

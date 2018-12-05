@@ -9,7 +9,7 @@ export default {
   namespace: 'list',
   state: {
     current: 0,
-    keyword: 'ppp',
+    keyword: '',
     dateStart: dayjs().subtract(1, 'month').format('YYYY-MM-DD'),
     dateEnd: dayjs().format('YYYY-MM-DD'),
     billTags: [],

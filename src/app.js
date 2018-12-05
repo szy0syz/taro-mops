@@ -19,11 +19,9 @@ class App extends Component {
 
   config = {
     pages: [
+      'pages/home/index',
       'pages/login/index',
       'pages/delivery/index',
-      
-      'pages/home/index',
-      
       
       
       'pages/message/index',
