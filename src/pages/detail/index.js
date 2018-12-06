@@ -148,7 +148,7 @@ export default class Order extends Component {
 
   handleRemoveItem(item) {
     console.log(item)
-    
+
   }
 
   handleSyncOrder() {
@@ -157,15 +157,14 @@ export default class Order extends Component {
       Taro.showToast({
         title: '该单据已同步'
       })
-      return
+    } else {
+      this.props.dispatch({
+        type: 'detail/syncOrder',
+        payload: {
+          _id
+        }
+      })
     }
-    
-    this.props.dispatch({
-      type: 'detail/syncOrder',
-      payload: {
-        _id
-      }
-    })
   }
 
   render() {
