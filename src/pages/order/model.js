@@ -69,11 +69,11 @@ export default {
   effects: {
     * create({ payload }, { call }) {
       const { data, success } = yield call(Service.post, payload)
-      console.info('创建订单', data.number)
+      console.info('创建订单', data.number,success, typeof(success))
       return Boolean(success)
     },
     * init(_, { select, put }) {
-      const { userName, easid, easfid = null } = yield select(state => state.login.userInfo)
+      const { userName, easid, easfid } = yield select(state => state.login)
       yield put({
         type: 'save',
         payload: {

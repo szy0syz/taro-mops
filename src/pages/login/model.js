@@ -6,7 +6,7 @@ export default {
   state: {
     // --------- mops数据
     mobile: '',
-    username: '',
+    userName: '',
     easid: '',
     easfid: '',
 
@@ -26,7 +26,7 @@ export default {
 
   effects: {
     * login(_, { call, put, select }) {
-      const { openid, easid, nickName, mobile, username: userName, avatar, city, province } = yield select(state => state.login)
+      const { openid, easid, nickName, mobile, userName, avatar, city, province } = yield select(state => state.login)
       const res = yield call(login.login, { openid, easid, nickName, mobile, userName, avatar, city, province })
 
       if (res.success) {
@@ -57,7 +57,7 @@ export default {
       if (process.env.NODE_ENV === 'development') {
         initData = {
           mobile: '13759440044',
-          username: '施振宇',
+          userName: '施振宇',
           easid: 205
         }
       }
