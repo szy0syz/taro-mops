@@ -73,11 +73,11 @@ export default {
       return Boolean(success)
     },
     * init(_, { select, put }) {
-      const { userName, easid, easfid } = yield select(state => state.login)
+      const { userId, userName, easid, easfid } = yield select(state => state.login)
       yield put({
         type: 'save',
         payload: {
-          staff: { userName, easid, easfid }
+          staff: { userId, userName, easid, easfid }
         }
       })
     },

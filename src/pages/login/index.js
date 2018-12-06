@@ -4,8 +4,6 @@ import { connect } from '@tarojs/redux'
 import { code2Session, cryptData, verify } from './service'
 import './index.scss'
 
-let setIntervalTime = null
-
 @connect(({ login }) => ({
   ...login
 }))
