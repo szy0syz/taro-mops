@@ -11,7 +11,6 @@ export default {
     current: 0,
     dateStart: dayjs().subtract(1, 'month').format('YYYY-MM-DD'),
     dateEnd: dayjs().format('YYYY-MM-DD'),
-    orderTags: [],
     saleSearchTypes: ['客户', '单号', '备注'],
     tagList: {
       paid: '已收款',
@@ -19,10 +18,12 @@ export default {
       received: '已收货',
       uploaded: '已同步'
     },
+    orderTags: [],
     orderKeyword: '',
     orderKeyType: 0,
     saleOrderAmount: 0,
-    saleOrders: []
+    saleOrders: [],
+    showTagSelected: false
   },
   effects: {
     * loadSaleOrders(_, { call, select, put }) {

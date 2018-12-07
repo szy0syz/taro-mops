@@ -1,10 +1,11 @@
 import Taro, { Component } from '@tarojs/taro'
 import { connect } from '@tarojs/redux'
-import { View, Text } from '@tarojs/components'
-import { AtTabs, AtTabsPane, Picker, AtIcon, AtInput, AtTag } from 'taro-ui'
+import { View, Text, Button } from '@tarojs/components'
+import { AtTabs, AtTabsPane, AtCheckbox, Picker, AtIcon, AtInput, AtTag, AtModal, AtModalContent, AtModalAction } from 'taro-ui'
 import './index.scss';
 
-@connect(({ list }) => ({
+@connect(({ common, list }) => ({
+  ...common,
   ...list,
 }))
 export default class List extends Component {
@@ -30,12 +31,6 @@ export default class List extends Component {
     })
   }
 
-  // componentDidMount = () => {
-  //   this.props.dispatch({
-  //     type: 'list/loadSaleOrders'
-  //   })
-  // }
-
   handleClick = (index) => {
     this.props.dispatch({ type: 'list/save', payload: { current: index } })
   }
@@ -45,7 +40,7 @@ export default class List extends Component {
   }
 
   handleDetail = (_id) => {
-    Taro.navigateTo({url: `/pages/detail/index?_id=${_id}`})
+    Taro.navigateTo({ url: `/pages/detail/index?_id=${_id}` })
   }
 
   onDateStartChange = e => {
@@ -62,6 +57,10 @@ export default class List extends Component {
 
   handleSearchConfirm() {
     this.props.dispatch({
+      type: 'list/save',
+      payload: { showTagSelected: false }
+    })
+    this.props.dispatch({
       type: 'list/fetchOrders'
     }).then(success => {
       if (success) {
@@ -70,8 +69,22 @@ export default class List extends Component {
     })
   }
 
+  handleShowTagSelect(hide) {
+    this.props.dispatch({
+      type: 'list/save',
+      payload: { showTagSelected: hide ? true : false }
+    })
+  }
+
+  handleOrderTagChange(orderTags) {
+    this.props.dispatch({
+      type: 'list/save',
+      payload: { orderTags }
+    })
+  }
+
   render() {
-    const { tagList, saleOrders, saleSearchTypes, orderKeyType, orderKeyword } = this.props
+    const { showTagSelected, orderTags, tagList,orderTagList, saleOrders, saleSearchTypes, orderKeyType, orderKeyword } = this.props
     return (
       <View className='page-container'>
         <View className='tabs-container'>
@@ -125,7 +138,7 @@ export default class List extends Component {
                   <View>
                     <Text>合计：￥{this.props.saleOrderAmount.toFixed(2)}</Text>
                     <View>
-                      <AtTag active type='primary' circle>标签</AtTag>
+                      <AtTag onClick={this.handleShowTagSelect} active type='primary' circle>标签</AtTag>
                     </View>
                   </View>
                   {saleOrders.map(item => (
@@ -159,6 +172,16 @@ export default class List extends Component {
             </AtTabsPane>
           </AtTabs>
         </View>
+        <AtModal isOpened={showTagSelected}>
+          <AtModalContent>
+            <AtCheckbox
+              options={orderTagList}
+              selectedList={orderTags}
+              onChange={this.handleOrderTagChange}
+            />
+          </AtModalContent>
+          <AtModalAction> <Button onClick={this.handleShowTagSelect.bind(this, false)}>取消</Button> <Button onClick={this.handleSearchConfirm} style='color: #2bb2a7;'>确定</Button> </AtModalAction>
+        </AtModal>
       </View>
     )
   }
