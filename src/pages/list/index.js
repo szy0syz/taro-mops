@@ -1,7 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
 import { connect } from '@tarojs/redux'
 import { View, Text, Button } from '@tarojs/components'
-import { AtTabs, AtTabsPane, AtCheckbox, Picker, AtIcon, AtInput, AtTag, AtModal, AtModalContent, AtModalAction } from 'taro-ui'
+import { AtDrawer, AtTabs, AtTabsPane, AtCheckbox, Picker, AtIcon, AtInput, AtTag, AtModal, AtModalContent, AtModalAction } from 'taro-ui'
 import './index.scss';
 
 @connect(({ common, list }) => ({
@@ -12,9 +12,6 @@ export default class List extends Component {
   config = {
     navigationBarTitleText: '明细',
   }
-
-  // bug
-  // componentWillMount = () => {}
 
   componentDidShow = () => {
     console.log('componentDidShow~~~')
@@ -83,8 +80,15 @@ export default class List extends Component {
     })
   }
 
+  handleDrawerClick(index) {
+    this.props.dispatch({
+      type: 'list/fetchByCalendar',
+      payload: { index }
+    })
+  }
+
   render() {
-    const { showTagSelected, orderTags, tagList,orderTagList, saleOrders, saleSearchTypes, orderKeyType, orderKeyword } = this.props
+    const { showTagSelected, orderTags, tagList, orderTagList, saleOrders, saleSearchTypes, orderKeyType, orderKeyword } = this.props
     return (
       <View className='page-container'>
         <View className='tabs-container'>
@@ -182,6 +186,13 @@ export default class List extends Component {
           </AtModalContent>
           <AtModalAction> <Button onClick={this.handleShowTagSelect.bind(this, false)}>取消</Button> <Button onClick={this.handleSearchConfirm} style='color: #2bb2a7;'>确定</Button> </AtModalAction>
         </AtModal>
+        <AtDrawer
+          show={true}
+          mask
+          right
+          onItemClick={this.handleDrawerClick.bind(this)}
+          items={['今日', '上周', '本周', '上月', '本月', '上季度', '本季度', '去年', '本年']}
+        ></AtDrawer>
       </View>
     )
   }
