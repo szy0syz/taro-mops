@@ -13,9 +13,9 @@ export default class Login extends Component {
   }
 
   handleInputValue = (key, event) => {
-    const { value } = event.target
-    let payload
-
+    let payload, { value } = event.target
+    value = value.toString().trim()
+    
     switch (key) {
       case 'mobile':
         payload = { mobile: value }
