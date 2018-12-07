@@ -9,10 +9,9 @@ export default {
   namespace: 'list',
   state: {
     current: 0,
-    keyword: '',
     dateStart: dayjs().subtract(1, 'month').format('YYYY-MM-DD'),
     dateEnd: dayjs().format('YYYY-MM-DD'),
-    billTags: [],
+    orderTags: [],
     saleSearchTypes: ['客户', '单号', '备注'],
     tagList: {
       paid: '已收款',
@@ -20,15 +19,15 @@ export default {
       received: '已收货',
       uploaded: '已同步'
     },
-    saleSearchType: 0,
+    orderKeyword: '',
+    orderKeyType: 0,
     saleOrderAmount: 0,
-    saleOrders: [],
-    orders: []
+    saleOrders: []
   },
   effects: {
     * loadSaleOrders(_, { call, select, put }) {
-      const { dateStart, dateEnd, billTags } = yield select(state => state.list)
-      let { data: saleOrders } = yield call(Service.loadSaleOrders, { dateStart, dateEnd, billTags })
+      const { dateStart, dateEnd, orderTags } = yield select(state => state.list)
+      let { data: saleOrders } = yield call(Service.loadSaleOrders, { dateStart, dateEnd, orderTags })
 
       let saleOrderAmount = 0
       // console.log('Array.isArray(saleOrders) && saleOrders.length > 0', Array.isArray(saleOrders) && saleOrders.length > 0)
@@ -45,10 +44,35 @@ export default {
         type: 'save',
         payload: {
           saleOrderAmount,
-          saleOrders,
-          orders: saleOrders
+          saleOrders
         }
       })
+    },
+    * fetchOrders(_, { call, select, put }) {
+      const { orderKeyType, orderKeyword, dateStart, dateEnd, orderTags } = yield select(state => state.list)
+      // console.log(orderKeyType, orderKeyword, dateStart, dateEnd, orderTags)
+      let { success, data: saleOrders } = yield call(Service.loadSaleOrders, { orderKeyType, orderKeyword, dateStart, dateEnd, orderTags })
+      let saleOrderAmount = 0
+
+      if (success && Array.isArray(saleOrders) && saleOrders.length > 0) {
+        saleOrderAmount = saleOrders.reduce((sum, item) => sum += calcTotal(item.products, 'amount'), 0)
+        saleOrders = saleOrders.map(order => {
+          order.billDate = dayjs(order.billDate).format('YYYY-MM-DD HH:mm:ss')
+          order.amount = calcTotal(order.products, 'amount')
+          return order
+        })
+
+        yield put({
+          type: 'save',
+          payload: {
+            saleOrderAmount,
+            saleOrders,
+            orders: saleOrders
+          }
+        })
+      }
+
+      return success
     }
   },
   reducers: {

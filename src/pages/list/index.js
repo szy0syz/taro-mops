@@ -18,7 +18,15 @@ export default class List extends Component {
   componentDidShow = () => {
     console.log('componentDidShow~~~')
     this.props.dispatch({
-      type: 'list/loadSaleOrders'
+      type: 'list/fetchOrders'
+    })
+  }
+
+  showToast(text, icon = 'none', duration = 2000) {
+    Taro.showToast({
+      title: text,
+      icon,
+      duration
     })
   }
 
@@ -32,8 +40,8 @@ export default class List extends Component {
     this.props.dispatch({ type: 'list/save', payload: { current: index } })
   }
 
-  handleInputChange = (keyword) => {
-    this.props.dispatch({ type: 'list/save', payload: { keyword } })
+  handleInputChange = (orderKeyword) => {
+    this.props.dispatch({ type: 'list/save', payload: { orderKeyword } })
   }
 
   handleDetail = (_id) => {
@@ -49,11 +57,21 @@ export default class List extends Component {
   }
 
   onSaleTypeChange = (e) => {
-    this.props.dispatch({ type: 'list/save', payload: { saleSearchType: e.detail.value } })
+    this.props.dispatch({ type: 'list/save', payload: { orderKeyType: e.detail.value } })
+  }
+
+  handleSearchConfirm() {
+    this.props.dispatch({
+      type: 'list/fetchOrders'
+    }).then(success => {
+      if (success) {
+        this.showToast('查询完成', 'success', 1500)
+      }
+    })
   }
 
   render() {
-    const { tagList, saleOrders, saleSearchTypes, saleSearchType, keyword } = this.props
+    const { tagList, saleOrders, saleSearchTypes, orderKeyType, orderKeyword } = this.props
     return (
       <View className='page-container'>
         <View className='tabs-container'>
@@ -87,7 +105,7 @@ export default class List extends Component {
                   <View>
                     <Picker className='searchType' mode='selector' range={saleSearchTypes} onChange={this.onSaleTypeChange}>
                       <Text>
-                        {saleSearchTypes[saleSearchType]}
+                        {saleSearchTypes[orderKeyType]}
                       </Text>
                       <AtIcon value='chevron-down' style='margin-left: 5rpx;' color='#aaa'></AtIcon>
                     </Picker>
@@ -96,8 +114,9 @@ export default class List extends Component {
                         border={false}
                         placeholder='请输入关键字'
                         type='text'
-                        value={keyword}
-                        onChange={this.handleInputChange.bind(this)}
+                        value={orderKeyword}
+                        onChange={this.handleInputChange}
+                        onConfirm={this.handleSearchConfirm}
                       />
                     </View>
                   </View>
@@ -107,7 +126,6 @@ export default class List extends Component {
                     <Text>合计：￥{this.props.saleOrderAmount.toFixed(2)}</Text>
                     <View>
                       <AtTag active type='primary' circle>标签</AtTag>
-                      {/* <AtTag circle className='bill-opt writing'>开单</AtTag> */}
                     </View>
                   </View>
                   {saleOrders.map(item => (

@@ -41,7 +41,6 @@ export default class Login extends Component {
     this.props.dispatch({ type: 'login/login' })
   }
 
-  // tips
   showToast(text, icon = 'none', duration = 2000) {
     Taro.showToast({
       title: text,
