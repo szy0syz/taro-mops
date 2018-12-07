@@ -1,12 +1,7 @@
 import Taro from '@tarojs/taro';
 import { baseUrl, noConsole } from '../config';
 
-// const request_data = {
-//   platform: 'wap',
-//   rent_mode: 2,
-// };
-
-const token = Taro.getStorageSync('token')
+let token = Taro.getStorageSync('token')
 const request_data = {}
 
 
@@ -14,6 +9,8 @@ export default (options = { method: 'GET', data: {} }) => {
   if (!noConsole) {
     console.log(`${new Date().toLocaleString()}【 M=${options.url} 】P=${JSON.stringify(options.data)}`);
   }
+  // TODO: 临时解决
+  token = Taro.getStorageSync('token')
   return Taro.request({
     url: baseUrl + options.url,
     data: {

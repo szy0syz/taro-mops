@@ -1,7 +1,6 @@
 import dayjs from 'dayjs'
 import * as Service from './service'
 
-
 export default {
   namespace: 'detail',
   state: {
@@ -20,6 +19,7 @@ export default {
       name: '银行汇款',
       id: 'v1'
     },
+    isSynced: false,
     billTags: [],
     remark: '',
     tagList: [
@@ -67,14 +67,20 @@ export default {
   },
   effects: {
     * create({ payload }, { call }) {
-      const { data, success } = yield call(Service.post, payload)
-      console.info('创建订单', data.number)
+      const { success } = yield call(Service.post, payload)
+
       return Boolean(success)
     },
 
-    * syncOrder({ payload }, { call }) {
-      const { data } = yield call(Service.syncOrder, payload)
-      console.log(data)
+    * syncOrder({ payload }, { call, put }) {
+      const res = yield call(Service.syncOrder, payload)
+      console.log(res)
+      if(res.success) {
+        yield put({
+          type: 'save',
+          payload: { isSynced: true }
+        })
+      }
     }
   },
   reducers: {

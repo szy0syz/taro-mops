@@ -86,7 +86,7 @@ export default class Detail extends Component {
       customer,
       products,
       remark,
-      staff,
+      creator: staff.userId,
       storekeeper,
       paymentMethod
     }
