@@ -20,7 +20,7 @@ export default {
       id: 'v1'
     },
     isSynced: false,
-    billTags: [],
+    orderTags: [],
     remark: '',
     tagList: [
       {
@@ -96,7 +96,7 @@ export default {
         amountRec: 0.00,
         storekeeper: null,
         paymentMethod: null,
-        billTags: []
+        orderTags: []
       }
       return { ...state, ...newBillData }
     }

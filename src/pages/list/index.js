@@ -156,7 +156,7 @@ export default class List extends Component {
                     <View key={item._id} className='bill-item' onClick={this.handleDetail.bind(this, item._id)}>
                       <View>
                         <Text>{item.billDate}</Text>
-                        {item.billTags && item.billTags.map(tag => (
+                        {item.orderTags && item.orderTags.map(tag => (
                           <AtTag key={tag} size='small' className={`bill-tag ${tag}`}>{tagList[tag]}</AtTag>
                         ))}
                       </View>

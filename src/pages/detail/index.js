@@ -30,12 +30,11 @@ export default class Order extends Component {
     })
   }
 
-  handleBillTagsChange(billTags) {
-    console.log(billTags)
+  handleBillTagsChange(orderTags) {
     this.props.dispatch({
       type: 'order/save',
       payload: {
-        billTags
+        orderTags
       }
     })
   }
@@ -84,7 +83,7 @@ export default class Order extends Component {
   }
 
   handleSave() {
-    let { billDate, billTags, customer, products, remark, staff, storekeeper, paymentMethod } = this.props
+    let { billDate, orderTags, customer, products, remark, staff, storekeeper, paymentMethod } = this.props
     // 奇葩需求和奇葩api
     billDate = dayjs()
       .set('month', billDate.split('-')[1] - 1)
@@ -92,7 +91,7 @@ export default class Order extends Component {
       .valueOf()
     let payload = {
       billDate,
-      billTags,
+      orderTags,
       customer,
       products,
       remark,
@@ -285,7 +284,7 @@ export default class Order extends Component {
           <AtCheckbox
             style='background-color: #aaa;'
             options={this.props.tagList}
-            selectedList={this.props.billTags}
+            selectedList={this.props.orderTags}
             onChange={this.handleBillTagsChange}
           />
         </View>
