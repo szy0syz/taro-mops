@@ -34,14 +34,17 @@ export default {
       let { success, data: saleOrders } = yield call(Service.loadSaleOrders, { orderKeyType, orderKeyword, dateStart, dateEnd, orderTags })
       let saleOrderAmount = 0
 
-      if (success && Array.isArray(saleOrders) && saleOrders.length > 0) {
-        saleOrderAmount = saleOrders.reduce((sum, item) => sum += calcTotal(item.products, 'amount'), 0)
-        saleOrders = saleOrders.map(order => {
-          order.billDate = dayjs(order.billDate).format('YYYY-MM-DD HH:mm:ss')
-          order.amount = calcTotal(order.products, 'amount')
-          return order
-        })
-
+      if (success) {
+        // 只有查询的订单有数据时才进行业务计算
+        if (Array.isArray(saleOrders) && saleOrders.length > 0) {
+          saleOrderAmount = saleOrders.reduce((sum, item) => sum += calcTotal(item.products, 'amount'), 0)
+          saleOrders = saleOrders.map(order => {
+            order.billDate = dayjs(order.billDate).format('YYYY-MM-DD HH:mm:ss')
+            order.amount = calcTotal(order.products, 'amount')
+            return order
+          })
+        }
+        // 否者直接更新state
         yield put({
           type: 'save',
           payload: {

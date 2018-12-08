@@ -7,6 +7,7 @@
 ### Bug Fixes
 
 * 修改[列表页]生命周期`componentDidShow`为异步函数，防止少数情况加载数据不渲染的问题
+* 修复[列表页]`fetchOrders`函数中，在没查询到订单时不更新state的问题
 
 ### Enhances
 
