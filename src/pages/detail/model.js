@@ -72,13 +72,16 @@ export default {
       return Boolean(success)
     },
 
-    * syncOrder({ payload }, { call, put }) {
+    * syncOrder({ payload }, { select, call, put }) {
+      const { orderTags } = yield select(state => state.detail)
       const res = yield call(Service.syncOrder, payload)
-      console.log(res)
-      if(res.success) {
+      if (res.success) {
         yield put({
           type: 'save',
-          payload: { isSynced: true }
+          payload: {
+            isSynced: true,
+            orderTags: Array.from(new Set([...orderTags, 'uploaded']))
+          }
         })
       }
     }
