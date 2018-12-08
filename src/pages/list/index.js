@@ -44,7 +44,9 @@ export default class List extends Component {
   }
 
   onDateEndChange = e => {
-    this.props.dispatch({ type: 'list/save', payload: { dateEnd: e.detail.value } })
+    const { dispatch } = this.props
+    dispatch({ type: 'list/save', payload: { dateEnd: e.detail.value } })
+    dispatch({ type: 'list/fetchOrders' })
   }
 
   onSaleTypeChange = (e) => {
@@ -52,14 +54,14 @@ export default class List extends Component {
   }
 
   handleSearchConfirm = async (payload) => {
-    if(payload && Object.keys(payload).length > 0) {
+    if (payload && Object.keys(payload).length > 0) {
       // 最好只进行同步操作
       await this.props.dispatch({
         type: 'list/save',
         payload
       })
     }
-    
+
     this.props.dispatch({
       type: 'list/fetchOrders'
     }).then(success => {

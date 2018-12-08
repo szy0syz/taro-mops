@@ -49,8 +49,7 @@ export default {
           type: 'save',
           payload: {
             saleOrderAmount,
-            saleOrders,
-            orders: saleOrders
+            saleOrders
           }
         })
       }
