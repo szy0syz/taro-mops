@@ -13,9 +13,8 @@ export default class List extends Component {
     navigationBarTitleText: '明细',
   }
 
-  componentDidShow = () => {
-    console.log('componentDidShow~~~')
-    this.props.dispatch({
+  componentDidShow = async () => {
+    await this.props.dispatch({
       type: 'list/fetchOrders'
     })
   }
