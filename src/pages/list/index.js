@@ -87,8 +87,15 @@ export default class List extends Component {
     })
   }
 
+  handleDrawerShow(isShow) {
+    this.props.dispatch({
+      type: 'list/save',
+      payload: { showDateSelected: isShow }
+    })
+  }
+
   render() {
-    const { showTagSelected, orderTags, tagList, orderTagList, saleOrders, saleSearchTypes, orderKeyType, orderKeyword } = this.props
+    const { showDateSelected, showTagSelected, orderTags, tagList, orderTagList, saleOrders, saleSearchTypes, orderKeyType, orderKeyword } = this.props
     return (
       <View className='page-container'>
         <View className='tabs-container'>
@@ -115,7 +122,7 @@ export default class List extends Component {
                     <Text className='picker'>{this.props.dateEnd}</Text>
                   </Picker>
                   <AtIcon value='chevron-down' color='#aaa'></AtIcon>
-                  <AtIcon className='selectedDate' color='#777' value='calendar'></AtIcon>
+                  <AtIcon onClick={this.handleDrawerShow.bind(this, true)} className='selectedDate' color='#777' value='calendar'></AtIcon>
                 </View>
                 <View className='box-search'>
                   <Text>销售订单</Text>
@@ -187,9 +194,10 @@ export default class List extends Component {
           <AtModalAction> <Button onClick={this.handleShowTagSelect.bind(this, false)}>取消</Button> <Button onClick={this.handleSearchConfirm} style='color: #2bb2a7;'>确定</Button> </AtModalAction>
         </AtModal>
         <AtDrawer
-          show={true}
+          show={showDateSelected}
           mask
           right
+          onClose={this.handleDrawerShow.bind(this, false)}
           onItemClick={this.handleDrawerClick.bind(this)}
           items={['今日', '上周', '本周', '上月', '本月', '上季度', '本季度', '去年', '本年']}
         ></AtDrawer>

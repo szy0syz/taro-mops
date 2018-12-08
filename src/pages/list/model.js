@@ -24,7 +24,8 @@ export default {
     orderKeyType: 0,
     saleOrderAmount: 0,
     saleOrders: [],
-    showTagSelected: false
+    showTagSelected: false,
+    showDateSelected: false
   },
   effects: {
     * fetchOrders(_, { call, select, put }) {
