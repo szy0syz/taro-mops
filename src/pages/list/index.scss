@@ -3,6 +3,7 @@
     height: 100%;
     background-color: #eee;
     position: relative;
+    font-size: 30rpx;
 }
 
 .tabs-container {
@@ -49,11 +50,9 @@
 
 .box-header {
     position: relative;
-    font-size: 26rpx;
     display: flex;
     .picker {
         padding-right: 12rpx;
-        
     }
     .at-icon-chevron-down {
         margin-top: -5rpx;

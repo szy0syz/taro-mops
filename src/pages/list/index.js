@@ -51,11 +51,15 @@ export default class List extends Component {
     this.props.dispatch({ type: 'list/save', payload: { orderKeyType: e.detail.value } })
   }
 
-  handleSearchConfirm() {
-    this.props.dispatch({
-      type: 'list/save',
-      payload: { showTagSelected: false }
-    })
+  handleSearchConfirm = async (payload) => {
+    if(payload && Object.keys(payload).length > 0) {
+      // 最好只进行同步操作
+      await this.props.dispatch({
+        type: 'list/save',
+        payload
+      })
+    }
+    
     this.props.dispatch({
       type: 'list/fetchOrders'
     }).then(success => {
@@ -90,6 +94,13 @@ export default class List extends Component {
     this.props.dispatch({
       type: 'list/save',
       payload: { showDateSelected: isShow }
+    })
+  }
+
+  handleModalClose() {
+    this.props.dispatch({
+      type: 'list/save',
+      payload: { showTagSelected: false }
     })
   }
 
@@ -182,7 +193,7 @@ export default class List extends Component {
             </AtTabsPane>
           </AtTabs>
         </View>
-        <AtModal isOpened={showTagSelected}>
+        <AtModal onClose={this.handleModalClose} isOpened={showTagSelected}>
           <AtModalContent>
             <AtCheckbox
               options={orderTagList}
@@ -190,7 +201,7 @@ export default class List extends Component {
               onChange={this.handleOrderTagChange}
             />
           </AtModalContent>
-          <AtModalAction> <Button onClick={this.handleShowTagSelect.bind(this, false)}>取消</Button> <Button onClick={this.handleSearchConfirm} style='color: #2bb2a7;'>确定</Button> </AtModalAction>
+          <AtModalAction> <Button onClick={this.handleShowTagSelect.bind(this, false)}>取消</Button> <Button onClick={this.handleSearchConfirm.bind(this, { showTagSelected: false })} style='color: #2bb2a7;'>确定</Button> </AtModalAction>
         </AtModal>
         <AtDrawer
           show={showDateSelected}

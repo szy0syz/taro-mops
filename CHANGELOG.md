@@ -13,6 +13,7 @@
 * 登录页面新增输入框去除左右空格
 * 修改抽屉日历的显示不准确
 * 保持后端数据库字段一致，修改订单页、明细页、详情页 `billTags` -> `orderTags`
+* 修改标签选择模态框显示问题并复用`handleSearchConfirm`函数
 
 ### Features
 
