@@ -1,5 +1,7 @@
 # CHANGELOG
 
+> Taro-MOPS 前端小程序
+
 ## 0.2.0 (2018-12-07)
 
 ### Bug Fixes
