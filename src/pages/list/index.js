@@ -1,8 +1,12 @@
 import Taro, { Component } from '@tarojs/taro'
 import { connect } from '@tarojs/redux'
 import { View, Text, Button } from '@tarojs/components'
+import ListHeader from '../../components/ListHeader'
+import ListContent from '../../components/ListContent'
 import { AtDrawer, AtTabs, AtTabsPane, AtCheckbox, Picker, AtIcon, AtInput, AtTag, AtModal, AtModalContent, AtModalAction } from 'taro-ui'
-import './index.scss';
+
+
+import './index.scss'
 
 @connect(({ common, list }) => ({
   ...common,
@@ -188,10 +192,28 @@ export default class List extends Component {
               </View>
             </AtTabsPane>
             <AtTabsPane tabDirection='vertical' current={this.props.current} index={1}>
-              <View style='background-color: #fff;font-size:18px;text-align:center;height:200px;'>【EAS销售出库单】</View>
+              <ListHeader
+                title='销售出库单'
+                searchTypes={this.props.siSearchTypes}
+                searchTypeIndex={0}
+              ></ListHeader>
+              <ListContent
+                data={saleOrders}
+                enmuList={tagList}
+                totalAmount={10}
+              ></ListContent>
             </AtTabsPane>
             <AtTabsPane tabDirection='vertical' current={this.props.current} index={2}>
-              <View style='background-color: #fff;font-size:18px;text-align:center;height:200px;'>【EAS应收单】</View>
+              <ListHeader
+                title='应收单'
+                searchTypes={this.props.arSearchTypes}
+                searchTypeIndex={0}
+              ></ListHeader>
+              <ListContent
+                data={saleOrders}
+                enmuList={tagList}
+                totalAmount={20}
+              ></ListContent>
             </AtTabsPane>
           </AtTabs>
         </View>

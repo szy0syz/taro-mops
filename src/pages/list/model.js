@@ -13,6 +13,8 @@ export default {
     dateStart: dayjs().subtract(1, 'month').format('YYYY-MM-DD'),
     dateEnd: dayjs().format('YYYY-MM-DD'),
     saleSearchTypes: ['客户', '单号', '备注'],
+    siSearchTypes: ['客户','单号'],
+    arSearchTypes: ['客户','单号'],
     tagList: {
       paid: '已收款',
       shipped: '已发货',
