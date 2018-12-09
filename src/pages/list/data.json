@@ -1,0 +1,155 @@
+{
+    "success": true,
+    "data": [
+        {
+            "FID": "/Ch1aeh1TK6PgPAkJZwHYMw+kzs=",
+            "FCustomerName": "孟定新辉农资商店(高英)",
+            "FStorageOrgUnit": "仓储经营部",
+            "FTotalAmount": 22900.0001,
+            "FTransactionType": "手工销售出库",
+            "FBizDate": "2015-09-01",
+            "FBaseStatus": 4,
+            "FNumber": "CCSAO-00031043"
+        },
+        {
+            "FID": "/f7Y0Si/QwWQbsnE/XGhnMw+kzs=",
+            "FCustomerName": "墨江县植保技术咨询服务部(柳国钦)",
+            "FStorageOrgUnit": "仓储经营部",
+            "FTotalAmount": 5460,
+            "FTransactionType": "手工销售出库",
+            "FBizDate": "2015-09-01",
+            "FBaseStatus": 4,
+            "FNumber": "CCSAO-00031031"
+        },
+        {
+            "FID": "/pUnfMwmTXmyF9LwEPFQaMw+kzs=",
+            "FCustomerName": "腾冲银海农资有限责任公司",
+            "FStorageOrgUnit": "仓储经营部",
+            "FTotalAmount": 3959.9999,
+            "FTransactionType": "手工销售出库",
+            "FBizDate": "2015-09-01",
+            "FBaseStatus": 4,
+            "FNumber": "CCSAO-00031023"
+        },
+        {
+            "FID": "+pBiiMjcS7Gzv4+32Elvjcw+kzs=",
+            "FCustomerName": "禄劝李自才",
+            "FStorageOrgUnit": "仓储经营部",
+            "FTotalAmount": 444,
+            "FTransactionType": "手工销售出库",
+            "FBizDate": "2015-09-01",
+            "FBaseStatus": 4,
+            "FNumber": "CCSAO-00031003"
+        },
+        {
+            "FID": "1nfGpAibRmuR4YwijDO3e8w+kzs=",
+            "FCustomerName": "昆明兴农有限公司",
+            "FStorageOrgUnit": "仓储经营部",
+            "FTotalAmount": 1260,
+            "FTransactionType": "手工销售出库",
+            "FBizDate": "2015-09-01",
+            "FBaseStatus": 4,
+            "FNumber": "CCSAO-00030986"
+        },
+        {
+            "FID": "5/LcimrzQ1CKg5ZaGJRJkMw+kzs=",
+            "FCustomerName": "永胜城关供销社(周彩平)",
+            "FStorageOrgUnit": "仓储经营部",
+            "FTotalAmount": 14490,
+            "FTransactionType": "手工销售出库",
+            "FBizDate": "2015-09-01",
+            "FBaseStatus": 4,
+            "FNumber": "CCSAO-00031059"
+        },
+        {
+            "FID": "5IAk7X/YTTu87LF6+Agxbcw+kzs=",
+            "FCustomerName": "石屏县兴农农药经营部(马云宏)",
+            "FStorageOrgUnit": "仓储经营部",
+            "FTotalAmount": 1984,
+            "FTransactionType": "手工销售出库",
+            "FBizDate": "2015-09-01",
+            "FBaseStatus": 4,
+            "FNumber": "CCSAO-00030980"
+        },
+        {
+            "FID": "5s/oFIJvQHemyYW1rOedAcw+kzs=",
+            "FCustomerName": "盈江县福田农资",
+            "FStorageOrgUnit": "仓储经营部",
+            "FTotalAmount": 4390,
+            "FTransactionType": "手工销售出库",
+            "FBizDate": "2015-09-01",
+            "FBaseStatus": 4,
+            "FNumber": "CCSAO-00030983"
+        },
+        {
+            "FID": "72qyjxx6QwWzfC6Dvx8hD8w+kzs=",
+            "FCustomerName": "腾冲银海农资有限责任公司",
+            "FStorageOrgUnit": "仓储经营部",
+            "FTotalAmount": 3959.9999,
+            "FTransactionType": "手工销售出库",
+            "FBizDate": "2015-09-01",
+            "FBaseStatus": 4,
+            "FNumber": "CCSAO-00031022"
+        },
+        {
+            "FID": "8yY6wqoFR6iYNo2daMEet8w+kzs=",
+            "FCustomerName": "云南青润农资有限公司(朱光兴)",
+            "FStorageOrgUnit": "仓储经营部",
+            "FTotalAmount": 1230,
+            "FTransactionType": "手工销售出库",
+            "FBizDate": "2015-09-01",
+            "FBaseStatus": 4,
+            "FNumber": "CCSAO-00031004"
+        },
+        {
+            "FID": "9gY0UsTqSgeWzcYP1+1l88w+kzs=",
+            "FCustomerName": "孟定财富农资(王忠富)",
+            "FStorageOrgUnit": "仓储经营部",
+            "FTotalAmount": 18750,
+            "FTransactionType": "手工销售出库",
+            "FBizDate": "2015-09-01",
+            "FBaseStatus": 4,
+            "FNumber": "CCSAO-00031039"
+        },
+        {
+            "FID": "9q2L6KQzTYeaQW5zqIEhsMw+kzs=",
+            "FCustomerName": "德宏州瑞丰农业科技有限责任公司(罗本秋)",
+            "FStorageOrgUnit": "仓储经营部",
+            "FTotalAmount": 32400,
+            "FTransactionType": "手工销售出库",
+            "FBizDate": "2015-09-01",
+            "FBaseStatus": 4,
+            "FNumber": "CCSAO-00031019"
+        },
+        {
+            "FID": "9u5bhIiTStSIW+qNJVEimcw+kzs=",
+            "FCustomerName": "弥渡吴炳秀",
+            "FStorageOrgUnit": "仓储经营部",
+            "FTotalAmount": 8400,
+            "FTransactionType": "手工销售出库",
+            "FBizDate": "2015-09-01",
+            "FBaseStatus": 4,
+            "FNumber": "CCSAO-00031017"
+        },
+        {
+            "FID": "aqtXWfW9T4aUr7w/z8gjKMw+kzs=",
+            "FCustomerName": "澄江县春雨农资(李伟坤)",
+            "FStorageOrgUnit": "仓储经营部",
+            "FTotalAmount": 392,
+            "FTransactionType": "手工销售出库",
+            "FBizDate": "2015-09-01",
+            "FBaseStatus": 4,
+            "FNumber": "CCSAO-00031007"
+        },
+        {
+            "FID": "bADRNPz/TdK0lWmUYIGCcsw+kzs=",
+            "FCustomerName": "弥勒(邹建武)",
+            "FStorageOrgUnit": "仓储经营部",
+            "FTotalAmount": 6124.9999,
+            "FTransactionType": "手工销售出库",
+            "FBizDate": "2015-09-01",
+            "FBaseStatus": 4,
+            "FNumber": "CCSAO-00031042"
+        }
+    ]
+}

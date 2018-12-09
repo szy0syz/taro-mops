@@ -5,6 +5,7 @@ import ListHeader from '../../components/ListHeader'
 import ListContent from '../../components/ListContent'
 import { AtDrawer, AtTabs, AtTabsPane, AtCheckbox, Picker, AtIcon, AtInput, AtTag, AtModal, AtModalContent, AtModalAction } from 'taro-ui'
 
+import bills from './data.json'
 
 import './index.scss'
 
@@ -198,7 +199,8 @@ export default class List extends Component {
                 searchTypeIndex={0}
               ></ListHeader>
               <ListContent
-                data={saleOrders}
+                hasStatus
+                data={bills.data}
                 enmuList={tagList}
                 totalAmount={10}
               ></ListContent>

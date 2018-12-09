@@ -4,13 +4,20 @@
 
 ## 0.2.1 (2018-12-09)
 
-* [ ] 打算重构billheader 和 billbody
+### Bug Fixes
 
-## 0.2.0 (2018-12-08)
+* 修复 [AtIcon] 组件在 `Taro` 中不渲染 className 的问题
 
 ### Features
 
-* [CommonModel] 新增支持 EAS销售出库单状态 的对象数组
+* [**Modal**] 新增支持 EAS销售出库单状态 的对象数组
+* [**Component**] 新增 [ListHeader]、[ListContent] 组件
+
+### Enhances
+
+* 删除 [ListContent] 组件的 totalAmount 属性，由组件内部自动计算，不需要从外部传入
+
+## 0.2.0 (2018-12-08)
 
 ### Bug Fixes
 

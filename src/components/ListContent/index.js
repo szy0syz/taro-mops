@@ -7,53 +7,62 @@ import './index.scss'
 
 class ListContent extends Component {
   static propTypes = {
-    totalAmount: PropTypes.number,
+    // totalAmount: PropTypes.number,
     data: PropTypes.array,
     tagList: PropTypes.array,
     hasStatus: PropTypes.bool,
-    enmuList: PropTypes.array
+    enmuList: PropTypes.array,
+    onItemClick: PropTypes.func,
+    onStatusClick: PropTypes.func
   }
 
   static defaultProps = {
-    totalAmount: parseInt(0).toFixed(2),
+    // totalAmount: parseInt(0).toFixed(2),
     data: [],
     enmuList: [],
     hasStatus: false
   }
 
   render() {
-    const { data, enmuList, totalAmount, hasStatus } = this.props
+    const { data, enmuList, hasStatus } = this.props
+    let totalAmount
+    if (hasStatus) {
+      totalAmount = data.length > 0 ? data.reduce((acc, item) => acc += parseFloat(item.FTotalAmount), 0).toFixed(2) : parseFloat(0).toFixed(2)
+    } else {
+      totalAmount = 0
+    }
+    console.log('hasStatus', hasStatus)
     return (
       <View className='container'>
         <View className='box-body'>
           <View>
             <Text>合计：￥{totalAmount}</Text>
             <View>
-              <AtTag onClick={this.handleShowTagSelect} active type='primary' circle>{hasStatus ? '状态' : '标签'}</AtTag>
+              <AtTag onClick={this.onStatusClick} active type='primary' circle>{hasStatus ? '状态' : '标签'}</AtTag>
             </View>
           </View>
           {hasStatus ? (
             data.map(item => (
-              <View key={item._id} className='bill-item' onClick={this.handleDetail.bind(this, item._id)}>
+              <View key={item.FID} className='bill-item' onClick={this.onItemClick.bind(this, item.FID)}>
                 <View>
-                  <Text>{item.billDate}</Text>
-                  <AtTag size='small' className='bill-tag shipped'>{enmuList[item.FStatus]}</AtTag>
+                  <Text>{item.FBizDate}</Text>
+                  <AtTag size='small' className='bill-tag shipped'>{enmuList[item.FBaseStatus]}</AtTag>
                 </View>
                 <View className='bill-body'>
-                  <Text>{item.customer.CustomerName}</Text>
+                  <Text>{item.FCustomerName}</Text>
                   <View>
-                    <Text>￥{item.amount.toFixed(2)}</Text>
+                    <Text>￥{item.FTotalAmount.toFixed(2)}</Text>
                     <AtIcon value='chevron-right' color='#aaa'></AtIcon>
                   </View>
                 </View>
                 <Text>
-                  {item.number}
+                  {item.FNumber}
                 </Text>
               </View>
             ))
           ) : (
               data.map(item => (
-                <View key={item._id} className='bill-item' onClick={this.handleDetail.bind(this, item._id)}>
+                <View key={item._id} className='bill-item' onClick={this.onItemClick.bind(this, item._id)}>
                   <View>
                     <Text>{item.billDate}</Text>
                     {item.orderTags && item.orderTags.map(tag => (
@@ -65,7 +74,7 @@ class ListContent extends Component {
                   <View className='bill-body'>
                     <Text>{item.customer.CustomerName}</Text>
                     <View>
-                      <Text>￥{item.amount.toFixed(2)}</Text>
+                      <Text>￥{Number(item.amount).toFixed(2)}</Text>
                       <AtIcon value='chevron-right' color='#aaa'></AtIcon>
                     </View>
                   </View>
