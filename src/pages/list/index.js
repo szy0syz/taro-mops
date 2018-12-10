@@ -1,9 +1,10 @@
 import Taro, { Component } from '@tarojs/taro'
 import { connect } from '@tarojs/redux'
 import { View, Text, Button } from '@tarojs/components'
+import { AtDrawer, AtTabs, AtTabsPane, AtCheckbox, Picker, AtIcon, AtInput, AtTag, AtModal, AtModalContent, AtModalAction } from 'taro-ui'
 import ListHeader from '../../components/ListHeader'
 import ListContent from '../../components/ListContent'
-import { AtDrawer, AtTabs, AtTabsPane, AtCheckbox, Picker, AtIcon, AtInput, AtTag, AtModal, AtModalContent, AtModalAction } from 'taro-ui'
+
 
 import bills from './data.json'
 
@@ -112,7 +113,7 @@ export default class List extends Component {
   }
 
   render() {
-    const { showDateSelected, showTagSelected, orderTags, tagList, orderTagList, saleOrders, saleSearchTypes, orderKeyType, orderKeyword } = this.props
+    const { saleStatusAry, showDateSelected, showTagSelected, orderTags, tagList, orderTagList, saleOrders, saleSearchTypes, orderKeyType, orderKeyword } = this.props
     return (
       <View className='page-container'>
         <View className='tabs-container'>
@@ -201,7 +202,7 @@ export default class List extends Component {
               <ListContent
                 hasStatus
                 data={bills.data}
-                enmuList={tagList}
+                enmuList={saleStatusAry}
                 totalAmount={10}
               ></ListContent>
             </AtTabsPane>
@@ -213,7 +214,7 @@ export default class List extends Component {
               ></ListHeader>
               <ListContent
                 data={saleOrders}
-                enmuList={tagList}
+                enmuList={saleStatusAry}
                 totalAmount={20}
               ></ListContent>
             </AtTabsPane>

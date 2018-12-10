@@ -2,6 +2,13 @@
 
 > Taro-MOPS 前端小程序
 
+## 0.2.1 (2018-12-10)
+
+### Enhances
+
+* [**Model**] 修改 CommonModel 中 `saleStatusAry` 字符串数组 -> 对象数组 (支持样式类名)
+* [**Component**] ListComponent组件支持销售出库单状态样式
+
 ## 0.2.1 (2018-12-09)
 
 ### Bug Fixes
@@ -10,7 +17,7 @@
 
 ### Features
 
-* [**Modal**] 新增支持 EAS销售出库单状态 的对象数组
+* [**Model**] 新增支持 EAS销售出库单状态 的对象数组
 * [**Component**] 新增 [ListHeader]、[ListContent] 组件
 
 ### Enhances

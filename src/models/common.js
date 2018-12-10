@@ -24,7 +24,26 @@ export default {
         value: 'received',
         label: '已收货'
       }],
-    saleStatusAry: ['新增', '已保存', '已提交', '已作废', '已审核', '已发布']
+    saleStatusAry: [
+      {
+        value: 'created',
+        label: '新增中'
+      }, {
+        value: 'saved',
+        label: '已保存'
+      }, {
+        value: 'submitted',
+        label: '已提交'
+      }, {
+        value: 'invalid',
+        label: '已作废'
+      }, {
+        value: 'audited',
+        label: '已审核'
+      }, {
+        value: 'published',
+        label: '已发布'
+      }],
   },
 
   effects: {

@@ -62,6 +62,23 @@
     View.bill-tag.received View {
         background-color: rgba(241, 181, 85, 1);
     }
+
+    View.bill-tag.saved View {
+        background-color: rgba(114, 192, 116, 1);
+    }
+
+    View.bill-tag.submitted View {
+        background-color: rgba(241, 181, 85, 1);
+    }
+
+    View.bill-tag.audited View {
+        background-color: rgba(238, 103, 117, 1);
+    }
+
+    View.bill-tag.invalid View {
+        background-color: #aaa;
+    }
+    
     .bill-body {
         margin-top: 18rpx;
         color: #000;

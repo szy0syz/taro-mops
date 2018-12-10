@@ -46,7 +46,9 @@ class ListContent extends Component {
               <View key={item.FID} className='bill-item' onClick={this.onItemClick.bind(this, item.FID)}>
                 <View>
                   <Text>{item.FBizDate}</Text>
-                  <AtTag size='small' className='bill-tag shipped'>{enmuList[item.FBaseStatus]}</AtTag>
+                  <View className={`bill-tag ${enmuList[item.FBaseStatus].value}`}>
+                    <AtTag size='small' >{enmuList[item.FBaseStatus].label}</AtTag>
+                  </View>
                 </View>
                 <View className='bill-body'>
                   <Text>{item.FCustomerName}</Text>
