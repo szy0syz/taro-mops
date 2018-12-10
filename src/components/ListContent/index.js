@@ -31,7 +31,6 @@ class ListContent extends Component {
     } else {
       totalAmount = 0
     }
-    console.log('hasStatus', hasStatus)
     return (
       <View className='container'>
         <View className='box-body'>

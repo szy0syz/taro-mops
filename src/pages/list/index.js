@@ -204,7 +204,6 @@ export default class List extends Component {
                 hasStatus
                 data={bills.data}
                 enmuList={saleStatusAry}
-                totalAmount={10}
               ></ListContent>
             </AtTabsPane>
             <AtTabsPane tabDirection='vertical' current={this.props.current} index={2}>
@@ -217,7 +216,6 @@ export default class List extends Component {
                 hasStatus
                 data={arbills.data}
                 enmuList={arBillStatusAry}
-                totalAmount={20}
               ></ListContent>
             </AtTabsPane>
           </AtTabs>
