@@ -44,6 +44,20 @@ export default {
         value: 'published',
         label: '已发布'
       }],
+      arBillStatusAry: [
+        {
+          value: 'unkonw',
+          label: '默认'
+        }, {
+          value: 'saved',
+          label: '保存'
+        }, {
+          value: 'submitted',
+          label: '提交'
+        }, {
+          value: 'audited',
+          label: '已审核'
+        }],
   },
 
   effects: {

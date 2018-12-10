@@ -5,8 +5,8 @@ import { AtDrawer, AtTabs, AtTabsPane, AtCheckbox, Picker, AtIcon, AtInput, AtTa
 import ListHeader from '../../components/ListHeader'
 import ListContent from '../../components/ListContent'
 
-
 import bills from './data.json'
+import arbills from './ar.json'
 
 import './index.scss'
 
@@ -113,7 +113,8 @@ export default class List extends Component {
   }
 
   render() {
-    const { saleStatusAry, showDateSelected, showTagSelected, orderTags, tagList, orderTagList, saleOrders, saleSearchTypes, orderKeyType, orderKeyword } = this.props
+    const { saleStatusAry, arBillStatusAry, showDateSelected, showTagSelected, orderTags, tagList, orderTagList, saleOrders, saleSearchTypes, orderKeyType, orderKeyword } = this.props
+    console.log(arbills.data)
     return (
       <View className='page-container'>
         <View className='tabs-container'>
@@ -213,8 +214,9 @@ export default class List extends Component {
                 searchTypeIndex={0}
               ></ListHeader>
               <ListContent
-                data={saleOrders}
-                enmuList={saleStatusAry}
+                hasStatus
+                data={arbills.data}
+                enmuList={arBillStatusAry}
                 totalAmount={20}
               ></ListContent>
             </AtTabsPane>
