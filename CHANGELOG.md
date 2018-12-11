@@ -8,6 +8,7 @@
 
 * [**Model**] 修改 CommonModel 中 `saleStatusAry` 字符串数组 -> 对象数组 (支持样式类名)
 * [**Component**] ListComponent组件支持销售出库单状态样式
+* [***Page*] 销售出库单详情页新增 审批人和审批原因
 
 ### Features
 
