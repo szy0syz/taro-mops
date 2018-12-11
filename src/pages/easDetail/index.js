@@ -23,7 +23,8 @@ export default class EasDetail extends Component {
       FStorageOrgUnit: '仓储经营部',
       FTotalAmount: 0,
       FTransactionType: '未知类型',
-      FBaseStatus: '未知'
+      FBaseStatus: '未知',
+      CFNZChkReason: ''
     },
     entries: []
   }
@@ -163,8 +164,7 @@ export default class EasDetail extends Component {
   }
 
   render() {
-    const { products, remark, isSynced ,bill, entries } = this.props
-    const amountRRR = products ? products.reduce((sum, item) => sum += item.amount, 0).toFixed(2) : 0
+    const { isSynced ,bill, entries } = this.props
     return (
       <View className='order-page'>
         <View className='order-wrapper'>
@@ -237,21 +237,16 @@ export default class EasDetail extends Component {
         </View>
         <View className='order-wrapper order-footer'>
           <View>
-            <Text>应收金额</Text>
-            <Input value={amountRRR} disabled type='digit' placeholder='0.00' className='input-amount'></Input>
+            <Text>审核人</Text>
+            <Text>{bill.FAuditor}</Text>
           </View>
           <View>
-            <Text>结算方式</Text>
-            <Picker mode='selector' range={this.props.payTypes} rangeKey='name' onChange={this.handleCommonChange.bind(this, 'payment')}>
-              <View className='picker'>
-                {this.props.paymentMethod.name}
-                <AtIcon value='chevron-right' size='22' color='#999'></AtIcon>
-              </View>
-            </Picker>
+            <Text>审核方式</Text>
+            <Text>{bill.FAuditTime}</Text>
           </View>
           <View>
             <Text>业务员</Text>
-            <Text>{staff.userName}</Text>
+            <Text></Text>
           </View>
           <View>
             <Text>出库员</Text>
@@ -275,7 +270,7 @@ export default class EasDetail extends Component {
         </View>
         <View style='background-color: transparent;' className='remark'>
           <View>
-            <Input value={remark} onChange={this.handleCommonChange.bind(this, 'remark')} placeholder='备注(最多100字)'></Input>
+            <Text>{bill.CFNZChkReason}</Text>
           </View>
         </View>
         <View>
