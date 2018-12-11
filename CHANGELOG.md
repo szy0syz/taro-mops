@@ -9,6 +9,10 @@
 * [**Model**] 修改 CommonModel 中 `saleStatusAry` 字符串数组 -> 对象数组 (支持样式类名)
 * [**Component**] ListComponent组件支持销售出库单状态样式
 
+### Features
+
+* [**Page**] 新增EAS销售出库单展示详情页
+
 ## 0.2.1 (2018-12-09)
 
 ### Bug Fixes

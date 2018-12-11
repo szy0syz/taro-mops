@@ -9,7 +9,7 @@ import './index.scss'
 @connect(({ detail }) => ({
   ...detail,
 }))
-export default class Order extends Component {
+export default class Detail extends Component {
   config = {
     navigationBarTitleText: '订单',
   }

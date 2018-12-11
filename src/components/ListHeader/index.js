@@ -18,7 +18,7 @@ class ListHeader extends Component {
   static defaultProps = {
     dateStart: dayjs().startOf('month').format('YYYY-MM-DD'),
     dateEnd: dayjs().format('YYYY-MM-DD')
-  };
+  }
 
   render() {
     const { searchTypeIndex, orderKeyword, title, searchTypes } = this.props

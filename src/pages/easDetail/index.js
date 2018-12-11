@@ -1,38 +1,49 @@
 import Taro, { Component } from '@tarojs/taro'
 import dayjs from 'dayjs'
 import { connect } from '@tarojs/redux'
-import { View, Button, Text, Image, Input, Picker } from '@tarojs/components'
+import { View, Text, Image, Input, Picker } from '@tarojs/components'
 import { AtList, AtListItem, AtIcon, AtCheckbox, AtButton } from 'taro-ui'
 import { fetchById } from './service'
 import './index.scss'
 
-@connect(({ detail }) => ({
-  ...detail,
+@connect(({ eas_detail, common }) => ({
+  ...eas_detail,
+  ...common
 }))
-export default class Order extends Component {
+export default class EasDetail extends Component {
   config = {
-    navigationBarTitleText: '订单',
+    navigationBarTitleText: '详情',
+  }
+
+  static defaultProps = {
+    bill: {
+      FBizDate: 'XXXX-XX-XX',
+      FCustomerName: '默认客户',
+      FNumber: 'XXX-XXXXXXX',
+      FStorageOrgUnit: '仓储经营部',
+      FTotalAmount: 0,
+      FTransactionType: '未知类型',
+      FBaseStatus: '未知'
+    },
+    entries: []
   }
 
   componentDidMount = async () => {
-    const { _id } = this.$router.params
-    const { userName, easid, easfid = null } = Taro.getStorageSync('userInfo')
-    let { data: payload } = await fetchById(_id)
-    payload.billDate = dayjs(payload.billDate).format('YYYY-MM-DD')
-    payload.staff = {
-      userName,
-      easid,
-      easfid
-    }
+    const { basePath = 'saleIssues', fid='2MDB8tduRim3KPek3YHhmMw+kzs=' } = this.$router.params
+    let { data: payload } = await fetchById({basePath, fid})
+    // 翻译状态
+    payload.bill.FBaseStatus = this.props.saleStatusAry[payload.bill.FBaseStatus].label
+
+    payload = Object.assign(payload, { fid })
     this.props.dispatch({
-      type: 'detail/save',
+      type: 'eas_detail/save',
       payload
     })
   }
 
   handleBillTagsChange(orderTags) {
     this.props.dispatch({
-      type: 'order/save',
+      type: 'eas_detail/save',
       payload: {
         orderTags
       }
@@ -126,16 +137,6 @@ export default class Order extends Component {
     })
   }
 
-  handleUploadImg() {
-    Taro.chooseImage({
-      count: 1,
-      sizeType: ['original', 'compressed'],
-      sourceType: ['album', 'camera'],
-    }).then(data => {
-      console.log(data)
-    })
-  }
-
   handleScanCode() {
     Taro.scanCode().then((data) => {
       console.log(data)
@@ -143,11 +144,6 @@ export default class Order extends Component {
         title: '扫描成功'
       })
     })
-  }
-
-  handleRemoveItem(item) {
-    console.log(item)
-
   }
 
   handleSyncOrder() {
@@ -167,20 +163,15 @@ export default class Order extends Component {
   }
 
   render() {
-    const { products, customer, remark, isSynced, staff } = this.props
-    const amountRRR = this.props.products.reduce((sum, item) => sum += item.amount, 0).toFixed(2)
+    const { products, remark, isSynced ,bill, entries } = this.props
+    const amountRRR = products ? products.reduce((sum, item) => sum += item.amount, 0).toFixed(2) : 0
     return (
       <View className='order-page'>
         <View className='order-wrapper'>
-          <Picker className='date-selector' mode='date' onChange={this.handleBillDateChange}>
-            <View className='picker'>
-              {this.props.billDate}
-              <AtIcon value='chevron-right' size='26' color='#c7c7cc'></AtIcon>
-            </View>
-          </Picker>
           <AtList>
             <AtListItem
               title='日期'
+              extraText={bill.FBizDate}
               iconInfo={{
                 size: 28,
                 color: '#999',
@@ -188,53 +179,60 @@ export default class Order extends Component {
               }}
             />
             <AtListItem
-              onClick={this.handleNavigate.bind(this, 'customerSelect')}
               className='custom-listItem'
               title='客户'
-              extraText={customer.CustomerName}
-              arrow='right'
+              extraText={bill.FCustomerName}
               iconInfo={{
                 size: 28,
                 color: '#999',
                 value: 'user',
               }}
             />
+            <AtListItem
+              className='custom-listItem'
+              title='类型'
+              extraText={bill.FTransactionType}
+              iconInfo={{
+                size: 28,
+                color: '#999',
+                value: 'tag',
+              }}
+            />
+            <AtListItem
+              className='custom-listItem'
+              title='状态'
+              extraText={bill.FBaseStatus}
+              iconInfo={{
+                size: 28,
+                color: '#999',
+                value: 'equalizer',
+              }}
+            />
           </AtList>
         </View>
         <View className='order-content'>
           <View>
-            <Button onClick={this.handleWaiting} style='background-color: rgba(241, 181, 85, 1);' className='custom-button' size='mini'>调用模板</Button>
-            <Button onClick={this.handleWaiting} style='background-color: #1fb7a6;' className='custom-button' size='mini'>存为模板</Button>
+            <Text>商品种类({entries.length || 0})</Text>
+            <Text>合计金额：￥{ bill && bill.FTotalAmount.toFixed(2)}</Text>
           </View>
           <View>
-            <Text>选择货品({products.length || 0})</Text>
-            <Text>合计金额：￥{products.reduce((sum, item) => sum += item.amount, 0).toFixed(2)}</Text>
-          </View>
-          <View>
-            {products.map(item => (
+            {entries && entries.map(item => (
               <View key={item.FID} className='order-item'>
-                <Image className='m-img' src={item.MaterialUrl}></Image>
+                <Image className='m-img' src='http://cdn.jerryshi.com/picgo/20181104150040.png'></Image>
                 <View>
-                  <Text>{item.MaterialName}</Text>
+                  <Text>{item.FMaterialName}</Text>
                   <View className='order-cell'>
-                    <Text>单价：￥{Number(item.MaterialPrice).toFixed(2)}</Text>
-                    <Text>数量：{Number(item.qty).toFixed(2)}公斤</Text>
+                    <Text>单价：￥{Number(item.FPrice).toFixed(2)}</Text>
+                    <Text>数量：{Number(item.FBaseQty).toFixed(2)}公斤</Text>
                   </View>
                   <View className='order-cell'>
-                    <Text>规格：{item.MaterialModel}</Text>
-                    <Text>金额：￥{Number(item.amount).toFixed(2)}</Text>
+                    <Text style='max-width:150px;' className='ellipsis'>规格：{item.FMaterialModel}</Text>
+                    <Text>金额：￥{Number(item.FAmount).toFixed(2)}</Text>
                   </View>
-                </View>
-                <AtIcon onClick={this.handleRemoveItem.bind(this, item)} value='subtract-circle' size='30' color='#F00'></AtIcon>
+                </View> 
+                <Image style='height:30px;width:30px;' src='http://cdn.jerryshi.com/picgo/20181125001736.png'></Image>
               </View>
             ))}
-          </View>
-          <View>
-            <Image onClick={this.handleScanCode} src='http://cdn.jerryshi.com/picgo/scanAdd.png' />
-            <Image
-              onClick={this.handleNavigate.bind(this, 'productSelect')}
-              src='http://cdn.jerryshi.com/picgo/plusAdd.png'
-            />
           </View>
         </View>
         <View className='order-wrapper order-footer'>

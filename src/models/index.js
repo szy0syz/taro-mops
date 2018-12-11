@@ -6,6 +6,7 @@ import list from '../pages/list/model'
 import login from '../pages/login/model'
 import order from '../pages/order/model'
 import detail from '../pages/detail/model'
+import eas_detail from '../pages/easDetail/model'
 import productSelect from '../pages/productSelect/model'
 import customerSelect from '../pages/customerSelect/model'
 
@@ -18,6 +19,7 @@ export default [
   login,
   order,
   detail,
+  eas_detail,
   productSelect,
   customerSelect
 ]

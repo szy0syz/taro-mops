@@ -2,8 +2,14 @@ import dayjs from 'dayjs'
 import * as Service from './service'
 
 export default {
-  namespace: 'detail',
+  namespace: 'eas_detail',
   state: {
+    //
+    fid: '',
+    bill: null,
+    entries: [],
+
+    // --------
     _id: '',
     billDate: dayjs().format('YYYY-MM-DD'),
     number: '',
