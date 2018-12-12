@@ -46,8 +46,7 @@ export default class List extends Component {
   }
 
   handleNaviDetail= (basePath, id) => {
-    console.log(basePath, id)
-    console.dir(basePath)
+
     Taro.navigateTo({ url: `/pages/easDetail/index?id=${id}&basePath=${basePath}` })
   }
 
@@ -223,7 +222,7 @@ export default class List extends Component {
                 hasStatus
                 data={arbills.data}
                 enmuList={arBillStatusAry}
-                onNaviDetail={this.handleNaviDetail.bind(this,{id: bills.FID, basePath: 'arBills'})}
+                onNaviDetail={this.handleNaviDetail}
               ></ListContent>
             </AtTabsPane>
           </AtTabs>

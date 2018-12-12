@@ -31,6 +31,7 @@ class ListContent extends Component {
     } else {
       totalAmount = 0
     }
+    // TODO: 待修复~~~~
     return (
       <View className='container'>
         <View className='box-body'>
@@ -41,7 +42,7 @@ class ListContent extends Component {
             </View>
           </View>
           {hasStatus ? (
-            data.map(item => (
+            data.map(item => ( 
               <View key={item.FID} className='bill-item' onClick={this.props.onNaviDetail.bind(this, 'saleIssues', item.FID)}>
                 <View>
                   <Text>{item.FBizDate}</Text>
