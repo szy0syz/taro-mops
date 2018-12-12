@@ -33,7 +33,7 @@ export default class EasDetail extends Component {
     const { basePath = 'arBills', fid = '2vCEx0DLSfiVJm04asYE8fyRDvM=' } = this.$router.params
     let { data: payload } = await fetchById({ basePath, fid })
     // 翻译状态
-    payload.bill.FBaseStatus = this.props.saleStatusAry[payload.bill.FBaseStatus].label
+    payload.bill.FBaseStatus = this.props.arBillStatusAry[payload.bill.FBaseStatus].label
 
     payload = Object.assign(payload, { fid, basePath })
     this.props.dispatch({
