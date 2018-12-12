@@ -2,7 +2,7 @@ import Taro, { Component } from '@tarojs/taro'
 import dayjs from 'dayjs'
 import { connect } from '@tarojs/redux'
 import { View, Text, Image, Input, Picker } from '@tarojs/components'
-import { AtList, AtListItem, AtIcon, AtCheckbox, AtButton } from 'taro-ui'
+import { AtList, AtListItem, AtIcon, AtTextarea } from 'taro-ui'
 import { fetchById } from './service'
 import './index.scss'
 
@@ -30,8 +30,8 @@ export default class EasDetail extends Component {
   }
 
   componentDidMount = async () => {
-    const { basePath = 'saleIssues', fid='2MDB8tduRim3KPek3YHhmMw+kzs=' } = this.$router.params
-    let { data: payload } = await fetchById({basePath, fid})
+    const { basePath = 'saleIssues', fid = '2MDB8tduRim3KPek3YHhmMw+kzs=' } = this.$router.params
+    let { data: payload } = await fetchById({ basePath, fid })
     // 翻译状态
     payload.bill.FBaseStatus = this.props.saleStatusAry[payload.bill.FBaseStatus].label
 
@@ -164,7 +164,7 @@ export default class EasDetail extends Component {
   }
 
   render() {
-    const { isSynced ,bill, entries } = this.props
+    const { bill, entries } = this.props
     return (
       <View className='order-page'>
         <View className='order-wrapper'>
@@ -213,7 +213,7 @@ export default class EasDetail extends Component {
         <View className='order-content'>
           <View>
             <Text>商品种类({entries.length || 0})</Text>
-            <Text>合计金额：￥{ bill && bill.FTotalAmount.toFixed(2)}</Text>
+            <Text>合计金额：￥{bill && bill.FTotalAmount.toFixed(2)}</Text>
           </View>
           <View>
             {entries && entries.map(item => (
@@ -229,7 +229,7 @@ export default class EasDetail extends Component {
                     <Text style='max-width:150px;' className='ellipsis'>规格：{item.FMaterialModel}</Text>
                     <Text>金额：￥{Number(item.FAmount).toFixed(2)}</Text>
                   </View>
-                </View> 
+                </View>
                 <Image style='height:30px;width:30px;' src='http://cdn.jerryshi.com/picgo/20181125001736.png'></Image>
               </View>
             ))}
@@ -241,47 +241,24 @@ export default class EasDetail extends Component {
             <Text>{bill.FAuditor}</Text>
           </View>
           <View>
-            <Text>审核方式</Text>
+            <Text>审核时间</Text>
             <Text>{bill.FAuditTime}</Text>
           </View>
-          <View>
-            <Text>业务员</Text>
-            <Text></Text>
-          </View>
-          <View>
-            <Text>出库员</Text>
-            <Picker mode='selector' range={this.props.storekeeperList} rangeKey='name' onChange={this.handleCommonChange.bind(this, 'storekeeper')}>
-              <View className='picker'>
-                {this.props.storekeeper.name}
-                <AtIcon value='chevron-right' size='22' color='#999'></AtIcon>
-              </View>
-            </Picker>
-          </View>
-          <View onClick={this.handleNavigate.bind(this, 'delivery')}>
-            <Text>物流</Text>
-            <AtIcon value='chevron-right' size='22' color='#999'></AtIcon>
-          </View>
-          <View>
-            <Text>票据影像</Text>
-            <View onClick={this.handleUploadImg} >
-              <AtIcon value='camera' size='34' color='#fff'></AtIcon>
-            </View>
-          </View>
+
         </View>
         <View style='background-color: transparent;' className='remark'>
           <View>
-            <Text>{bill.CFNZChkReason}</Text>
+            <AtTextarea
+              value={bill.CFNZChkReason}
+              height={100}
+              disabled
+              count={false}
+              placeholder='审批原因'
+            />
           </View>
         </View>
-        <View>
-          <AtCheckbox
-            style='background-color: #aaa;'
-            options={this.props.tagList}
-            selectedList={this.props.orderTags}
-            onChange={this.handleBillTagsChange}
-          />
-        </View>
-        <View className='toolbar'>
+
+        {/* <View className='toolbar'>
           <View onClick={this.handleWaiting} style='padding:8rpx;background-color: rgba(114, 192, 116, 1); border-radius: 14rpx;'>
             <AtIcon value='iconfont icon-sharem1' size='34' color='#fff'></AtIcon>
           </View>
@@ -290,7 +267,7 @@ export default class EasDetail extends Component {
           <View onClick={this.handleSyncOrder} style='padding:6rpx;background-color: rgba(112, 159, 239, 1); border-radius: 14rpx;'>
             <AtIcon value={`iconfont ${isSynced ? 'icon-confirm' : 'icon-shangchuan'}`} size='36' color='#fff'></AtIcon>
           </View>
-        </View>
+        </View> */}
       </View>
     )
   }
