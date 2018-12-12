@@ -2,13 +2,14 @@
 
 > Taro-MOPS 前端小程序
 
-## 0.2.1 (2018-12-10)
+## 0.2.2 (2018-12-12)
 
 ### Enhances
 
 * [**Model**] 修改 CommonModel 中 `saleStatusAry` 字符串数组 -> 对象数组 (支持样式类名)
 * [**Component**] ListComponent组件支持销售出库单状态样式
 * [***Page*] 销售出库单详情页新增 审批人和审批原因
+* [**Page**] 重构easDetial页面组件，支持多种类型单据显示
 
 ### Features
 

@@ -8,7 +8,20 @@ export default {
     fid: '',
     bill: null,
     entries: [],
-
+    labelData: {
+      saleIssues: {
+        customerLabel: '销售客户',
+        billTypeLabel: '销售类型',
+        AmountLabel: '销售金额',
+        remarkLabel: '审批原因'
+      },
+      arBills: {
+        customerLabel: '应收客户',
+        billTypeLabel: '应收类型',
+        AmountLabel: '应收金额',
+        remarkLabel: '摘要'
+      }
+    },
     // --------
     _id: '',
     billDate: dayjs().format('YYYY-MM-DD'),

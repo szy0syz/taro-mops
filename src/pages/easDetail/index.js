@@ -1,8 +1,8 @@
 import Taro, { Component } from '@tarojs/taro'
-import dayjs from 'dayjs'
+// import dayjs from 'dayjs'
 import { connect } from '@tarojs/redux'
-import { View, Text, Image, Input, Picker } from '@tarojs/components'
-import { AtList, AtListItem, AtIcon, AtTextarea } from 'taro-ui'
+import { View, Text, Image } from '@tarojs/components'
+import { AtList, AtListItem, AtTextarea } from 'taro-ui'
 import { fetchById } from './service'
 import './index.scss'
 
@@ -22,7 +22,7 @@ export default class EasDetail extends Component {
       FNumber: 'XXX-XXXXXXX',
       FStorageOrgUnit: '仓储经营部',
       FTotalAmount: 0,
-      FTransactionType: '未知类型',
+      FBizType: '未知类型',
       FBaseStatus: '未知',
       CFNZChkReason: ''
     },
@@ -30,60 +30,15 @@ export default class EasDetail extends Component {
   }
 
   componentDidMount = async () => {
-    const { basePath = 'saleIssues', fid = '2MDB8tduRim3KPek3YHhmMw+kzs=' } = this.$router.params
+    const { basePath = 'arBills', fid = '2vCEx0DLSfiVJm04asYE8fyRDvM=' } = this.$router.params
     let { data: payload } = await fetchById({ basePath, fid })
     // 翻译状态
     payload.bill.FBaseStatus = this.props.saleStatusAry[payload.bill.FBaseStatus].label
 
-    payload = Object.assign(payload, { fid })
+    payload = Object.assign(payload, { fid, basePath })
     this.props.dispatch({
       type: 'eas_detail/save',
       payload
-    })
-  }
-
-  handleBillTagsChange(orderTags) {
-    this.props.dispatch({
-      type: 'eas_detail/save',
-      payload: {
-        orderTags
-      }
-    })
-  }
-
-  handleCommonChange(type, e) {
-    let payload, value = e.detail.value
-    switch (type) {
-      case 'payment':
-        payload = {
-          paymentMethod: this.props.payTypes[value]
-        }
-        break;
-      case 'storekeeper':
-        payload = {
-          storekeeper: this.props.storekeeperList[value]
-        }
-        break;
-      case 'remark':
-        payload = {
-          remark: value
-        }
-        break;
-      default:
-        break;
-    }
-    this.props.dispatch({
-      type: 'order/save',
-      payload
-    })
-  }
-
-  handleBillDateChange(value) {
-    this.props.dispatch({
-      type: 'order/save',
-      payload: {
-        billDate: value.detail.value
-      }
     })
   }
 
@@ -94,43 +49,6 @@ export default class EasDetail extends Component {
     })
   }
 
-  handleSave() {
-    let { billDate, orderTags, customer, products, remark, staff, storekeeper, paymentMethod } = this.props
-    // 奇葩需求和奇葩api
-    billDate = dayjs()
-      .set('month', billDate.split('-')[1] - 1)
-      .set('date', billDate.split('-')[2])
-      .valueOf()
-    let payload = {
-      billDate,
-      orderTags,
-      customer,
-      products,
-      remark,
-      staff,
-      storekeeper,
-      paymentMethod
-    }
-    this.props.dispatch({
-      type: 'order/create',
-      payload
-    }).then(isCreated => {
-      if (isCreated) {
-        setTimeout(() => {
-          Taro.switchTab({ url: '/pages/list/index' })
-        }, 1500)
-      }
-    })
-  }
-
-  handleAgain() {
-    this.props.dispatch({
-      type: 'order/empty'
-    })
-    Taro.showToast({
-      title: '再开一单'
-    })
-  }
 
   handleNavigate(path) {
     Taro.navigateTo({
@@ -138,37 +56,23 @@ export default class EasDetail extends Component {
     })
   }
 
-  handleScanCode() {
-    Taro.scanCode().then((data) => {
-      console.log(data)
-      Taro.showToast({
-        title: '扫描成功'
-      })
-    })
-  }
-
-  handleSyncOrder() {
-    const { _id, isSynced } = this.props
-    if (isSynced) {
-      Taro.showToast({
-        title: '该单据已同步'
-      })
-    } else {
-      this.props.dispatch({
-        type: 'detail/syncOrder',
-        payload: {
-          _id
-        }
-      })
-    }
-  }
-
   render() {
-    const { bill, entries } = this.props
+    const { bill, entries, labelData, basePath } = this.props
+    const labels = labelData[basePath]
     return (
       <View className='order-page'>
         <View className='order-wrapper'>
           <AtList>
+            <AtListItem
+              className='custom-listItem'
+              title='单号'
+              extraText={bill.FNumber}
+              iconInfo={{
+                size: 28,
+                color: '#999',
+                value: 'numbered-list',
+              }}
+            />
             <AtListItem
               title='日期'
               extraText={bill.FBizDate}
@@ -180,7 +84,7 @@ export default class EasDetail extends Component {
             />
             <AtListItem
               className='custom-listItem'
-              title='客户'
+              title={labels.customerLabel}
               extraText={bill.FCustomerName}
               iconInfo={{
                 size: 28,
@@ -190,8 +94,8 @@ export default class EasDetail extends Component {
             />
             <AtListItem
               className='custom-listItem'
-              title='类型'
-              extraText={bill.FTransactionType}
+              title={labels.billTypeLabel}
+              extraText={bill.FBizType}
               iconInfo={{
                 size: 28,
                 color: '#999',
@@ -213,7 +117,7 @@ export default class EasDetail extends Component {
         <View className='order-content'>
           <View>
             <Text>商品种类({entries.length || 0})</Text>
-            <Text>合计金额：￥{bill && bill.FTotalAmount.toFixed(2)}</Text>
+            <Text>{labels.AmountLabel}：￥{bill && bill.FTotalAmount.toFixed(2)}</Text>
           </View>
           <View>
             {entries && entries.map(item => (
@@ -250,24 +154,13 @@ export default class EasDetail extends Component {
           <View>
             <AtTextarea
               value={bill.CFNZChkReason}
-              height={100}
+              height='100'
               disabled
               count={false}
-              placeholder='审批原因'
+              placeholder={labels.remarkLabel}
             />
           </View>
         </View>
-
-        {/* <View className='toolbar'>
-          <View onClick={this.handleWaiting} style='padding:8rpx;background-color: rgba(114, 192, 116, 1); border-radius: 14rpx;'>
-            <AtIcon value='iconfont icon-sharem1' size='34' color='#fff'></AtIcon>
-          </View>
-          <AtButton onClick={this.handleAgain} size='normal' type='secondary'>再开一单</AtButton>
-          <AtButton onClick={this.handleSave} size='normal' type='primary'>确认保存</AtButton>
-          <View onClick={this.handleSyncOrder} style='padding:6rpx;background-color: rgba(112, 159, 239, 1); border-radius: 14rpx;'>
-            <AtIcon value={`iconfont ${isSynced ? 'icon-confirm' : 'icon-shangchuan'}`} size='36' color='#fff'></AtIcon>
-          </View>
-        </View> */}
       </View>
     )
   }
