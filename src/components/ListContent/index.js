@@ -42,7 +42,7 @@ class ListContent extends Component {
           </View>
           {hasStatus ? (
             data.map(item => (
-              <View key={item.FID} className='bill-item' onClick={this.onItemClick.bind(this, item.FID)}>
+              <View key={item.FID} className='bill-item' onClick={this.props.onNaviDetail.bind(this, 'saleIssues', item.FID)}>
                 <View>
                   <Text>{item.FBizDate}</Text>
                   <View className={`bill-tag ${enmuList[item.FBaseStatus].value}`}>

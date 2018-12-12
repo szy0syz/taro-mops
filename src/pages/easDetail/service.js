@@ -1,7 +1,7 @@
 import Request from '../../utils/request'
 
-export const fetchById = ({basePath, fid}) => Request({
-  url: `/eas/${basePath}/${fid}`,
+export const fetchById = ({basePath, id}) => Request({
+  url: `/eas/${basePath}/${id}`,
   method: 'GET'
 })
 

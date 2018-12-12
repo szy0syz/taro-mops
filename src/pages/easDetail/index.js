@@ -30,12 +30,22 @@ export default class EasDetail extends Component {
   }
 
   componentDidMount = async () => {
-    const { basePath = 'arBills', fid = '2vCEx0DLSfiVJm04asYE8fyRDvM=' } = this.$router.params
-    let { data: payload } = await fetchById({ basePath, fid })
-    // 翻译状态
-    payload.bill.FBaseStatus = this.props.arBillStatusAry[payload.bill.FBaseStatus].label
+    const { saleStatusAry, arBillStatusAry } = this.props
+    console.log(this.$router.params)
+    const { basePath = 'arBills', id = '2vCEx0DLSfiVJm04asYE8fyRDvM=' } = this.$router.params
+    let { data: payload } = await fetchById({ basePath, id })
 
-    payload = Object.assign(payload, { fid, basePath })
+    // 翻译状态
+    if (payload && payload.bill) {
+      if (basePath === 'saleIssues') {
+        payload.bill.FBaseStatus = saleStatusAry[payload.bill.FBaseStatus].label
+      }
+      if (basePath === 'arBills') {
+        payload.bill.FBaseStatus = arBillStatusAry[payload.bill.FBaseStatus].label
+      }
+    }
+    
+    payload = Object.assign(payload, { id, basePath })
     this.props.dispatch({
       type: 'eas_detail/save',
       payload

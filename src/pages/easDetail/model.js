@@ -5,7 +5,7 @@ export default {
   namespace: 'eas_detail',
   state: {
     //
-    fid: '',
+    id: '',
     bill: null,
     entries: [],
     labelData: {

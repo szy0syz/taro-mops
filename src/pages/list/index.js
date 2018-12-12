@@ -45,6 +45,12 @@ export default class List extends Component {
     Taro.navigateTo({ url: `/pages/detail/index?_id=${_id}` })
   }
 
+  handleNaviDetail= (basePath, id) => {
+    console.log(basePath, id)
+    console.dir(basePath)
+    Taro.navigateTo({ url: `/pages/easDetail/index?id=${id}&basePath=${basePath}` })
+  }
+
   onDateStartChange = e => {
     this.props.dispatch({ type: 'list/save', payload: { dateStart: e.detail.value } })
   }
@@ -204,6 +210,7 @@ export default class List extends Component {
                 hasStatus
                 data={bills.data}
                 enmuList={saleStatusAry}
+                onNaviDetail={this.handleNaviDetail}
               ></ListContent>
             </AtTabsPane>
             <AtTabsPane tabDirection='vertical' current={this.props.current} index={2}>
@@ -216,6 +223,7 @@ export default class List extends Component {
                 hasStatus
                 data={arbills.data}
                 enmuList={arBillStatusAry}
+                onNaviDetail={this.handleNaviDetail.bind(this,{id: bills.FID, basePath: 'arBills'})}
               ></ListContent>
             </AtTabsPane>
           </AtTabs>
