@@ -47,10 +47,9 @@ export default class EasDetail extends Component {
       }
     }
     
-    payload = Object.assign(payload, { id, basePath })
     this.props.dispatch({
       type: 'eas_detail/save',
-      payload
+      payload: Object.assign(payload, { id, basePath })
     })
   }
 

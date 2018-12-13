@@ -8,6 +8,7 @@ export default {
     id: '',
     bill: null,
     entries: [],
+    basePath: '',
     labelData: {
       saleIssues: {
         customerLabel: '销售客户',

@@ -13,18 +13,20 @@ class ListContent extends Component {
     hasStatus: PropTypes.bool,
     enmuList: PropTypes.array,
     onItemClick: PropTypes.func,
-    onStatusClick: PropTypes.func
+    onStatusClick: PropTypes.func,
+    basePath: PropTypes.string
   }
 
   static defaultProps = {
     // totalAmount: parseInt(0).toFixed(2),
     data: [],
     enmuList: [],
-    hasStatus: false
+    hasStatus: false,
+    basePath: 'saleIssues'
   }
 
   render() {
-    const { data, enmuList, hasStatus } = this.props
+    const { data, enmuList, hasStatus, basePath } = this.props
     let totalAmount
     if (hasStatus) {
       totalAmount = data.length > 0 ? data.reduce((acc, item) => acc += parseFloat(item.FTotalAmount), 0).toFixed(2) : parseFloat(0).toFixed(2)
@@ -43,7 +45,7 @@ class ListContent extends Component {
           </View>
           {hasStatus ? (
             data.map(item => ( 
-              <View key={item.FID} className='bill-item' onClick={this.props.onNaviDetail.bind(this, 'saleIssues', item.FID)}>
+              <View key={item.FID} className='bill-item' onClick={this.props.onNaviDetail.bind(this, basePath, item.FID)}>
                 <View>
                   <Text>{item.FBizDate}</Text>
                   <View className={`bill-tag ${enmuList[item.FBaseStatus].value}`}>

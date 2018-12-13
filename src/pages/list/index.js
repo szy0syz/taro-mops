@@ -206,6 +206,7 @@ export default class List extends Component {
               ></ListHeader>
               <ListContent
                 hasStatus
+                basePath='saleIssues'
                 data={bills.data}
                 enmuList={saleStatusAry}
                 onNaviDetail={this.handleNaviDetail}
@@ -219,6 +220,7 @@ export default class List extends Component {
               ></ListHeader>
               <ListContent
                 hasStatus
+                basePath='arBills'
                 data={arbills.data}
                 enmuList={arBillStatusAry}
                 onNaviDetail={this.handleNaviDetail}

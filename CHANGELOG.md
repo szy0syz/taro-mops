@@ -6,7 +6,8 @@
 
 ### Bug Fixes
 
-* 修复 easDetail 组件 fetch 时 加入 encodeURIComponent
+* 修复[easDetai]组件fetch时加入 encodeURIComponent
+* 修复[ListContent]组件支持basePath检索不同类型单据
 
 ### Enhances
 
