@@ -31,8 +31,10 @@ export default class EasDetail extends Component {
 
   componentDidMount = async () => {
     const { saleStatusAry, arBillStatusAry } = this.props
-    console.log(this.$router.params)
-    const { basePath = 'arBills', id = '2vCEx0DLSfiVJm04asYE8fyRDvM=' } = this.$router.params
+    let { basePath, id } = this.$router.params
+
+    id = encodeURIComponent(id)
+    
     let { data: payload } = await fetchById({ basePath, id })
 
     // 翻译状态

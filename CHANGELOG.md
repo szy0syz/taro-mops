@@ -4,6 +4,10 @@
 
 ## 0.2.2 (2018-12-12)
 
+### Bug Fixes
+
+* 修复 easDetail 组件 fetch 时 加入 encodeURIComponent
+
 ### Enhances
 
 * [**Model**] 修改 CommonModel 中 `saleStatusAry` 字符串数组 -> 对象数组 (支持样式类名)

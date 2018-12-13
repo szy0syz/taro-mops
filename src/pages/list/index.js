@@ -46,7 +46,6 @@ export default class List extends Component {
   }
 
   handleNaviDetail= (basePath, id) => {
-
     Taro.navigateTo({ url: `/pages/easDetail/index?id=${id}&basePath=${basePath}` })
   }
 
