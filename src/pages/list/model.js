@@ -11,7 +11,7 @@ export default {
   state: {
     current: 0,
     dateStart: dayjs().subtract(1, 'month').format('YYYY-MM-DD'),
-    dateEnd: dayjs().format('YYYY-MM-DD'),
+    dateEnd: dayjs().format('YYYY-MM-DD'),    // TODO: DRY!!!!
     saleSearchTypes: ['客户', '单号', '备注'],
     siSearchTypes: ['客户','单号'],
     arSearchTypes: ['客户','单号'],
@@ -27,12 +27,24 @@ export default {
     saleOrderAmount: 0,
     saleOrders: [],
     showTagSelected: false,
-    showDateSelected: false
+    showDateSelected: false,
+    ///////
+    siBills: [],
+    arBills: [],
+    dateList: {
+      saleIssues: {
+        start: dayjs().subtract(1, 'month').format('YYYY-MM-DD'),
+        end: dayjs().format('YYYY-MM-DD')   // TODO: DRY!!!!
+      },
+      arBills: {
+        start: dayjs().subtract(1, 'month').format('YYYY-MM-DD'),
+        end: dayjs().format('YYYY-MM-DD')   // TODO: DRY!!!!
+      }
+    }
   },
   effects: {
     * fetchOrders(_, { call, select, put }) {
       const { orderKeyType, orderKeyword, dateStart, dateEnd, orderTags } = yield select(state => state.list)
-      // console.log(orderKeyType, orderKeyword, dateStart, dateEnd, orderTags)
       let { success, data: saleOrders } = yield call(Service.loadSaleOrders, { orderKeyType, orderKeyword, dateStart, dateEnd, orderTags })
       let saleOrderAmount = 0
 

@@ -5,9 +5,6 @@ import { AtDrawer, AtTabs, AtTabsPane, AtCheckbox, Picker, AtIcon, AtInput, AtTa
 import ListHeader from '../../components/ListHeader'
 import ListContent from '../../components/ListContent'
 
-import bills from './data.json'
-import arbills from './ar.json'
-
 import './index.scss'
 
 @connect(({ common, list }) => ({
@@ -53,10 +50,24 @@ export default class List extends Component {
     this.props.dispatch({ type: 'list/save', payload: { dateStart: e.detail.value } })
   }
 
+  onStartDateChange = (basePath, e) => {
+    let dateList = this.props.dateList
+    dateList[basePath].start = e.detail.value
+    this.props.dispatch({ type: 'list/save', payload: { dateList } })
+  }
+
   onDateEndChange = e => {
     const { dispatch } = this.props
     dispatch({ type: 'list/save', payload: { dateEnd: e.detail.value } })
     dispatch({ type: 'list/fetchOrders' })
+  }
+
+  onEndDateChange = (basePath, e) => {
+    const { dispatch } = this.props
+    let dateList = this.props.dateList
+    dateList[basePath].end = e.detail.value
+    dispatch({ type: 'list/save', payload: { dateEnd: e.detail.value } })
+    // dispatch({ type: 'list/fetchOrders' })
   }
 
   onSaleTypeChange = (e) => {
@@ -117,8 +128,7 @@ export default class List extends Component {
   }
 
   render() {
-    const { saleStatusAry, arBillStatusAry, showDateSelected, showTagSelected, orderTags, tagList, orderTagList, saleOrders, saleSearchTypes, orderKeyType, orderKeyword } = this.props
-    console.log(arbills.data)
+    const { siBills, arBills, saleStatusAry, arBillStatusAry, showDateSelected, showTagSelected, orderTags, tagList, orderTagList, saleOrders, saleSearchTypes, orderKeyType, orderKeyword } = this.props
     return (
       <View className='page-container'>
         <View className='tabs-container'>
@@ -201,13 +211,15 @@ export default class List extends Component {
             <AtTabsPane tabDirection='vertical' current={this.props.current} index={1}>
               <ListHeader
                 title='销售出库单'
+                basePath='saleIssues'
+                onStartDateChange={this.onStartDateChange}
                 searchTypes={this.props.siSearchTypes}
                 searchTypeIndex={0}
               ></ListHeader>
               <ListContent
                 hasStatus
                 basePath='saleIssues'
-                data={bills.data}
+                data={siBills}
                 enmuList={saleStatusAry}
                 onNaviDetail={this.handleNaviDetail}
               ></ListContent>
@@ -215,13 +227,14 @@ export default class List extends Component {
             <AtTabsPane tabDirection='vertical' current={this.props.current} index={2}>
               <ListHeader
                 title='应收单'
+                basePath='arBills'
                 searchTypes={this.props.arSearchTypes}
                 searchTypeIndex={0}
               ></ListHeader>
               <ListContent
                 hasStatus
                 basePath='arBills'
-                data={arbills.data}
+                data={arBills}
                 enmuList={arBillStatusAry}
                 onNaviDetail={this.handleNaviDetail}
               ></ListContent>

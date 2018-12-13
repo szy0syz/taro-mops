@@ -21,11 +21,11 @@ class ListHeader extends Component {
   }
 
   render() {
-    const { searchTypeIndex, orderKeyword, title, searchTypes } = this.props
+    const { onStartDateChange,searchTypeIndex, orderKeyword, title, searchTypes } = this.props
     return (
       <View className='container'>
         <View className='box-header'>
-          <Picker mode='date' onChange={this.onDateStartChange}>
+          <Picker mode='date' onChange={onStartDateChange.bind(this, 'saleIssues')}>
             <Text className='picker'>{this.props.dateStart}</Text>
           </Picker>
           <AtIcon value='chevron-down' color='#aaa'></AtIcon>
