@@ -20,6 +20,7 @@ export default class List extends Component {
     await this.props.dispatch({
       type: 'list/fetchOrders'
     })
+    // 如果tabIndex=n没数据就加载
   }
 
   showToast(text, icon = 'none', duration = 2000) {
@@ -30,8 +31,10 @@ export default class List extends Component {
     })
   }
 
-  handleClick = (tabIndex) => {
+  handleTabClick = (tabIndex) => {
     this.props.dispatch({ type: 'list/save', payload: { tabIndex } })
+    this.props.dispatch({ type: 'list/fetchBills' })
+    console.log('~~~~%%%%%%%%%%%%%,handleTabClick')
   }
 
   handleInputChange = (orderKeyword) => {
@@ -141,7 +144,7 @@ export default class List extends Component {
               { title: '销 售' },
               { title: '应 收' }
             ]}
-            onClick={this.handleClick}
+            onClick={this.handleTabClick}
           >
             <AtTabsPane style='background-color: #fff;' tabDirection='vertical' current={tabIndex} index={0}>
               <View className='tab-box'>

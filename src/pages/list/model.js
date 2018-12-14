@@ -45,24 +45,28 @@ export default {
     tabIndex: 0,
     tabData: [
       {
+        baseName: 'saleOrders',
         dateStart: dayjs().subtract(1, 'month').format('YYYY-MM-DD'),
         dateEnd: dayjs().format('YYYY-MM-DD'),
         showDateMenu: false,
         showTagMenu: false,
         fetchTypes: ['客户', '单号', '备注'],
-        fetchKeywords: '',
+        fetchType: '',
+        fetchKeyword: '',
         bills: []
       },
       {
+        baseName: 'saleIssues',
         dateStart: dayjs().subtract(1, 'month').format('YYYY-MM-DD'),
         dateEnd: dayjs().format('YYYY-MM-DD'),
         showDateMenu: false,
         showTagMenu: false,
         fetchTypes: ['客户', '单号', '审批原因'],
-        fetchKeywords: '',
+        fetchKeyword: '',
         bills: []
       },
       {
+        baseName: 'arBills',
         dateStart: dayjs().subtract(1, 'month').format('YYYY-MM-DD'),
         dateEnd: dayjs().format('YYYY-MM-DD'),
         showDateMenu: false,
@@ -74,6 +78,30 @@ export default {
     ]
   },
   effects: {
+    * fetchBills(_, { call, select, put }) {
+      let { tabIndex, tabData } = yield select(state => state.list)
+      console.log(tabIndex, tabData[tabIndex])
+      let data = tabData[tabIndex]
+      const payload = {
+        dateStart: data.dateStart,
+        dateEnd: data.dateEnd,
+        keyword: data.fetchKeyword,
+        keytype: data.fetchType,
+        tags: data.fetchTags
+      }
+      let { success, data: bills } = yield call(Service.loadSaleOrders, payload)
+      console.log(success, bills)
+      if (success) {
+        tabData[tabIndex].bills = bills
+        yield put({
+          type: 'list/save',
+          payload: { tabData }
+        })
+      } else {
+        console.log('error')
+      }
+    },
+
     * fetchOrders(_, { call, select, put }) {
       const { orderKeyType, orderKeyword, dateStart, dateEnd, orderTags } = yield select(state => state.list)
       let { success, data: saleOrders } = yield call(Service.loadSaleOrders, { orderKeyType, orderKeyword, dateStart, dateEnd, orderTags })
