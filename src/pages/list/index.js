@@ -30,8 +30,8 @@ export default class List extends Component {
     })
   }
 
-  handleClick = (index) => {
-    this.props.dispatch({ type: 'list/save', payload: { current: index } })
+  handleClick = (tabIndex) => {
+    this.props.dispatch({ type: 'list/save', payload: { tabIndex } })
   }
 
   handleInputChange = (orderKeyword) => {
@@ -128,12 +128,12 @@ export default class List extends Component {
   }
 
   render() {
-    const { siBills, arBills, saleStatusAry, arBillStatusAry, showDateSelected, showTagSelected, orderTags, tagList, orderTagList, saleOrders, saleSearchTypes, orderKeyType, orderKeyword } = this.props
+    const { tabIndex ,siBills, arBills, saleStatusAry, arBillStatusAry, showDateSelected, showTagSelected, orderTags, tagList, orderTagList, saleOrders, saleSearchTypes, orderKeyType, orderKeyword } = this.props
     return (
       <View className='page-container'>
         <View className='tabs-container'>
           <AtTabs
-            current={this.props.current}
+            current={tabIndex}
             height='100%'
             tabDirection='vertical'
             tabList={[
@@ -143,7 +143,7 @@ export default class List extends Component {
             ]}
             onClick={this.handleClick}
           >
-            <AtTabsPane style='background-color: #fff;' tabDirection='vertical' current={this.props.current} index={0}>
+            <AtTabsPane style='background-color: #fff;' tabDirection='vertical' current={tabIndex} index={0}>
               <View className='tab-box'>
                 <View className='box-header'>
                   <Picker mode='date' onChange={this.onDateStartChange}>
@@ -208,7 +208,7 @@ export default class List extends Component {
                 </View>
               </View>
             </AtTabsPane>
-            <AtTabsPane tabDirection='vertical' current={this.props.current} index={1}>
+            <AtTabsPane tabDirection='vertical' current={tabIndex} index={1}>
               <ListHeader
                 title='销售出库单'
                 basePath='saleIssues'
@@ -224,7 +224,7 @@ export default class List extends Component {
                 onNaviDetail={this.handleNaviDetail}
               ></ListContent>
             </AtTabsPane>
-            <AtTabsPane tabDirection='vertical' current={this.props.current} index={2}>
+            <AtTabsPane tabDirection='vertical' current={tabIndex} index={2}>
               <ListHeader
                 title='应收单'
                 basePath='arBills'

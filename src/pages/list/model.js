@@ -13,8 +13,8 @@ export default {
     dateStart: dayjs().subtract(1, 'month').format('YYYY-MM-DD'),
     dateEnd: dayjs().format('YYYY-MM-DD'),    // TODO: DRY!!!!
     saleSearchTypes: ['客户', '单号', '备注'],
-    siSearchTypes: ['客户','单号'],
-    arSearchTypes: ['客户','单号'],
+    siSearchTypes: ['客户', '单号'],
+    arSearchTypes: ['客户', '单号'],
     tagList: {
       paid: '已收款',
       shipped: '已发货',
@@ -40,7 +40,38 @@ export default {
         start: dayjs().subtract(1, 'month').format('YYYY-MM-DD'),
         end: dayjs().format('YYYY-MM-DD')   // TODO: DRY!!!!
       }
-    }
+    },
+    //---------------//
+    tabIndex: 0,
+    tabData: [
+      {
+        dateStart: dayjs().subtract(1, 'month').format('YYYY-MM-DD'),
+        dateEnd: dayjs().format('YYYY-MM-DD'),
+        showDateMenu: false,
+        showTagMenu: false,
+        fetchTypes: ['客户', '单号', '备注'],
+        fetchKeywords: '',
+        bills: []
+      },
+      {
+        dateStart: dayjs().subtract(1, 'month').format('YYYY-MM-DD'),
+        dateEnd: dayjs().format('YYYY-MM-DD'),
+        showDateMenu: false,
+        showTagMenu: false,
+        fetchTypes: ['客户', '单号', '审批原因'],
+        fetchKeywords: '',
+        bills: []
+      },
+      {
+        dateStart: dayjs().subtract(1, 'month').format('YYYY-MM-DD'),
+        dateEnd: dayjs().format('YYYY-MM-DD'),
+        showDateMenu: false,
+        showTagMenu: false,
+        fetchTypes: ['客户', '单号', '事由'],
+        fetchKeywords: '',
+        bills: []
+      }
+    ]
   },
   effects: {
     * fetchOrders(_, { call, select, put }) {
