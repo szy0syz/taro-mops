@@ -8,10 +8,10 @@ import './index.scss'
   ...home
 }))
 export default class MySwiper extends Component {
-  constructor() {
-    super(...arguments);
-    // this.state = { isH5: typeof window !== 'undefined' }
-  }
+  // constructor() {
+  //   super(...arguments);
+  //   // this.state = { isH5: typeof window !== 'undefined' }
+  // }
 
   static propTypes = {
     stats: PropTypes.array,

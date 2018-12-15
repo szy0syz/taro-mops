@@ -34,7 +34,7 @@ class ListContent extends Component {
     } else {
       totalAmount = model.bills.length > 0 ? model.bills.reduce((acc, item) => acc += Number(item.totalAmount), 0).toFixed(2) : 0
     }
-    console.log('@@@@@@', isEas)
+
     return (
       <View className='container'>
         <View className='box-body'>
