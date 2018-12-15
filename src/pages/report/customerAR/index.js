@@ -8,10 +8,6 @@ export default class CustomerAR extends Component {
     navigationBarTitleText: '报表-客户对账',
   }
 
-  handleNav = (url) => {
-    Taro.navigateTo({url})
-  }
-
   render() {
     return (
       <View className='container'>

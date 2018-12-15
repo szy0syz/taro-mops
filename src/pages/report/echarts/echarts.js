@@ -120,9 +120,9 @@ function initChart(canvas, width, height) {
 export default class Echarts extends Component {
 
   config = {
-    navigationBarTitleText: 'echarts-for-weixin 示例项目',
+    navigationBarTitleText: 'echarts-for-weixin',
     navigationBarTextStyle: 'black',
-    navigationBarTitleText: 'eacharts 使用示例',
+    navigationBarTitleText: 'eacharts示例',
     backgroundColor: '#eeeeee',
     backgroundTextStyle: 'light',
     usingComponents: {

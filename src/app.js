@@ -29,7 +29,8 @@ class App extends Component {
       
       
       'pages/report/inventory/index',
-      
+      'pages/report/customerAR/index',
+
       'pages/list/index',
       'pages/order/index',
       'pages/productSelect/index',

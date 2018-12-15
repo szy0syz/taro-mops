@@ -18,11 +18,11 @@ export default class ReportList extends Component {
         },
         {
           name: '销售毛利',
-          path: '/pages/report/sale/index'
+          path: '/pages/report/echarts/echarts'
         },
         {
           name: '客户对账',
-          path: '/pages/report/sale/index'
+          path: '/pages/report/customerAR/index'
         },
         {
           name: '及时库存',
