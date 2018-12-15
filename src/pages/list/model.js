@@ -46,7 +46,7 @@ export default {
     tabData: [
       {
         baseName: 'saleOrders',
-        dateStart: dayjs().subtract(1, 'month').format('YYYY-MM-DD'),
+        dateStart: dateHelp.getMonthStartDate(),
         dateEnd: dayjs().format('YYYY-MM-DD'),
         showDateMenu: false,
         showTagMenu: false,
@@ -58,19 +58,19 @@ export default {
       },
       {
         baseName: 'saleIssues',
-        dateStart: dayjs().subtract(1, 'month').format('YYYY-MM-DD'),
+        dateStart: dateHelp.getMonthStartDate(),
         dateEnd: dayjs().format('YYYY-MM-DD'),
         showDateMenu: false,
         showTagMenu: false,
         fetchTypes: ['客户', '单号', '审批原因'],
-        fetchType: 1,
+        fetchType: 0,
         fetchKeyword: '',
         fetchTags: [],
         bills: []
       },
       {
         baseName: 'arBills',
-        dateStart: dayjs().subtract(1, 'month').format('YYYY-MM-DD'),
+        dateStart: dateHelp.getMonthStartDate(),
         dateEnd: dayjs().format('YYYY-MM-DD'),
         showDateMenu: false,
         showTagMenu: false,
@@ -102,9 +102,7 @@ export default {
       // -----------------------
       // TODO:  这段代码写的太曲折了，得重构
       if (success) {
-        const tt = Object.assign({}, tabData[tabIndex], { bills })
-        console.log('&&&%%####~~~', tt === tabData[tabIndex])
-        tabData[tabIndex] = tt
+        tabData[tabIndex] = Object.assign({}, tabData[tabIndex], { bills })
         payload = {}
         switch (tabIndex) {
           case 0:
@@ -155,7 +153,8 @@ export default {
 
       return success
     },
-    * fetchByCalendar({ payload }, { put }) {
+    * fetchByCalendar({ payload }, { put, select }) {
+      let { tabData, tabIndex } = yield select(state => state.list)
       const { index } = payload
       let dateStart, dateEnd
       switch (index) {
@@ -172,7 +171,7 @@ export default {
           break;
         case 3: // 上月
           dateStart = dateHelp.getLastMonthStartDate()
-          dateEnd = dateHelp.getLastMonthStartDate()
+          dateEnd = dateHelp.getLastMonthEndDate()
           break;
         case 4: // 本月
           dateStart = dateHelp.getMonthStartDate()
@@ -198,12 +197,13 @@ export default {
           break;
       }
       if (dateStart && dateEnd) {
+        tabData[tabIndex] = Object.assign({}, tabData[tabIndex], { dateStart, dateEnd })
         yield put({
           type: 'save',
-          payload: { dateStart, dateEnd }
+          payload: { tabData: [...tabData] }
         })
         yield put({
-          type: 'fetchOrders'
+          type: 'fetchBills'
         })
       }
     }

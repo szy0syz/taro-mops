@@ -16,7 +16,8 @@ class ListHeader extends Component {
     model: PropTypes.object,
     onDateChange: PropTypes.func,
     onKeywordChange: PropTypes.func,
-    onHandleFetch: PropTypes.func
+    onHandleFetch: PropTypes.func,
+    onDrawerShow: PropTypes.func
   }
 
   static defaultProps = {
@@ -27,7 +28,7 @@ class ListHeader extends Component {
   }
 
   render() {
-    const { model, onKeywordChange, onDateChange, onHandleFetch, title } = this.props
+    const { model, onKeywordChange, onDateChange, onHandleFetch, title, onDrawerShow } = this.props
     return (
       <View className='container'>
         <View className='box-header'>
@@ -41,7 +42,7 @@ class ListHeader extends Component {
           </Picker>
           <AtIcon value='chevron-down' color='#aaa'></AtIcon>
           <View className='selectedCalr'>
-            <AtIcon onClick={this.handleDrawerShow.bind(this, true)} color='#777' value='calendar'></AtIcon>
+            <AtIcon onClick={onDrawerShow.bind(this, true)} color='#777' value='calendar'></AtIcon>
           </View>
 
         </View>

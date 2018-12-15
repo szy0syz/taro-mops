@@ -243,6 +243,7 @@ export default class List extends Component {
                 basePath='saleIssues'
                 onKeywordChange={this.handleKeywordChandge}
                 onHandleFetch={this.handleFetch}
+                onDrawerShow={this.handleDrawerShow}
                 model={siData}
                 onDateChange={this.handleDateChange}
               ></ListHeader>
@@ -260,13 +261,14 @@ export default class List extends Component {
                 basePath='arBills'
                 onHandleFetch={this.handleFetch}
                 onKeywordChange={this.handleKeywordChandge}
+                onDrawerShow={this.handleDrawerShow}
                 model={arData}
                 onDateChange={this.handleDateChange}
               ></ListHeader>
               <ListContent
                 hasStatus
                 basePath='arBills'
-                model={siData}
+                model={arData}
                 enmuList={arBillStatusAry}
                 onNaviDetail={this.handleNaviDetail}
               ></ListContent>
@@ -288,7 +290,7 @@ export default class List extends Component {
           mask
           right
           onClose={this.handleDrawerShow.bind(this, false)}
-          onItemClick={this.handleDrawerClick.bind(this)}
+          onItemClick={this.handleDrawerClick}
           items={['今日', '上周', '本周', '上月', '本月', '上季度', '本季度', '去年', '本年']}
         ></AtDrawer>
       </View>
