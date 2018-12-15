@@ -34,7 +34,7 @@ export default class List extends Component {
   handleTabClick = (tabIndex) => {
     console.log('~~~~~~~~~~~~~invoke handleTabClick()', this.props.tabData[tabIndex].bills.length)
     this.props.dispatch({ type: 'list/save', payload: { tabIndex } })
-    if(this.props.tabData[tabIndex].bills.length === 0) {
+    if (this.props.tabData[tabIndex].bills.length === 0) {
       this.props.dispatch({ type: 'list/fetchBills' })
     }
   }
@@ -47,7 +47,7 @@ export default class List extends Component {
     Taro.navigateTo({ url: `/pages/detail/index?_id=${_id}` })
   }
 
-  handleNaviDetail= (basePath, id) => {
+  handleNaviDetail = (basePath, id) => {
     Taro.navigateTo({ url: `/pages/easDetail/index?id=${id}&basePath=${basePath}` })
   }
 
@@ -59,6 +59,31 @@ export default class List extends Component {
     let dateList = this.props.dateList
     dateList[basePath].start = e.detail.value
     this.props.dispatch({ type: 'list/save', payload: { dateList } })
+  }
+
+  handleDateStartChange = e => {
+
+    let { dispatch, tabData, tabIndex } = this.props
+
+    tabData[tabIndex] = Object.assign({}, tabData[tabIndex], { dateStart: e.detail.value })
+
+    dispatch({ type: 'list/save', payload: { tabData: [...tabData] } })
+    // TODO: 待优化后就不需要 forceUpdate
+    this.forceUpdate()
+  }
+
+  handleDateChange = (dataType, e) => {
+    let { tabData } = this.props
+    const { dispatch, tabIndex } = this.props
+    if (dataType === 'dateStart') {
+      tabData[tabIndex] = Object.assign({}, tabData[tabIndex], { dateStart: e.detail.value })
+    } else {
+      tabData[tabIndex] = Object.assign({}, tabData[tabIndex], { dateEnd: e.detail.value })
+    }
+
+    dispatch({ type: 'list/save', payload: { tabData: [...tabData] } })
+    // TODO: 待优化后就不需要 forceUpdate
+    this.forceUpdate()
   }
 
   onDateEndChange = e => {
@@ -133,7 +158,8 @@ export default class List extends Component {
   }
 
   render() {
-    const { siBills, arBills ,tabData , tabIndex , saleStatusAry, arBillStatusAry, showDateSelected, showTagSelected, orderTags, tagList, orderTagList, saleOrders, saleSearchTypes, orderKeyType, orderKeyword } = this.props
+    const { siBills, arBills, tabData, tabIndex, saleStatusAry, arBillStatusAry, showDateSelected, showTagSelected, orderTags, tagList, orderTagList, saleOrders, saleSearchTypes, orderKeyType, orderKeyword } = this.props
+    const [soData, siData, arData] = tabData
     return (
       <View className='page-container'>
         <View className='tabs-container'>
@@ -217,9 +243,8 @@ export default class List extends Component {
               <ListHeader
                 title='销售出库单'
                 basePath='saleIssues'
-                onStartDateChange={this.onStartDateChange}
-                searchTypes={this.props.siSearchTypes}
-                searchTypeIndex={0}
+                model={siData}
+                onDateChange={this.handleDateChange}
               ></ListHeader>
               <ListContent
                 hasStatus
@@ -233,8 +258,8 @@ export default class List extends Component {
               <ListHeader
                 title='应收单'
                 basePath='arBills'
-                searchTypes={this.props.arSearchTypes}
-                searchTypeIndex={0}
+                model={arData}
+                onDateChange={this.handleDateChange}
               ></ListHeader>
               <ListContent
                 hasStatus

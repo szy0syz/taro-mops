@@ -51,7 +51,7 @@ export default {
         showDateMenu: false,
         showTagMenu: false,
         fetchTypes: ['客户', '单号', '备注'],
-        fetchType: '',
+        fetchType: 0,
         fetchKeyword: '',
         fetchTags: [],
         bills: []
@@ -63,7 +63,7 @@ export default {
         showDateMenu: false,
         showTagMenu: false,
         fetchTypes: ['客户', '单号', '审批原因'],
-        fetchType: '',
+        fetchType: 1,
         fetchKeyword: '',
         fetchTags: [],
         bills: []
@@ -75,7 +75,7 @@ export default {
         showDateMenu: false,
         showTagMenu: false,
         fetchTypes: ['客户', '单号', '事由'],
-        fetchType: '',
+        fetchType: 0,
         fetchKeywords: '',
         fetchTags: [],
         bills: []
@@ -100,9 +100,11 @@ export default {
       let { success, data: bills } = yield call(Service.fetchBills, { payload, baseName: data.baseName })
 
       // -----------------------
-      // TODO:  这段代码写的太曲折了，得重构啊
+      // TODO:  这段代码写的太曲折了，得重构
       if (success) {
-        tabData[tabIndex].bills = bills
+        const tt = Object.assign({}, tabData[tabIndex], { bills })
+        console.log('&&&%%####~~~', tt === tabData[tabIndex])
+        tabData[tabIndex] = tt
         payload = {}
         switch (tabIndex) {
           case 0:
@@ -209,6 +211,9 @@ export default {
   reducers: {
     save(state, { payload }) {
       return { ...state, ...payload }
+    },
+    saveTabData(state, { payload }) {
+      return { ...state, tabData: [...payload] }
     }
   }
 }

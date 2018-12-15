@@ -12,26 +12,30 @@ class ListHeader extends Component {
     dateEnd: PropTypes.string,
     title: PropTypes.string,
     searchTypes: PropTypes.array,
-    searchTypeIndex: PropTypes.number
+    searchTypeIndex: PropTypes.number,
+    model: PropTypes.object,
+    onDateChange: PropTypes.func,
   }
 
   static defaultProps = {
-    dateStart: dayjs().startOf('month').format('YYYY-MM-DD'),
-    dateEnd: dayjs().format('YYYY-MM-DD')
+    model: {
+      dateStart: dayjs().startOf('month').format('YYYY-MM-DD'),
+      dateEnd: dayjs().format('YYYY-MM-DD')
+    }
   }
 
   render() {
-    const { onStartDateChange,searchTypeIndex, orderKeyword, title, searchTypes } = this.props
+    const { model, onDateChange, orderKeyword, title } = this.props
     return (
       <View className='container'>
         <View className='box-header'>
-          <Picker mode='date' onChange={onStartDateChange.bind(this, 'saleIssues')}>
-            <Text className='picker'>{this.props.dateStart}</Text>
+          <Picker mode='date' onChange={onDateChange.bind(this, 'dateStart')}>
+            <Text className='picker'>{model.dateStart}</Text>
           </Picker>
           <AtIcon value='chevron-down' color='#aaa'></AtIcon>
           <Text style='padding: 0 18rpx;'>到</Text>
-          <Picker mode='date' onChange={this.onDateEndChange}>
-            <Text className='picker'>{this.props.dateEnd}</Text>
+          <Picker mode='date' onChange={onDateChange.bind(this, 'dateEnd')}>
+            <Text className='picker'>{model.dateEnd}</Text>
           </Picker>
           <AtIcon value='chevron-down' color='#aaa'></AtIcon>
           <View className='selectedCalr'>
@@ -42,9 +46,9 @@ class ListHeader extends Component {
         <View className='box-search'>
           <Text>{title}</Text>
           <View>
-            <Picker className='searchType' mode='selector' range={searchTypes} onChange={this.onSaleTypeChange}>
+            <Picker className='searchType' mode='selector' range={model.fetchTypes} onChange={this.onSaleTypeChange}>
               <Text>
-                {searchTypes[searchTypeIndex]}
+                {model.fetchTypes[model.fetchType]}
               </Text>
               <AtIcon value='chevron-down' style='margin-left: 5rpx;' color='#aaa'></AtIcon>
             </Picker>
