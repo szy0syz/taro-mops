@@ -32,9 +32,11 @@ export default class List extends Component {
   }
 
   handleTabClick = (tabIndex) => {
+    console.log('~~~~~~~~~~~~~invoke handleTabClick()', this.props.tabData[tabIndex].bills.length)
     this.props.dispatch({ type: 'list/save', payload: { tabIndex } })
-    this.props.dispatch({ type: 'list/fetchBills' })
-    console.log('~~~~%%%%%%%%%%%%%,handleTabClick')
+    if(this.props.tabData[tabIndex].bills.length === 0) {
+      this.props.dispatch({ type: 'list/fetchBills' })
+    }
   }
 
   handleInputChange = (orderKeyword) => {
@@ -131,7 +133,7 @@ export default class List extends Component {
   }
 
   render() {
-    const { tabIndex ,siBills, arBills, saleStatusAry, arBillStatusAry, showDateSelected, showTagSelected, orderTags, tagList, orderTagList, saleOrders, saleSearchTypes, orderKeyType, orderKeyword } = this.props
+    const { tabData , tabIndex ,siBills, arBills, saleStatusAry, arBillStatusAry, showDateSelected, showTagSelected, orderTags, tagList, orderTagList, saleOrders, saleSearchTypes, orderKeyType, orderKeyword } = this.props
     return (
       <View className='page-container'>
         <View className='tabs-container'>
@@ -222,7 +224,7 @@ export default class List extends Component {
               <ListContent
                 hasStatus
                 basePath='saleIssues'
-                data={siBills}
+                data={tabData[1].bills}
                 enmuList={saleStatusAry}
                 onNaviDetail={this.handleNaviDetail}
               ></ListContent>
@@ -237,7 +239,7 @@ export default class List extends Component {
               <ListContent
                 hasStatus
                 basePath='arBills'
-                data={arBills}
+                data={tabData[2].bills}
                 enmuList={arBillStatusAry}
                 onNaviDetail={this.handleNaviDetail}
               ></ListContent>

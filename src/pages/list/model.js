@@ -53,6 +53,7 @@ export default {
         fetchTypes: ['客户', '单号', '备注'],
         fetchType: '',
         fetchKeyword: '',
+        fetchTags: [],
         bills: []
       },
       {
@@ -62,7 +63,9 @@ export default {
         showDateMenu: false,
         showTagMenu: false,
         fetchTypes: ['客户', '单号', '审批原因'],
+        fetchType: '',
         fetchKeyword: '',
+        fetchTags: [],
         bills: []
       },
       {
@@ -72,7 +75,9 @@ export default {
         showDateMenu: false,
         showTagMenu: false,
         fetchTypes: ['客户', '单号', '事由'],
+        fetchType: '',
         fetchKeywords: '',
+        fetchTags: [],
         bills: []
       }
     ]
@@ -81,7 +86,7 @@ export default {
     * fetchBills(_, { call, select, put }) {
       let { tabIndex, tabData } = yield select(state => state.list)
       console.log(tabIndex, tabData[tabIndex])
-      let data = tabData[tabIndex]
+      const data = tabData[tabIndex]
       const payload = {
         dateStart: data.dateStart,
         dateEnd: data.dateEnd,
@@ -89,12 +94,12 @@ export default {
         keytype: data.fetchType,
         tags: data.fetchTags
       }
-      let { success, data: bills } = yield call(Service.loadSaleOrders, payload)
+      let { success, data: bills } = yield call(Service.fetchBills, { payload, baseName: data.baseName })
       console.log(success, bills)
       if (success) {
         tabData[tabIndex].bills = bills
         yield put({
-          type: 'list/save',
+          type: 'save',
           payload: { tabData }
         })
       } else {
