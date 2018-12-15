@@ -80,14 +80,17 @@ export default {
         fetchTags: [],
         bills: []
       }
-    ]
+    ],
+    soBills: [],
+    siBills: [],
+    arBills: []
   },
   effects: {
     * fetchBills(_, { call, select, put }) {
       let { tabIndex, tabData } = yield select(state => state.list)
-      console.log(tabIndex, tabData[tabIndex])
+
       const data = tabData[tabIndex]
-      const payload = {
+      let payload = {
         dateStart: data.dateStart,
         dateEnd: data.dateEnd,
         keyword: data.fetchKeyword,
@@ -95,12 +98,28 @@ export default {
         tags: data.fetchTags
       }
       let { success, data: bills } = yield call(Service.fetchBills, { payload, baseName: data.baseName })
-      console.log(success, bills)
+
+      // -----------------------
+      // TODO:  这段代码写的太曲折了，得重构啊
       if (success) {
         tabData[tabIndex].bills = bills
+        payload = {}
+        switch (tabIndex) {
+          case 0:
+            payload.soBills = bills
+            break
+          case 1:
+            payload.siBills = bills
+            break
+          case 2:
+            payload.arBills = bills
+            break
+        }
+        payload = Object.assign(payload, { tabData: [...tabData] })
+        // ---------------------
         yield put({
           type: 'save',
-          payload: { tabData }
+          payload
         })
       } else {
         console.log('error')
