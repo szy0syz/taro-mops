@@ -1,7 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
 import { connect } from '@tarojs/redux'
-import { View, Text, Button } from '@tarojs/components'
-import { AtDrawer, AtTabs, AtTabsPane, AtCheckbox, Picker, AtIcon, AtInput, AtTag, AtModal, AtModalContent, AtModalAction } from 'taro-ui'
+import { View, Button } from '@tarojs/components'
+import { AtDrawer, AtTabs, AtTabsPane, AtCheckbox, AtModal, AtModalContent, AtModalAction } from 'taro-ui'
 import ListHeader from '../../components/ListHeader'
 import ListContent from '../../components/ListContent'
 
@@ -16,11 +16,14 @@ export default class List extends Component {
     navigationBarTitleText: '明细',
   }
 
-  componentDidShow = async () => {
-    await this.props.dispatch({
-      type: 'list/fetchOrders'
-    })
+  componentDidShow = () => {
+    // await this.props.dispatch({
+    //   type: 'list/fetchOrders'
+    // })
     // 如果tabIndex=n没数据就加载
+    this.props.dispatch({
+      type: 'list/fetchBills'
+    })
   }
 
   showToast(text, icon = 'none', duration = 2000) {
@@ -32,7 +35,6 @@ export default class List extends Component {
   }
 
   handleTabClick = (tabIndex) => {
-    console.log('~~~~~~~~~~~~~invoke handleTabClick()', this.props.tabData[tabIndex].bills.length)
     this.props.dispatch({ type: 'list/save', payload: { tabIndex } })
     if (this.props.tabData[tabIndex].bills.length === 0) {
       this.props.dispatch({ type: 'list/fetchBills' })
@@ -52,7 +54,12 @@ export default class List extends Component {
   }
 
   handleNaviDetail = (basePath, id) => {
-    Taro.navigateTo({ url: `/pages/easDetail/index?id=${id}&basePath=${basePath}` })
+    console.log('handleNaviDetail~~~~~~~~~~~~~~~', basePath, id)
+    if (/saleOrders/i.test(basePath)) {
+      Taro.navigateTo({ url: `/pages/detail/index?_id=${id}&basePath=${basePath}` })
+    } else {
+      Taro.navigateTo({ url: `/pages/easDetail/index?id=${id}&basePath=${basePath}` })
+    }
   }
 
   onDateStartChange = e => {
@@ -143,7 +150,6 @@ export default class List extends Component {
   }
 
   handleBillTagChange(value) {
-    console.log('handleBillTagChange~~!!!!', value)
     let { tabData } = this.props
     const { tabIndex, dispatch } = this.props
     tabData[tabIndex] = Object.assign({}, tabData[tabIndex], { fetchTags: value })
@@ -175,7 +181,7 @@ export default class List extends Component {
   }
 
   render() {
-    const { tabData, tabIndex, saleStatusAry, arBillStatusAry, showDateSelected, showTagSelected, orderTags, tagList, orderTagList, saleOrders, saleSearchTypes, orderKeyType, orderKeyword } = this.props
+    const { allTagList, tabData, tabIndex, saleStatusAry, arBillStatusAry, showDateSelected, showTagSelected } = this.props
     const [soData, siData, arData] = tabData
     return (
       <View className='page-container'>
@@ -192,7 +198,23 @@ export default class List extends Component {
             onClick={this.handleTabClick}
           >
             <AtTabsPane style='background-color: #fff;' tabDirection='vertical' current={tabIndex} index={0}>
-              <View className='tab-box'>
+              <ListHeader
+                title='销售订单'
+                basePath='saleOrders'
+                onKeywordChange={this.handleKeywordChandge}
+                onHandleFetch={this.handleFetch}
+                onDrawerShow={this.handleDrawerShow}
+                model={soData}
+                onDateChange={this.handleDateChange}
+              ></ListHeader>
+              <ListContent
+                basePath='saleOrders'
+                model={soData}
+                enmuList={allTagList[0]}
+                onNaviDetail={this.handleNaviDetail}
+                onShowTagMenu={this.handleShowTagMenu}
+              ></ListContent>
+              {/* <View className='tab-box'>
                 <View className='box-header'>
                   <Picker mode='date' onChange={this.onDateStartChange}>
                     <Text className='picker'>{this.props.dateStart}</Text>
@@ -254,7 +276,7 @@ export default class List extends Component {
                     </View>
                   ))}
                 </View>
-              </View>
+              </View> */}
             </AtTabsPane>
             <AtTabsPane tabDirection='vertical' current={tabIndex} index={1}>
               <ListHeader
@@ -267,7 +289,7 @@ export default class List extends Component {
                 onDateChange={this.handleDateChange}
               ></ListHeader>
               <ListContent
-                hasStatus
+                isEas
                 basePath='saleIssues'
                 model={siData}
                 enmuList={saleStatusAry}
@@ -286,7 +308,7 @@ export default class List extends Component {
                 onDateChange={this.handleDateChange}
               ></ListHeader>
               <ListContent
-                hasStatus
+                isEas
                 basePath='arBills'
                 model={arData}
                 enmuList={arBillStatusAry}

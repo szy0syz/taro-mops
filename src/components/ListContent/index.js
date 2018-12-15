@@ -7,19 +7,19 @@ import './index.scss'
 
 class ListContent extends Component {
   static propTypes = {
-    // totalAmount: PropTypes.number,
     tagList: PropTypes.array,
-    hasStatus: PropTypes.bool,
     enmuList: PropTypes.array,
     onItemClick: PropTypes.func,
     onShowTagMenu: PropTypes.func,
+    onNaviDetail: PropTypes.func,
     basePath: PropTypes.string,
-    model: PropTypes.object
+    model: PropTypes.object,
+    isEas: PropTypes.bool
   }
 
   static defaultProps = {
     enmuList: [],
-    hasStatus: false,
+    isEas: false,
     basePath: 'saleIssues',
     model: {
       bills: []
@@ -27,26 +27,26 @@ class ListContent extends Component {
   }
 
   render() {
-    const { onShowTagMenu,model, enmuList, hasStatus, basePath } = this.props
+    const { onShowTagMenu, model, enmuList, isEas, basePath, onNaviDetail } = this.props
     let totalAmount
-    if (hasStatus) {
-      totalAmount = model.bills.length > 0 ? model.bills.reduce((acc, item) => acc += parseFloat(item.FTotalAmount), 0).toFixed(2) : parseFloat(0).toFixed(2)
+    if (isEas) {
+      totalAmount = model.bills.length > 0 ? model.bills.reduce((acc, item) => acc += Number(item.FTotalAmount), 0).toFixed(2) : 0
     } else {
-      totalAmount = 0
+      totalAmount = model.bills.length > 0 ? model.bills.reduce((acc, item) => acc += Number(item.totalAmount), 0).toFixed(2) : 0
     }
-    // TODO: 待修复~~~~
+    console.log('@@@@@@', isEas)
     return (
       <View className='container'>
         <View className='box-body'>
           <View>
             <Text>合计：￥{totalAmount}</Text>
             <View>
-              <AtTag onClick={onShowTagMenu} active type='primary' circle>{hasStatus ? '状态' : '标签'}</AtTag>
+              <AtTag onClick={onShowTagMenu} active type='primary' circle>{isEas ? '状态' : '标签'}</AtTag>
             </View>
           </View>
-          {hasStatus ? (
+          {isEas ? (
             model.bills.map(item => (
-              <View key={item.FID} className='bill-item' onClick={this.props.onNaviDetail.bind(this, basePath, item.FID)}>
+              <View key={item.FID} className='bill-item' onClick={onNaviDetail.bind(this, basePath, item.FID)}>
                 <View>
                   <Text>{item.FBizDate}</Text>
                   <View className={`bill-tag ${enmuList[item.FBaseStatus].value}`}>
@@ -67,19 +67,19 @@ class ListContent extends Component {
             ))
           ) : (
               model.bills.map(item => (
-                <View key={item._id} className='bill-item' onClick={this.onItemClick.bind(this, item._id)}>
+                <View key={item._id} className='bill-item' onClick={onNaviDetail.bind(this, basePath, item._id)}>
                   <View>
-                    <Text>{item.billDate}</Text>
+                    <Text>{item.billDate && item.billDate.split('T')[0]}</Text>
                     {item.orderTags && item.orderTags.map(tag => (
                       <View key={tag} className={`bill-tag ${tag}`}>
-                        <AtTag size='small'>{enmuList[tag]}</AtTag>
+                        <AtTag key={tag} size='small'>{enmuList.find(i => i.value === tag).label}</AtTag>
                       </View>
                     ))}
                   </View>
                   <View className='bill-body'>
                     <Text>{item.customer.CustomerName}</Text>
                     <View>
-                      <Text>￥{Number(item.amount).toFixed(2)}</Text>
+                      <Text>￥{ item && item.totalAmount && item.totalAmount.toFixed(2) }</Text>
                       <AtIcon value='chevron-right' color='#aaa'></AtIcon>
                     </View>
                   </View>
