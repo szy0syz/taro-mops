@@ -43,6 +43,10 @@ export default class List extends Component {
     this.props.dispatch({ type: 'list/save', payload: { orderKeyword } })
   }
 
+  handleKeywordChandge = (kw) => {
+    this.props.dispatch({ type: 'list/saveKeyword', payload: kw })
+  }
+
   handleDetail = (_id) => {
     Taro.navigateTo({ url: `/pages/detail/index?_id=${_id}` })
   }
@@ -53,23 +57,6 @@ export default class List extends Component {
 
   onDateStartChange = e => {
     this.props.dispatch({ type: 'list/save', payload: { dateStart: e.detail.value } })
-  }
-
-  onStartDateChange = (basePath, e) => {
-    let dateList = this.props.dateList
-    dateList[basePath].start = e.detail.value
-    this.props.dispatch({ type: 'list/save', payload: { dateList } })
-  }
-
-  handleDateStartChange = e => {
-
-    let { dispatch, tabData, tabIndex } = this.props
-
-    tabData[tabIndex] = Object.assign({}, tabData[tabIndex], { dateStart: e.detail.value })
-
-    dispatch({ type: 'list/save', payload: { tabData: [...tabData] } })
-    // TODO: 待优化后就不需要 forceUpdate
-    this.forceUpdate()
   }
 
   handleDateChange = (dataType, e) => {
@@ -92,16 +79,27 @@ export default class List extends Component {
     dispatch({ type: 'list/fetchOrders' })
   }
 
-  onEndDateChange = (basePath, e) => {
-    const { dispatch } = this.props
-    let dateList = this.props.dateList
-    dateList[basePath].end = e.detail.value
-    dispatch({ type: 'list/save', payload: { dateEnd: e.detail.value } })
-    // dispatch({ type: 'list/fetchOrders' })
-  }
 
   onSaleTypeChange = (e) => {
     this.props.dispatch({ type: 'list/save', payload: { orderKeyType: e.detail.value } })
+  }
+
+  handleFetch = async (payload) => {
+    if (payload && Object.keys(payload).length > 0) {
+      // 最好只进行同步操作
+      await this.props.dispatch({
+        type: 'list/save',
+        payload
+      })
+    }
+
+    this.props.dispatch({
+      type: 'list/fetchBills'
+    }).then(success => {
+      if (success) {
+        this.showToast('查询完成', 'success', 1500)
+      }
+    })
   }
 
   handleSearchConfirm = async (payload) => {
@@ -158,7 +156,7 @@ export default class List extends Component {
   }
 
   render() {
-    const { siBills, arBills, tabData, tabIndex, saleStatusAry, arBillStatusAry, showDateSelected, showTagSelected, orderTags, tagList, orderTagList, saleOrders, saleSearchTypes, orderKeyType, orderKeyword } = this.props
+    const { tabData, tabIndex, saleStatusAry, arBillStatusAry, showDateSelected, showTagSelected, orderTags, tagList, orderTagList, saleOrders, saleSearchTypes, orderKeyType, orderKeyword } = this.props
     const [soData, siData, arData] = tabData
     return (
       <View className='page-container'>
@@ -204,7 +202,7 @@ export default class List extends Component {
                         type='text'
                         value={orderKeyword}
                         onChange={this.handleInputChange}
-                        onConfirm={this.handleSearchConfirm}
+                        onConfirm={this.handleFetch}
                       />
                     </View>
                   </View>
@@ -243,13 +241,15 @@ export default class List extends Component {
               <ListHeader
                 title='销售出库单'
                 basePath='saleIssues'
+                onKeywordChange={this.handleKeywordChandge}
+                onHandleFetch={this.handleFetch}
                 model={siData}
                 onDateChange={this.handleDateChange}
               ></ListHeader>
               <ListContent
                 hasStatus
                 basePath='saleIssues'
-                data={siBills}
+                model={siData}
                 enmuList={saleStatusAry}
                 onNaviDetail={this.handleNaviDetail}
               ></ListContent>
@@ -258,13 +258,15 @@ export default class List extends Component {
               <ListHeader
                 title='应收单'
                 basePath='arBills'
+                onHandleFetch={this.handleFetch}
+                onKeywordChange={this.handleKeywordChandge}
                 model={arData}
                 onDateChange={this.handleDateChange}
               ></ListHeader>
               <ListContent
                 hasStatus
                 basePath='arBills'
-                data={arBills}
+                model={siData}
                 enmuList={arBillStatusAry}
                 onNaviDetail={this.handleNaviDetail}
               ></ListContent>
@@ -279,7 +281,7 @@ export default class List extends Component {
               onChange={this.handleOrderTagChange}
             />
           </AtModalContent>
-          <AtModalAction> <Button onClick={this.handleShowTagSelect.bind(this, false)}>取消</Button> <Button onClick={this.handleSearchConfirm.bind(this, { showTagSelected: false })} style='color: #2bb2a7;'>确定</Button> </AtModalAction>
+          <AtModalAction> <Button onClick={this.handleShowTagSelect.bind(this, false)}>取消</Button> <Button onClick={this.handleFetch.bind(this, { showTagSelected: false })} style='color: #2bb2a7;'>确定</Button> </AtModalAction>
         </AtModal>
         <AtDrawer
           show={showDateSelected}

@@ -8,28 +8,29 @@ import './index.scss'
 class ListContent extends Component {
   static propTypes = {
     // totalAmount: PropTypes.number,
-    data: PropTypes.array,
     tagList: PropTypes.array,
     hasStatus: PropTypes.bool,
     enmuList: PropTypes.array,
     onItemClick: PropTypes.func,
     onStatusClick: PropTypes.func,
-    basePath: PropTypes.string
+    basePath: PropTypes.string,
+    model: PropTypes.object
   }
 
   static defaultProps = {
-    // totalAmount: parseInt(0).toFixed(2),
-    data: [],
     enmuList: [],
     hasStatus: false,
-    basePath: 'saleIssues'
+    basePath: 'saleIssues',
+    model: {
+      bills: []
+    }
   }
 
   render() {
-    const { data, enmuList, hasStatus, basePath } = this.props
+    const { model, enmuList, hasStatus, basePath } = this.props
     let totalAmount
     if (hasStatus) {
-      totalAmount = data.length > 0 ? data.reduce((acc, item) => acc += parseFloat(item.FTotalAmount), 0).toFixed(2) : parseFloat(0).toFixed(2)
+      totalAmount = model.bills.length > 0 ? model.bills.reduce((acc, item) => acc += parseFloat(item.FTotalAmount), 0).toFixed(2) : parseFloat(0).toFixed(2)
     } else {
       totalAmount = 0
     }
@@ -44,7 +45,7 @@ class ListContent extends Component {
             </View>
           </View>
           {hasStatus ? (
-            data.map(item => ( 
+            model.bills.map(item => (
               <View key={item.FID} className='bill-item' onClick={this.props.onNaviDetail.bind(this, basePath, item.FID)}>
                 <View>
                   <Text>{item.FBizDate}</Text>
@@ -65,7 +66,7 @@ class ListContent extends Component {
               </View>
             ))
           ) : (
-              data.map(item => (
+              model.bills.map(item => (
                 <View key={item._id} className='bill-item' onClick={this.onItemClick.bind(this, item._id)}>
                   <View>
                     <Text>{item.billDate}</Text>

@@ -76,7 +76,7 @@ export default {
         showTagMenu: false,
         fetchTypes: ['客户', '单号', '事由'],
         fetchType: 0,
-        fetchKeywords: '',
+        fetchKeyword: '',
         fetchTags: [],
         bills: []
       }
@@ -212,8 +212,10 @@ export default {
     save(state, { payload }) {
       return { ...state, ...payload }
     },
-    saveTabData(state, { payload }) {
-      return { ...state, tabData: [...payload] }
+    saveKeyword(state, { payload: fetchKeyword }) {
+      let { tabData, tabIndex } = state
+      tabData[tabIndex] = Object.assign({}, tabData[tabIndex], { fetchKeyword })
+      return { ...state, tabData: [...tabData] }
     }
   }
 }

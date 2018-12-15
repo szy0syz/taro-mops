@@ -15,6 +15,8 @@ class ListHeader extends Component {
     searchTypeIndex: PropTypes.number,
     model: PropTypes.object,
     onDateChange: PropTypes.func,
+    onKeywordChange: PropTypes.func,
+    onHandleFetch: PropTypes.func
   }
 
   static defaultProps = {
@@ -25,7 +27,7 @@ class ListHeader extends Component {
   }
 
   render() {
-    const { model, onDateChange, orderKeyword, title } = this.props
+    const { model, onKeywordChange, onDateChange, onHandleFetch, title } = this.props
     return (
       <View className='container'>
         <View className='box-header'>
@@ -57,9 +59,9 @@ class ListHeader extends Component {
                 border={false}
                 placeholder='请输入关键字'
                 type='text'
-                value={orderKeyword}
-                onChange={this.handleInputChange}
-                onConfirm={this.handleSearchConfirm}
+                value={model.fetchKeyword}
+                onChange={onKeywordChange}
+                onConfirm={onHandleFetch}
               />
             </View>
           </View>
