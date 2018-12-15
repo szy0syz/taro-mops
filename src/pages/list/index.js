@@ -127,10 +127,29 @@ export default class List extends Component {
     })
   }
 
-  handleOrderTagChange(orderTags) {
+  handleShowTagMenu(hide) {
+    // 根据不同单据类型设置不同过滤状态
+    const { tabIndex, tabData, allTagList } = this.props
+    const payload = {
+      currentTagList: allTagList[tabIndex],
+      showTagSelected: hide ? true : false,
+      currentBillTags: tabData[tabIndex].fetchTags
+    }
+
     this.props.dispatch({
       type: 'list/save',
-      payload: { orderTags }
+      payload
+    })
+  }
+
+  handleBillTagChange(value) {
+    console.log('handleBillTagChange~~!!!!', value)
+    let { tabData } = this.props
+    const { tabIndex, dispatch } = this.props
+    tabData[tabIndex] = Object.assign({}, tabData[tabIndex], { fetchTags: value })
+    dispatch({
+      type: 'list/save',
+      payload: { currentBillTags: value, tabData: [...tabData] }
     })
   }
 
@@ -253,6 +272,7 @@ export default class List extends Component {
                 model={siData}
                 enmuList={saleStatusAry}
                 onNaviDetail={this.handleNaviDetail}
+                onShowTagMenu={this.handleShowTagMenu}
               ></ListContent>
             </AtTabsPane>
             <AtTabsPane tabDirection='vertical' current={tabIndex} index={2}>
@@ -271,6 +291,7 @@ export default class List extends Component {
                 model={arData}
                 enmuList={arBillStatusAry}
                 onNaviDetail={this.handleNaviDetail}
+                onShowTagMenu={this.handleShowTagMenu}
               ></ListContent>
             </AtTabsPane>
           </AtTabs>
@@ -278,9 +299,9 @@ export default class List extends Component {
         <AtModal onClose={this.handleModalClose} isOpened={showTagSelected}>
           <AtModalContent>
             <AtCheckbox
-              options={orderTagList}
-              selectedList={orderTags}
-              onChange={this.handleOrderTagChange}
+              options={this.props.currentTagList}
+              selectedList={this.props.currentBillTags}
+              onChange={this.handleBillTagChange}
             />
           </AtModalContent>
           <AtModalAction> <Button onClick={this.handleShowTagSelect.bind(this, false)}>取消</Button> <Button onClick={this.handleFetch.bind(this, { showTagSelected: false })} style='color: #2bb2a7;'>确定</Button> </AtModalAction>

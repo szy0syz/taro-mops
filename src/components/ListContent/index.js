@@ -12,7 +12,7 @@ class ListContent extends Component {
     hasStatus: PropTypes.bool,
     enmuList: PropTypes.array,
     onItemClick: PropTypes.func,
-    onStatusClick: PropTypes.func,
+    onShowTagMenu: PropTypes.func,
     basePath: PropTypes.string,
     model: PropTypes.object
   }
@@ -27,7 +27,7 @@ class ListContent extends Component {
   }
 
   render() {
-    const { model, enmuList, hasStatus, basePath } = this.props
+    const { onShowTagMenu,model, enmuList, hasStatus, basePath } = this.props
     let totalAmount
     if (hasStatus) {
       totalAmount = model.bills.length > 0 ? model.bills.reduce((acc, item) => acc += parseFloat(item.FTotalAmount), 0).toFixed(2) : parseFloat(0).toFixed(2)
@@ -41,7 +41,7 @@ class ListContent extends Component {
           <View>
             <Text>合计：￥{totalAmount}</Text>
             <View>
-              <AtTag onClick={this.onStatusClick} active type='primary' circle>{hasStatus ? '状态' : '标签'}</AtTag>
+              <AtTag onClick={onShowTagMenu} active type='primary' circle>{hasStatus ? '状态' : '标签'}</AtTag>
             </View>
           </View>
           {hasStatus ? (
