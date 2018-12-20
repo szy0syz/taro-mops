@@ -5,3 +5,35 @@
     flex-wrap: wrap;
     align-content: center;
 }
+
+.item {
+    padding: 0 8px;
+    width: 100%;
+    @include fja(space-between);
+    margin-bottom: 15px;
+
+    .item-customer {
+    
+    }
+
+    .item-amount {
+
+    }
+}
+
+.body {
+    border-top: 4px solid #999;
+    width: 100%;
+
+    .bill-container {
+        width: 100%;
+        background-color: #CCCCCC;
+    }
+
+    .bill-card {
+        width: 100%;
+        padding-top: 15px;
+    }
+}
+
+

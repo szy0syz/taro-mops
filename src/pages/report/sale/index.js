@@ -12,7 +12,7 @@ export default class ReportSale extends Component {
   componentDidMount = () => { }
 
   handleNavList = () => {
-    Taro.navigateTo({
+    Taro.switchTab({
       url: '/pages/report/list/index'
     })
   }
@@ -30,7 +30,7 @@ export default class ReportSale extends Component {
             <View className='datetime-btns'>
               <AtButton circle type='secondary' size='small'>本月</AtButton>
               <AtButton circle type='secondary' size='small'>上月</AtButton>
-              <AtButton circle type='secondary' size='small'>半年</AtButton>
+              <AtButton circle type='secondary' size='small'>本年</AtButton>
               <AtButton circle type='secondary' size='small'>去年</AtButton>
             </View>
           </View>
