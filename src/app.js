@@ -21,6 +21,9 @@ class App extends Component {
     pages: [
       'pages/report/customerAR/index',
       'pages/login/index',
+
+      
+
       'pages/easDetail/index',
       'pages/home/index',
       'pages/delivery/index',

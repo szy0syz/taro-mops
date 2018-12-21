@@ -15,9 +15,12 @@ export default class CustomerSelect extends Component {
   }
 
   componentDidMount = () => {
-    // this.props.dispatch({
-    //   type: 'customerSelect/getCustomers'
-    // })
+    const { prevModel } = this.$router.params
+    console.log(prevModel)
+    this.props.dispatch({
+      type: 'customerSelect/save',
+      payload: { prevModel }
+    })
   }
 
   handleAddCustomer() {
@@ -28,19 +31,44 @@ export default class CustomerSelect extends Component {
   }
 
   handleSelected(customer) {
-    this.props.dispatch({
-      type: 'order/save',
-      payload: {
-        customer
-      }
-    })
-    Taro.switchTab({url: '/pages/order/index'})
+    const { prevModel } = this.props
+    if (prevModel) {
+      this.props.dispatch({
+        type: `${[prevModel]}/save`,
+        payload: {
+          customer
+        }
+      })
+      Taro.navigateBack()
+    } else {
+      this.props.dispatch({
+        type: 'order/save',
+        payload: {
+          customer
+        }
+      })
+      Taro.switchTab({ url: '/pages/order/index' })
+    }
+
+    // const { isNaviBack } = this.$router.params
+    // console.log(customer)
+    // if (isNaviBack && isNaviBack === 'true') {
+    //   const pages = Taro.getCurrentPages()
+    //   console.log(pages)
+    //   const prevPage = pages[pages.length - 2]
+    //   prevPage.data.customer = customer.CustomerNumber
+    //   console.log(prevPage)
+    //   Taro.navigateBack()
+    // } else {
+    //   Taro.switchTab({ url: '/pages/order/index' })
+    // }
+
   }
 
   // TODO: _.throttle...
   handleKeyword(e) {
     const val = e.target.value
-    if(val.length > 1) {
+    if (val.length > 1) {
       this.props.dispatch({
         type: 'customerSelect/getCustomers',
         payload: {

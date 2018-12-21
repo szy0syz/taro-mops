@@ -16,6 +16,7 @@
 * [***Page*] 销售出库单详情页新增 审批人和审批原因
 * [**Page**] 重构easDetial页面组件，支持多种类型单据显示
 * [**Page**] 重构ListPage页中根据状态检索单据
+* [**Page**] 重构customerSelect页面，可以复用
 
 ### Features
 

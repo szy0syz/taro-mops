@@ -1,6 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
-import { AtIcon, AtCard, AtAccordion, AtListItem, AtList } from 'taro-ui'
+import { AtIcon, AtCard, AtAccordion } from 'taro-ui'
 import { connect } from '@tarojs/redux'
 import dayjs from 'dayjs'
 import ReportHeader from '../../../components/ReportHeader'
@@ -14,6 +14,24 @@ class CustomerAR extends Component {
     navigationBarTitleText: '报表-客户对账',
   }
 
+  componentDidMount() {
+    console.log('this.$router.params~~~~~~', this.$router.params)
+    
+  }
+
+  // componentDidShow() {
+  //   console.log('componentDidShow _ this.$router.params~~~~~~', this.$router.params)
+  //   console.log(this.data.customer)
+  //   const { customer, customerFID } = this.$router.params
+  //   if (customer && customerFID) {
+  //     this.props.dispatch({
+  //       type: 'cusAr/save',
+  //       payload: { customer, customerFID }
+  //     })
+  //     console.log('save ok !')
+  //   }
+  // }
+
   handleDateChange = (key, value) => {
     this.props.dispatch({
       type: 'cusAR/save',
@@ -21,6 +39,10 @@ class CustomerAR extends Component {
         [key]: value
       }
     })
+  }
+
+  handleNaviCustomer = () => {
+    Taro.navigateTo({ url: '/pages/customerSelect/index?prevModel=cusAR' })
   }
 
   handleDateBtnClick = (btnName) => {
@@ -53,13 +75,14 @@ class CustomerAR extends Component {
   }
 
   render() {
+    const { customer } = this.props
     return (
       <View className='container'>
         <ReportHeader onBtnDateClick={this.handleDateBtnClick} dateStart={this.props.dateStart} dateEnd={this.props.dateEnd} onDateChange={this.handleDateChange}></ReportHeader>
         <View className='item item-customer'>
           <Text>选择客户</Text>
-          <View>
-            <Text>昆明市农药经营部</Text>
+          <View onClick={this.handleNaviCustomer}>
+            <Text>{customer.CustomerName}</Text>
             <AtIcon value='chevron-down' color='#aaa'></AtIcon>
           </View>
         </View>

@@ -7,6 +7,7 @@ export default {
       key: '客户名',
       value: 'customerName'
     },
+    prevModel: '',
     keyword: '',
     searchTypes: [
       {
