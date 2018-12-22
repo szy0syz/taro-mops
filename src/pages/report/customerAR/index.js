@@ -1,6 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text, ScrollView } from '@tarojs/components'
-import { AtIcon, AtCard, AtAccordion } from 'taro-ui'
+import { AtIcon, AtAccordion } from 'taro-ui'
 import { connect } from '@tarojs/redux'
 import dayjs from 'dayjs'
 import ReportHeader from '../../../components/ReportHeader'
