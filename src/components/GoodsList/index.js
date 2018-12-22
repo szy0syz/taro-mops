@@ -27,7 +27,7 @@ class GoodsList extends Component {
           <View className='goods-ul'>
             {
               list.map((item, index) => (
-                <View key={index} className='goods-li' data-id={item.id} onClick={ this.gotoDetail }>
+                <View key={index} className='goods-li' data-id={item.id} onClick={this.gotoDetail}>
                   <View className='pos'>
                     <View className='Image-container'>
                       <Image src={item.cover_image ? `${item.cover_image}!w750` : 'http://static-r.msparis.com/uploads/d/1/d1ca37e902e5550ad2c82c721bc216ce.png'} alt='' />

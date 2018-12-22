@@ -19,9 +19,9 @@ class App extends Component {
 
   config = {
     pages: [
-      'pages/report/customerAR/index',
+      
       'pages/login/index',
-
+      'pages/report/customerAR/index',
       
 
       'pages/easDetail/index',

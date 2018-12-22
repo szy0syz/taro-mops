@@ -1,9 +1,10 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Text } from '@tarojs/components'
+import { View, Text, ScrollView } from '@tarojs/components'
 import { AtIcon, AtCard, AtAccordion } from 'taro-ui'
 import { connect } from '@tarojs/redux'
 import dayjs from 'dayjs'
 import ReportHeader from '../../../components/ReportHeader'
+import CardList from '../../../components/CardList'
 import './index.scss'
 
 @connect(({ cusAR }) => ({
@@ -14,30 +15,25 @@ class CustomerAR extends Component {
     navigationBarTitleText: '报表-客户对账',
   }
 
-  componentDidMount() {
-    console.log('this.$router.params~~~~~~', this.$router.params)
-    
+  componentDidShow() {
+    const { customer, dispatch } = this.props
+    if (customer && customer.FID) {
+      dispatch({
+        type: 'cusAR/fetch'
+      })
+    }
   }
 
-  // componentDidShow() {
-  //   console.log('componentDidShow _ this.$router.params~~~~~~', this.$router.params)
-  //   console.log(this.data.customer)
-  //   const { customer, customerFID } = this.$router.params
-  //   if (customer && customerFID) {
-  //     this.props.dispatch({
-  //       type: 'cusAr/save',
-  //       payload: { customer, customerFID }
-  //     })
-  //     console.log('save ok !')
-  //   }
-  // }
-
   handleDateChange = (key, value) => {
-    this.props.dispatch({
+    const { dispatch } = this.props
+    dispatch({
       type: 'cusAR/save',
       payload: {
         [key]: value
       }
+    })
+    dispatch({
+      type: 'cusAR/fetch'
     })
   }
 
@@ -46,36 +42,45 @@ class CustomerAR extends Component {
   }
 
   handleDateBtnClick = (btnName) => {
+    let payload
+    const { dispatch } = this.props
     switch (btnName) {
       case 'curtMonth':
-        this.setState({
+        payload = {
           dateStart: dayjs().startOf('month').format('YYYY-MM-DD'),
           dateEnd: dayjs().endOf('month').format('YYYY-MM-DD')
-        })
+        }
         break
       case 'lastMonth':
-        this.setState({
+        payload = {
           dateStart: dayjs().subtract(1, 'month').startOf('month').format('YYYY-MM-DD'),
           dateEnd: dayjs().subtract(1, 'month').endOf('month').format('YYYY-MM-DD')
-        })
+        }
         break
       case 'curtYear':
-        this.setState({
+        payload = {
           dateStart: dayjs().startOf('year').format('YYYY-MM-DD'),
           dateEnd: dayjs().endOf('year').format('YYYY-MM-DD')
-        })
+        }
         break
       case 'lastYear':
-        this.setState({
+        payload = {
           dateStart: dayjs().subtract(1, 'year').startOf('month').format('YYYY-MM-DD'),
           dateEnd: dayjs().subtract(1, 'year').endOf('month').format('YYYY-MM-DD')
-        })
+        }
         break
     }
+    dispatch({
+      type: 'cusAR/save',
+      payload
+    })
+    dispatch({
+      type: 'cusAR/fetch'
+    })
   }
 
   render() {
-    const { customer } = this.props
+    const { customer, arBills, crBills, beginingAmount, arCurtAmount, crCurtAmount, endingAmount } = this.props
     return (
       <View className='container'>
         <ReportHeader onBtnDateClick={this.handleDateBtnClick} dateStart={this.props.dateStart} dateEnd={this.props.dateEnd} onDateChange={this.handleDateChange}></ReportHeader>
@@ -87,82 +92,35 @@ class CustomerAR extends Component {
           </View>
         </View>
         <View className='item item-amount'>
-          <Text>期初余额</Text><Text>￥28320.00</Text>
+          <Text>期初余额</Text><Text>￥{beginingAmount}</Text>
         </View>
         <View className='item item-amount'>
-          <Text>本期余额</Text><Text>￥98398.00</Text>
+          <Text>本期应收: ￥{arCurtAmount}</Text><Text>本期收款: ￥{crCurtAmount}</Text>
         </View>
         <View className='item item-amount'>
-          <Text>期末余额</Text><Text>￥983220.00</Text>
+          <Text>期末余额</Text><Text>￥{endingAmount}</Text>
         </View>
         <View className='body'>
-          <AtAccordion title='应收单' icon={{ value: 'tags', color: 'red', size: '22' }}>
-            <View className='bill-container'>
-              <View className='bill-card'>
-                <AtCard
-                  note='马静敏'
-                  extra='￥9040.00'
-                  title='2018-12-04 10:43'
-                  thumb='https://img12.360buyimg.com/jdphoto/s72x72_jfs/t6160/14/2008729947/2754/7d512a86/595c3aeeNa89ddf71.png'
-                >
-                  SI-00330827
-                </AtCard>
-              </View>
-              <View className='bill-card'>
-                <AtCard
-                  note='马静敏'
-                  extra='￥9040.00'
-                  title='2018-12-04 10:43'
-                  thumb='https://img12.360buyimg.com/jdphoto/s72x72_jfs/t6160/14/2008729947/2754/7d512a86/595c3aeeNa89ddf71.png'
-                >
-                  SI-00330827
-                </AtCard>
-              </View>
-              <View className='bill-card'>
-                <AtCard
-                  note='马静敏'
-                  extra='￥9040.00'
-                  title='2018-12-04 10:43'
-                  thumb='https://img12.360buyimg.com/jdphoto/s72x72_jfs/t6160/14/2008729947/2754/7d512a86/595c3aeeNa89ddf71.png'
-                >
-                  SI-00330827
-                </AtCard>
-              </View>
-            </View>
+
+          <AtAccordion title='应收单' icon={{ value: 'menu', color: 'red', size: '22' }}>
+            <ScrollView
+              scrollY
+              scrollWithAnimation
+              className='bill-container'
+              style='height: 320px;'
+            >
+              <CardList bills={arBills}></CardList>
+            </ScrollView>
           </AtAccordion>
-          <AtAccordion title='收款单' icon={{ value: 'menu', color: 'blue', size: '22' }}>
-            <View className='bill-container'>
-              <View className='bill-card'>
-                <AtCard
-                  note='马静敏'
-                  extra='￥9040.00'
-                  title='2018-12-04 10:43'
-                  thumb='https://img12.360buyimg.com/jdphoto/s72x72_jfs/t6160/14/2008729947/2754/7d512a86/595c3aeeNa89ddf71.png'
-                >
-                  SI-00330827
-                </AtCard>
-              </View>
-              <View className='bill-card'>
-                <AtCard
-                  note='马静敏'
-                  extra='￥9040.00'
-                  title='2018-12-04 10:43'
-                  thumb='https://img12.360buyimg.com/jdphoto/s72x72_jfs/t6160/14/2008729947/2754/7d512a86/595c3aeeNa89ddf71.png'
-                >
-                  SI-00330827
-                </AtCard>
-              </View>
-              <View className='bill-card'>
-                <AtCard
-                  note='马静敏'
-                  extra='￥9040.00'
-                  title='2018-12-04 10:43'
-                  thumb='https://img12.360buyimg.com/jdphoto/s72x72_jfs/t6160/14/2008729947/2754/7d512a86/595c3aeeNa89ddf71.png'
-                >
-                  SI-00330827
-                </AtCard>
-              </View>
-            </View>
+          <AtAccordion title='收款单' icon={{ value: 'menu', color: 'green', size: '22' }}>
+            <ScrollView
+              scrollY
+              scrollWithAnimation
+              style='height: 320px;'
+              className='bill-container'
+            >
+              <CardList bills={crBills}></CardList>
+            </ScrollView>
           </AtAccordion>
         </View>
       </View>

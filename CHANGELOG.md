@@ -17,6 +17,7 @@
 * [**Page**] 重构easDetial页面组件，支持多种类型单据显示
 * [**Page**] 重构ListPage页中根据状态检索单据
 * [**Page**] 重构customerSelect页面，可以复用
+* [**Component**] 新增CardList组件
 
 ### Features
 
