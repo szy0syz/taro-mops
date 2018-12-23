@@ -1,10 +1,12 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text, ScrollView } from '@tarojs/components'
-import { AtIcon, AtAccordion } from 'taro-ui'
+import { AtIcon, AtAccordion, AtButton } from 'taro-ui'
 import { connect } from '@tarojs/redux'
+import querystring from 'querystring'
 import dayjs from 'dayjs'
 import ReportHeader from '../../../components/ReportHeader'
 import CardList from '../../../components/CardList'
+
 import './index.scss'
 
 @connect(({ cusAR }) => ({
@@ -22,12 +24,6 @@ class CustomerAR extends Component {
         type: 'cusAR/fetch'
       })
     }
-
-    // downloadTask.onProgressUpdate((res) => {
-    //   console.log('下载进度', res.progress)
-    //   console.log('已经下载的数据长度', res.totalBytesWritten)
-    //   console.log('预期需要下载的数据总长度', res.totalBytesExpectedToWrite)
-    // })
   }
 
   handleDateChange = (key, value) => {
@@ -45,6 +41,35 @@ class CustomerAR extends Component {
 
   handleNaviCustomer = () => {
     Taro.navigateTo({ url: '/pages/customerSelect/index?prevModel=cusAR' })
+  }
+
+  handleGetReport = async () => {
+    const token = Taro.getStorageSync('token')
+    const { dateStart, dateEnd, customer } = this.props
+
+    const queryParams = {
+      customer: customer.FID,
+      dateStart,
+      dateEnd
+    }
+
+    const downloadTask = await Taro.downloadFile({
+      url: `http://127.0.0.1:3000/api/eas/excustomerAR?${querystring.stringify(queryParams)}`,
+      header: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
+    if (downloadTask.statusCode === 200) {
+      await Taro.openDocument({ filePath: downloadTask.tempFilePath, fileType: 'xlsx' })
+
+      // Taro.saveFile({
+      //   tempFilePath: downloadTask.tempFilePath
+      // }).then(res => {
+      //   console.log(res)
+      //   console.log('存储成功~~~~~')
+      //   // Taro.openDocument({filePath: res.savedFilePath, fileType: 'xlsx'})
+      // })
+    }
   }
 
   handleDateBtnClick = async (btnName) => {
@@ -83,26 +108,6 @@ class CustomerAR extends Component {
     dispatch({
       type: 'cusAR/fetch'
     })
-
-    const downloadTask = await Taro.downloadFile({
-      url: 'http://127.0.0.1:3000/api/eas/excustomerAR?customer=S0xBbfhJQESrcUuTyPA81b8MBA4=&dateStart=2018-01-01&dateEnd=2018-12-31',
-      header: {
-        'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1YzA5MzBmZGI0ZjU5MDc3MWExMTVmZDUiLCJ1c2VyTmFtZSI6IuaWveaMr-WuhyIsImVhc2ZpZCI6Ink2cHEvT3ZlVGMrZCtQWkE1OVNHOUJPMzNuOD0iLCJyb2xlTGV2ZWwiOjIwMCwiaWF0IjoxNTQ1NTQ4NjM4LCJleHAiOjE1NDU2MzUwMzh9.UazPgWL_ebE7KniAfaNp7PRNmTCpb4yJZxqW-JvL2JM`
-      }
-    })
-
-    console.log(downloadTask)
-    if (downloadTask.statusCode === 200) {
-      await Taro.openDocument({filePath: downloadTask.tempFilePath, fileType: 'xlsx'})
-
-      // Taro.saveFile({
-      //   tempFilePath: downloadTask.tempFilePath
-      // }).then(res => {
-      //   console.log(res)
-      //   console.log('存储成功~~~~~')
-      //   // Taro.openDocument({filePath: res.savedFilePath, fileType: 'xlsx'})
-      // })
-    }
   }
 
   render() {
@@ -148,6 +153,9 @@ class CustomerAR extends Component {
               <CardList bills={crBills}></CardList>
             </ScrollView>
           </AtAccordion>
+        </View>
+        <View className='open-report'>
+          <AtButton onClick={this.handleGetReport} type='primary' size='small'>阅读报表</AtButton>
         </View>
       </View>
     )
