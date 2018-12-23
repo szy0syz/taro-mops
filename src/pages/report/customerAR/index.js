@@ -15,13 +15,19 @@ class CustomerAR extends Component {
     navigationBarTitleText: '报表-客户对账',
   }
 
-  componentDidShow() {
+  async componentDidShow() {
     const { customer, dispatch } = this.props
     if (customer && customer.FID) {
       dispatch({
         type: 'cusAR/fetch'
       })
     }
+
+    // downloadTask.onProgressUpdate((res) => {
+    //   console.log('下载进度', res.progress)
+    //   console.log('已经下载的数据长度', res.totalBytesWritten)
+    //   console.log('预期需要下载的数据总长度', res.totalBytesExpectedToWrite)
+    // })
   }
 
   handleDateChange = (key, value) => {
@@ -41,7 +47,7 @@ class CustomerAR extends Component {
     Taro.navigateTo({ url: '/pages/customerSelect/index?prevModel=cusAR' })
   }
 
-  handleDateBtnClick = (btnName) => {
+  handleDateBtnClick = async (btnName) => {
     let payload
     const { dispatch } = this.props
     switch (btnName) {
@@ -77,6 +83,26 @@ class CustomerAR extends Component {
     dispatch({
       type: 'cusAR/fetch'
     })
+
+    const downloadTask = await Taro.downloadFile({
+      url: 'http://127.0.0.1:3000/api/eas/excustomerAR?customer=S0xBbfhJQESrcUuTyPA81b8MBA4=&dateStart=2018-01-01&dateEnd=2018-12-31',
+      header: {
+        'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1YzA5MzBmZGI0ZjU5MDc3MWExMTVmZDUiLCJ1c2VyTmFtZSI6IuaWveaMr-WuhyIsImVhc2ZpZCI6Ink2cHEvT3ZlVGMrZCtQWkE1OVNHOUJPMzNuOD0iLCJyb2xlTGV2ZWwiOjIwMCwiaWF0IjoxNTQ1NTQ4NjM4LCJleHAiOjE1NDU2MzUwMzh9.UazPgWL_ebE7KniAfaNp7PRNmTCpb4yJZxqW-JvL2JM`
+      }
+    })
+
+    console.log(downloadTask)
+    if (downloadTask.statusCode === 200) {
+      await Taro.openDocument({filePath: downloadTask.tempFilePath, fileType: 'xlsx'})
+
+      // Taro.saveFile({
+      //   tempFilePath: downloadTask.tempFilePath
+      // }).then(res => {
+      //   console.log(res)
+      //   console.log('存储成功~~~~~')
+      //   // Taro.openDocument({filePath: res.savedFilePath, fileType: 'xlsx'})
+      // })
+    }
   }
 
   render() {
