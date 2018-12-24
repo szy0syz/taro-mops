@@ -1,15 +1,16 @@
 import Taro, { Component } from '@tarojs/taro';
 import { View, Image, Text, Icon } from '@tarojs/components';
+import { AtList, AtListItem } from "taro-ui"
 import { connect } from '@tarojs/redux';
 import './index.scss';
 import message_img from '../../images/user/message.png';
-import avatar_img from '../../images/user/avatar.png';
 import coupon_img from '../../images/user/coupon.png';
 import deposit_img from '../../images/user/deposit.png';
 
-@connect(({user,common}) => ({
+@connect(({ user, common, login }) => ({
   ...user,
   ...common,
+  ...login
 }))
 export default class User extends Component {
   config = {
@@ -17,7 +18,7 @@ export default class User extends Component {
   };
 
   goPage = (e) => {
-    if(e.currentTarget.dataset.url == '/pages/login/index' && this.props.access_token) {
+    if (e.currentTarget.dataset.url == '/pages/login/index' && this.props.access_token) {
       return;
     }
     Taro.navigateTo({
@@ -25,72 +26,18 @@ export default class User extends Component {
     })
   }
 
-  goToPage = (e) => {
-    if(!this.props.access_token) {
-      Taro.navigateTo({
-        url: '/pages/login/index',
-      })
-      return;
-    }
-    Taro.navigateTo({
-      url: e.currentTarget.dataset.url,
-    })
-  }
-
-  outLogin = (e) => {
-    e.stopPropagation();
-    if(!this.props.access_token) {
-      Taro.navigateTo({
-        url: '/pages/login/index',
-      })
-      return;
-    }
-    Taro.showModal({
-      content: '是否退出当前账号？'
-    })
-    .then(res => {
-      if (res.confirm) {
-        Taro.removeStorageSync('user_info');
-        Taro.removeStorageSync('access_token');
-        this.props.dispatch({
-          type: 'cart/init',
-        });
-        this.props.dispatch({
-          type: 'common/save',
-          payload: {
-            access_token: '',
-            invitation_code: '',
-            mobile: '',
-            nickname: '',
-            new_user: '',
-            is_has_buy_card: '',
-            erroMessage: '',
-          },
-        });
-        this.props.dispatch({
-          type: 'login/save',
-          payload: {
-            access_token: '',
-            invitation_code: '',
-            mobile: '',
-            nickname: '',
-            new_user: '',
-            is_has_buy_card: '',
-            erroMessage: '',
-          },
-        });
-      }
-    })
+  goToPage = (url) => {
+    (/pages/i).test(url) ? Taro.navigateTo({ url }) : null
   }
 
   render() {
-    const { mobile, coupon_number, nickname, list } = this.props;
+    const { mobile, avatar, userName } = this.props;
     return (
       <View className='user-page'>
         <View className='not-login'>
           <View className='to-login' data-url='/pages/login/index' onClick={this.goPage}>
             <View className='left'>
-              <View className={mobile ? 'name black' : 'name '}>{ nickname || '请登录 >'}</View>
+              <View className={mobile ? 'name black' : 'name '}>{userName || '请登录 >'}</View>
               <View>
                 <View className='msg' data-url='/pages/message/index' onClick={this.goToPage}>
                   <Image mode='widthFix' src={message_img} />
@@ -101,10 +48,10 @@ export default class User extends Component {
               </View>
             </View>
             <View className='avatar-container'>
-              <Image className='avatar' src={avatar_img} />
+              <Image className='avatar' src={avatar} />
             </View>
           </View>
-          <View className='list'>
+          {/* <View className='list'>
             {list && list.map((item, index) => (
               <View className='item' key={index} data-url={`/pages/order/index?type=${index}`} onClick={this.goToPage}>
                 <Image mode='widthFix' src={item.img} />
@@ -112,41 +59,37 @@ export default class User extends Component {
                 {item.num > 0 && <Icon className='num'>{item.num}</Icon>}
               </View>
             ))}
-          </View>
-        </View>
-        <View className='login'>
-          {/* <View className='card'>
-            <View className='type type0'>
-              <View className='operation'>
-                <View className='txt'>{mobile ? 'VIP会员用户' : '您还不是会员'}</View>
-                {!mobile && (
-                  <View className='btn' data-url='/pages/login/index' onClick={this.goPage}>
-                    成为会员
-                    <View className='iconfont icon-membership_more'></View>
-                  </View>
-                )}
-              </View>
-            </View>
           </View> */}
-          <View className='item' data-url='/pages/couponList/index' onClick={this.goToPage}>
-            <View className='left'>
-              <Image className='icon-left' src={coupon_img} />
-              <Text>MOPS</Text>
-            </View>
-            <View className='right'>
-              {coupon_number && <View className='num'>{coupon_number}</View>}
-              <View className='iconfont icon-more arrow'></View>
-            </View>
-          </View>
-          <View className='item' data-url='/pages/about/index' onClick={this.goPage}>
-            <View className='left'>
-              <Image className='icon-left' src={deposit_img} />
-              <Text>关于</Text>
-            </View>
-            <View className='right'>
-              <View className='iconfont icon-more arrow'></View>
-            </View>
-          </View>
+        </View>
+        <View className='nav-list'>
+          <AtList>
+            <AtListItem
+              title='系统设置'
+              arrow='right'
+              onClick={this.goToPage.bind(this, '/pages/about/index')}
+              iconInfo={{
+                size: 28, color: '#2bb2a7', value: 'settings',
+              }}
+            />
+            <AtListItem
+              title='用户管理'
+              arrow='right'
+              data-url='/pages/about/index'
+              onClick={this.goToPage.bind(this, '/pages/about/index')}
+              iconInfo={{
+                size: 28, color: '#2bb2a7', value: 'user',
+              }}
+            />
+            <AtListItem
+              title='关于我们'
+              arrow='right'
+              data-url='/pages/about/index'
+              onClick={this.goToPage.bind(this, '/pages/about/index')}
+              iconInfo={{
+                size: 28, color: '#2bb2a7', value: 'alert-circle',
+              }}
+            />
+          </AtList>
         </View>
       </View>
     )

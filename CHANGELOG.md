@@ -21,6 +21,7 @@
 * [**Component**] 新增ListHeader、ListContent组件
 * [**Component**] 新增CardList组件
 * [**Page**] 应收对账单支持Excel阅读
+* [**Page**] 更新用户页样式及功能
 
 ### Features
 
