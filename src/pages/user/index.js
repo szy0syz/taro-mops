@@ -73,7 +73,7 @@ export default class User extends Component {
               title='用户管理'
               arrow='right'
               data-url='/pages/about/index'
-              onClick={this.goToPage.bind(this, '/pages/about/index')}
+              onClick={this.goToPage.bind(this, '/pages/userMgmt/index')}
               iconInfo={{
                 size: 28, color: '#2bb2a7', value: 'user',
               }}

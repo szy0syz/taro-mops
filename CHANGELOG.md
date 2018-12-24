@@ -22,6 +22,7 @@
 * [**Component**] 新增CardList组件
 * [**Page**] 应收对账单支持Excel阅读
 * [**Page**] 更新用户页样式及功能
+* [**Page**] 更新用户管理页 搜索、列表
 
 ### Features
 

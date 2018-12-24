@@ -22,7 +22,7 @@ class App extends Component {
       
       'pages/login/index',
       'pages/report/customerAR/index',
-      
+      'pages/userMgmt/index',
 
       'pages/easDetail/index',
       'pages/home/index',
