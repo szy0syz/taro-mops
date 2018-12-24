@@ -8,6 +8,7 @@
 
 * 修复[easDetai]组件fetch时加入 encodeURIComponent
 * 修复[ListContent]组件支持basePath检索不同类型单据
+* 修复应收对账单服务层baseUrl取值没经过环境变量的问题
 
 ### Enhances
 

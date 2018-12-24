@@ -4,6 +4,7 @@ import { AtIcon, AtAccordion, AtButton } from 'taro-ui'
 import { connect } from '@tarojs/redux'
 import querystring from 'querystring'
 import dayjs from 'dayjs'
+import { baseUrl } from '../../../config'
 import ReportHeader from '../../../components/ReportHeader'
 import CardList from '../../../components/CardList'
 
@@ -54,7 +55,7 @@ class CustomerAR extends Component {
     }
 
     const downloadTask = await Taro.downloadFile({
-      url: `http://127.0.0.1:3000/api/eas/excustomerAR?${querystring.stringify(queryParams)}`,
+      url: `${baseUrl}/eas/excustomerAR?${querystring.stringify(queryParams)}`,
       header: {
         'Authorization': `Bearer ${token}`
       }
