@@ -18,11 +18,14 @@
 * [**Page**] 重构easDetial页面组件，支持多种类型单据显示
 * [**Page**] 重构ListPage页中根据状态检索单据
 * [**Page**] 重构customerSelect页面，可以复用
+* [**Component**] 新增ListHeader、ListContent组件
 * [**Component**] 新增CardList组件
+* [**Page**] 应收对账单支持Excel阅读
 
 ### Features
 
 * [**Page**] 新增EAS销售出库单展示详情页
+* [**Page**] 新增EAS客户应收对账单页
 
 ## 0.2.1 (2018-12-09)
 
