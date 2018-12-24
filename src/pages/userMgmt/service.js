@@ -1,8 +1,8 @@
 import Request from '../../utils/request'
 
 
-export const getCustomers = data => Request({
-  url: '/eas/customers',
+export const fetchUsers = data => Request({
+  url: '/mina/users',
   method: 'GET',
   data,
 })

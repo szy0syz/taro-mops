@@ -7,6 +7,7 @@ import login from '../pages/login/model'
 import order from '../pages/order/model'
 import detail from '../pages/detail/model'
 import eas_detail from '../pages/easDetail/model'
+import userMgmt from '../pages/userMgmt/model'
 import customerAR from '../pages/report/customerAR/model'
 import productSelect from '../pages/productSelect/model'
 import customerSelect from '../pages/customerSelect/model'
@@ -20,6 +21,7 @@ export default [
   login,
   order,
   detail,
+  userMgmt,
   eas_detail,
   customerAR,
   productSelect,
