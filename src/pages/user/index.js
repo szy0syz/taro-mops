@@ -1,11 +1,9 @@
 import Taro, { Component } from '@tarojs/taro';
-import { View, Image, Text, Icon } from '@tarojs/components';
+import { View, Image } from '@tarojs/components';
 import { AtList, AtListItem } from "taro-ui"
 import { connect } from '@tarojs/redux';
 import './index.scss';
 import message_img from '../../images/user/message.png';
-import coupon_img from '../../images/user/coupon.png';
-import deposit_img from '../../images/user/deposit.png';
 
 @connect(({ user, common, login }) => ({
   ...user,
