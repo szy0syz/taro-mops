@@ -18,12 +18,12 @@ function initChart(canvas, width, height) {
     tooltip: {
       trigger: 'axis',
       axisPointer: {            // 坐标轴指示器，坐标轴触发有效
-        type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+        type: 'line'        // 默认为直线，可选为：'line' | 'shadow'
       },
       confine: true
     },
     legend: {
-      data: ['热度', '正面', '负面']
+      data: ['数量', '金额', '毛利'] // ['数量', '金额', '毛利']
     },
     grid: {
       left: 20,
@@ -49,7 +49,7 @@ function initChart(canvas, width, height) {
       {
         type: 'category',
         axisTick: { show: false },
-        data: ['汽车之家', '今日头条', '百度贴吧', '一点资讯', '微信', '微博', '知乎'],
+        data: ['农药产品A', '农药产品B', '农药产品C', '农药产品D', '农药产品E', '农药产品F', '农药产品G'],
         axisLine: {
           lineStyle: {
             color: '#999'
@@ -62,7 +62,7 @@ function initChart(canvas, width, height) {
     ],
     series: [
       {
-        name: '热度',
+        name: '数量',
         type: 'bar',
         label: {
           normal: {
@@ -78,7 +78,7 @@ function initChart(canvas, width, height) {
         }
       },
       {
-        name: '正面',
+        name: '金额',
         type: 'bar',
         stack: '总量',
         label: {
@@ -94,7 +94,7 @@ function initChart(canvas, width, height) {
         }
       },
       {
-        name: '负面',
+        name: '毛利',
         type: 'bar',
         stack: '总量',
         label: {
@@ -122,7 +122,7 @@ export default class Echarts extends Component {
   config = {
     navigationBarTitleText: 'echarts-for-weixin',
     navigationBarTextStyle: 'black',
-    navigationBarTitleText: 'eacharts示例',
+    navigationBarTitleText: ' 报表-销售毛利分析',
     backgroundColor: '#eeeeee',
     backgroundTextStyle: 'light',
     usingComponents: {
