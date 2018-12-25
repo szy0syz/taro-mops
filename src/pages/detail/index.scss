@@ -20,7 +20,8 @@
     .custom-listItem {
         font-size: 30rpx;
         View.item-extra__info {
-            margin-right: 10rpx;
+            // 限制 extra_info 文字的最大宽度
+            max-width: 340px;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;

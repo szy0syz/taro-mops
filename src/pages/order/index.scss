@@ -16,11 +16,12 @@
 
 .order-wrapper {
     background-color: #fff;
-    height: 200rpx;
+    // height: 200rpx; // TODO: 其它组件中也删除这个值
     .custom-listItem {
         font-size: 30rpx;
         View.item-extra__info {
-            margin-right: 10rpx;
+            // 限制 extra_info 文字的最大宽度
+            max-width: 380px;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
@@ -30,6 +31,11 @@
         font-size: 30rpx;
         overflow: inherit;
         color: #111;
+    }
+    // 修复 at-list-item多行显示
+    .at-list__item-extra {
+        max-height: 40px;
+        white-space: nowrap;
     }
 }
 
