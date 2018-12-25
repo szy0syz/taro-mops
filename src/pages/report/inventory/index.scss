@@ -1,6 +1,6 @@
 @import "../../../styles/mixin";
 .container {
-    padding: 30rpx 10rpx;
+    // padding: 0 10px 20px 10px;
     @include fja(space-around);
     flex-wrap: wrap;
     align-content: center;
@@ -19,5 +19,9 @@
 
     .card-body {
         @include fja;
+    }
+
+    View.at-noticebar {
+        text-align: center;
     }
 }

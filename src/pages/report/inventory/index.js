@@ -1,7 +1,10 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text, ScrollView } from '@tarojs/components'
-import { AtCard } from 'taro-ui'
+import { AtCard, AtNoticebar } from 'taro-ui'
+import dayjs from 'dayjs'
+
 import getInventory from './service'
+
 import './index.scss'
 
 export default class Inventory extends Component {
@@ -32,9 +35,12 @@ export default class Inventory extends Component {
   }
 
   render() {
-    const { inventory } = this.state
+    const { inventory = [] } = this.state
     return (
       <View className='container'>
+        <AtNoticebar style='padding-bottom: 12px;width:100%;' icon='volume-plus'>
+          <Text>查询时间：{` ${dayjs().format('YYYY年MM月DD日 HH:mm:ss')}    |    `} 商品种类：{inventory.length} 种</Text>
+        </AtNoticebar>
         <ScrollView
           scrollY
           scrollWithAnimation
