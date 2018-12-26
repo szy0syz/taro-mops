@@ -7,4 +7,8 @@ export const fetchUsers = data => Request({
   data,
 })
 
-
+export const postUser = data => Request({
+  url: '/mina/users',
+  method: 'POST',
+  data,
+})
