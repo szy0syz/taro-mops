@@ -54,7 +54,6 @@ export default class List extends Component {
   }
 
   handleNaviDetail = (basePath, id) => {
-    console.log('handleNaviDetail~~~~~~~~~~~~~~~', basePath, id)
     if (/saleOrders/i.test(basePath)) {
       Taro.navigateTo({ url: `/pages/detail/index?_id=${id}&basePath=${basePath}` })
     } else {

@@ -21,6 +21,15 @@ export default {
     },
     isSynced: false,
     orderTags: [],
+    express: {
+      name: '',
+      trackingNumber: '',
+      customerPhone: '',
+      staffPhone: '',
+      isSend: false,
+      sendCount: 0,
+      sendTime: ''
+    },
     remark: '',
     tagList: [
       {
@@ -68,6 +77,13 @@ export default {
   effects: {
     * create({ payload }, { call }) {
       const { success } = yield call(Service.post, payload)
+
+      return Boolean(success)
+    },
+
+    * update({ payload }, { select, call }) {
+      // const { express } = yield select(state => state.detail)
+      const { success } = yield call(Service.patchOrder, payload)
 
       return Boolean(success)
     },

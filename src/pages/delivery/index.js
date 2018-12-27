@@ -1,6 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Input, Picker, Text } from '@tarojs/components'
-import { AtIcon, AtTextarea, AtButton } from 'taro-ui'
+import { View, Picker, Text } from '@tarojs/components'
+import { AtIcon, AtTextarea, AtButton, AtInput } from 'taro-ui'
 import { connect } from '@tarojs/redux'
 import './index.scss'
 import supplant from '../../utils/helper'
@@ -14,8 +14,8 @@ export default class Delivery extends Component {
   constructor() {
     super(...arguments)
     this.state = {
-      template: '【云农农业科技】{customerName}，您的订单[{number}]已经发出，发件人：仓管员姓名，承运物流：{delivery}，货运单号：{tracking}，如遇问题请联系[{staffMobile}]。',
-      list: [
+      template: '【云农农业科技】{customerName}，您的订单[{number}]已经发出，发件人：仓管员姓名，承运物流：{delivery}，货运单号：{tracking}，如遇问题请联系[{staffPhone}]。',
+      expressList: [
         {
           name: '大通物流',
           value: 'v001'
@@ -30,9 +30,7 @@ export default class Delivery extends Component {
         }
       ],
       delivery: null,
-      tracking: '',
-      customerMobile: '',
-      staffMobile: '138'
+      tracking: ''
     }
   }
 
@@ -45,64 +43,76 @@ export default class Delivery extends Component {
         Taro.showToast({
           title: '扫描成功'
         })
-        this.setState({
-          tracking: data.result
-        })
+
       }
     })
   }
 
-  handleSave = (isSend) => {
-    Taro.showToast({ title: `${isSend ? '发送' : '保存'}成功` })
+  handleSave = () => {
+    const { _id, express, dispatch } = this.props
+    if (express.isSend) {
+      return Taro.showToast({ title: '已经发送，请勿重复发送。' })
+    }
+
+    dispatch({
+      type: 'detail/update',
+      payload: { _id, express }
+    })
+    
     Taro.navigateBack()
   }
 
   handlePickerChange = (e) => {
+    const { express, dispatch } = this.props
+    const { expressList } = this.state
     const index = e.detail.value
-    this.setState({
-      delivery: this.state.list[index]
+
+    dispatch({
+      type: 'detail/save',
+      payload: { express: { ...express, name: expressList[index].name } }
     })
   }
 
-  handleCommonChange(type, event) {
+  handleCommonChange(type, value) {
+    const { express } = this.props
     let payload
-    const value = event.detail.value
+
     switch (type) {
-      case 'delivery':
+      case 'trackingNumber':
         payload = {
-          delivery: value
+          express: { ...express, trackingNumber: value }
         }
         break;
-      case 'tracking':
+      case 'customerPhone':
         payload = {
-          tracking: value
+          express: { ...express, customerPhone: value }
         }
         break;
-      case 'customerMobile':
+      case 'staffPhone':
         payload = {
-          customerMobile: value
-        }
-        break;
-      case 'staffMobile':
-        payload = {
-          staffMobile: value
+          express: { ...express, staffPhone: value }
         }
         break;
       default:
         break;
     }
-    this.setState(payload)
+
+    this.props.dispatch({
+      type: 'detail/save',
+      payload
+    })
   }
 
   render() {
-    const { delivery, tracking, customerMobile, staffMobile, template } = this.state
-    const { customer, number } = this.props
+    const { template, expressList } = this.state
+    const { customer, number, express } = this.props
+
     const content = supplant(template, {
       customerName: customer.CustomerName,
       number,
-      delivery: delivery ? delivery.name : '',
-      tracking,
-      staffMobile
+      delivery: express.name || '',
+      tracking: express.trackingNumber,
+      staffPhone: express.staffPhone
     })
 
     return (
@@ -111,13 +121,13 @@ export default class Delivery extends Component {
           <View className='item'>
             <View className='item-title'>物流公司</View>
             <View className='item-body'>
-              <Input value={delivery.name} onClick={this.handleCommonChange.bind(this, 'delivery')} placeholder='请手工输入或选择' />
+              <AtInput disabled value={express.name} placeholder='请手工输入或选择' />
             </View>
             <View className='item-float'>
               <Picker
                 style='text-align: center;'
                 mode='selector'
-                range={this.props.list}
+                range={expressList}
                 rangeKey='name'
                 onChange={this.handlePickerChange}
               >
@@ -130,7 +140,7 @@ export default class Delivery extends Component {
           <View className='item'>
             <View className='item-title'>物流单号</View>
             <View className='item-body'>
-              <Input value={tracking} onClick={this.handleCommonChange.bind(this, 'tracking')} placeholder='请手工输入或扫描' />
+              <AtInput value={express.trackingNumber} onChange={this.handleCommonChange.bind(this, 'trackingNumber')} placeholder='请手工输入或扫描' />
             </View>
             <View className='item-float' onClick={this.handleScanCode}>
               <AtIcon value='camera' size='24' color='#888' />
@@ -139,13 +149,13 @@ export default class Delivery extends Component {
           <View className='item'>
             <View className='item-title'>客户手机</View>
             <View className='item-body'>
-              <Input value={customerMobile} placeholder='请输入客户手机号码' onClick={this.handleCommonChange.bind(this, 'customerMobile')} />
+              <AtInput value={express.customerPhone} placeholder='请输入客户手机号码' onChange={this.handleCommonChange.bind(this, 'customerPhone')} />
             </View>
           </View>
           <View className='item'>
             <View className='item-title'>业务联系手机</View>
             <View className='item-body'>
-              <Input value={staffMobile} placeholder='请输入业务联系手机号码' onClick={this.handleCommonChange.bind(this, 'staffMobile')} />
+              <AtInput value={express.staffPhone} placeholder='请输入业务联系手机号码' onChange={this.handleCommonChange.bind(this, 'staffPhone')} />
             </View>
           </View>
           <View style='height: 200px;' className='item-sms'>

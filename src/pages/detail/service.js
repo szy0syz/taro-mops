@@ -5,6 +5,12 @@ export const fetchById = _id => Request({
   method: 'GET'
 })
 
+export const patchOrder = data => Request({
+  url: `/saleorders`,
+  method: 'PUT',
+  data
+})
+
 export const syncOrder = data => Request({
   url: '/eas/syncOrder',
   method: 'POST',
