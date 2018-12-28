@@ -2,7 +2,10 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, ScrollView, Input } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 import { AtButton, AtList, AtListItem, Picker, AtIcon } from 'taro-ui'
+import _ from 'lodash/core'
+
 import './index.scss';
+import { debounce } from '../../utils/lib'
 
 @connect(({ common, order, customerSelect }) => ({
   ...customerSelect,
@@ -62,19 +65,38 @@ export default class CustomerSelect extends Component {
     // } else {
     //   Taro.switchTab({ url: '/pages/order/index' })
     // }
-
   }
+
+  // fetchData = () => {
+  //   debounce()
+  // }
 
   // TODO: _.throttle...
   handleKeyword(e) {
     const val = e.target.value
     if (val.length > 1) {
-      this.props.dispatch({
-        type: 'customerSelect/getCustomers',
-        payload: {
-          keyword: val
-        }
-      })
+      // debounce(() => {
+      //   this.props.dispatch({
+      //     type: 'customerSelect/getCustomers',
+      //     payload: {
+      //       keyword: val
+      //     }
+      //   })
+      // }, 1200)()
+      _.debounce(() => {
+        this.props.dispatch({
+          type: 'customerSelect/getCustomers',
+          payload: {
+            keyword: val
+          }
+        })
+      }, 1500)
+      // this.props.dispatch({
+      //   type: 'customerSelect/getCustomers',
+      //   payload: {
+      //     keyword: val
+      //   }
+      // })
     }
   }
 
