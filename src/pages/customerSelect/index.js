@@ -2,10 +2,9 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, ScrollView, Input } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 import { AtButton, AtList, AtListItem, Picker, AtIcon } from 'taro-ui'
-import _ from 'lodash/core'
+import _ from 'lodash'
 
 import './index.scss';
-import { debounce } from '../../utils/lib'
 
 @connect(({ common, order, customerSelect }) => ({
   ...customerSelect,
@@ -67,13 +66,28 @@ export default class CustomerSelect extends Component {
     // }
   }
 
-  // fetchData = () => {
-  //   debounce()
-  // }
+  fetchData = (val) => {
+    this.props.dispatch({
+      type: 'customerSelect/getCustomers',
+      payload: {
+        keyword: val
+      }
+    })
+  }
 
-  // TODO: _.throttle...
-  handleKeyword(e) {
+  // TODO: _.debounce...
+  handleKeyword = (e) => {
     const val = e.target.value
+    const { dispatch } = this.props
+    if (val.length === 0) {
+      dispatch({
+        type: 'common/save',
+        payload: {
+          customerList: []
+        }
+      })
+      return
+    }
     if (val.length > 1) {
       // debounce(() => {
       //   this.props.dispatch({
@@ -83,25 +97,18 @@ export default class CustomerSelect extends Component {
       //     }
       //   })
       // }, 1200)()
-      _.debounce(() => {
-        this.props.dispatch({
-          type: 'customerSelect/getCustomers',
-          payload: {
-            keyword: val
-          }
-        })
-      }, 1500)
-      // this.props.dispatch({
-      //   type: 'customerSelect/getCustomers',
-      //   payload: {
-      //     keyword: val
-      //   }
-      // })
+      //_.debounce(this.fetchData(val), 1500)()
+      this.props.dispatch({
+        type: 'customerSelect/getCustomers',
+        payload: {
+          keyword: val
+        }
+      })
     }
   }
 
   render() {
-    const { customerList } = this.props
+    const { customerList, keyword } = this.props
     return (
       <View className='page'>
         <View className='header'>
@@ -111,7 +118,7 @@ export default class CustomerSelect extends Component {
               <AtIcon value='chevron-down' size='28' color='rgba(117, 117, 119, 1)'></AtIcon>
             </View>
           </Picker>
-          <Input type='string' name='keyword' placeholder='请输入查询关键字' value={this.props.keyword} onInput={this.handleKeyword} />
+          <Input type='string' name='keyword' placeholder='请输入查询关键字' value={keyword} onInput={this.handleKeyword} />
         </View>
         <View className='body'>
           <ScrollView
