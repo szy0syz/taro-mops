@@ -2,7 +2,6 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, ScrollView, Input } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 import { AtButton, AtList, AtListItem, Picker, AtIcon } from 'taro-ui'
-import _ from 'lodash'
 
 import './index.scss';
 

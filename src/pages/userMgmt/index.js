@@ -41,7 +41,6 @@ export default class UserMgmt extends Component {
     this.setState({
       isOpened: true
     })
-    Taro.showToast({ title: '添加用户' })
   }
 
   handleInputChange = (key, val) => {
