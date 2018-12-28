@@ -213,64 +213,64 @@
     component-type "^1.2.1"
     join-component "^1.1.0"
 
-"@tarojs/async-await@1.2.1":
-  version "1.2.1"
-  resolved "http://registry.npm.taobao.org/@tarojs/async-await/download/@tarojs/async-await-1.2.1.tgz#0d002ad27d8328242c1982ec5a9cb60f1ef5b2f1"
+"@tarojs/async-await@1.2.2":
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/@tarojs/async-await/-/async-await-1.2.2.tgz#3d5a0ccb8e52be1d8e429dbc4aa11a0171fc263c"
   dependencies:
     promise-polyfill "^7.1.2"
     regenerator-runtime "^0.11.1"
 
-"@tarojs/components@1.2.1":
-  version "1.2.1"
-  resolved "http://registry.npm.taobao.org/@tarojs/components/download/@tarojs/components-1.2.1.tgz#68c5c2e8097430679046e280dd9e1bd61e298b2f"
+"@tarojs/components@1.2.2":
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/@tarojs/components/-/components-1.2.2.tgz#3a9a6a1e5575f7565d74c7640afd141918c5c1b5"
   dependencies:
     classnames "^2.2.5"
     nervjs "^1.3.0"
     omit.js "^1.0.0"
     weui "^1.1.2"
 
-"@tarojs/plugin-babel@1.2.1":
-  version "1.2.1"
-  resolved "http://registry.npm.taobao.org/@tarojs/plugin-babel/download/@tarojs/plugin-babel-1.2.1.tgz#9f85add3b32413347dcc9f65a9d93a3470df6ca5"
+"@tarojs/plugin-babel@1.2.2":
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/@tarojs/plugin-babel/-/plugin-babel-1.2.2.tgz#e1f948ca8aba65ad01ebadff445f0e3b129198d1"
   dependencies:
     babel-core "^6.26.0"
 
-"@tarojs/plugin-csso@1.2.1":
-  version "1.2.1"
-  resolved "http://registry.npm.taobao.org/@tarojs/plugin-csso/download/@tarojs/plugin-csso-1.2.1.tgz#2a449c0097590974a82db37102d122fca509bcf6"
+"@tarojs/plugin-csso@1.2.2":
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/@tarojs/plugin-csso/-/plugin-csso-1.2.2.tgz#bea75fe2732012542837f9aa1df6c8585a99e99e"
   dependencies:
     csso "^3.5.0"
 
-"@tarojs/plugin-sass@1.2.1":
-  version "1.2.1"
-  resolved "http://registry.npm.taobao.org/@tarojs/plugin-sass/download/@tarojs/plugin-sass-1.2.1.tgz#2c5921b2e161702752bf43765e509eef35dc1b4e"
+"@tarojs/plugin-sass@1.2.2":
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/@tarojs/plugin-sass/-/plugin-sass-1.2.2.tgz#3ee84033d30de87c2c7b46c0b84fa5457866f07a"
   dependencies:
     node-sass "^4.8.3"
 
-"@tarojs/plugin-uglifyjs@1.2.1":
-  version "1.2.1"
-  resolved "http://registry.npm.taobao.org/@tarojs/plugin-uglifyjs/download/@tarojs/plugin-uglifyjs-1.2.1.tgz#2f95a88eb2b4b45547bce4b2ad02a8ac06c2a0d9"
+"@tarojs/plugin-uglifyjs@1.2.2":
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/@tarojs/plugin-uglifyjs/-/plugin-uglifyjs-1.2.2.tgz#9e0c55ae718d076305d4e6387597fb8b3afdf8ce"
   dependencies:
     uglify-js "^3.3.24"
 
-"@tarojs/redux-h5@1.2.1":
-  version "1.2.1"
-  resolved "http://registry.npm.taobao.org/@tarojs/redux-h5/download/@tarojs/redux-h5-1.2.1.tgz#2c73313031cd7b8e5da371b71830013b3802a9b5"
+"@tarojs/redux-h5@1.2.2":
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/@tarojs/redux-h5/-/redux-h5-1.2.2.tgz#b9e00914c3c6b75eb6eb073af559781db8760e0e"
   dependencies:
     hoist-non-react-statics "^2.5.0"
     invariant "^2.2.4"
     loose-envify "^1.1.0"
     prop-types "^15.6.1"
 
-"@tarojs/redux@1.2.1":
-  version "1.2.1"
-  resolved "http://registry.npm.taobao.org/@tarojs/redux/download/@tarojs/redux-1.2.1.tgz#3f1b78e60ec5b99615d47e11dce18a0e95ea4ffd"
+"@tarojs/redux@1.2.2":
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/@tarojs/redux/-/redux-1.2.2.tgz#6703ffc1c50019c0cfe88e9a408abd0421a87c11"
   dependencies:
-    "@tarojs/utils" "1.2.1"
+    "@tarojs/utils" "1.2.2"
 
-"@tarojs/rn-runner@1.2.1":
-  version "1.2.1"
-  resolved "http://registry.npm.taobao.org/@tarojs/rn-runner/download/@tarojs/rn-runner-1.2.1.tgz#7f4ba3a5b489a87598d87d8714d83a80220c1446"
+"@tarojs/rn-runner@1.2.2":
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/@tarojs/rn-runner/-/rn-runner-1.2.2.tgz#beb98b055e6cb411d99c30840a3ae69fb3e50677"
   dependencies:
     "@expo/bunyan" "1.8.10"
     babel-runtime "^6.9.2"
@@ -288,9 +288,9 @@
     rimraf "^2.6.1"
     xdl "48.1.4"
 
-"@tarojs/router@1.2.1":
-  version "1.2.1"
-  resolved "http://registry.npm.taobao.org/@tarojs/router/download/@tarojs/router-1.2.1.tgz#7e34ecd4c8d9fd1985f86b1ad4f72310bd4498b3"
+"@tarojs/router@1.2.2":
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/@tarojs/router/-/router-1.2.2.tgz#7543ff9e65a206dcf42f0b188d3b70f6f9301e6e"
   dependencies:
     invariant "^2.2.4"
     lodash "^4.17.11"
@@ -299,36 +299,36 @@
     value-equal "^0.4.0"
     warning "^4.0.2"
 
-"@tarojs/taro-h5@1.2.1":
-  version "1.2.1"
-  resolved "http://registry.npm.taobao.org/@tarojs/taro-h5/download/@tarojs/taro-h5-1.2.1.tgz#2d9d57000ba322951e77b38ff4a7fbf6c70096d0"
+"@tarojs/taro-h5@1.2.2":
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/@tarojs/taro-h5/-/taro-h5-1.2.2.tgz#5a7fa73eeb029e77309fb8227eb7a1b422435c6d"
   dependencies:
-    "@tarojs/taro" "1.2.1"
+    "@tarojs/taro" "1.2.2"
     base64-js "^1.3.0"
     jsonp-retry "^1.0.3"
     mobile-detect "^1.4.2"
     whatwg-fetch "^2.0.4"
 
-"@tarojs/taro-weapp@1.2.1":
-  version "1.2.1"
-  resolved "http://registry.npm.taobao.org/@tarojs/taro-weapp/download/@tarojs/taro-weapp-1.2.1.tgz#44a79b929fb0367bc3b24bdcd379c12e9589be54"
+"@tarojs/taro-weapp@1.2.2":
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/@tarojs/taro-weapp/-/taro-weapp-1.2.2.tgz#e94187d46b8b87f054dde2db6c8a727ab64bf9c4"
   dependencies:
-    "@tarojs/taro" "1.2.1"
-    "@tarojs/utils" "1.2.1"
+    "@tarojs/taro" "1.2.2"
+    "@tarojs/utils" "1.2.2"
     lodash "^4.17.10"
     prop-types "^15.6.1"
 
-"@tarojs/taro@1.2.1":
-  version "1.2.1"
-  resolved "http://registry.npm.taobao.org/@tarojs/taro/download/@tarojs/taro-1.2.1.tgz#92f01071bfaf406e068cd5f714b0796fcd334a67"
+"@tarojs/taro@1.2.2":
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/@tarojs/taro/-/taro-1.2.2.tgz#6770ac02d66ad8e567a56a6e7a741e25cc1970de"
 
-"@tarojs/utils@1.2.1":
-  version "1.2.1"
-  resolved "http://registry.npm.taobao.org/@tarojs/utils/download/@tarojs/utils-1.2.1.tgz#65893d5ee11f65f961e562752f4000d7ba527052"
+"@tarojs/utils@1.2.2":
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/@tarojs/utils/-/utils-1.2.2.tgz#acb58dc44e289ab34d4fce690297027d598f1d82"
 
-"@tarojs/webpack-runner@1.2.1":
-  version "1.2.1"
-  resolved "http://registry.npm.taobao.org/@tarojs/webpack-runner/download/@tarojs/webpack-runner-1.2.1.tgz#721c7ad9baec74e0050370bc3f506623de16d725"
+"@tarojs/webpack-runner@1.2.2":
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/@tarojs/webpack-runner/-/webpack-runner-1.2.2.tgz#d2922fdeb6f08a2a9b9916eb7b94acc3f36a2eb5"
   dependencies:
     "@types/lodash" "^4.14.116"
     autoprefixer "^8.6.4"
@@ -353,8 +353,8 @@
     postcss-csso "^3.0.0"
     postcss-loader "^2.1.3"
     postcss-modules "^1.4.1"
-    postcss-plugin-constparse "1.2.1"
-    postcss-pxtransform "1.2.1"
+    postcss-plugin-constparse "1.2.2"
+    postcss-pxtransform "1.2.2"
     resolve "^1.8.1"
     resolve-url-loader "^2.3.0"
     sass-loader "^7.0.3"
@@ -2702,11 +2702,11 @@ escodegen@1.x.x:
   optionalDependencies:
     source-map "~0.6.1"
 
-eslint-config-taro@1.2.1:
-  version "1.2.1"
-  resolved "http://registry.npm.taobao.org/eslint-config-taro/download/eslint-config-taro-1.2.1.tgz#e54315eb186a6f8ef0984e23d742924ee6bd1a2f"
+eslint-config-taro@1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/eslint-config-taro/-/eslint-config-taro-1.2.2.tgz#9b1644a527e41868828ad20fa4fee44f0071d322"
   dependencies:
-    eslint-plugin-taro "1.2.1"
+    eslint-plugin-taro "1.2.2"
 
 eslint-import-resolver-node@^0.3.1:
   version "0.3.2"
@@ -2747,9 +2747,9 @@ eslint-plugin-react@^7.8.2:
     jsx-ast-utils "^2.0.1"
     prop-types "^15.6.2"
 
-eslint-plugin-taro@1.2.1:
-  version "1.2.1"
-  resolved "http://registry.npm.taobao.org/eslint-plugin-taro/download/eslint-plugin-taro-1.2.1.tgz#82dca5acd3f2dddaf5a2e790b8a745db7948b042"
+eslint-plugin-taro@1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-taro/-/eslint-plugin-taro-1.2.2.tgz#e5855131adfeffc88f108148c54ea72c19a005e1"
   dependencies:
     has "^1.0.1"
 
@@ -5588,9 +5588,9 @@ postcss-modules@^1.4.1:
     postcss "^7.0.1"
     string-hash "^1.1.1"
 
-postcss-plugin-constparse@1.2.1:
-  version "1.2.1"
-  resolved "http://registry.npm.taobao.org/postcss-plugin-constparse/download/postcss-plugin-constparse-1.2.1.tgz#f61114e0d41b9a34c729e7ae1649170d61f1584a"
+postcss-plugin-constparse@1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/postcss-plugin-constparse/-/postcss-plugin-constparse-1.2.2.tgz#66666da9e5f3d7e14516325c5c13483f4816dc93"
   dependencies:
     postcss "^6.0.22"
 
@@ -5601,9 +5601,9 @@ postcss-pxtorem@^4.0.1:
     object-assign "^4.1.0"
     postcss "^5.2.10"
 
-postcss-pxtransform@1.2.1:
-  version "1.2.1"
-  resolved "http://registry.npm.taobao.org/postcss-pxtransform/download/postcss-pxtransform-1.2.1.tgz#49fd17e587a29979f8f070e94b26c6dbe296032e"
+postcss-pxtransform@1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/postcss-pxtransform/-/postcss-pxtransform-1.2.2.tgz#cf9822571b8215f4a5e4c43c40f7efe2823dbcf0"
   dependencies:
     postcss "^6.0.16"
     postcss-pxtorem "^4.0.1"
