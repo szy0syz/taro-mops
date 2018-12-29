@@ -26,6 +26,7 @@
 * [**Page**] 更新用户管理页 搜索、列表
 * [**Page**] 更新 用户管理页 用户展示及搜索
 * [**Page**] 更新 及时库存页 的表头信息显示
+* [**Component**] 重构 SearchHeader 组件
 
 ### Features
 

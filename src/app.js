@@ -19,7 +19,7 @@ class App extends Component {
 
   config = {
     pages: [
-      
+      'pages/about/index',
       'pages/login/index',
       'pages/report/customerAR/index',
       'pages/userMgmt/index',
@@ -48,7 +48,7 @@ class App extends Component {
       'pages/cart/index',
       'pages/user/index',
       'pages/detail/index',
-      'pages/about/index',
+      
       'pages/size/index',
       
       
