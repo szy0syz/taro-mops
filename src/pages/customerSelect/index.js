@@ -62,10 +62,10 @@ export default class CustomerSelect extends Component {
         })
         break
       case 1:
-        Taro.atMessage({
-          'message': '消息通知',
-          'type': 'wa',
-        })
+        // Taro.atMessage({
+        //   'message': '消息通知',
+        //   'type': 'wa',
+        // })
         break
       default:
         this.props.dispatch({
@@ -105,7 +105,7 @@ export default class CustomerSelect extends Component {
         <View className='footer'>
           <AtButton onClick={this.handleAddCustomer} type='secondary' size='small'>添加客户</AtButton>
         </View>
-        <AtMessage />
+        {/* <AtMessage /> */}
       </View>
     )
   }

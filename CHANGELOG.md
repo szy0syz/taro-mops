@@ -1,6 +1,6 @@
 # CHANGELOG
 
-> Taro-MOPS 前端小程序
+> Taro-MOPS 移动业务系统
 
 ## 0.2.3 (2018-12-31)
 

@@ -48,8 +48,8 @@ function initChart(canvas, width, height) {
     yAxis: [
       {
         type: 'category',
-        axisTick: { show: false },
-        data: ['农药产品A', '农药产品B', '农药产品C', '农药产品D', '农药产品E', '农药产品F', '农药产品G'],
+        axisTick: { show: true },
+        data: ['农药产品A', '农药产品B', '农药产品C', '农药产品D', '农药产品E', '农药产品F', '农药产品G', '农药产品H', '农药产品I', '农药产品J'],
         axisLine: {
           lineStyle: {
             color: '#999'
@@ -70,11 +70,11 @@ function initChart(canvas, width, height) {
             position: 'inside'
           }
         },
-        data: [300, 270, 340, 344, 300, 320, 310],
+        data: [300, 270, 340, 344, 300, 320, 310, 300, 320, 310],
         itemStyle: {
-          // emphasis: {
-          //   color: '#37a2da'
-          // }
+          emphasis: {
+            color: '#37a2da'
+          }
         }
       },
       {
@@ -86,11 +86,11 @@ function initChart(canvas, width, height) {
             show: true
           }
         },
-        data: [120, 102, 141, 174, 190, 250, 220],
+        data: [120, 102, 141, 174, 190, 250, 220, 141, 174, 190],
         itemStyle: {
-          // emphasis: {
-          //   color: '#32c5e9'
-          // }
+          emphasis: {
+            color: '#32c5e9'
+          }
         }
       },
       {
@@ -103,11 +103,11 @@ function initChart(canvas, width, height) {
             position: 'left'
           }
         },
-        data: [-20, -32, -21, -34, -90, -130, -110],
+        data: [-20, -32, -21, -34, -90, -130, -110, -32, -21, -34],
         itemStyle: {
-          // emphasis: {
-          //   color: '#67e0e3'
-          // }
+          emphasis: {
+            color: '#67e0e3'
+          }
         }
       }
     ]

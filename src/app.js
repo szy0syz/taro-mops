@@ -27,6 +27,8 @@ class App extends Component {
       'pages/easDetail/index',
       'pages/home/index',
       'pages/delivery/index',
+      'pages/customerSelect/index',
+      'pages/productSelect/index',
       
       
       'pages/message/index',
@@ -37,13 +39,13 @@ class App extends Component {
 
       'pages/list/index',
       'pages/order/index',
-      'pages/productSelect/index',
+      
 
       'pages/report/list/index',
       'pages/report/sale/index',
       'pages/report/echarts/echarts',
       
-      'pages/customerSelect/index',
+      
 
       'pages/cart/index',
       'pages/user/index',
