@@ -1,9 +1,9 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, ScrollView, Input, Image, Text, Button } from '@tarojs/components'
+import { View, ScrollView, Image, Text, Button } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
-import SearchHeader from '../../components/SearchHeader'
-import { AtInput, AtForm, AtButton, AtList, Picker, AtIcon, AtBadge, AtModal, AtModalHeader, AtModalContent, AtModalAction } from 'taro-ui'
+import { AtInput, AtForm, AtButton, AtList, AtMessage, AtIcon, AtBadge, AtModal, AtModalHeader, AtModalContent, AtModalAction } from 'taro-ui'
 
+import SearchHeader from '../../components/SearchHeader'
 import './index.scss';
 
 @connect(({ common, order, productSelect }) => ({
@@ -45,12 +45,12 @@ export default class ProductSelect extends Component {
           payload: { productList: [] }
         })
         break
-      case 1:
-        Taro.atMessage({
-          'message': '搜索关键字最少需两个字',
-          'type': 'warning',
-        })
-        break
+      // case 1:
+      //   Taro.atMessage({
+      //     'message': '搜索关键字最少需两个字',
+      //     'type': 'warning',
+      //   })
+      //   break
       default:
         this.props.dispatch({
           type: 'productSelect/fetchProducts',
@@ -104,6 +104,7 @@ export default class ProductSelect extends Component {
     const { productList, products, searchTypes } = this.props
     return (
       <View className='page'>
+        {/* <AtMessage></AtMessage> */}
         <AtModal isOpened={this.state.isShowModal}>
           <AtModalHeader>【{this.state.currentItem.MaterialName}】</AtModalHeader>
           <AtModalContent>

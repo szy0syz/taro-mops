@@ -1,7 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, ScrollView } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
-import { AtButton, AtList, AtListItem } from 'taro-ui'
+import { AtButton, AtList, AtListItem, AtMessage } from 'taro-ui'
 import SearchHeader from '../../components/SearchHeader'
 import './index.scss';
 
@@ -50,19 +50,6 @@ export default class CustomerSelect extends Component {
       })
       Taro.switchTab({ url: '/pages/order/index' })
     }
-
-    // const { isNaviBack } = this.$router.params
-    // console.log(customer)
-    // if (isNaviBack && isNaviBack === 'true') {
-    //   const pages = Taro.getCurrentPages()
-    //   console.log(pages)
-    //   const prevPage = pages[pages.length - 2]
-    //   prevPage.data.customer = customer.CustomerNumber
-    //   console.log(prevPage)
-    //   Taro.navigateBack()
-    // } else {
-    //   Taro.switchTab({ url: '/pages/order/index' })
-    // }
   }
 
   handleSearch = (type, keyword = '') => {
@@ -76,8 +63,8 @@ export default class CustomerSelect extends Component {
         break
       case 1:
         Taro.atMessage({
-          'message': '搜索关键字最少需两个字',
-          'type': 'warning',
+          'message': '消息通知',
+          'type': 'wa',
         })
         break
       default:
@@ -118,6 +105,7 @@ export default class CustomerSelect extends Component {
         <View className='footer'>
           <AtButton onClick={this.handleAddCustomer} type='secondary' size='small'>添加客户</AtButton>
         </View>
+        <AtMessage />
       </View>
     )
   }
