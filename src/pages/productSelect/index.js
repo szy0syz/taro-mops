@@ -1,6 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, ScrollView, Input, Image, Text, Button } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
+import SearchHeader from '../../components/SearchHeader'
 import { AtInput, AtForm, AtButton, AtList, Picker, AtIcon, AtBadge, AtModal, AtModalHeader, AtModalContent, AtModalAction } from 'taro-ui'
 
 import './index.scss';
@@ -35,15 +36,27 @@ export default class ProductSelect extends Component {
     })
   }
 
-  handleSearch(e) {
-    const val = e.target.value
-    if (val.length > 1) {
-      this.props.dispatch({
-        type: 'productSelect/fetchProducts',
-        payload: {
-          keyword: val
-        }
-      })
+  handleSearch = (type, keyword = '') => {
+    const { dispatch } = this.props
+    switch (keyword.length) {
+      case 0:
+        dispatch({
+          type: 'common/save',
+          payload: { productList: [] }
+        })
+        break
+      case 1:
+        Taro.atMessage({
+          'message': '搜索关键字最少需两个字',
+          'type': 'warning',
+        })
+        break
+      default:
+        this.props.dispatch({
+          type: 'productSelect/fetchProducts',
+          payload: { keyword }
+        })
+        break
     }
   }
 
@@ -88,7 +101,7 @@ export default class ProductSelect extends Component {
   }
 
   render() {
-    const { productList, products } = this.props
+    const { productList, products, searchTypes } = this.props
     return (
       <View className='page'>
         <AtModal isOpened={this.state.isShowModal}>
@@ -140,15 +153,7 @@ export default class ProductSelect extends Component {
             </Button>
           </AtModalAction>
         </AtModal>
-        <View className='header'>
-          <Picker mode='selector' range={this.props.searchTypes} rangeKey='key' onChange={this.onChange}>
-            <View className='customer-type'>
-              {this.props.searchType.key}
-              <AtIcon value='chevron-down' size='28' color='rgba(117, 117, 119, 1)'></AtIcon>
-            </View>
-          </Picker>
-          <Input type='string' name='keyword' placeholder='请输入查询关键字' value={this.props.keyword} onInput={this.handleSearch} />
-        </View>
+        <SearchHeader searchTypes={searchTypes} onHandleSearch={this.handleSearch}></SearchHeader>
         <View className='body'>
           <ScrollView
             scrollY

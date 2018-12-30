@@ -1,8 +1,8 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, ScrollView, Input } from '@tarojs/components'
+import { View, ScrollView } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
-import { AtButton, AtList, AtListItem, Picker, AtIcon } from 'taro-ui'
-
+import { AtButton, AtList, AtListItem } from 'taro-ui'
+import SearchHeader from '../../components/SearchHeader'
 import './index.scss';
 
 @connect(({ common, order, customerSelect }) => ({
@@ -65,60 +65,35 @@ export default class CustomerSelect extends Component {
     // }
   }
 
-  fetchData = (val) => {
-    this.props.dispatch({
-      type: 'customerSelect/getCustomers',
-      payload: {
-        keyword: val
-      }
-    })
-  }
-
-  // TODO: _.debounce...
-  handleKeyword = (e) => {
-    const val = e.target.value
+  handleSearch = (type, keyword = '') => {
     const { dispatch } = this.props
-    if (val.length === 0) {
-      dispatch({
-        type: 'common/save',
-        payload: {
-          customerList: []
-        }
-      })
-      return
-    }
-    if (val.length > 1) {
-      // debounce(() => {
-      //   this.props.dispatch({
-      //     type: 'customerSelect/getCustomers',
-      //     payload: {
-      //       keyword: val
-      //     }
-      //   })
-      // }, 1200)()
-      //_.debounce(this.fetchData(val), 1500)()
-      this.props.dispatch({
-        type: 'customerSelect/getCustomers',
-        payload: {
-          keyword: val
-        }
-      })
+    switch (keyword.length) {
+      case 0:
+        dispatch({
+          type: 'common/save',
+          payload: { customerList: [] }
+        })
+        break
+      case 1:
+        Taro.atMessage({
+          'message': '搜索关键字最少需两个字',
+          'type': 'warning',
+        })
+        break
+      default:
+        this.props.dispatch({
+          type: 'customerSelect/getCustomers',
+          payload: { keyword }
+        })
+        break
     }
   }
 
   render() {
-    const { customerList, keyword } = this.props
+    const { customerList, searchTypes } = this.props
     return (
       <View className='page'>
-        <View className='header'>
-          <Picker mode='selector' range={this.props.searchTypes} rangeKey='key' onChange={this.onChange}>
-            <View className='customer-type'>
-              {this.props.searchType.key}
-              <AtIcon value='chevron-down' size='28' color='rgba(117, 117, 119, 1)'></AtIcon>
-            </View>
-          </Picker>
-          <Input type='string' name='keyword' placeholder='请输入查询关键字' value={keyword} onInput={this.handleKeyword} />
-        </View>
+        <SearchHeader searchTypes={searchTypes} onHandleSearch={this.handleSearch}></SearchHeader>
         <View className='body'>
           <ScrollView
             scrollY

@@ -3,11 +3,6 @@ import * as Service from './service';
 export default {
   namespace: 'productSelect',
   state: {
-    searchType: {
-      key: '商品名',
-      value: 'productName'
-    },
-    keyword: '',
     searchTypes: [
       {
         key: '商品名',

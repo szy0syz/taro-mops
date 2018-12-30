@@ -2,6 +2,13 @@
 
 > Taro-MOPS 前端小程序
 
+## 0.2.3 (2018-12-31)
+
+### Enhances
+
+* [**Component**] 重构 SearchHeader 组件
+* [**Page**] 客户与商品选择页复用 SearchHeader 组件
+
 ## 0.2.2 (2018-12-27)
 
 ### Bug Fixes
