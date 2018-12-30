@@ -24,11 +24,12 @@ export default (options = { method: 'GET', data: {} }) => {
     method: options.method.toUpperCase(),
   }).then((res) => {
     const { statusCode, data } = res
-    console.log(res)
+
     if (statusCode >= 200 && statusCode < 300) {
       if (!noConsole) {
         console.log(`${new Date().toLocaleString()}【 M=${options.url} 】【接口响应：】`,res.data);
       }
+      // if (data.success && data.msg) {
       if (data.success && data.msg) {
         Taro.showToast({
           title: `${data.msg}`,

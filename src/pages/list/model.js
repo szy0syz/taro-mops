@@ -205,6 +205,7 @@ export default {
 
       return success
     },
+
     * fetchByCalendar({ payload }, { put, select }) {
       let { tabData, tabIndex } = yield select(state => state.list)
       const { index } = payload
@@ -258,6 +259,12 @@ export default {
           type: 'fetchBills'
         })
       }
+    },
+
+    * removeBill({ payload }, { call, put }) {
+      const { _id } = payload
+      const { success } = yield call(Service.removeBill, { _id })
+      success ? yield put({ type: 'fetchBills' }) : null
     }
   },
   reducers: {

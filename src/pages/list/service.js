@@ -20,6 +20,12 @@ export const fetchBills = ({ payload: data, baseName }) => {
   })
 }
 
+export const removeBill = data => Request({
+  url: '/saleorders',
+  method: 'DELETE',
+  data
+})
+
 export const load = data => Request({
   url: '/product/filter',
   method: 'GET',

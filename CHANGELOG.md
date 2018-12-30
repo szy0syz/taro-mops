@@ -9,6 +9,10 @@
 * [**Component**] 重构 SearchHeader 组件
 * [**Page**] 客户与商品选择页复用 SearchHeader 组件
 
+### Features
+
+* [**Page**] 明细页使用 `SwipeAction` 完成 `销售订单删除` 功能
+
 ## 0.2.2 (2018-12-27)
 
 ### Bug Fixes

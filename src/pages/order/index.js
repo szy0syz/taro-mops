@@ -64,11 +64,10 @@ export default class Detail extends Component {
     })
   }
 
-  handleWaiting() {
-    console.log(this.props.staff)
+  handleWaiting(msg) {
     Taro.showToast({
       icon: 'none',
-      title: '功能开发中'
+      title: msg || '功能开发中'
     })
   }
 
@@ -255,7 +254,7 @@ export default class Detail extends Component {
           />
         </View>
         <View className='toolbar'>
-          <View onClick={this.handleWaiting} style='padding:8rpx;background-color: rgba(114, 192, 116, 1); border-radius: 14rpx;'>
+          <View onClick={this.handleWaiting.bind(this, '请先保存')} style='padding:8rpx;background-color: rgba(114, 192, 116, 1); border-radius: 14rpx;'>
             <AtIcon value='iconfont icon-sharem1' size='34' color='#fff'></AtIcon>
           </View>
           <AtButton onClick={this.handleAgain} size='normal' type='secondary'>再开一单</AtButton>

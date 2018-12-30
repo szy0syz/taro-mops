@@ -179,6 +179,13 @@ export default class List extends Component {
     })
   }
 
+  handleRemove = (_id) => {
+    this.props.dispatch({
+      type: 'list/removeBill',
+      payload: { _id }
+    })
+  }
+
   render() {
     const { allTagList, tabData, tabIndex, saleStatusAry, arBillStatusAry, showDateSelected, showTagSelected } = this.props
     const [soData, siData, arData] = tabData
@@ -212,6 +219,7 @@ export default class List extends Component {
                 enmuList={allTagList[0]}
                 onNaviDetail={this.handleNaviDetail}
                 onShowTagMenu={this.handleShowTagMenu}
+                onHandleRemove={this.handleRemove}
               ></ListContent>
               {/* <View className='tab-box'>
                 <View className='box-header'>
