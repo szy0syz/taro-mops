@@ -27,3 +27,7 @@
 > ✔️ 开发环境：Windows 10 Enterprise LTSB + NodeJS v10.13.0 + Taro v1.2.2
 
 ## TODO
+
+* [x] 🙂 ~~统一后端SqlServer与Mongodb字段差异，重构 `ListContent` 组件~~
+* [x] 🙂 ~~重构 `SearchHeader` 组件~~
+* [ ] 😕 使用防抖函数实现`SearchHeader` 组件中 autoComplete 功能
