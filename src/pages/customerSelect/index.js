@@ -1,7 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, ScrollView } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
-import { AtButton, AtList, AtListItem, AtMessage } from 'taro-ui'
+import { AtButton, AtList, AtListItem } from 'taro-ui'
 import SearchHeader from '../../components/SearchHeader'
 import './index.scss';
 

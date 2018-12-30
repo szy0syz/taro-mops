@@ -290,7 +290,7 @@ export default class Detail extends Component {
         </View>
         <View className='toolbar'>
           <View onClick={this.handleWaiting} style='padding:8rpx;background-color: rgba(114, 192, 116, 1); border-radius: 14rpx;'>
-            <AtIcon value='trash' size='32' color='#fff'></AtIcon>
+            <AtIcon value='iconfont icon-sharem1' size='32' color='#fff'></AtIcon>
           </View>
           <AtButton onClick={this.handleAgain} size='normal' type='secondary'>再开一单</AtButton>
           <AtButton onClick={this.handleSave} size='normal' type='primary'>确认保存</AtButton>
