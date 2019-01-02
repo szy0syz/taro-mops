@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View } from '@tarojs/components'
+import { View, Text } from '@tarojs/components'
 
 import * as echarts from '../../../components/ec-canvas/echarts'
 import './echarts.scss'
@@ -118,7 +118,6 @@ function initChart(canvas, width, height) {
 }
 
 export default class Echarts extends Component {
-
   config = {
     navigationBarTitleText: 'echarts-for-weixin',
     navigationBarTextStyle: 'black',
@@ -131,15 +130,26 @@ export default class Echarts extends Component {
   }
 
   state = {
-    ec: {
-      onInit: initChart
-    }
+    ec: { onInit: initChart }
   }
 
-  render () {
+  handleClick = () => {
+    // this.setState({
+    //   ec: { onInit: initChart }
+    // })
+    console.log(this.ecComponent)
+  }
+
+  refEC = (node) => this.ecComponent = node
+
+  render() {
+    console.log('执行render~~~~')
+    console.log('this.state.ec == null', this.state.ec == null)
+
     return (
       <View className='echarts'>
-        <ec-canvas id='mychart-dom-area' canvas-id='mychart-area' ec={this.state.ec}></ec-canvas>
+        <Text onClick={this.handleClick}>2018年农药销售Top10</Text>
+        <ec-canvas ref={this.refEC} id='mychart-dom-area' canvas-id='mychart-area' ec={this.state.ec}></ec-canvas>
       </View>
     )
   }
