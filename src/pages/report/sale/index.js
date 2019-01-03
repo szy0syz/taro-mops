@@ -1,4 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
+import dayjs from 'dayjs'
 import { View, Text } from '@tarojs/components'
 import { AtIcon, AtButton, AtList, AtListItem } from 'taro-ui'
 import { fetch } from './service'
@@ -24,7 +25,7 @@ function initChart(canvas, width, height) {
     legend: {
       orient: 'vertical',
       x: 'left',
-      data: ['杀菌剂', '杀虫剂', '微量元素肥', '除草剂', '植物生长调节剂', '农药环境卫生']
+      data: ['杀菌剂', '杀虫剂', '微肥', '除草剂', '植调节剂', '环卫']
     },
     series: [
       {
@@ -50,14 +51,7 @@ function initChart(canvas, width, height) {
             show: false
           }
         },
-        data: [
-          { value: 0, name: '杀菌剂' },
-          { value: 0, name: '杀虫剂' },
-          { value: 0, name: '微量元素肥' },
-          { value: 0, name: '除草剂' },
-          { value: 0, name: '植物生长调节剂' },
-          { value: 0, name: '农药环境卫生' }
-        ]
+        data: []
       }
     ]
   }
@@ -79,32 +73,84 @@ export default class ReportSale extends Component {
       // 将 lazyLoad 设为 true 后，需要手动初始化图表
       lazyLoad: true
     },
-    totalAmount: 0
+    dateStart: '2018-01-01',
+    dateEnd: '2018-5-31',
+    totalAmount: 0,
+    totalQty: 0,
+    totalBillCount: 0,
+
+  }
+
+  handleShortName = (name) => {
+    const list = [
+      { long: '植物生长调节剂', short: '调节剂' },
+      { long: '农药环境卫生', short: '环卫' },
+      { long: '微量元素肥', short: '微肥' }
+    ]
+    let short = ''
+    list.forEach(item => {
+      if (item.long === name) short = item.short
+    })
+
+    return short === '' ? name : short
+  }
+
+  handleFetch = async (queryParams) => {
+    const { dateStart, dateEnd } = this.state
+    let data = Object.assign({}, { dateStart, dateEnd }, queryParams)
+    data = await fetch(data)
+    return data
+  }
+
+  handleDateChange = (name, value) => {
+    this.setState({
+      [name]: value
+    })
+    setTimeout(() => {
+      this.handleFetchAndUpdate()
+    }, 100)
+  }
+
+  handleFormatData = (data) => {
+    let sdata = [], ldata = []
+    data.forEach(item => {
+      sdata.push({
+        value: item.FAmount,
+        name: this.handleShortName(item.FMaterialType1)
+      })
+      ldata.push(this.handleShortName(item.FMaterialType1))
+    })
+    return {
+      series: {
+        data: sdata
+      },
+      legend: {
+        data: ldata
+      }
+    }
+  }
+
+  handleFetchAndUpdate = async () => {
+    const { data, success } = await this.handleFetch()
+    if (success && Array.isArray(data)) {
+      const totalAmount = data.reduce((sum, item) => {
+        return sum += item.FAmount
+      }, 0)
+      const totalQty = data.reduce((sum, item) => {
+        return sum += item.FBaseQty
+      }, 0)
+
+      this.setState({
+        totalQty,
+        totalAmount
+      })
+      chart.setOption(this.handleFormatData(data))
+    }
   }
 
   componentDidMount = async () => {
     this.ecComponent.init(initChart)
-    const { data, success } = await fetch()
-    if (success && Array.isArray(data)) {
-      let sdata =[], ldata = [], totalAmount = 0
-      data.forEach(item => {
-        sdata.push({
-          value: item.FAmount,
-          name: item.FMaterialType1
-        })
-        ldata.push(item.FMaterialType1)
-        totalAmount += item.FAmount
-      })
-      this.setState({ totalAmount })
-      chart.setOption({
-        series: {
-          data: sdata
-        },
-        legend: {
-          data: ldata
-        }
-      })
-    }
+    this.handleFetchAndUpdate()
   }
 
   handleNavList = () => {
@@ -113,72 +159,105 @@ export default class ReportSale extends Component {
     })
   }
 
-  handleClick = () => {
-    
+  handleClick = (during) => {
+    switch (during) {
+      case 'curtMonth':
+        this.setState({
+          dateStart: dayjs().startOf('month').format('YYYY-MM-DD'),
+          dateEnd: dayjs().endOf('month').format('YYYY-MM-DD')
+        })
+        break;
+      case 'lastMonth':
+        this.setState({
+          dateStart: dayjs().subtract(1, 'month').startOf('month').format('YYYY-MM-DD'),
+          dateEnd: dayjs().subtract(1, 'month').endOf('month').format('YYYY-MM-DD')
+        })
+        break;
+      case 'curtYear':
+        this.setState({
+          dateStart: dayjs().startOf('year').format('YYYY-MM-DD'),
+          dateEnd: dayjs().endOf('year').format('YYYY-MM-DD')
+        })
+        break;
+      case 'lastYear':
+        this.setState({
+          dateStart: dayjs().subtract(1, 'year').startOf('year').format('YYYY-MM-DD'),
+          dateEnd: dayjs().subtract(1, 'year').endOf('year').format('YYYY-MM-DD')
+        })
+        break;
+    }
+    setTimeout(() => {
+      this.handleFetchAndUpdate()
+    }, 100)
   }
 
   refEC = node => (this.ecComponent = node)
 
   render() {
+    const { dateStart, dateEnd } = this.state
     return (
-      <View className="page-container">
-        <View onClick={this.handleNavList} className="title">
-          <Text style="padding-right: 10rpx;">销售统计</Text>
-          <AtIcon value="chevron-down" size="26" color="#2bb2a7" />
+      <View className='page-container'>
+        <View onClick={this.handleNavList} className='title'>
+          <Text style='padding-right: 10rpx;'>销售统计</Text>
+          <AtIcon value='chevron-down' size='26' color='#2bb2a7' />
         </View>
-        <View className="header">
+        <View className='header'>
           <View>
-            <Text className="datetime-label">时间维度</Text>
-            <View className="datetime-btns">
-              <AtButton circle type="secondary" size="small">
+            <Text className='datetime-label'>时间维度</Text>
+            <View className='datetime-btns'>
+              <AtButton onClick={this.handleClick.bind(this, 'curtMonth')} circle type='secondary' size='small'>
                 本月
               </AtButton>
-              <AtButton circle onClick={this.handleClick} type="secondary" size="small">
+              <AtButton onClick={this.handleClick.bind(this, 'lastMonth')} circle type='secondary' size='small'>
                 上月
               </AtButton>
-              <AtButton circle type="secondary" size="small">
+              <AtButton onClick={this.handleClick.bind(this, 'curtYear')} circle type='secondary' size='small'>
                 本年
               </AtButton>
-              <AtButton circle type="secondary" size="small">
+              <AtButton onClick={this.handleClick.bind(this, 'lastYear')} circle type='secondary' size='small'>
                 去年
               </AtButton>
             </View>
           </View>
-          <View style="padding-top: 4rpx;">
-            <Text className="datetime-label">日期范围</Text>
-            <View className="date-picker">
-              <DatePicker />
+          <View style='padding-top: 4rpx;'>
+            <Text className='datetime-label'>日期范围</Text>
+            <View className='date-picker'>
+              <DatePicker
+                dateStart={dateStart}
+                dateEnd={dateEnd}
+                onDateChange={this.handleDateChange}
+              />
             </View>
           </View>
         </View>
-        <View className="body">
-          <View className="chart">
+        <View className='body'>
+          <View className='chart'>
             <ec-canvas
               ref={this.refEC}
-              id="mychart-dom-area"
-              canvas-id="mychart-area"
-              ec={ec}
+              id='mychart-dom-area'
+              canvas-id='mychart-area'
+              ec={this.state.ec}
             />
           </View>
-          <View className="stats">
+          <View className='stats'>
             <View>
-              <Text>销售额</Text>
-              <Text className="stats-num">￥{this.state.totalAmount}</Text>
+              <Text>销售金额</Text>
+              <Text className='stats-num'>￥{Number(this.state.totalAmount).toFixed(2)}</Text>
             </View>
             <View>
-              <Text>销售单据</Text>
-              <Text className="stats-num">8892张</Text>
+              <Text>销售数量</Text>
+              <Text className='stats-num'>{Number(this.state.totalQty).toFixed(2)}</Text>
             </View>
           </View>
-          <View className="list">
+          <View className='list'>
             <AtList>
-              <AtListItem title="销售额排行榜/客户" arrow="right" />
-              <AtListItem title="销售额排行榜/商品" arrow="right" />
-              <AtListItem title="销售额排行榜/地区" arrow="right" />
+              <AtListItem title='销售额排行榜/客户' arrow='right' />
+              <AtListItem title='销售额排行榜/商品' arrow='right' />
+              <AtListItem title='销售额排行榜/地区' arrow='right' />
             </AtList>
           </View>
-          <View className="more">
-            <AtButton size="small">查看详细</AtButton>
+          <View className='more'>
+            <AtButton size='small'>查看详细</AtButton>
           </View>
         </View>
       </View>
