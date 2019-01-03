@@ -1,29 +1,31 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
+import { fetch } from './service'
 
 import * as echarts from '../../../components/ec-canvas/echarts'
 import './echarts.scss'
 
-let chart = null;
+let chart = null
 
 function initChart(canvas, width, height) {
   chart = echarts.init(canvas, null, {
     width: width,
     height: height
-  });
-  canvas.setChart(chart);
+  })
+  canvas.setChart(chart)
 
   var option = {
     color: ['#37a2da', '#32c5e9', '#67e0e3'],
     tooltip: {
       trigger: 'axis',
-      axisPointer: {            // 坐标轴指示器，坐标轴触发有效
-        type: 'line'        // 默认为直线，可选为：'line' | 'shadow'
+      axisPointer: {
+        // 坐标轴指示器，坐标轴触发有效
+        type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
       },
       confine: true
     },
     legend: {
-      data: ['数量', '金额', '毛利'] // ['数量', '金额', '毛利']
+      data: ['金额', '毛利']
     },
     grid: {
       left: 20,
@@ -41,7 +43,10 @@ function initChart(canvas, width, height) {
           }
         },
         axisLabel: {
-          color: '#666'
+          color: '#666',
+          formatter: function(val) {
+            return (Number(val)/10000).toFixed(0) + '万'
+          }
         }
       }
     ],
@@ -49,7 +54,11 @@ function initChart(canvas, width, height) {
       {
         type: 'category',
         axisTick: { show: true },
-        data: ['农药产品A', '农药产品B', '农药产品C', '农药产品D', '农药产品E', '农药产品F', '农药产品G', '农药产品H', '农药产品I', '农药产品J'],
+        data: [
+          '农药产品A',
+          '农药产品B',
+          '农药产品C'
+        ],
         axisLine: {
           lineStyle: {
             color: '#999'
@@ -62,7 +71,7 @@ function initChart(canvas, width, height) {
     ],
     series: [
       {
-        name: '数量',
+        name: '金额',
         type: 'bar',
         label: {
           normal: {
@@ -70,26 +79,10 @@ function initChart(canvas, width, height) {
             position: 'inside'
           }
         },
-        data: [300, 270, 340, 344, 300, 320, 310, 300, 320, 310],
+        data: [0, 0, 0],
         itemStyle: {
           emphasis: {
             color: '#37a2da'
-          }
-        }
-      },
-      {
-        name: '金额',
-        type: 'bar',
-        stack: '总量',
-        label: {
-          normal: {
-            show: true
-          }
-        },
-        data: [120, 102, 141, 174, 190, 250, 220, 141, 174, 190],
-        itemStyle: {
-          emphasis: {
-            color: '#32c5e9'
           }
         }
       },
@@ -100,10 +93,10 @@ function initChart(canvas, width, height) {
         label: {
           normal: {
             show: true,
-            position: 'left'
+            position: 'right'
           }
         },
-        data: [-20, -32, -21, -34, -90, -130, -110, -32, -21, -34],
+        data: [0, 0, 0],
         itemStyle: {
           emphasis: {
             color: '#67e0e3'
@@ -111,10 +104,10 @@ function initChart(canvas, width, height) {
         }
       }
     ]
-  };
+  }
 
-  chart.setOption(option);
-  return chart;
+  chart.setOption(option)
+  return chart
 }
 
 export default class Echarts extends Component {
@@ -130,28 +123,108 @@ export default class Echarts extends Component {
   }
 
   state = {
-    ec: { onInit: initChart }
+    ec: {
+      // 将 lazyLoad 设为 true 后，需要手动初始化图表
+      lazyLoad: true
+    },
+    yAxisList: [],
+    qtyList: [],
+    amountList: [],
+    grossProfitList: []
   }
 
-  handleClick = () => {
-    // this.setState({
-    //   ec: { onInit: initChart }
-    // })
-    console.log(this.ecComponent)
+  componentDidMount = async () => {
+    this.ecComponent.init(initChart)
+    const { data, success } = await fetch()
+    if (success) {
+      let yAxisList = [], qtyList = [], amountList = [], grossProfitList = []
+      data.forEach((item) => {
+        yAxisList.unshift(item.FMaterialName)
+        qtyList.unshift(item.FBaseQty)
+        amountList.unshift((item.FAmount).toFixed(0))
+        grossProfitList.unshift((item.FGrossProfit).toFixed(0))
+      })
+      await this.setState({
+        yAxisList,
+        qtyList,
+        amountList,
+        grossProfitList
+      })
+      setTimeout(() => {
+        chart.setOption({
+          yAxis: [
+            {
+              type: 'category',
+              axisTick: { show: true },
+              data: this.state.yAxisList,
+              axisLine: {
+                lineStyle: {
+                  color: '#999'
+                }
+              },
+              axisLabel: {
+                color: '#666'
+              }
+            }
+          ],
+          series: [
+            {
+              name: '金额',
+              type: 'bar',
+              label: {
+                normal: {
+                  show: true,
+                  position: 'inside'
+                }
+              },
+              data: this.state.amountList,
+              itemStyle: {
+                emphasis: {
+                  color: '#37a2da'
+                }
+              }
+            },
+            {
+              name: '毛利',
+              type: 'bar',
+              stack: '总量',
+              label: {
+                normal: {
+                  show: true
+                  // position: 'left'
+                }
+              },
+              data: this.state.grossProfitList,
+              itemStyle: {
+                emphasis: {
+                  color: '#67e0e3'
+                }
+              }
+            }
+          ]
+        })
+      }, 100)
+    }
   }
 
-  refEC = (node) => this.ecComponent = node
+  handleClick = () => {}
+
+  refEC = node => (this.ecComponent = node)
 
   render() {
     console.log('执行render~~~~')
-    console.log('this.state.ec == null', this.state.ec == null)
 
+    const { ec } = this.state
     return (
-      <View className='echarts'>
-        <Text onClick={this.handleClick}>2018年农药销售Top10</Text>
-        <ec-canvas ref={this.refEC} id='mychart-dom-area' canvas-id='mychart-area' ec={this.state.ec}></ec-canvas>
+      <View className="echarts">
+        <Text className='report-title' onClick={this.handleClick}>2018年农药产品销售Top10</Text>
+        <ec-canvas
+          ref={this.refEC}
+          id="mychart-dom-area"
+          canvas-id="mychart-area"
+          ec={ec}
+        />
       </View>
     )
   }
 }
-
