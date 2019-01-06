@@ -79,7 +79,7 @@ export default class Detail extends Component {
       .set('date', billDate.split('-')[2])
       .valueOf()
     let payload = {
-      billDate,
+      billDate: dayjs(billDate).format('YYYY-MM-DD'),
       orderTags,
       customer,
       products,

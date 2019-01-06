@@ -1,12 +1,12 @@
 import Request from '../../utils/request'
 
 export const get = () => Request({
-  url: '/saleorders',
+  url: '/saleOrders',
   method: 'GET'
 })
 
 export const post = data => Request({
-  url: '/saleorders',
+  url: '/saleOrders',
   method: 'POST',
   data
 })

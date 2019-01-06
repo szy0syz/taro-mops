@@ -15,7 +15,7 @@ export default class Login extends Component {
   handleInputValue = (key, event) => {
     let payload, { value } = event.target
     value = value.toString().trim()
-    
+
     switch (key) {
       case 'mobile':
         payload = { mobile: value }
@@ -55,13 +55,13 @@ export default class Login extends Component {
     const { toast, duration, msg } = this.$router.params
     // 判断1：如果是Token鉴权失败时，根据路由参数显示轻提示，但还是
     if (toast === '1') {
-      this.showToast(msg, null, Number(duration))
+      this.showToast(msg, 'none', Number(duration))
     } else {
       Taro.showLoading({ title: '验证中', mask: true })
 
       const res = await verify()
 
-      if (res.success) {
+      if (res && res.success) {
         if (res.data) {
           Taro.hideLoading()
           this.showToast(res.data.userName + '，欢迎回来')
@@ -77,32 +77,34 @@ export default class Login extends Component {
           Taro.switchTab({ url: '/pages/home/index' })
         }, 2000)
 
-        return false
+        // return false
+      } else {
+        this.props.dispatch({
+          type: 'login/init'
+        })
+        Taro.login()
+          .then(data => {
+            if (data && data.code) {
+              this.props.dispatch({
+                type: 'login/save',
+                payload: { jsCode: data.code }
+              })
+              return code2Session({ js_code: data.code })
+            }
+            return false
+          })
+          .then(result => {
+            if (result) {
+              const { openid, session_key: sessionKey } = result.data
+              this.props.dispatch({
+                type: 'login/save',
+                payload: { openid, sessionKey }
+              })
+            }
+          })
       }
 
-      this.props.dispatch({
-        type: 'login/init'
-      })
-      Taro.login()
-        .then(data => {
-          if (data && data.code) {
-            this.props.dispatch({
-              type: 'login/save',
-              payload: { jsCode: data.code }
-            })
-            return code2Session({ js_code: data.code })
-          }
-          return false
-        })
-        .then(result => {
-          if (result) {
-            const { openid, session_key: sessionKey } = result.data
-            this.props.dispatch({
-              type: 'login/save',
-              payload: { openid, sessionKey }
-            })
-          }
-        })
+
 
       Taro.hideLoading()
     }

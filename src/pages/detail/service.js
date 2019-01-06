@@ -1,18 +1,18 @@
 import Request from '../../utils/request'
 
 export const fetchById = _id => Request({
-  url: `/saleorders/${_id}`,
+  url: `/saleOrders/${_id}`,
   method: 'GET'
 })
 
 export const patchOrder = data => Request({
-  url: `/saleorders`,
+  url: `/saleOrders`,
   method: 'PUT',
   data
 })
 
 export const syncOrder = data => Request({
-  url: '/eas/syncOrder',
+  url: '/eas/saleIssues',
   method: 'POST',
   data
 })

@@ -1,7 +1,7 @@
 import Request from '../../utils/request'
 
 export const loadSaleOrders = data => Request({
-  url: '/saleorders',
+  url: '/saleOrders',
   method: 'GET',
   data
 })
@@ -20,14 +20,7 @@ export const fetchBills = ({ payload: data, baseName }) => {
   })
 }
 
-export const removeBill = data => Request({
-  url: '/saleorders',
-  method: 'DELETE',
-  data
-})
-
-export const load = data => Request({
-  url: '/product/filter',
-  method: 'GET',
-  data
+export const removeBill = id => Request({
+  url: '/saleOrders/' + id,
+  method: 'DELETE'
 })

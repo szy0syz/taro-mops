@@ -40,15 +40,15 @@ export default (options = { method: 'GET', data: {} }) => {
       return data;
     } else if(statusCode === 401) {
       // 权限错误
-      Taro.navigateTo({ url: '/pages/login/index?toast=1&duration=3000&msg=鉴权已失效，请重新登录'})
+      Taro.navigateTo({ url: '/pages/login/index?toast=1&duration=3000&msg=鉴权已失效'})
     } 
     else {
       Taro.showToast({
-        title: `${data.msg}`,
+        title: `${data.error}`,
         icon: 'none',
         mask: true,
       })
-      throw new Error(`网络请求错误，状态码${statusCode}`);
+      // throw new Error(`网络请求错误，状态码${statusCode}`);
     }
   })
 }

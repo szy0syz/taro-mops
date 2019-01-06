@@ -263,7 +263,7 @@ export default {
 
     * removeBill({ payload }, { call, put }) {
       const { _id } = payload
-      const { success } = yield call(Service.removeBill, { _id })
+      const { success } = yield call(Service.removeBill, _id)
       success ? yield put({ type: 'fetchBills' }) : null
     }
   },
