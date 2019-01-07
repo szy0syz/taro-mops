@@ -73,8 +73,8 @@ export default class ReportSale extends Component {
       // 将 lazyLoad 设为 true 后，需要手动初始化图表
       lazyLoad: true
     },
-    dateStart: '2018-01-01',
-    dateEnd: '2018-5-31',
+    dateStart: dayjs().startOf('month').format('YYYY-MM-DD'),
+    dateEnd: dayjs().endOf('month').format('YYYY-MM-DD'),
     totalAmount: 0,
     totalQty: 0,
     totalBillCount: 0,
@@ -104,7 +104,7 @@ export default class ReportSale extends Component {
 
   handleDateChange = (name, value) => {
     this.setState({
-      [name]: value
+      [name]: dayjs(value).format('YYYY-MM-DD')
     })
     setTimeout(() => {
       this.handleFetchAndUpdate()

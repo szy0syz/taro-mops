@@ -55,7 +55,7 @@ class CustomerAR extends Component {
     }
 
     const downloadTask = await Taro.downloadFile({
-      url: `${baseUrl}/eas/excustomerAR?${querystring.stringify(queryParams)}`,
+      url: `${baseUrl}/eas/exptCustomerAR?${querystring.stringify(queryParams)}`,
       header: {
         'Authorization': `Bearer ${token}`
       }
@@ -97,8 +97,8 @@ class CustomerAR extends Component {
         break
       case 'lastYear':
         payload = {
-          dateStart: dayjs().subtract(1, 'year').startOf('month').format('YYYY-MM-DD'),
-          dateEnd: dayjs().subtract(1, 'year').endOf('month').format('YYYY-MM-DD')
+          dateStart: dayjs().subtract(1, 'year').startOf('year').format('YYYY-MM-DD'),
+          dateEnd: dayjs().subtract(1, 'year').endOf('year').format('YYYY-MM-DD')
         }
         break
     }

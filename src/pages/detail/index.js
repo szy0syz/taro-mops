@@ -162,6 +162,16 @@ export default class Detail extends Component {
         payload: {
           _id
         }
+      }).then(success => {
+        if (success) {
+          Taro.showToast({
+            title: '同步成功',
+            icon: 'success'
+          })
+          setTimeout(() => {
+            Taro.navigateBack()
+          }, 2000);
+        }
       })
     }
   }

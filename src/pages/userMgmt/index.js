@@ -23,7 +23,9 @@ export default class UserMgmt extends Component {
   }
 
   componentDidMount = async () => {
-    this.props.dispatch({ type: 'userMgmt/fetch' })
+    this.props.dispatch({ type: 'userMgmt/fetch' }).then((success) => {
+      if(!success) Taro.navigateBack();
+    })
   }
 
   handleChange = (keyword) => {

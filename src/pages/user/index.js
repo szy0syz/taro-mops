@@ -25,6 +25,13 @@ export default class User extends Component {
   }
 
   goToPage = (url) => {
+    if (url === '/pages/userMgmt/index') {
+      const userInfo = Taro.getStorageSync('userInfo')
+      if (userInfo.roleLevel < 499) {
+        Taro.showToast({title: '无权访问', icon: 'none'})
+        return
+      }
+    }
     (/pages/i).test(url) ? Taro.navigateTo({ url }) : null
   }
 

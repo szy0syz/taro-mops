@@ -212,16 +212,14 @@ export default class Echarts extends Component {
   refEC = node => (this.ecComponent = node)
 
   render() {
-    console.log('执行render~~~~')
-
     const { ec } = this.state
     return (
-      <View className="echarts">
+      <View className='echarts'>
         <Text className='report-title' onClick={this.handleClick}>2018年农药产品销售Top10</Text>
         <ec-canvas
           ref={this.refEC}
-          id="mychart-dom-area"
-          canvas-id="mychart-area"
+          id='mychart-dom-area'
+          canvas-id='mychart-area'
           ec={ec}
         />
       </View>

@@ -7,7 +7,7 @@ export const loadSaleOrders = data => Request({
 })
 
 export const fetch = data => Request({
-  url: '/eas/saleStatsByCate',
+  url: '/eas/saleStatsByCat',
   method: 'GET',
   data
 })

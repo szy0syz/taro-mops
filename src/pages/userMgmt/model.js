@@ -11,9 +11,11 @@ export default {
     * fetch(_, { put, call, select }) {
       const { keyword } = yield select(state => state.userMgmt)
       const res = yield call(fetchUsers, { keyword })
-      const { data, success } = res
-
-      success ? (yield put({ type: 'save', payload: { userList: data } })) : null
+      const { data, success = false } = res
+      if (success) {
+        yield put({ type: 'save', payload: { userList: data } })
+      }
+      return success
     },
     * createUser(_, { call, select }) {
       const { editingUser } = yield select(state => state.userMgmt)

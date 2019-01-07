@@ -81,8 +81,7 @@ export default {
       return Boolean(success)
     },
 
-    * update({ payload }, { select, call }) {
-      // const { express } = yield select(state => state.detail)
+    * update({ payload }, { call }) {
       const { success } = yield call(Service.patchOrder, payload)
 
       return Boolean(success)
@@ -90,8 +89,8 @@ export default {
 
     * syncOrder({ payload }, { select, call, put }) {
       const { orderTags } = yield select(state => state.detail)
-      const res = yield call(Service.syncOrder, payload)
-      if (res.success) {
+      const { success = false } = yield call(Service.syncOrder, payload)
+      if (success) {
         yield put({
           type: 'save',
           payload: {
@@ -100,6 +99,7 @@ export default {
           }
         })
       }
+      return success
     }
   },
   reducers: {
