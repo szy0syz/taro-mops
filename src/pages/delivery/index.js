@@ -14,7 +14,7 @@ export default class Delivery extends Component {
   constructor() {
     super(...arguments)
     this.state = {
-      template: '【云农农业科技】{customerName}，您的订单[{number}]已经发出，发件人：仓管员姓名，承运物流：{delivery}，货运单号：{tracking}，如遇问题请联系[{staffPhone}]。',
+      template: '【云农农业科技】{customerName}，您的订单[{number}]已经发出，发件人：{staffName}，承运物流：{delivery}，货运单号：{tracking}，如遇问题请联系[{staffPhone}]。',
       expressList: [
         {
           name: '大通物流',
@@ -106,13 +106,15 @@ export default class Delivery extends Component {
   render() {
     const { template, expressList } = this.state
     const { customer, number, express } = this.props
+    const userInfo = Taro.getStorageSync('userInfo')
 
     const content = supplant(template, {
       customerName: customer.CustomerName,
       number,
       delivery: express.name || '',
       tracking: express.trackingNumber,
-      staffPhone: express.staffPhone
+      staffName: userInfo.userName,
+      staffPhone: userInfo.mobile
     })
 
     return (

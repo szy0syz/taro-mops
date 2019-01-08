@@ -72,7 +72,7 @@ export default class Detail extends Component {
   }
 
   handleSave() {
-    let { billDate, orderTags, customer, products, remark, staff, storekeeper, paymentMethod } = this.props
+    let { dispatch, billDate, orderTags, customer, products, remark, staff, paymentMethod } = this.props
     // 奇葩需求和奇葩api
     billDate = dayjs()
       .set('month', billDate.split('-')[1] - 1)
@@ -85,17 +85,20 @@ export default class Detail extends Component {
       products,
       remark,
       creator: staff.userId,
-      storekeeper,
       paymentMethod
     }
-    this.props.dispatch({
+    dispatch({
       type: 'order/create',
       payload
     }).then(isCreated => {
       if (isCreated) {
+        dispatch({
+          type: 'order/empty'
+        })
+        Taro.showToast({title: '创建成功'})
         setTimeout(() => {
           Taro.switchTab({ url: '/pages/list/index' })
-        }, 1500)
+        }, 2000)
       }
     })
   }
