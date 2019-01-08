@@ -12,10 +12,17 @@ import './index.scss'
 export default class Index extends Component {
   config = {
     navigationBarTitleText: '首页',
+    window: {
+      navigationStyle: "custom"
+    }
   };
 
   componentDidMount = () => {
-    
+    const updateManager = Taro.getUpdateManager()
+    updateManager.onCheckForUpdate(function (res) {
+      // 请求完新版本信息的回调
+      console.log('~!~~~~', res.hasUpdate, res)
+    })
   }
 
   //分享
@@ -40,15 +47,14 @@ export default class Index extends Component {
   }
 
   render() {
-    const { keyword } = this.props;
     return (
       <View className='home-page'>
-        <AtSearchBar
+        {/* <AtSearchBar
           placeholder='搜索商品名称/规格/助记码/订单号'
           showActionButton
           value={keyword}
           onChange={this.onChange.bind(this)}
-        />
+        /> */}
         <Image className='logo' src='http://cdn.jerryshi.com/picgo/20181126232346.png'></Image>
         <View>
           <Text className='cname'>云农农业科技 \n</Text>

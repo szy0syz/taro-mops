@@ -59,7 +59,7 @@ export default class Detail extends Component {
     this.props.dispatch({
       type: 'order/save',
       payload: {
-        billDate: value.detail.value
+        billDate: dayjs(value.detail.value).format('YYYY-MM-DD')
       }
     })
   }
@@ -224,7 +224,7 @@ export default class Detail extends Component {
             <Text>业务员</Text>
             <Text>{staff.userName}</Text>
           </View>
-          <View>
+          {/* <View>
             <Text>出库员</Text>
             <Picker mode='selector' range={this.props.storekeeperList} rangeKey='name' onChange={this.handleCommonChange.bind(this, 'storekeeper')}>
               <View className='picker'>
@@ -232,7 +232,7 @@ export default class Detail extends Component {
                 <AtIcon value='chevron-right' size='22' color='#999'></AtIcon>
               </View>
             </Picker>
-          </View>
+          </View> */}
           <View>
             <Text>票据影像</Text>
             <View onClick={this.handleWaiting} >

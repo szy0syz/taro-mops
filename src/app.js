@@ -61,7 +61,8 @@ class App extends Component {
       backgroundTextStyle: 'dark',
       navigationBarBackgroundColor: '#21b5a9',
       navigationBarTitleText: '云农农业科技',
-      navigationBarTextStyle: 'white'
+      navigationBarTextStyle: 'white',
+      // navigationStyle: "custom"
     },
     tabBar: {
       list: [{
