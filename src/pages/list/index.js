@@ -183,6 +183,14 @@ export default class List extends Component {
     this.props.dispatch({
       type: 'list/removeBill',
       payload: { _id }
+    }).then(success => {
+      let toastBody = {}
+      if (success) {
+        toastBody = { title: '删除成功' }
+      } else {
+        toastBody = { title: '删除失败', icon: 'none' }
+      }
+      Taro.showToast(toastBody)
     })
   }
 

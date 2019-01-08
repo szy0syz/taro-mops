@@ -37,13 +37,14 @@ export default {
             token: res.token
           }
         })
+        Taro.showToast({title: '登录成功', icon: 'success'})
         Taro.setStorage({ key: 'token', data: res.token })
         Taro.setStorage({ key: 'userInfo', data: res.data })
         setTimeout(() => {
           Taro.switchTab({
             url: '/pages/home/index',
           })
-        }, 1000)
+        }, 2000)
       }
     }
   },
@@ -58,7 +59,7 @@ export default {
         initData = {
           mobile: '13759440044',
           userName: '施振宇',
-          easid: 205
+          easid: '205'
         }
       }
       return { ...state, ...initData }
