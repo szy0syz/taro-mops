@@ -1,13 +1,17 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Image } from '@tarojs/components'
-import { AtSearchBar } from 'taro-ui'
+import { AtModal } from "taro-ui"
 import { connect } from '@tarojs/redux'
+
+import { getVersion } from './service'
+
 import './index.scss'
 
-@connect(({ home, cart, loading }) => ({
+@connect(({ home, cart, loading, common }) => ({
   ...home,
   ...cart,
   ...loading,
+  version: common.version
 }))
 export default class Index extends Component {
   config = {
@@ -17,12 +21,18 @@ export default class Index extends Component {
     }
   };
 
-  componentDidMount = () => {
-    const updateManager = Taro.getUpdateManager()
-    updateManager.onCheckForUpdate(function (res) {
-      // 请求完新版本信息的回调
-      console.log('~!~~~~', res.hasUpdate, res)
-    })
+  state = {
+    showModal: false
+  }
+
+  componentDidMount = async () => {
+    // const updateManager = Taro.getUpdateManager()
+    // const { data } = await getVersion()
+    // let remoteVersion = parseInt(data.weapp.version.replace(/\./g, '')) || 0
+    // let localVersion = parseInt(this.props.version.replace(/\./g, ''))
+    // if (remoteVersion > localVersion) {
+    //   this.setState({showModal: true})
+    // }
   }
 
   //分享
@@ -46,20 +56,29 @@ export default class Index extends Component {
     });
   }
 
+  handleUpdate() {
+    this.setState({showModal: false})
+    const updateManager = Taro.getUpdateManager()
+    updateManager.applyUpdate()
+  }
+
   render() {
     return (
       <View className='home-page'>
-        {/* <AtSearchBar
-          placeholder='搜索商品名称/规格/助记码/订单号'
-          showActionButton
-          value={keyword}
-          onChange={this.onChange.bind(this)}
-        /> */}
         <Image className='logo' src='http://cdn.jerryshi.com/picgo/20181126232346.png'></Image>
         <View>
           <Text className='cname'>云农农业科技 \n</Text>
           <Text className='cname'>MOPS系统 </Text>
         </View>
+        <AtModal
+          isOpened={this.state.showModal}
+          title='更新提示'
+          cancelText='取消'
+          confirmText='更新'
+          onCancel={this.handleCancel}
+          onConfirm={this.handleUpdate}
+          content='远程发现新版本，请更新后再使用。'
+        />
       </View>
     )
   }

@@ -6,6 +6,11 @@ export const homepage = data => Request({
   data,
 })
 
+
+export const getVersion = () => Request({
+  url: '/public/version',
+  method: 'GET'
+})
 export const product = data => Request({
   url: '/product/filter',
   method: 'GET',
