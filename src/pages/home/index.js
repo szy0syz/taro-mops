@@ -3,7 +3,7 @@ import { View, Text, Image } from '@tarojs/components'
 import { AtModal } from "taro-ui"
 import { connect } from '@tarojs/redux'
 
-import { getVersion } from './service'
+// import { getVersion } from './service'
 
 import './index.scss'
 

@@ -48,6 +48,7 @@ class ListContent extends Component {
         }
       }
     ]
+
     if (isEas) {
       totalAmount = model.bills.length > 0 ? model.bills.reduce((acc, item) => acc += Number(item.FTotalAmount), 0).toFixed(2) : 0
     } else {

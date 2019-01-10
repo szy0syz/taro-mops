@@ -206,7 +206,7 @@ export default class List extends Component {
             tabDirection='vertical'
             tabList={[
               { title: '订 单' },
-              { title: '销 售' },
+              { title: '出 库' },
               { title: '应 收' }
             ]}
             onClick={this.handleTabClick}
