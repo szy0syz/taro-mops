@@ -18,6 +18,12 @@ export const login = data => Request({
   data
 })
 
+export const login_v2 = data => Request({
+  url: '/public/login_v2',
+  method: 'post',
+  data
+})
+
 export const verify = data => Request({
   url: '/public/verify',
   method: 'post',

@@ -173,19 +173,19 @@ export default class Login extends Component {
             <View className='inpuWrapMpblie'>
               <Input
                 type='string'
-                name='userName'
-                placeholder='请输入员工姓名'
-                value={this.props.userName}
-                onInput={this.handleInputValue.bind(this, 'userName')}
-              />
-            </View>
-            <View className='inpuWrapMpblie'>
-              <Input
-                type='number'
                 name='easid'
                 placeholder='请输入EAS工号'
                 value={this.props.easid}
                 onInput={this.handleInputValue.bind(this, 'easid')}
+              />
+            </View>
+            <View className='inpuWrapMpblie'>
+              <Input
+                type='password'
+                name='password'
+                placeholder='请输入EAS工号'
+                value={this.props.password}
+                onInput={this.handleInputValue.bind(this, 'password')}
               />
             </View>
             <Button
