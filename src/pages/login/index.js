@@ -20,8 +20,8 @@ export default class Login extends Component {
       case 'mobile':
         payload = { mobile: value }
         break
-      case 'userName':
-        payload = { userName: value }
+      case 'password':
+        payload = { password: value }
         break
       case 'easid':
         payload = { easid: value }
@@ -183,7 +183,7 @@ export default class Login extends Component {
               <Input
                 type='password'
                 name='password'
-                placeholder='请输入EAS工号'
+                placeholder='请输入密码'
                 value={this.props.password}
                 onInput={this.handleInputValue.bind(this, 'password')}
               />
