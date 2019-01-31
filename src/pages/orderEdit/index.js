@@ -2,14 +2,14 @@ import Taro, { Component } from '@tarojs/taro'
 import dayjs from 'dayjs'
 import { connect } from '@tarojs/redux'
 import { View, Button, Text, Image, Input, Picker } from '@tarojs/components'
-import { AtList, AtListItem, AtIcon, AtCheckbox, AtButton } from 'taro-ui'
+import { AtList, AtListItem, AtIcon, AtButton } from 'taro-ui'
 import { fetchById } from './service'
 import './index.scss'
 
-@connect(({ detail }) => ({
-  ...detail,
+@connect(({ orderEdit }) => ({
+  ...orderEdit,
 }))
-export default class Detail extends Component {
+export default class OrderEdit extends Component {
   config = {
     navigationBarTitleText: '订单',
   }
@@ -25,7 +25,7 @@ export default class Detail extends Component {
       easfid
     }
     this.props.dispatch({
-      type: 'detail/save',
+      type: 'orderEdit/save',
       payload
     })
   }
@@ -61,14 +61,14 @@ export default class Detail extends Component {
         break;
     }
     this.props.dispatch({
-      type: 'order/save',
+      type: 'orderEdit/save',
       payload
     })
   }
 
   handleBillDateChange(value) {
     this.props.dispatch({
-      type: 'order/save',
+      type: 'orderEdit/save',
       payload: {
         billDate: value.detail.value
       }
@@ -83,13 +83,8 @@ export default class Detail extends Component {
   }
 
   handleSave() {
-    let { billDate, orderTags, customer, products, remark, staff, storekeeper, paymentMethod } = this.props
-    // 奇葩需求和奇葩api
-    billDate = dayjs()
-      .set('month', billDate.split('-')[1] - 1)
-      .set('date', billDate.split('-')[2])
-      .valueOf()
-    let payload = {
+    let { id, billDate, orderTags, customer, products, remark, staff, storekeeper, paymentMethod } = this.props
+    let data = {
       billDate,
       orderTags,
       customer,
@@ -99,9 +94,10 @@ export default class Detail extends Component {
       storekeeper,
       paymentMethod
     }
+
     this.props.dispatch({
-      type: 'order/create',
-      payload
+      type: 'orderEdit/update',
+      payload: { data, id }
     }).then(isCreated => {
       if (isCreated) {
         setTimeout(() => {
@@ -121,8 +117,10 @@ export default class Detail extends Component {
   }
 
   handleNavigate(path) {
+    let url = `/pages/${path}/index`;
+    if (path === 'productSelect') url += '?backPage=orderEdit'
     Taro.navigateTo({
-      url: `/pages/${path}/index`
+      url
     })
   }
 
@@ -145,9 +143,13 @@ export default class Detail extends Component {
     })
   }
 
-  handleRemoveItem(item) {
-    console.log(item)
-
+  handleRemoveItem(index) {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'orderEdit/removeProduct',
+      payload: { index },
+    })
+    this.forceUpdate()
   }
 
   handleSyncOrder() {
@@ -176,26 +178,19 @@ export default class Detail extends Component {
     }
   }
 
-  handlePreviewImage(current) {
-    // const { express } = this.props;
-    // let { fileList = [] } = express;
-    // fileList = fileList.map(item =>)
-    // console.log('handlePreviewImage~~~', current)
-    Taro.previewImage({
-      current,
-      urls: [current]
-    })
-  }
-
   render() {
-    const { products, customer, remark, express, staff } = this.props
-    const { fileList } = express;
-    const amountRRR = this.props.products.reduce((sum, item) => sum += item.amount, 0).toFixed(2)
-    const hasImgs = express && express.fileList && express.fileList.length > 0;
-
+    const { products = [], billDate, customer, remark, isSynced, staff } = this.props
+    const amountRRR = products.reduce((sum, item) => sum += item.amount, 0).toFixed(2)
+    console.log(products)
     return (
       <View className='order-page'>
         <View className='order-wrapper'>
+          <Picker className='date-selector' mode='date' onChange={this.handleBillDateChange}>
+            <View className='picker'>
+              {billDate}
+              <AtIcon value='chevron-right' size='26' color='#c7c7cc'></AtIcon>
+            </View>
+          </Picker>
           <AtList>
             <AtListItem
               title='日期'
@@ -204,13 +199,13 @@ export default class Detail extends Component {
                 color: '#999',
                 value: 'clock',
               }}
-              extraText={this.props.billDate}
             />
             <AtListItem
-              // onClick={this.handleNavigate.bind(this, 'customerSelect')}
+              onClick={this.handleNavigate.bind(this, 'customerSelect')}
               className='custom-listItem'
               title='客户'
               extraText={customer.CustomerName}
+              arrow='right'
               iconInfo={{
                 size: 28,
                 color: '#999',
@@ -229,9 +224,9 @@ export default class Detail extends Component {
             <Text>合计金额：￥{products.reduce((sum, item) => sum += item.amount, 0).toFixed(2)}</Text>
           </View>
           <View>
-            {products.map(item => (
+            {products.map((item, index) => (
               <View key={item.FID} className='order-item'>
-                <Image className='m-img' src={item.MaterialUrl || 'http://cdn.jerryshi.com/picgo/20181104150040.png'}></Image>
+                <Image className='m-img' src={item.MaterialUrl}></Image>
                 <View>
                   <Text>{item.MaterialName}</Text>
                   <View className='order-cell'>
@@ -243,13 +238,12 @@ export default class Detail extends Component {
                     <Text>金额：￥{Number(item.amount).toFixed(2)}</Text>
                   </View>
                 </View>
-                <View style='width: 10px;'></View>
-                {/* <AtIcon onClick={this.handleRemoveItem.bind(this, item)} value='subtract-circle' size='30' color='#F00'></AtIcon> */}
+                <AtIcon onClick={this.handleRemoveItem.bind(this, index)} value='subtract-circle' size='30' color='#F00'></AtIcon>
               </View>
             ))}
           </View>
           <View>
-            {/* <Button onClick={this.handleNavigate.bind(this, 'productSelect')} style='background-color: #1fb7a6;' className='custom-button' size='large'>选择商品</Button> */}
+            <Button onClick={this.handleNavigate.bind(this, 'productSelect')} style='background-color: #1fb7a6;' className='custom-button' size='large'>添加商品</Button>
             {/* <Image onClick={this.handleScanCode} src='http://cdn.jerryshi.com/picgo/scanAdd.png' />
             <Image
               onClick={this.handleNavigate.bind(this, 'productSelect')}
@@ -264,43 +258,28 @@ export default class Detail extends Component {
           </View>
           <View>
             <Text>结算方式</Text>
-            <Text>{this.props.paymentMethod.name}</Text>
-            {/* <Picker mode='selector' range={this.props.payTypes} rangeKey='name' onChange={this.handleCommonChange.bind(this, 'payment')}>
+            <Picker mode='selector' range={this.props.payTypes} rangeKey='name' onChange={this.handleCommonChange.bind(this, 'payment')}>
               <View className='picker'>
                 {this.props.paymentMethod.name}
                 <AtIcon value='chevron-right' size='22' color='#999'></AtIcon>
               </View>
-            </Picker> */}
+            </Picker>
           </View>
           <View>
             <Text>业务员</Text>
             <Text>{staff.userName}</Text>
           </View>
-          <View></View>
-          {/* <View>
-            <Text>出库员</Text>
-            <Picker mode='selector' range={this.props.storekeeperList} rangeKey='name' onChange={this.handleCommonChange.bind(this, 'storekeeper')}>
-              <View className='picker'>
-                {this.props.storekeeper.name}
-                <AtIcon value='chevron-right' size='22' color='#999'></AtIcon>
-              </View>
-            </Picker>
-          </View> */}
+          <View>
+          </View>
           {/* <View onClick={this.handleNavigate.bind(this, 'delivery')}>
             <Text>物流</Text>
             <AtIcon value='chevron-right' size='22' color='#999'></AtIcon>
           </View> */}
           <View>
-            <Text>物流影像</Text>
-            {/* <View onClick={this.handleUploadImg} > */}
-            <View className='img-list'>
-              { hasImgs ? 
-                fileList.map(item => {
-                  return <Image onClick={this.handlePreviewImage.bind(this, item.url)} style='max-height:180rpx;max-width:180rpx; padding-right: 30rpx;' key={item.uid} src={item.url}></Image>
-                })
-                : 
-                <AtIcon value='camera' size='34' color='#000'></AtIcon> }
-            </View>
+            {/* <Text>票据影像</Text>
+            <View onClick={this.handleUploadImg} >
+              <AtIcon value='camera' size='34' color='#fff'></AtIcon>
+            </View> */}
           </View>
         </View>
         <View style='background-color: transparent;' className='remark'>
@@ -308,24 +287,24 @@ export default class Detail extends Component {
             <Input value={remark} onChange={this.handleCommonChange.bind(this, 'remark')} placeholder='备注(最多100字)'></Input>
           </View>
         </View>
-        {/* <View>
-          <AtCheckbox
+        <View>
+          {/* <AtCheckbox
             style='background-color: #aaa;'
             options={this.props.tagList}
             selectedList={this.props.orderTags}
             onChange={this.handleBillTagsChange}
-          />
-        </View> */}
-        {/* <View className='toolbar'>
-          <View onClick={this.handleWaiting} style='padding:8rpx;background-color: rgba(114, 192, 116, 1); border-radius: 14rpx;'>
+          /> */}
+        </View>
+        <View className='toolbar'>
+          {/* <View onClick={this.handleWaiting} style='padding:8rpx;background-color: rgba(114, 192, 116, 1); border-radius: 14rpx;'>
             <AtIcon value='iconfont icon-sharem1' size='32' color='#fff'></AtIcon>
-          </View>
+          </View> */}
           <AtButton onClick={this.handleAgain} size='normal' type='secondary'>再开一单</AtButton>
-          <AtButton onClick={this.handleSave} size='normal' type='primary'>确认保存</AtButton>
+          <AtButton onClick={this.handleSave} size='normal' type='primary'>确认修改</AtButton>
           <View onClick={this.handleSyncOrder} style='padding:6rpx;background-color: rgba(112, 159, 239, 1); border-radius: 14rpx;'>
             <AtIcon value={`iconfont ${isSynced ? 'icon-confirm' : 'icon-shangchuan'}`} size='34' color='#fff'></AtIcon>
           </View>
-        </View> */}
+        </View>
       </View>
     )
   }

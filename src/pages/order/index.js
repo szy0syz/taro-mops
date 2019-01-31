@@ -127,8 +127,13 @@ export default class Detail extends Component {
     })
   }
 
-  handleRemoveItem(item) {
-    console.log(item)
+  handleRemoveItem(index) {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'order/removeProduct',
+      payload: { index },
+    })
+    this.forceUpdate()
   }
 
   handleSyncOrder = () => {
@@ -174,16 +179,17 @@ export default class Detail extends Component {
           </AtList>
         </View>
         <View className='order-content'>
-          <View>
+          {/* <View>
             <Button onClick={this.handleWaiting} style='background-color: rgba(241, 181, 85, 1);' className='custom-button' size='mini'>调用模板</Button>
             <Button onClick={this.handleWaiting} style='background-color: #1fb7a6;' className='custom-button' size='mini'>存为模板</Button>
-          </View>
+          </View> */}
+          <View></View>
           <View>
             <Text>选择货品({products.length || 0})</Text>
             <Text>合计金额：￥{products.reduce((sum, item) => sum += item.amount, 0).toFixed(2)}</Text>
           </View>
           <View>
-            {products.map(item => (
+            {products.map((item, index) => (
               <View key={item.FID} className='order-item'>
                 <Image className='m-img' src={item.MaterialUrl}></Image>
                 <View>
@@ -197,16 +203,17 @@ export default class Detail extends Component {
                     <Text>金额：￥{Number(item.amount).toFixed(2)}</Text>
                   </View>
                 </View>
-                <AtIcon onClick={this.handleRemoveItem.bind(this, item)} value='subtract-circle' size='30' color='#F00'></AtIcon>
+                <AtIcon onClick={this.handleRemoveItem.bind(this, index)} value='subtract-circle' size='30' color='#F00'></AtIcon>
               </View>
             ))}
           </View>
           <View>
-            <Image onClick={this.handleScanCode} src='http://cdn.jerryshi.com/picgo/scanAdd.png' />
+            <Button onClick={this.handleNavigate.bind(this, 'productSelect')} style='background-color: #1fb7a6;' className='custom-button' size='large'>添加商品</Button>
+            {/* <Image onClick={this.handleScanCode} src='http://cdn.jerryshi.com/picgo/scanAdd.png' />
             <Image
               onClick={this.handleNavigate.bind(this, 'productSelect')}
               src='http://cdn.jerryshi.com/picgo/plusAdd.png'
-            />
+            /> */}
           </View>
         </View>
         <View className='order-wrapper order-footer'>
@@ -237,10 +244,10 @@ export default class Detail extends Component {
             </Picker>
           </View> */}
           <View>
-            <Text>票据影像</Text>
+            {/* <Text>票据影像</Text>
             <View onClick={this.handleWaiting} >
               <AtIcon value='camera' size='34' color='#fff'></AtIcon>
-            </View>
+            </View> */}
           </View>
         </View>
         <View style='background-color: transparent;' className='remark'>
@@ -248,23 +255,23 @@ export default class Detail extends Component {
             <Input value={remark} onChange={this.handleCommonChange.bind(this, 'remark')} placeholder='备注(最多100字)'></Input>
           </View>
         </View>
-        <View>
+        {/* <View>
           <AtCheckbox
             style='background-color: #aaa;'
             options={this.props.tagList}
             selectedList={this.props.orderTags}
             onChange={this.handleBillTagsChange}
           />
-        </View>
+        </View> */}
         <View className='toolbar'>
-          <View onClick={this.handleWaiting.bind(this, '请先保存')} style='padding:8rpx;background-color: rgba(114, 192, 116, 1); border-radius: 14rpx;'>
+          {/* <View onClick={this.handleWaiting.bind(this, '请先保存')} style='padding:8rpx;background-color: rgba(114, 192, 116, 1); border-radius: 14rpx;'>
             <AtIcon value='iconfont icon-sharem1' size='34' color='#fff'></AtIcon>
-          </View>
+          </View> */}
           <AtButton onClick={this.handleAgain} size='normal' type='secondary'>再开一单</AtButton>
           <AtButton onClick={this.handleSave} size='normal' type='primary'>确认保存</AtButton>
-          <View onClick={this.handleSyncOrder} style='padding:6rpx;background-color: rgba(112, 159, 239, 1); border-radius: 14rpx;'>
+          {/* <View onClick={this.handleSyncOrder} style='padding:6rpx;background-color: rgba(112, 159, 239, 1); border-radius: 14rpx;'>
             <AtIcon value='iconfont icon-shangchuan' size='36' color='#fff'></AtIcon>
-          </View>
+          </View> */}
         </View>
       </View>
     )

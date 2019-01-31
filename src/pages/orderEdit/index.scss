@@ -90,16 +90,16 @@
     color: #333;
     margin-top: 24rpx;
     border-bottom: none;
-    // &>View:last-child>View {
-    //     background-color: #eee;
-    //     padding: 16rpx;
-    //     width: 9vw;
-    //     height: 60rpx;
-    //     z-index: -1;
-    //     border-radius: 10rpx;
-    //     border: 1px solid #aaa;
-    //     margin: 30rpx 30rpx 0 0;
-    // }
+    &>View:last-child>View {
+        background-color: #eee;
+        padding: 16rpx;
+        width: 9vw;
+        height: 60rpx;
+        z-index: -1;
+        border-radius: 10rpx;
+        border: 1px solid #aaa;
+        margin: 30rpx 30rpx 0 0;
+    }
     &>View:first-child {
         padding-top: 18rpx;
     }
@@ -116,12 +116,6 @@
     .input-amount {
         width: 200rpx;
         text-align: right;
-    }
-
-    .img-list {
-        height: 200px;
-        padding: 10px 10px;
-        margin-top: 10px;
     }
 }
 

@@ -6,6 +6,7 @@ import list from '../pages/list/model'
 import login from '../pages/login/model'
 import order from '../pages/order/model'
 import detail from '../pages/detail/model'
+import orderEdit from '../pages/orderEdit/model'
 import eas_detail from '../pages/easDetail/model'
 import userMgmt from '../pages/userMgmt/model'
 import customerAR from '../pages/report/customerAR/model'
@@ -21,6 +22,7 @@ export default [
   login,
   order,
   detail,
+  orderEdit,
   userMgmt,
   eas_detail,
   customerAR,

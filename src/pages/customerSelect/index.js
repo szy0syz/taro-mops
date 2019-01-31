@@ -17,7 +17,6 @@ export default class CustomerSelect extends Component {
 
   componentDidMount = () => {
     const { prevModel } = this.$router.params
-    console.log(prevModel)
     this.props.dispatch({
       type: 'customerSelect/save',
       payload: { prevModel }

@@ -6,15 +6,18 @@ import { AtInput, AtForm, AtButton, AtList, AtIcon, AtBadge, AtModal, AtModalHea
 import SearchHeader from '../../components/SearchHeader'
 import './index.scss';
 
-@connect(({ common, order, productSelect }) => ({
+@connect(({ common, order, productSelect, orderEdit }) => ({
   ...productSelect,
   ...common,
-  ...order
+  ...order,
+  orderEdit
 }))
 export default class ProductSelect extends Component {
   config = {
     navigationBarTitleText: '选择商品',
   }
+
+  backPage = ''
 
   constructor() {
     super(...arguments)
@@ -27,6 +30,12 @@ export default class ProductSelect extends Component {
         MaterialPrice: 0
       }
     }
+  }
+
+  componentDidMount() {
+    console.log('ProductSelect!!componentDidMount')
+    const { backPage = '' } = this.$router.params
+    this.backPage = backPage
   }
   
   handleSelected(product) {
@@ -61,7 +70,18 @@ export default class ProductSelect extends Component {
   }
 
   handleConfirm() {
-    Taro.switchTab({url: '/pages/order/index'})
+    if (this.backPage === 'orderEdit') {
+      const { products, dispatch, orderEdit } = this.props
+      dispatch({
+        type: 'order/save',
+        payload: {products: []}
+      })
+      dispatch({
+        type: 'orderEdit/save',
+        payload: { products: orderEdit.products.concat(products) }
+      })
+    }
+    Taro.navigateBack()
   }
 
   handleModalCancel() {

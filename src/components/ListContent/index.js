@@ -13,6 +13,7 @@ class ListContent extends Component {
     onShowTagMenu: PropTypes.func,
     onNaviDetail: PropTypes.func,
     onHandleRemove: PropTypes.func,
+    onHandleEdit: PropTypes.func,
     basePath: PropTypes.string,
     model: PropTypes.object,
     isEas: PropTypes.bool
@@ -28,8 +29,11 @@ class ListContent extends Component {
   }
 
   handleSwipeClick = (_id, opts, index) => {
-    console.log(index === 1)
     index === 1 ? this.props.onHandleRemove(_id) : null
+  }
+
+  handleOrderEdit = (_id, item) => {
+    _id ? this.props.onHandleEdit(_id, item) : null
   }
 
   render() {
@@ -37,7 +41,7 @@ class ListContent extends Component {
     let totalAmount
     const opts_SwipeAction = [
       {
-        text: '取消',
+        text: '修改',
         backgroundColor: '#6190E8'
       }
       ,
@@ -61,7 +65,7 @@ class ListContent extends Component {
           <View>
             <Text>合计：￥{totalAmount}</Text>
             <View>
-              <AtTag onClick={onShowTagMenu} active type='primary' circle>{isEas ? '状态' : '标签'}</AtTag>
+              {isEas ? <AtTag onClick={onShowTagMenu} active type='primary' circle>状态</AtTag> : null}            
             </View>
           </View>
           {isEas ? (
@@ -87,7 +91,7 @@ class ListContent extends Component {
             ))
           ) : (
               model.bills.map(item => (
-                <AtSwipeAction autoClose onClick={this.handleSwipeClick.bind(this, item._id)} key={item._id} options={opts_SwipeAction}>
+                <AtSwipeAction autoClose onClosed={this.handleOrderEdit.bind(this, item._id, item)} onClick={this.handleSwipeClick.bind(this, item._id)} key={item._id} options={opts_SwipeAction}>
                   <View className='bill-item' onClick={onNaviDetail.bind(this, basePath, item._id)}>
                     <View>
                       <Text>{item.billDate && item.billDate.split('T')[0]}</Text>

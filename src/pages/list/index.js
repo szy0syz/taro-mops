@@ -194,6 +194,14 @@ export default class List extends Component {
     })
   }
 
+  handleEdit(id, item) {
+    if(item.isSynced) {
+      Taro.showToast({ title: '同步单据无法修改，填写物流信息请到PC端', icon: 'none', duration: 4000 })
+      return
+    }
+    Taro.navigateTo({ url: `/pages/orderEdit/index?_id=${id}` })
+  }
+
   render() {
     const { allTagList, tabData, tabIndex, saleStatusAry, arBillStatusAry, showDateSelected, showTagSelected } = this.props
     const [soData, siData, arData] = tabData
@@ -228,6 +236,7 @@ export default class List extends Component {
                 onNaviDetail={this.handleNaviDetail}
                 onShowTagMenu={this.handleShowTagMenu}
                 onHandleRemove={this.handleRemove}
+                onHandleEdit={this.handleEdit}
               ></ListContent>
               {/* <View className='tab-box'>
                 <View className='box-header'>

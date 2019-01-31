@@ -29,7 +29,7 @@ class App extends Component {
       'pages/delivery/index',
       'pages/customerSelect/index',
       'pages/productSelect/index',
-      
+      'pages/orderEdit/index',
       
       'pages/message/index',
       
