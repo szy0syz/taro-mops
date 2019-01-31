@@ -25,7 +25,7 @@ export default class ReportList extends Component {
           path: '/pages/report/customerAR/index'
         },
         {
-          name: '及时库存',
+          name: '即时库存',
           path: '/pages/report/inventory/index'
         }
       ]
