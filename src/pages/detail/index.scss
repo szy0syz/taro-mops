@@ -51,7 +51,7 @@
         color: #fff;
     }
     &>View:nth-child(4) {
-        padding: 24rpx 0;
+        padding: 10rpx 0;
         display: flex;
         justify-content: space-around;
         Image {
@@ -61,6 +61,7 @@
     }
     &>View:nth-child(3) {
         padding: 12rpx 18rpx;
+        width: 90%;
     }
     .order-item {
         @include fja;
@@ -68,7 +69,8 @@
         border-bottom: 1px solid #888;
         box-shadow: 2px 2px 5px #888888;
         &>View {
-            width: 68%;
+            margin-left: 2px;
+            width: 90%;
             &>View {
                 margin-top: 6rpx;
             }
@@ -76,11 +78,12 @@
     }
     .order-cell {
         @include fja;
-        font: 23rpx sans-serif;
+        font: 22rpx sans-serif;
+        flex-wrap: nowrap;
     }
     .m-img {
-        height: 90rpx;
-        width: 90rpx;
+        height: 80rpx;
+        width: 80rpx;
     }
 }
 

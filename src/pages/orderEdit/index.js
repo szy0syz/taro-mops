@@ -230,12 +230,16 @@ export default class OrderEdit extends Component {
                 <View>
                   <Text>{item.MaterialName}</Text>
                   <View className='order-cell'>
-                    <Text>单价：￥{Number(item.MaterialPrice).toFixed(2)}</Text>
+                    <Text>结算价：￥{Number(item.MaterialPrice).toFixed(2)}</Text>
                     <Text>数量：{Number(item.qty).toFixed(2)}公斤</Text>
                   </View>
                   <View className='order-cell'>
-                    <Text>规格：{item.MaterialModel}</Text>
-                    <Text>金额：￥{Number(item.amount).toFixed(2)}</Text>
+                    <Text style='width: 60%;' className='ellipsis'>开单价：￥{item.DefaultPrice}</Text>
+                    <Text className='ellipsis'>开单金额：￥{Number(item.defaultAmount || 0).toFixed(2)}</Text>
+                  </View>
+                  <View className='order-cell'>
+                    <Text style='width: 60%;' className='ellipsis'>规格：{item.MaterialModel}</Text>
+                    <Text className='ellipsis'>结算金额：￥{Number(item.amount || 0).toFixed(2)}</Text>
                   </View>
                 </View>
                 <AtIcon onClick={this.handleRemoveItem.bind(this, index)} value='subtract-circle' size='30' color='#F00'></AtIcon>

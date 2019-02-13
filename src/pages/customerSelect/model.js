@@ -25,9 +25,8 @@ export default {
     ]
   },
   effects: {
-    * getCustomers({ payload }, { put, call, select }) {
-      const { keyword } = yield select(state => state.customerSelect)
-      console.log('~~~~~~~~~~~~~~keyword~~~~~~~~~~~~~~~', keyword)
+    * getCustomers({ payload }, { put, call }) {
+      // const { keyword } = yield select(state => state.customerSelect)
       const res = yield call(Service.getCustomers, payload)
       yield put({
         type: 'save',
