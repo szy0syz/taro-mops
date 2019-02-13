@@ -19,6 +19,19 @@
     View.at-noticebar {
         text-align: center;
     }
+
+    .input-content {
+        box-sizing: border-box;
+        border-radius: 14px;
+        background-color: rgba(236, 241, 247, 1);
+        height: 70px;
+        width: 94%;
+        padding: 0 28px;
+    }
+    .search-content {
+        @include fja(center, center);
+        padding-left: 10px;
+    }
 }
 
 // $height: 28PX;

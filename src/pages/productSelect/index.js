@@ -23,11 +23,13 @@ export default class ProductSelect extends Component {
     super(...arguments)
     this.state = {
       isShowModal: false,
-      qty: 1,
+      qty: '',
       amount: 0,
+      defaultAmount: 0,
       currentItem: {
         MaterialName: '商品名称',
-        MaterialPrice: 0
+        MaterialPrice: 0,
+        DefaultPrice: 0,
       }
     }
   }
@@ -40,7 +42,7 @@ export default class ProductSelect extends Component {
   
   handleSelected(product) {
     this.setState({
-      currentItem: product,
+      currentItem: { ...product, DefaultPrice: product.MaterialPrice},
       isShowModal: true
     })
   }
@@ -63,7 +65,7 @@ export default class ProductSelect extends Component {
       default:
         this.props.dispatch({
           type: 'productSelect/fetchProducts',
-          payload: { keyword }
+          payload: { keyword, hasPrice: true }
         })
         break
     }
@@ -93,6 +95,7 @@ export default class ProductSelect extends Component {
       MaterialPrice: Number(this.state.currentItem.MaterialPrice),
       qty: Number(this.state.qty),
       amount: Number(this.state.amount),
+      defaultAmount: Number(this.state.defaultAmount),
     })
     let products = Array.from(new Set([...this.props.products, product]))
     this.props.dispatch({
@@ -108,14 +111,22 @@ export default class ProductSelect extends Component {
   handleModalChange(key, val) {
     // setState 是异步操作
     const calcAmount = () => {
-      this.setState({ amount: (Number(this.state.qty) * Number(this.state.currentItem.MaterialPrice)).toFixed(2) })
+      this.setState({ 
+        amount: (Number(this.state.qty) * Number(this.state.currentItem.MaterialPrice || 0)).toFixed(4),
+        defaultAmount: (Number(this.state.qty) * Number(this.state.currentItem.DefaultPrice || 0)).toFixed(4),
+      })
     }
+    let currentItem;
     switch (key) {
       case 'qty':
         this.setState({ qty: val }, calcAmount)
         break;
       case 'price':
-        const currentItem = Object.assign(this.state.currentItem, { MaterialPrice: val })
+        currentItem = Object.assign(this.state.currentItem, { MaterialPrice: val })
+        this.setState({ currentItem }, calcAmount)
+        break;
+      case 'DefaultPrice':
+        currentItem = Object.assign(this.state.currentItem, { DefaultPrice: val })
         this.setState({ currentItem }, calcAmount)
         break;
     }
@@ -125,7 +136,6 @@ export default class ProductSelect extends Component {
     const { productList, products, searchTypes } = this.props
     return (
       <View className='page'>
-        {/* <AtMessage></AtMessage> */}
         <AtModal isOpened={this.state.isShowModal}>
           <AtModalHeader>【{this.state.currentItem.MaterialName}】</AtModalHeader>
           <AtModalContent>
@@ -148,8 +158,17 @@ export default class ProductSelect extends Component {
                   <Text>公斤</Text>
                 </AtInput>
                 <AtInput
+                  name='DefaultPrice'
+                  title='开单价：'
+                  type='digit'
+                  value={this.state.currentItem.DefaultPrice}
+                  onChange={this.handleModalChange.bind(this, 'DefaultlPrice')}
+                >
+                  <Text>元</Text>
+                </AtInput>
+                <AtInput
                   name='price'
-                  title='单价：'
+                  title='结算价：'
                   type='digit'
                   value={this.state.currentItem.MaterialPrice}
                   onChange={this.handleModalChange.bind(this, 'price')}
@@ -158,8 +177,17 @@ export default class ProductSelect extends Component {
                 </AtInput>
                 <AtInput
                   editable={false}
+                  name='defaultAmount'
+                  title='开单金额'
+                  type='digit'
+                  value={Number(this.state.defaultAmount).toFixed(2)}
+                >
+                  <Text>元</Text>
+                </AtInput>
+                <AtInput
+                  editable={false}
                   name='amount'
-                  title='金额：'
+                  title='结算金额'
                   type='digit'
                   value={Number(this.state.amount).toFixed(2)}
                 >
@@ -207,8 +235,8 @@ export default class ProductSelect extends Component {
             <AtBadge value={products.length}>
               <AtIcon value='shopping-bag' size='30' color='#2bb2a7'></AtIcon>
             </AtBadge>
-            <Text style='margin-left: 44rpx;color:#666;'>合计金额：</Text>
-            <Text style='color:#2bb2a7;'>￥{products.reduce((sum, val) => sum += val.amount, 0)}.00</Text>
+            <Text style='margin-left: 44rpx;color:#666;'>结算金额：</Text>
+            <Text style='color:#2bb2a7;'>￥{products.reduce((sum, val) => sum += val.amount, 0)}</Text>
           </View>
           <View className='select-btn' >
             <AtButton onClick={this.handleConfirm} type='secondary' size='small'>选好了</AtButton>

@@ -1,6 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text, ScrollView } from '@tarojs/components'
-import { AtCard, AtNoticebar, AtSearchBar } from 'taro-ui'
+import { AtCard, AtNoticebar, Input } from 'taro-ui'
 import dayjs from 'dayjs'
 
 import getInventory from './service'
@@ -39,15 +39,16 @@ export default class Inventory extends Component {
     this.fetchInvetory()
   }
 
-  handleChange = (keyword) => {
+  handleChange = (e) => {
+    const { detail: { value } } = e;
     this.setState({
-      keyword,
-    })
-    console.log('keyword', keyword);
+      keyword: value,
+    });
+    this.handleSearch(value);
   }
 
-  handleSearch = () => {
-    const { keyword } = this.state;
+  handleSearch = (keyword) => {
+    if (!keyword) keyword = this.state.keyword;
     const isHelpCode = code => /^[A-Za-z0-9]+$/.test(code);
     let filterFunc;
     if (isHelpCode(keyword)) {
@@ -67,13 +68,7 @@ export default class Inventory extends Component {
         <AtNoticebar style='padding-bottom: 12px;width:100%;' icon='volume-plus'>
           <Text>查询时间：{` ${dayjs().format('YYYY年MM月DD日 HH:mm:ss')}    |    `} 库存种类：{inventory.length} 种</Text>
         </AtNoticebar>
-        <AtSearchBar
-          showActionButton
-          placeholder='请输入商品名或助记码'
-          value={keyword}
-          onChange={this.handleChange}
-          onActionClick={this.handleSearch}
-        />
+        <Input onInput={this.handleChange} className='input-content' type='string' name='keyword' placeholder='请输入查询关键字' value={keyword} />
         <ScrollView
           scrollY
           scrollWithAnimation
