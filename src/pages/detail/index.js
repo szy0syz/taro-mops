@@ -188,7 +188,7 @@ export default class Detail extends Component {
   }
 
   render() {
-    const { products, customer, remark, express, staff } = this.props
+    const { products, customer, remark, express, creator } = this.props
     const { fileList } = express;
     const amountRRR = this.props.products.reduce((sum, item) => sum += item.amount, 0).toFixed(2)
     const hasImgs = express && express.fileList && express.fileList.length > 0;
@@ -274,7 +274,7 @@ export default class Detail extends Component {
           </View>
           <View>
             <Text>业务员</Text>
-            <Text>{staff.userName}</Text>
+            <Text>{creator.userName}</Text>
           </View>
           <View></View>
           {/* <View>

@@ -43,6 +43,7 @@ export default class Inventory extends Component {
     this.setState({
       keyword,
     })
+    console.log('keyword', keyword);
   }
 
   handleSearch = () => {

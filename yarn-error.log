@@ -1,28 +1,28 @@
 Arguments: 
-  /Users/jerry/.nvm/versions/node/v10.13.0/bin/node /Users/jerry/.yarn/bin/yarn.js add taro-ui/dist/style/components/button.scss --silent --no-progress
+  /Users/jerry/.nvm/versions/node/v10.15.0/bin/node /usr/local/Cellar/yarn/1.13.0/libexec/bin/yarn.js add taro-ui/dist/weapp/style/components/search-bar/index.scss --silent --no-progress
 
 PATH: 
-  /Users/jerry/.nvm/versions/node/v10.13.0/lib/node_modules/npm/node_modules/npm-lifecycle/node-gyp-bin:/Users/jerry/Git/taro-mops/node_modules/.bin:/Users/jerry/.nvm/versions/node/v10.13.0/lib/node_modules/npm/node_modules/npm-lifecycle/node-gyp-bin:/Users/jerry/Git/taro-mops/node_modules/.bin:/Users/jerry/.yarn/bin:/Users/jerry/.config/yarn/global/node_modules/.bin:/usr/local/opt/python/libexec/bin:/Users/jerry/.nvm/versions/node/v10.13.0/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/jerry/.yarn/bin:/Users/jerry/.config/yarn/global/node_modules/.bin:/usr/local/opt/python/libexec/bin
+  /Users/jerry/.nvm/versions/node/v10.15.0/lib/node_modules/npm/node_modules/npm-lifecycle/node-gyp-bin:/Users/jerry/Git/taro-mops/node_modules/.bin:/Users/jerry/.nvm/versions/node/v10.15.0/lib/node_modules/npm/node_modules/npm-lifecycle/node-gyp-bin:/Users/jerry/Git/taro-mops/node_modules/.bin:/Users/jerry/.nvm/versions/node/v10.15.0/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/share/dotnet:/Applications/Wireshark.app/Contents/MacOS
 
 Yarn version: 
   1.13.0
 
 Node version: 
-  10.13.0
+  10.15.0
 
 Platform: 
   darwin x64
 
 Trace: 
-  Error: https://registry.npm.taobao.org/taro-ui%2fdist/style/components/button.scss: not_found
-      at Request.params.callback [as _callback] (/Users/jerry/.yarn/lib/cli.js:66255:18)
-      at Request.self.callback (/Users/jerry/.yarn/lib/cli.js:129397:22)
+  Error: https://registry.npmjs.org/taro-ui%2fdist/weapp/style/components/search-bar/index.scss: Request "https://registry.npmjs.org/taro-ui%2fdist/weapp/style/components/search-bar/index.scss" returned a 405
+      at Request.params.callback [as _callback] (/usr/local/Cellar/yarn/1.13.0/libexec/lib/cli.js:66264:18)
+      at Request.self.callback (/usr/local/Cellar/yarn/1.13.0/libexec/lib/cli.js:129397:22)
       at Request.emit (events.js:182:13)
-      at Request.<anonymous> (/Users/jerry/.yarn/lib/cli.js:130369:10)
+      at Request.<anonymous> (/usr/local/Cellar/yarn/1.13.0/libexec/lib/cli.js:130369:10)
       at Request.emit (events.js:182:13)
-      at Gunzip.<anonymous> (/Users/jerry/.yarn/lib/cli.js:130291:12)
+      at IncomingMessage.<anonymous> (/usr/local/Cellar/yarn/1.13.0/libexec/lib/cli.js:130291:12)
       at Object.onceWrapper (events.js:273:13)
-      at Gunzip.emit (events.js:187:15)
+      at IncomingMessage.emit (events.js:187:15)
       at endReadableNT (_stream_readable.js:1094:12)
       at process._tickCallback (internal/process/next_tick.js:63:19)
 

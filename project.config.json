@@ -12,5 +12,6 @@
 		"nodeModules": true
 	},
 	"compileType": "miniprogram",
+	"libVersion": "2.4.4",
 	"condition": {}
 }

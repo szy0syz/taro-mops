@@ -179,7 +179,7 @@ export default class OrderEdit extends Component {
   }
 
   render() {
-    const { products = [], billDate, customer, remark, isSynced, staff } = this.props
+    const { products = [], billDate, customer, remark, isSynced, creator } = this.props
     const amountRRR = products.reduce((sum, item) => sum += item.amount, 0).toFixed(2)
     console.log(products)
     return (
@@ -267,7 +267,7 @@ export default class OrderEdit extends Component {
           </View>
           <View>
             <Text>业务员</Text>
-            <Text>{staff.userName}</Text>
+            <Text>{creator.userName}</Text>
           </View>
           <View>
           </View>
