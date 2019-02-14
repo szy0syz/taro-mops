@@ -3,6 +3,7 @@ import dayjs from 'dayjs'
 import { connect } from '@tarojs/redux'
 import { View, Button, Text, Image, Input, Picker } from '@tarojs/components'
 import { AtList, AtListItem, AtIcon, AtCheckbox, AtButton } from 'taro-ui'
+import { OrderCell } from '../../components/OrderCell'
 import './index.scss'
 
 @connect(({ order }) => ({
@@ -189,6 +190,7 @@ export default class Detail extends Component {
             <Text>合计金额：￥{products.reduce((sum, item) => sum += item.amount, 0).toFixed(2)}</Text>
           </View>
           <View>
+            {/* {products.map(item => (<OrderCell item={item} key={item.FID} hasIcon={Boolean(true)} onHanleClick={this.handleRemoveItem.bind(this, index)} />) )} */}
             {products.map((item, index) => (
               <View key={item.FID} className='order-item'>
                 <Image className='m-img' src={item.MaterialUrl}></Image>

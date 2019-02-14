@@ -4,7 +4,7 @@ import { connect } from '@tarojs/redux'
 import { AtInput, AtForm, AtButton, AtList, AtIcon, AtBadge, AtModal, AtModalHeader, AtModalContent, AtModalAction } from 'taro-ui'
 
 import SearchHeader from '../../components/SearchHeader'
-import { ValidDigit } from "../../utils/Constants";
+import Constants from "../../utils/Constants.json";
 import './index.scss';
 
 @connect(({ common, order, productSelect, orderEdit }) => ({
@@ -52,16 +52,10 @@ export default class ProductSelect extends Component {
     switch (keyword.length) {
       case 0:
         dispatch({
-          type: 'common/save',
+          type: 'productSelect/save',
           payload: { productList: [] }
         })
         break
-      // case 1:
-      //   Taro.atMessage({
-      //     'message': '搜索关键字最少需两个字',
-      //     'type': 'warning',
-      //   })
-      //   break
       default:
         this.props.dispatch({
           type: 'productSelect/fetchProducts',
@@ -112,8 +106,8 @@ export default class ProductSelect extends Component {
     // setState 是异步操作
     const calcAmount = () => {
       this.setState({
-        amount: (Number(this.state.qty) * Number(this.state.currentItem.MaterialPrice || 0)).toFixed(ValidDigit),
-        defaultAmount: (Number(this.state.qty) * Number(this.state.currentItem.DefaultPrice || 0)).toFixed(ValidDigit),
+        amount: (Number(this.state.qty) * Number(this.state.currentItem.MaterialPrice || 0)).toFixed(4),
+        defaultAmount: (Number(this.state.qty) * Number(this.state.currentItem.DefaultPrice || 0)).toFixed(4),
       })
     }
     let currentItem;
@@ -133,6 +127,7 @@ export default class ProductSelect extends Component {
   }
 
   render() {
+    console.log(Constants,'~~@')
     const { currentItem, isShowModal, qty } = this.state;
     const { productList, products, searchTypes } = this.props
     return (
@@ -181,7 +176,7 @@ export default class ProductSelect extends Component {
                   name='defaultAmount'
                   title='开单金额'
                   type='digit'
-                  value={Number(this.state.defaultAmount).toFixed(ValidDigit)}
+                  value={Number(this.state.defaultAmount).toFixed(4)}
                 >
                   <Text>元</Text>
                 </AtInput>
@@ -190,7 +185,7 @@ export default class ProductSelect extends Component {
                   name='amount'
                   title='结算金额'
                   type='digit'
-                  value={Number(this.state.amount).toFixed(ValidDigit)}
+                  value={Number(this.state.amount).toFixed(4)}
                 >
                   <Text>元</Text>
                 </AtInput>
@@ -219,7 +214,7 @@ export default class ProductSelect extends Component {
                   <View>
                     <Text>{item.MaterialName}</Text>
                     <View className='order-cell'>
-                      <Text>单价：￥{Number(item.MaterialPrice).toFixed(2)}</Text>
+                      <Text>单价：￥{Number(item.MaterialPrice).toFixed(4)}</Text>
                     </View>
                     <View className='order-cell'>
                       <Text>规格：{item.MaterialModel}</Text>
