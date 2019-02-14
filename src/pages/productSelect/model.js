@@ -1,3 +1,4 @@
+import Taro from '@tarojs/taro'
 import * as Service from './service';
 
 export default {
@@ -33,6 +34,11 @@ export default {
             productList: res.data
           }
         })
+      } else {
+        Taro.showToast({
+          title: '没有此商品',
+          icon: 'none'
+        });
       }
     }
   },
