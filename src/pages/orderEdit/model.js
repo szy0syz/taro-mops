@@ -104,7 +104,6 @@ export default {
   },
   reducers: {
     save(state, { payload }) {
-      console.log('reducers', payload)
       return { ...state, ...payload }
     },
     removeProduct(state, { payload }) {

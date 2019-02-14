@@ -112,8 +112,8 @@ export default class ProductSelect extends Component {
     // setState 是异步操作
     const calcAmount = () => {
       this.setState({
-        amount: (Number(this.state.qty) * Number(this.state.currentItem.MaterialPrice || 0)).toFixed(4),
-        defaultAmount: (Number(this.state.qty) * Number(this.state.currentItem.DefaultPrice || 0)).toFixed(4),
+        amount: (Number(this.state.qty) * Number(this.state.currentItem.MaterialPrice || 0)).toFixed(ValidDigit),
+        defaultAmount: (Number(this.state.qty) * Number(this.state.currentItem.DefaultPrice || 0)).toFixed(ValidDigit),
       })
     }
     let currentItem;
@@ -133,11 +133,12 @@ export default class ProductSelect extends Component {
   }
 
   render() {
+    const { currentItem, isShowModal, qty } = this.state;
     const { productList, products, searchTypes } = this.props
     return (
       <View className='page'>
-        <AtModal isOpened={this.state.isShowModal}>
-          <AtModalHeader>【{this.state.currentItem.MaterialName}】</AtModalHeader>
+        <AtModal isOpened={isShowModal}>
+          <AtModalHeader>【{currentItem.MaterialName}】</AtModalHeader>
           <AtModalContent>
             <View className='modal-content'>
               <AtForm>
@@ -146,13 +147,13 @@ export default class ProductSelect extends Component {
                   name='MaterialModel'
                   title='规格：'
                   type='string'
-                  value={this.state.currentItem.MaterialModel}
+                  value={currentItem.MaterialModel}
                 />
                 <AtInput
                   name='qty'
                   title='数量：'
                   type='number'
-                  value={this.state.qty}
+                  value={qty}
                   onChange={this.handleModalChange.bind(this, 'qty')}
                 >
                   <Text>公斤</Text>
@@ -161,8 +162,8 @@ export default class ProductSelect extends Component {
                   name='DefaultPrice'
                   title='开单价：'
                   type='digit'
-                  value={this.state.currentItem.DefaultPrice}
-                  onChange={this.handleModalChange.bind(this, 'DefaultlPrice')}
+                  value={currentItem.DefaultPrice}
+                  onChange={this.handleModalChange.bind(this, 'DefaultPrice')}
                 >
                   <Text>元</Text>
                 </AtInput>
@@ -170,7 +171,7 @@ export default class ProductSelect extends Component {
                   name='price'
                   title='结算价：'
                   type='digit'
-                  value={this.state.currentItem.MaterialPrice}
+                  value={currentItem.MaterialPrice}
                   onChange={this.handleModalChange.bind(this, 'price')}
                 >
                   <Text>元</Text>

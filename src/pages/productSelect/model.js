@@ -36,8 +36,9 @@ export default {
         })
       } else {
         Taro.showToast({
-          title: '没有此商品',
-          icon: 'none'
+          title: '没有对应商品',
+          icon: 'none',
+          duration: 2200,
         });
       }
     }

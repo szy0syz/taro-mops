@@ -46,7 +46,6 @@ export default (options = { method: 'GET', data: {} }) => {
       Taro.showToast({
         title: `${data.error}`,
         icon: 'none',
-        mask: true,
       })
       // throw new Error(`网络请求错误，状态码${statusCode}`);
     }

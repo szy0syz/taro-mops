@@ -4,6 +4,7 @@ import { connect } from '@tarojs/redux'
 import { View, Button, Text, Image, Input, Picker } from '@tarojs/components'
 import { AtList, AtListItem, AtIcon, AtCheckbox, AtButton } from 'taro-ui'
 import { fetchById } from './service'
+import { OrderCell } from '../../components/OrderCell'
 import './index.scss'
 
 @connect(({ detail }) => ({
@@ -226,31 +227,10 @@ export default class Detail extends Component {
           </View>
           <View>
             <Text>选择货品({products.length || 0})</Text>
-            <Text>合计金额：￥{products.reduce((sum, item) => sum += item.amount, 0).toFixed(2)}</Text>
+            <Text>结算金额：￥{products.reduce((sum, item) => sum += item.amount, 0).toFixed(2)}</Text>
           </View>
           <View>
-            {products.map(item => (
-              <View key={item.FID} className='order-item'>
-                <Image className='m-img' src={item.MaterialUrl || 'http://cdn.jerryshi.com/picgo/20181104150040.png'}></Image>
-                <View>
-                  <Text>{item.MaterialName}</Text>
-                  <View className='order-cell'>
-                    <Text>结算价：￥{Number(item.MaterialPrice).toFixed(2)}</Text>
-                    <Text>数量：{Number(item.qty).toFixed(2)}公斤</Text>
-                  </View>
-                  <View className='order-cell'>
-                    <Text style='width: 60%;' className='ellipsis'>开单价：￥{item.DefaultPrice}</Text>
-                    <Text className='ellipsis'>开单金额：￥{Number(item.defaultAmount || 0).toFixed(2)}</Text>
-                  </View>
-                  <View className='order-cell'>
-                    <Text style='width: 60%;' className='ellipsis'>规格：{item.MaterialModel}</Text>
-                    <Text className='ellipsis'>结算金额：￥{Number(item.amount || 0).toFixed(2)}</Text>
-                  </View>
-                </View>
-                <View style='width: 10px;'></View>
-                {/* <AtIcon onClick={this.handleRemoveItem.bind(this, item)} value='subtract-circle' size='30' color='#F00'></AtIcon> */}
-              </View>
-            ))}
+            {products.map(item => (<OrderCell item={item} key={item.FID} />) )}
           </View>
           <View>
             {/* <Button onClick={this.handleNavigate.bind(this, 'productSelect')} style='background-color: #1fb7a6;' className='custom-button' size='large'>选择商品</Button> */}

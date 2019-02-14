@@ -1,28 +1,28 @@
 Arguments: 
-  /Users/jerry/.nvm/versions/node/v10.15.0/bin/node /usr/local/Cellar/yarn/1.13.0/libexec/bin/yarn.js add taro-ui/dist/weapp/style/components/search-bar/index.scss --silent --no-progress
+  /Users/jerry/.nvm/versions/node/v10.13.0/bin/node /Users/jerry/.yarn/bin/yarn.js add taro-ui/dist/style/index.scss --silent --no-progress
 
 PATH: 
-  /Users/jerry/.nvm/versions/node/v10.15.0/lib/node_modules/npm/node_modules/npm-lifecycle/node-gyp-bin:/Users/jerry/Git/taro-mops/node_modules/.bin:/Users/jerry/.nvm/versions/node/v10.15.0/lib/node_modules/npm/node_modules/npm-lifecycle/node-gyp-bin:/Users/jerry/Git/taro-mops/node_modules/.bin:/Users/jerry/.nvm/versions/node/v10.15.0/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/share/dotnet:/Applications/Wireshark.app/Contents/MacOS
+  /Users/jerry/.nvm/versions/node/v10.13.0/lib/node_modules/npm/node_modules/npm-lifecycle/node-gyp-bin:/Users/jerry/Git/taro-mops/node_modules/.bin:/Users/jerry/.nvm/versions/node/v10.13.0/lib/node_modules/npm/node_modules/npm-lifecycle/node-gyp-bin:/Users/jerry/Git/taro-mops/node_modules/.bin:/Users/jerry/.yarn/bin:/Users/jerry/.config/yarn/global/node_modules/.bin:/usr/local/opt/python/libexec/bin:/Users/jerry/.nvm/versions/node/v10.13.0/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/jerry/.yarn/bin:/Users/jerry/.config/yarn/global/node_modules/.bin:/usr/local/opt/python/libexec/bin
 
 Yarn version: 
   1.13.0
 
 Node version: 
-  10.15.0
+  10.13.0
 
 Platform: 
   darwin x64
 
 Trace: 
-  Error: https://registry.npmjs.org/taro-ui%2fdist/weapp/style/components/search-bar/index.scss: Request "https://registry.npmjs.org/taro-ui%2fdist/weapp/style/components/search-bar/index.scss" returned a 405
-      at Request.params.callback [as _callback] (/usr/local/Cellar/yarn/1.13.0/libexec/lib/cli.js:66264:18)
-      at Request.self.callback (/usr/local/Cellar/yarn/1.13.0/libexec/lib/cli.js:129397:22)
+  Error: https://registry.npm.taobao.org/taro-ui%2fdist/style/index.scss: not_found
+      at Request.params.callback [as _callback] (/Users/jerry/.yarn/lib/cli.js:66255:18)
+      at Request.self.callback (/Users/jerry/.yarn/lib/cli.js:129397:22)
       at Request.emit (events.js:182:13)
-      at Request.<anonymous> (/usr/local/Cellar/yarn/1.13.0/libexec/lib/cli.js:130369:10)
+      at Request.<anonymous> (/Users/jerry/.yarn/lib/cli.js:130369:10)
       at Request.emit (events.js:182:13)
-      at IncomingMessage.<anonymous> (/usr/local/Cellar/yarn/1.13.0/libexec/lib/cli.js:130291:12)
+      at Gunzip.<anonymous> (/Users/jerry/.yarn/lib/cli.js:130291:12)
       at Object.onceWrapper (events.js:273:13)
-      at IncomingMessage.emit (events.js:187:15)
+      at Gunzip.emit (events.js:187:15)
       at endReadableNT (_stream_readable.js:1094:12)
       at process._tickCallback (internal/process/next_tick.js:63:19)
 
@@ -61,7 +61,7 @@ npm manifest:
   		"redux": "^4.0.0",
   		"redux-logger": "^3.0.6",
   		"redux-thunk": "^2.3.0",
-  		"taro-ui": "^1.3.5",
+  		"taro-ui": "1.3.5",
   		"underscore": "^1.9.1"
   	},
   	"devDependencies": {
@@ -7375,9 +7375,10 @@ Lockfile:
       safe-buffer "^5.1.2"
       yallist "^3.0.2"
   
-  taro-ui@^1.3.5:
+  taro-ui@1.3.5:
     version "1.3.5"
     resolved "http://registry.npm.taobao.org/taro-ui/download/taro-ui-1.3.5.tgz#644dca89a8af552c253d79db4be349d54d1aea18"
+    integrity sha1-ZE3KiaivVSwlPXnbS+NJ1U0a6hg=
     dependencies:
       classnames "^2.2.6"
       lodash "^4.17.10"
