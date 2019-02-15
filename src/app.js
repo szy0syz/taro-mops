@@ -1,7 +1,17 @@
 import Taro, { Component } from '@tarojs/taro'
-import Index from './pages/index'
 
+import { Provider } from '@tarojs/redux'
+import dva from './utils/dva'
+import models from './models'
+
+import Index from './pages/index'
 import './app.scss'
+
+const dvaApp = dva.createApp({
+  initialState: {},
+  models: models,
+});
+const store = dvaApp.getStore();
 
 // 如果需要在 h5 环境中开启 React Devtools
 // 取消以下注释：
@@ -33,10 +43,10 @@ class App extends Component {
 
   // 在 App 类中的 render() 函数没有实际作用
   // 请勿修改此函数
-  render () {
-    return (
+  render() {
+    return (<Provider store={store}>
       <Index />
-    )
+    </Provider>);
   }
 }
 
