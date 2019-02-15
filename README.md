@@ -22,9 +22,9 @@
 
 ## 环境
 
-> ✔️ 开发环境：macOS, Version 10.12.6 + NodeJS v10.13.0 + Taro v1.2.2
+> ✔️ 开发环境：macOS, Version 10.12.6 + NodeJS v10.13.0 + Taro v1.2.13
 
-> ✔️ 开发环境：Windows 10 Enterprise LTSB + NodeJS v10.13.0 + Taro v1.2.2
+> ✔️ 开发环境：Windows 10 Enterprise LTSB + NodeJS v10.13.0 + Taro v1.2.13
 
 ## TODO
 
