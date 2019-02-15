@@ -1,52 +1,93 @@
 const config = {
   projectName: 'taro-mops',
-  date: '2018-10-22',
-  // 设计稿尺寸
+  date: '2019-2-15',
   designWidth: 750,
+  deviceRatio: {
+    '640': 2.34 / 2,
+    '750': 1,
+    '828': 1.81 / 2
+  },
   sourceRoot: 'src',
   outputRoot: 'dist',
-  // 通用插件配置
   plugins: {
     babel: {
       sourceMap: true,
       presets: [
-        'env'
+        ['env', {
+          modules: false
+        }]
       ],
       plugins: [
-        'transform-class-properties',
         'transform-decorators-legacy',
+        'transform-class-properties',
         'transform-object-rest-spread'
       ]
-    },
+    }
   },
-  // 全局变量设置
-  defineConstants: {},
-  // 小程序端专用配置
+  defineConstants: {
+  },
+  copy: {
+    patterns: [
+    ],
+    options: {
+    }
+  },
   weapp: {
-    compile: {
-      exclude: ['src/components/ec-canvas/echarts.js']
-    },
     module: {
       postcss: {
         autoprefixer: {
-          enable: true
+          enable: true,
+          config: {
+            browsers: [
+              'last 3 versions',
+              'Android >= 4.1',
+              'ios >= 8'
+            ]
+          }
         },
-        // 小程序端样式引用本地资源内联配置
+        pxtransform: {
+          enable: true,
+          config: {
+
+          }
+        },
         url: {
           enable: true,
-          limit: 10240
+          config: {
+            limit: 10240 // 设定转换尺寸上限
+          }
+        },
+        cssModules: {
+          enable: false, // 默认为 false，如需使用 css modules 功能，则设为 true
+          config: {
+            namingPattern: 'module', // 转换模式，取值为 global/module
+            generateScopedName: '[name]__[local]___[hash:base64:5]'
+          }
         }
       }
     }
   },
-  // H5 端专用配置
   h5: {
     publicPath: '/',
     staticDirectory: 'static',
     module: {
       postcss: {
         autoprefixer: {
-          enable: true
+          enable: true,
+          config: {
+            browsers: [
+              'last 3 versions',
+              'Android >= 4.1',
+              'ios >= 8'
+            ]
+          }
+        },
+        cssModules: {
+          enable: false, // 默认为 false，如需使用 css modules 功能，则设为 true
+          config: {
+            namingPattern: 'module', // 转换模式，取值为 global/module
+            generateScopedName: '[name]__[local]___[hash:base64:5]'
+          }
         }
       }
     }
