@@ -28,10 +28,42 @@ class App extends Component {
       'pages/index/index',
     ],
     window: {
-      backgroundTextStyle: 'light',
-      navigationBarBackgroundColor: '#fff',
-      navigationBarTitleText: 'WeChat',
-      navigationBarTextStyle: 'black'
+      backgroundTextStyle: 'dark',
+      navigationBarBackgroundColor: '#21b5a9',
+      navigationBarTitleText: '云农农业科技',
+      navigationBarTextStyle: 'white'
+    },
+    tabBar: {
+      list: [{
+        pagePath: "pages/index/index",
+        text: "首页",
+        iconPath: "./images/tab/home.png",
+        selectedIconPath: "./images/tab/home-active.png"
+      }, {
+        pagePath: "pages/index/index",
+        text: "明细",
+        iconPath: "./images/tab/list2.png",
+        selectedIconPath: "./images/tab/list2-act.png"
+      }, {
+        pagePath: "pages/index/index",
+        text: "开单",
+        iconPath: "./images/icon/plus.png",
+        selectedIconPath: "./images/icon/plus.png"
+      }, {
+        pagePath: "pages/index/index",
+        text: "报表",
+        iconPath: "./images/tab/report2.png",
+        selectedIconPath: "./images/tab/report2-act.png"
+      },{
+        pagePath: "pages/index/index",
+        text: "我的",
+        iconPath: "./images/tab/user.png",
+        selectedIconPath: "./images/tab/user-active.png"
+      }],
+      color: '#333',
+      selectedColor: '#333',
+      backgroundColor: '#fff',
+      borderStyle: 'white'
     }
   }
 

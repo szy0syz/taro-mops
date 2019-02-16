@@ -28,7 +28,7 @@ export default {
     * login(_, { call, put, select }) {
       const { openid, easid, nickName, mobile, password, avatar, city, province } = yield select(state => state.login)
       const res = yield call(login.login_v2, { openid, easid, nickName, mobile, password, avatar, city, province })
-
+      console.log('res', res)
       if (res.success) {
         yield put({
           type: 'save',
@@ -42,7 +42,7 @@ export default {
         Taro.setStorage({ key: 'userInfo', data: res.data })
         setTimeout(() => {
           Taro.switchTab({
-            url: '/pages/home/index',
+            url: '/pages/index/index',
           })
         }, 2000)
       } else {
