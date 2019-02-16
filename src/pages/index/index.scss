@@ -1,0 +1,19 @@
+@import "../../styles/mixin.scss";
+.home-page {
+    @include wh(100vw, 100vh);
+    background: url('http://cdn.jerryshi.com/picgo/20181027103851.png') no-repeat;
+    background-position: bottom;
+    background-size: cover;
+    text-align: center;
+
+    .logo {
+        margin-top: 150px;
+        height: 150px;
+        width: 150px;
+    }
+
+    .cname {
+        color: #fff;
+        font-size: 36px;
+    }
+}
