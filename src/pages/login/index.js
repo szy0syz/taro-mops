@@ -54,7 +54,7 @@ export default class Login extends Component {
     if (toast === '1') {
       this.showToast(msg, 'none', Number(duration))
     } else {
-      Taro.showLoading({ title: '验证中', mask: true })
+      Taro.showLoading({ title: '验证中', mask: false })
 
       const res = await verify_v2()
 

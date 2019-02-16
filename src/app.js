@@ -26,6 +26,9 @@ class App extends Component {
     pages: [
       'pages/login/index',
       'pages/index/index',
+      
+      // ---- reports ----
+      'pages/reports/index/index',
     ],
     window: {
       backgroundTextStyle: 'dark',
@@ -50,7 +53,7 @@ class App extends Component {
         iconPath: "./images/icon/plus.png",
         selectedIconPath: "./images/icon/plus.png"
       }, {
-        pagePath: "pages/index/index",
+        pagePath: "pages/reports/index/index",
         text: "报表",
         iconPath: "./images/tab/report2.png",
         selectedIconPath: "./images/tab/report2-act.png"

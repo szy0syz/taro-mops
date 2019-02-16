@@ -1,0 +1,7 @@
+@import "../../../styles/mixin";
+.container {
+    padding: 30rpx 10rpx;
+    @include fja(space-around);
+    flex-wrap: wrap;
+    align-content: center;
+}
