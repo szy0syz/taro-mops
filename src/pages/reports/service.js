@@ -1,14 +1,14 @@
 
 import Request from '../../utils/request';
 
-export const code2Session = data => Request({
-  url: '/public/openidAndSessKey',
-  method: 'post',
+export const fetchInventory = data => Request({
+  url: '/eas/inventory',
+  method: 'GET',
   data
 })
 
-export const fetchInventory = data => Request({
-  url: '/eas/inventory',
+export const fetchARdataByCustFID = data => Request({
+  url: '/eas/customerAR',
   method: 'GET',
   data
 })
