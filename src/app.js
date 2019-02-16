@@ -29,6 +29,8 @@ class App extends Component {
       
       // ---- reports ----
       'pages/reports/index/index',
+      'pages/reports/inventory/index',
+      'pages/reports/customerAR/index',
     ],
     window: {
       backgroundTextStyle: 'dark',

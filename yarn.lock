@@ -2305,7 +2305,7 @@ date-now@^0.1.4:
   resolved "https://registry.yarnpkg.com/date-now/-/date-now-0.1.4.tgz#eaf439fd4d4848ad74e5cc7dbef200672b9e345b"
   integrity sha1-6vQ5/U1ISK105cx9vvIAZyueNFs=
 
-dayjs@^1.7.7:
+dayjs@^1.7.7, dayjs@^1.8.6:
   version "1.8.6"
   resolved "http://registry.npm.taobao.org/dayjs/download/dayjs-1.8.6.tgz#b7a8ccfef173dae03e83a05a58788c9dbe948a35"
   integrity sha1-t6jM/vFz2uA+g6BaWHiMnb6UijU=

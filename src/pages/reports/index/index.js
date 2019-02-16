@@ -14,15 +14,15 @@ export default class ReportList extends Component {
       reportList: [
         {
           name: '销售统计',
-          path: '/pages/report/sale/index'
+          path: '/pages/reports/sale/index'
         },
         {
           name: '客户对账',
-          path: '/pages/report/customerAR/index'
+          path: '/pages/reports/customerAR/index'
         },
         {
           name: '即时库存',
-          path: '/pages/report/inventory/index'
+          path: '/pages/reports/inventory/index'
         }
       ]
     }

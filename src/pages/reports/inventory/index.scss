@@ -1,0 +1,33 @@
+@import "../../../styles/mixin";
+@import "~taro-ui/dist/style/components/search-bar.scss";
+.inventory-page {
+    view.card-box {
+        margin-bottom: 12px;
+    }
+    view.at-card {
+        border: 2PX solid $color-primary;
+    }
+    view.at-card-header {
+        border-bottom: 1PX solid $color-primary;
+    }
+    .card-body {
+        @include fja;
+    }
+
+    .input-content {
+        box-sizing: border-box;
+        border-radius: 14px;
+        background-color: rgba(236, 241, 247, 1);
+        height: 70px;
+        width: 94%;
+        padding: 0 28px;
+    }
+    .search-content {
+        @include fja(center, center);
+        padding-left: 10px;
+    }
+
+    .cover-empty {
+        @include wh(100%, 600px);
+    }
+}
