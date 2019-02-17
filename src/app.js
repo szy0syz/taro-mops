@@ -29,8 +29,12 @@ class App extends Component {
       
       // ---- reports ----
       'pages/reports/index/index',
+      'pages/reports/saleStats/index',
       'pages/reports/inventory/index',
       'pages/reports/customerAR/index',
+
+      // ---- selections ----
+      'pages/selections/customers/index',
     ],
     window: {
       backgroundTextStyle: 'dark',

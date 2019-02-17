@@ -4,7 +4,7 @@ import { AtIcon, AtCard } from 'taro-ui'
 import PropTypes from 'prop-types'
 
 import './index.scss'
-// import thumbPNG from '../../assets/images/money.png'
+import thumbPNG from '../../assets/images/money.png'
 
 class CardList extends Component {
   static propTypes = {
@@ -28,13 +28,12 @@ class CardList extends Component {
     const cardBox = bills.map(bill => (
       <View key={bill.FNumber} className='bill-card'>
         <AtCard
-          note='马静敏'
-          extra={`￥${bill.FAmount}`}
+          // note='马静敏'
+          extra={`￥${Number(bill.FAmount).toFixed(2)}`}
           title={bill.FBizDate}
-          // thumb={thumbPNG}
-          thumb='https://img12.360buyimg.com/jdphoto/s72x72_jfs/t6160/14/2008729947/2754/7d512a86/595c3aeeNa89ddf71.png'
+          thumb={thumbPNG}
         >
-          {bill.FNumber}
+          <Text>单据编号：{bill.FNumber}</Text>
         </AtCard>
       </View>
     ))

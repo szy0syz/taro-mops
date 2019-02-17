@@ -1,0 +1,54 @@
+@import "../../styles/mixin";
+
+.container {
+    padding: 15px;
+}
+
+.box-header {
+    position: relative;
+    display: flex;
+    
+    .picker {
+        padding-right: 12rpx;
+    }
+    .at-icon-chevron-down {
+        margin-top: -5rpx;
+    }
+    .selectedCalr {
+        position: absolute;
+        right: 20rpx;
+        margin-top: -2rpx;
+        padding: 0 30rpx; //增大有效接触面积
+        margin-right: -30rpx;
+    }
+}
+
+.box-search {
+    font-size: 26rpx;
+    &>Text:first-child {
+        display: block;
+        text-align: center;
+        padding: 20rpx 0 10rpx 0;
+        font-size: 28rpx;
+        border-bottom: 2rpx solid rgba(112, 159, 239, 1);
+        color: rgba(112, 159, 239, 1);
+    }
+    .searchType {
+        display: inline-block;
+        background-color: #eee;
+        padding: 8rpx 12rpx;
+        border-radius: 12rpx;
+    }
+    .searchInput {
+        width: 76%;
+        display: inline-block;
+        padding-left: 20rpx;
+        input {
+            background-color: #eee;
+            height: 10rpx;
+            font-size: 26rpx;
+            padding: 2rpx 4rpx 4rpx 20rpx;
+            border-radius: 12rpx;
+        }
+    }
+}

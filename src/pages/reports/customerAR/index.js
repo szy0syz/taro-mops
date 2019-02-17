@@ -18,6 +18,11 @@ class CustomerAR extends Component {
     navigationBarTitleText: '报表-客户对账',
   }
 
+  state = {
+    isOpenAR: false,
+    isOpenCR: false,
+  }
+
   async componentDidShow() {
     const { customer, dispatch } = this.props
     if (customer && customer.FID) {
@@ -41,7 +46,7 @@ class CustomerAR extends Component {
   }
 
   handleNaviCustomer = () => {
-    Taro.navigateTo({ url: '/pages/customerSelect/index?prevModel=cusAR' })
+    Taro.navigateTo({ url: '/pages/selections/customers/index?prevModel=cusAR' })
   }
 
   handleGetReport = async () => {
@@ -111,8 +116,22 @@ class CustomerAR extends Component {
     })
   }
 
+  handleClickAccordion = (type, value) => {
+    let payload;
+    switch (type) {
+      case 'AR':
+        payload = { isOpenAR: value }
+        break;
+      case 'CR':
+      payload = { isOpenCR: value }
+        break;
+    }
+    this.setState({ ...payload })
+  }
+
   render() {
-    const { customer, arBills, crBills, beginingAmount, arCurtAmount, crCurtAmount, endingAmount } = this.props
+    const { isOpenAR, isOpenCR } = this.state;
+    const { customer, arBills = [], crBills = [], beginingAmount, arCurtAmount, crCurtAmount, endingAmount } = this.props
     return (
       <View className='CustomerAR-container'>
         <ReportHeader onBtnDateClick={this.handleDateBtnClick} dateStart={this.props.dateStart} dateEnd={this.props.dateEnd} onDateChange={this.handleDateChange}></ReportHeader>
@@ -133,8 +152,7 @@ class CustomerAR extends Component {
           <Text>期末余额</Text><Text>￥{endingAmount}</Text>
         </View>
         <View className='body'>
-
-          <AtAccordion title='应收单' icon={{ value: 'menu', color: 'red', size: '22' }}>
+          <AtAccordion title='应收单' open={isOpenAR} onClick={this.handleClickAccordion.bind(this, 'AR')} icon={{ value: 'menu', color: 'red', size: '22' }}>
             <ScrollView
               scrollY
               scrollWithAnimation
@@ -144,7 +162,7 @@ class CustomerAR extends Component {
               <CardList bills={arBills}></CardList>
             </ScrollView>
           </AtAccordion>
-          <AtAccordion title='收款单' icon={{ value: 'menu', color: 'green', size: '22' }}>
+          <AtAccordion title='收款单' open={isOpenCR} onClick={this.handleClickAccordion.bind(this, 'CR')} icon={{ value: 'menu', color: 'green', size: '22' }}>
             <ScrollView
               scrollY
               scrollWithAnimation

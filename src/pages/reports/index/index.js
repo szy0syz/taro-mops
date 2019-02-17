@@ -14,7 +14,7 @@ export default class ReportList extends Component {
       reportList: [
         {
           name: '销售统计',
-          path: '/pages/reports/sale/index'
+          path: '/pages/reports/saleStats/index'
         },
         {
           name: '客户对账',
