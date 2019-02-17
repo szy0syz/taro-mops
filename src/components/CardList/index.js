@@ -3,8 +3,9 @@ import { View, Text } from '@tarojs/components'
 import { AtIcon, AtCard } from 'taro-ui'
 import PropTypes from 'prop-types'
 
+import thumbPNG from '@assets/images/money.png'
 import './index.scss'
-import thumbPNG from '../../assets/images/money.png'
+
 
 class CardList extends Component {
   static propTypes = {

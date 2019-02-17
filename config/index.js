@@ -91,6 +91,13 @@ const config = {
         }
       }
     }
+  },
+  alias: {
+    '@': 'src',
+    '@utils': 'src/utils',
+    '@assets': 'src/assets',
+    '@css': 'src/assets/css',
+    '@commponents': 'src/commponents',
   }
 }
 

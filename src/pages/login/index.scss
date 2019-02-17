@@ -1,4 +1,4 @@
-@import "../../styles/mixin";
+@import "../../assets/css/mixin.scss";
 .login-page {
     @include wh(100%, 100%);
     overflow: scroll;

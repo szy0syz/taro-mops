@@ -1,4 +1,4 @@
-@import "../../../styles/mixin";
+@import "../../../assets/css/mixin.scss";
 .container {
     padding: 30rpx 10rpx;
     @include fja(space-around);
