@@ -46,28 +46,28 @@ class App extends Component {
       list: [{
         pagePath: "pages/index/index",
         text: "首页",
-        iconPath: "./images/tab/home.png",
-        selectedIconPath: "./images/tab/home-active.png"
+        iconPath: "./assets/images/tab/home.png",
+        selectedIconPath: "./assets/images/tab/home-active.png"
       }, {
         pagePath: "pages/index/index",
         text: "明细",
-        iconPath: "./images/tab/list2.png",
-        selectedIconPath: "./images/tab/list2-act.png"
+        iconPath: "./assets/images/tab/list2.png",
+        selectedIconPath: "./assets/images/tab/list2-act.png"
       }, {
         pagePath: "pages/index/index",
         text: "开单",
-        iconPath: "./images/icon/plus.png",
-        selectedIconPath: "./images/icon/plus.png"
+        iconPath: "./assets/images/icon/plus.png",
+        selectedIconPath: "./assets/images/icon/plus.png"
       }, {
         pagePath: "pages/reports/index/index",
         text: "报表",
-        iconPath: "./images/tab/report2.png",
-        selectedIconPath: "./images/tab/report2-act.png"
+        iconPath: "./assets/images/tab/report2.png",
+        selectedIconPath: "./assets/images/tab/report2-act.png"
       },{
         pagePath: "pages/index/index",
         text: "我的",
-        iconPath: "./images/tab/user.png",
-        selectedIconPath: "./images/tab/user-active.png"
+        iconPath: "./assets/images/tab/user.png",
+        selectedIconPath: "./assets/images/tab/user-active.png"
       }],
       color: '#333',
       selectedColor: '#333',
