@@ -2,34 +2,30 @@ import Taro from '@tarojs/taro'
 import * as Service from '../service';
 
 export default {
-  namespace: 'customerSelect',
+  namespace: 'productSelect',
   state: {
-    customer: {},
-    customerList: [],
-    prevModel: '',
-    keyword: '',
-    searchType: {
-      key: '客户名',
-      value: 'customerName'
-    },
     searchTypes: [
       {
-        key: '客户名',
-        value: 'customerName'
+        key: '商品名',
+        value: 'productName'
       },
       {
-        key: '电话',
-        value: 'customerPhone'
+        key: '类别',
+        value: 'customerType'
       },
       {
         key: '备注',
         value: 'customerRemark'
       }
-    ]
+    ],
+    prevModel: '',
+    keyword: '',
+    products: [],
+    productList: []
   },
   effects: {
-    * getCustomers({ payload }, { put, call }) {
-      const res = yield call(Service.getCustomers, payload)
+    * fetchProducts({ payload }, { put, call }) {
+      const res = yield call(Service.getMaterials, payload)
       yield put({
         type: 'save',
         payload
@@ -38,12 +34,12 @@ export default {
         yield put({
           type: 'save',
           payload: {
-            customerList: res.data
+            productList: res.data
           }
         })
       } else {
         Taro.showToast({
-          title: '没有对应客户',
+          title: '没有对应商品',
           icon: 'none',
           duration: 2200,
         });
@@ -53,7 +49,6 @@ export default {
   reducers: {
     save(state, { payload }) {
       return { ...state, ...payload }
-    },
-    init() { }
-  },
+    }
+  }
 }

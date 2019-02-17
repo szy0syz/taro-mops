@@ -1,0 +1,91 @@
+@import "../../../assets/css/mixin.scss";
+.sel-product-page {
+    @include wh(100%, 100%);
+    box-sizing: border-box;
+    background-color: rgba(236, 241, 245, 1);
+    &>View {
+        box-sizing: border-box;
+    }
+    .header {
+        height: 9%;
+        width: 100%;
+        padding: 24rpx;
+        background-color: #fff;
+        color: rgba(117, 117, 119, 1);
+        @include fja(space-between, center);
+        .customer-type {
+            width: 190rpx;
+            height: 70rpx;
+            line-height: 70rpx;
+            text-align: center;
+            border-radius: 14rpx;
+            background-color: rgba(236, 241, 247, 1);
+        }
+        Input {
+            box-sizing: border-box;
+            border-radius: 14rpx;
+            background-color: rgba(236, 241, 247, 1);
+            height: 70rpx;
+            width: 70%;
+            padding: 0 28rpx;
+        }
+    }
+    .body {
+        margin-top: 12rpx;
+        padding: 0 26rpx;
+        height: 78%;
+        width: 100%;
+        background-color: #fff;
+        .order-item {
+            @include fja;
+            padding: 8rpx 8rpx;
+            border-bottom: 1px solid #888;
+            box-shadow: 2px 2px 5px #888888;
+            &>View {
+                width: 75%;
+                &>View {
+                    margin-top: 6rpx;
+                }
+            }
+        }
+        .product-img {
+            height: 90rpx;
+            width: 90rpx;
+        }
+        .order-cell {
+            @include fja;
+            color: #666;
+            font: 28rpx sans-serif;
+        }
+    }
+    .footer {   // 底部浮动定位
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 8%;
+        width: 100%;
+        overflow: hidden;
+        background-color: #fff;
+        border-bottom-left-radius: 20rpx;
+        border-bottom-right-radius: 20rpx;
+        padding-left: 18rpx;
+        @include fja(space-between, center);
+        View.at-button--secondary {
+            border: none;
+            color: $color-primary;
+            font-size: 34rpx;
+            margin-bottom: -10rpx;
+        }
+        .select-btn {
+            height: 100%;
+            width: 200rpx;
+            @include fja(center, center);
+            background-color: $color-primary;
+            .at-button--secondary {
+                color: #fff;
+                background-color: $color-primary;
+            }
+        }
+    }
+}

@@ -1,0 +1,172 @@
+@import "../../../assets/css/mixin.scss";
+
+.order-page {
+    min-width: 100%;
+    min-height: 100vh;
+    background-color: #eee;
+    font-size: 30rpx;
+    padding-bottom: 150rpx;
+}
+
+.date-selector {
+    position: absolute;
+    z-index: 10;
+    top: 32rpx;
+    right: 16rpx;
+}
+
+.order-wrapper {
+    background-color: #fff;
+    // height: 200rpx; // TODO: 其它组件中也删除这个值
+    .custom-listItem {
+        font-size: 30rpx;
+        View.item-extra__info {
+            // 限制 extra_info 文字的最大宽度
+            max-width: 580px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    }
+    .at-list__item .item-extra__info {
+        font-size: 30rpx;
+        overflow: inherit;
+        color: #111;
+        display: block;
+    }
+    // 修复 at-list-item多行显示
+    .at-list__item-extra {
+        max-height: 40px;
+        white-space: nowrap;
+        flex: 0 0 440px;
+    }
+}
+
+.order-content {
+    margin-top: 20rpx;
+    background-color: #fff;
+    &>View {
+        border-bottom: 1px solid #ddd;
+    }
+    &>View:first-child,
+    &>View:nth-child(2) {
+        padding: 12rpx 0;
+        display: flex;
+        justify-content: space-around;
+    }
+    .custom-button {
+        padding: 0 10rpx;
+        color: #fff;
+    }
+    &>View:nth-child(4) {
+        padding: 24rpx 0;
+        display: flex;
+        justify-content: space-around;
+        Image {
+            height: 80rpx;
+            width: 80rpx;
+        }
+    }
+    &>View:nth-child(3) {
+        padding: 12rpx 18rpx;
+    }
+    .order-item {
+        @include fja;
+        padding: 8rpx 8rpx;
+        border-bottom: 1px solid #888;
+        box-shadow: 2px 2px 5px #888888;
+        &>View {
+            width: 68%;
+            &>View {
+                margin-top: 6rpx;
+            }
+        }
+    }
+    .order-cell {
+        @include fja;
+        font: 23rpx sans-serif;
+    }
+    .m-img {
+        height: 90rpx;
+        width: 90rpx;
+    }
+}
+
+.order-footer {
+    height: 100%;
+    padding-bottom: 20rpx;
+    color: #333;
+    margin-top: 24rpx;
+    border-bottom: none;
+    &>View:last-child>View {
+        background-color: #eee;
+        padding: 16rpx;
+        width: 9vw;
+        height: 60rpx;
+        z-index: -1;
+        border-radius: 10rpx;
+        border: 1px solid #aaa;
+        margin: 30rpx 30rpx 0 0;
+    }
+    &>View:first-child {
+        padding-top: 18rpx;
+    }
+    &>View {
+        padding: 20rpx;
+        padding-bottom: 6rpx;
+        padding-top: 2rpx;
+    }
+    &>View:not(:last-child) {
+        @include fja;
+        margin-bottom: 24rpx;
+        border-bottom: 1px solid #bbb;
+    }
+    .input-amount {
+        width: 200rpx;
+        text-align: right;
+    }
+}
+
+.remark {
+    height: 40rpx;
+    padding: 20rpx;
+    padding-bottom: 10rpx;
+    margin-bottom: 24rpx;
+    border-bottom: 1px solid #fff;
+}
+
+View.at-checkbox {
+    background-color: transparent;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    View.at-checkbox__option {
+        width: 40vw;
+    }
+}
+
+View.toolbar {
+    z-index: 10;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    height: 8vh;
+    background-color: #fff;
+    @include fja(space-around);
+    padding: 10rpx 0 10rpx 0;
+    View.at-button--primary,
+    View.at-button--secondary {
+        height: 80rpx;
+        line-height: 80rpx;
+    }
+    View.at-button--primary {
+        background-color: $color-primary;
+        border: 1px solid $color-primary;
+    }
+    View.at-button--secondary {
+        color: $color-primary;
+        border: 1px solid $color-primary;
+    }
+}

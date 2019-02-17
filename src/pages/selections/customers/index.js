@@ -28,6 +28,10 @@ export default class CustomerSelect extends Component {
     })
   }
 
+  /*
+    选定客户，如果路由判断有prevModel属性，则保存到指定model中，并返回上一页
+            如果没有就保存到当前model中，并切换订单创建页
+  */
   handleSelected(customer) {
     const { prevModel, dispatch } = this.props
     if (prevModel) {
@@ -39,12 +43,6 @@ export default class CustomerSelect extends Component {
       })
       Taro.navigateBack()
     } else {
-      // ----应移除----
-      // dispatch({
-      //   type: 'order/save',
-      //   payload: { customer }
-      // })
-      // -------------
       dispatch({
         type: 'customerSelect/save',
         payload: { customer }

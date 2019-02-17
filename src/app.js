@@ -26,6 +26,8 @@ class App extends Component {
     pages: [
       'pages/login/index',
       'pages/index/index',
+
+      'pages/saleOrder/create/index',
       
       // ---- reports ----
       'pages/reports/index/index',
@@ -34,7 +36,9 @@ class App extends Component {
       'pages/reports/customerAR/index',
 
       // ---- selections ----
+      'pages/selections/products/index',
       'pages/selections/customers/index',
+      
     ],
     window: {
       backgroundTextStyle: 'dark',
@@ -54,7 +58,7 @@ class App extends Component {
         iconPath: "./assets/images/tab/list2.png",
         selectedIconPath: "./assets/images/tab/list2-act.png"
       }, {
-        pagePath: "pages/index/index",
+        pagePath: "pages/saleOrder/create/index",
         text: "开单",
         iconPath: "./assets/images/icon/plus.png",
         selectedIconPath: "./assets/images/icon/plus.png"
