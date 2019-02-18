@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, ScrollView, Image, Text, Button } from '@tarojs/components'
+import { View, ScrollView, Text, Button } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 import { AtInput, AtForm, AtButton, AtList, AtIcon, AtBadge, AtModal, AtModalHeader, AtModalContent, AtModalAction } from 'taro-ui'
 

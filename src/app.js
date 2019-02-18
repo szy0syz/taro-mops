@@ -26,6 +26,7 @@ class App extends Component {
     pages: [
       'pages/login/index',
       'pages/index/index',
+      'pages/list/index',
 
       'pages/saleOrder/create/index',
       
@@ -53,7 +54,7 @@ class App extends Component {
         iconPath: "./assets/images/tab/home.png",
         selectedIconPath: "./assets/images/tab/home-active.png"
       }, {
-        pagePath: "pages/index/index",
+        pagePath: "pages/list/index",
         text: "明细",
         iconPath: "./assets/images/tab/list2.png",
         selectedIconPath: "./assets/images/tab/list2-act.png"

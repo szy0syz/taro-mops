@@ -1,0 +1,159 @@
+@import "../../assets/css/mixin.scss";
+.page-container {
+    height: 100%;
+    background-color: #eee;
+    position: relative;
+    font-size: 30rpx;
+}
+
+.tabs-container {
+    position: absolute;
+    height: 95%;
+    top: 20rpx;
+    left: 3%;
+    width: 97%;
+    .at-tabs__header {
+        background-color: rgba(0, 0, 0, 0);
+    }
+    View.at-tabs-pane {
+        background-color: #fff;
+    }
+    View.at-tabs__item {
+        background-color: #bbb;
+        margin-bottom: 30rpx;
+        padding: 30rpx 10rpx;
+        width: 42rpx;
+        border-radius: 20rpx 0 0 20rpx;
+        writing-mode: vertical-rl;
+        &:first-child {
+            margin-top: 30rpx;
+        }
+        color: rgba(248, 248, 248, 0.9);
+    }
+    View.at-tabs__item:nth-child(1) {
+        background-color: rgba(112, 159, 239, 1);
+    }
+    View.at-tabs__item:nth-child(2) {
+        background-color: rgba(241, 181, 85, 1);
+    }
+    View.at-tabs__item:nth-child(3) {
+        background-color: rgba(238, 103, 117, 1);
+    }
+    View.at-tabs__item:nth-child(4) {
+        background-color: rgba(114, 192, 116, 1);
+    }
+}
+
+.tab-box {
+    padding: 15px;
+}
+
+.box-header {
+    position: relative;
+    display: flex;
+    .picker {
+        padding-right: 12rpx;
+    }
+    .at-icon-chevron-down {
+        margin-top: -5rpx;
+    }
+    .selectedDate {
+        position: absolute;
+        right: 20rpx;
+        margin-top: -2rpx;
+        padding: 0 30rpx; //增大有效接触面积
+        margin-right: -30rpx;
+    }
+}
+
+.box-search {
+    font-size: 26rpx;
+    &>Text:first-child {
+        display: block;
+        text-align: center;
+        padding: 20rpx 0 10rpx 0;
+        font-size: 28rpx;
+        border-bottom: 2rpx solid rgba(112, 159, 239, 1);
+        color: rgba(112, 159, 239, 1);
+    }
+    .searchType {
+        display: inline-block;
+        background-color: #eee;
+        padding: 8rpx 12rpx;
+        border-radius: 12rpx;
+    }
+    .searchInput {
+        width: 76%;
+        display: inline-block;
+        padding-left: 20rpx;
+        input {
+            background-color: #eee;
+            height: 10rpx;
+            font-size: 26rpx;
+            padding: 2rpx 4rpx 4rpx 20rpx;
+            border-radius: 12rpx;
+        }
+    }
+}
+
+.box-body {
+    width: 100%;
+    &>View:first-child {
+        display: flex;
+        height: 60rpx;
+        line-height: 60rpx;
+        justify-content: space-between;
+        align-content: center;
+        padding: 10rpx 0;
+        border-bottom: 2rpx solid #bbb;
+        color: rgba(112, 159, 239, 1);
+    }
+    .at-tag--circle {
+        height: 56rpx;
+    }
+    .at-tag {
+        padding: 0 26rpx;
+    }
+    .bill-item {
+        padding: 16rpx 8rpx;
+        border-bottom: 3rpx solid #ddd;
+    }
+    .bill-item {
+        color: rgba(115, 115, 115, 1);
+        font-size: 26rpx;
+    }
+    .bill-item>View {
+        width: 100%;
+        margin-bottom: 10rpx;
+    }
+    .bill-tag {
+        float: right;
+        color: #fff;
+        padding: 0 10rpx;
+        right: 40rpx;
+    }
+    .bill-opt.writing {
+        color: #fff;
+        margin-left: 12rpx;
+        background-color: #1fb7a6;
+    }
+    .bill-tag.shipped {
+        background-color: rgba(238, 103, 117, 1);
+    }
+    .bill-tag.paid {
+        background-color: rgba(114, 192, 116, 1);
+    }
+    .bill-tag.uploaded {
+        background-color: rgba(112, 159, 239, 1);
+    }
+    .bill-tag.received {
+        background-color: rgba(241, 181, 85, 1);
+    }
+    .bill-body {
+        margin-top: 18rpx;
+        color: #000;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}
