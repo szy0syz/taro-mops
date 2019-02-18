@@ -27,6 +27,7 @@ class App extends Component {
       'pages/login/index',
       'pages/index/index',
       'pages/list/index',
+      'pages/user/index',
 
       'pages/saleOrder/create/index',
       'pages/saleOrder/detail/index',
@@ -72,7 +73,7 @@ class App extends Component {
         iconPath: "./assets/images/tab/report2.png",
         selectedIconPath: "./assets/images/tab/report2-act.png"
       },{
-        pagePath: "pages/index/index",
+        pagePath: "pages/user/index",
         text: "我的",
         iconPath: "./assets/images/tab/user.png",
         selectedIconPath: "./assets/images/tab/user-active.png"

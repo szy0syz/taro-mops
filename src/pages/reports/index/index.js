@@ -23,6 +23,10 @@ export default class ReportList extends Component {
         {
           name: '即时库存',
           path: '/pages/reports/inventory/index'
+        },
+        {
+          name: '物料收发事物汇总表',
+          path: '/pages/reports/inventory/index'
         }
       ]
     }
@@ -37,7 +41,7 @@ export default class ReportList extends Component {
     return (
       <View className='container'>
         {reportList.map(item => (
-          <AtButton onClick={this.handleNav.bind(this, item.path)} size='normal' type='secondary' key={item.path}>{item.name}</AtButton>
+          <AtButton onClick={this.handleNav.bind(this, item.path)} style='margin-bottom: 15px;' size='normal' type='secondary' key={item.path}>{item.name}</AtButton>
         ))}
       </View>
     )
