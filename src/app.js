@@ -29,6 +29,9 @@ class App extends Component {
       'pages/list/index',
 
       'pages/saleOrder/create/index',
+      'pages/saleOrder/detail/index',
+
+      'pages/eas/detail/index',
       
       // ---- reports ----
       'pages/reports/index/index',

@@ -46,15 +46,11 @@ export default class List extends Component {
     this.props.dispatch({ type: 'list/saveKeyword', payload: kw })
   }
 
-  handleDetail = (_id) => {
-    Taro.navigateTo({ url: `/pages/detail/index?_id=${_id}` })
-  }
-
   handleNaviDetail = (basePath, id) => {
     if (/saleOrders/i.test(basePath)) {
-      Taro.navigateTo({ url: `/pages/detail/index?_id=${id}&basePath=${basePath}` })
+      Taro.navigateTo({ url: `/pages/saleOrder/detail/index?_id=${id}&basePath=${basePath}` })
     } else {
-      Taro.navigateTo({ url: `/pages/easDetail/index?id=${id}&basePath=${basePath}` })
+      Taro.navigateTo({ url: `/pages/eas/detail/index?id=${id}&basePath=${basePath}` })
     }
   }
 
