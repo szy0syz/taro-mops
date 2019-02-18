@@ -1,9 +1,9 @@
 import Taro, { Component } from '@tarojs/taro'
 import dayjs from 'dayjs'
 import { connect } from '@tarojs/redux'
-import { View, Button, Text, Image, Input, Picker } from '@tarojs/components'
+import { View, Button, Text, Input, Picker } from '@tarojs/components'
 import { AtList, AtListItem, AtIcon, AtButton } from 'taro-ui'
-// import { OrderCell } from '@components/OrderCell'
+import { OrderCell } from '../../../components/OrderCell'
 import './index.scss'
 
 @connect(({ order }) => ({
@@ -62,13 +62,6 @@ export default class Detail extends Component {
       payload: {
         billDate: dayjs(value.detail.value).format('YYYY-MM-DD')
       }
-    })
-  }
-
-  handleWaiting(msg) {
-    Taro.showToast({
-      icon: 'none',
-      title: msg || '功能开发中'
     })
   }
 
@@ -195,11 +188,11 @@ export default class Detail extends Component {
           <View></View>
           <View>
             <Text>选择货品({products.length || 0})</Text>
-            <Text>合计金额：￥{products.reduce((sum, item) => sum += item.amount, 0).toFixed(2)}</Text>
+            <Text>开单金额：￥{products.reduce((sum, item) => sum += item.defaultAmount, 0).toFixed(2)}</Text>
           </View>
           <View>
-            {/* {products.map(item => (<OrderCell item={item} key={item.FID} hasIcon={Boolean(true)} onHanleClick={this.handleRemoveItem.bind(this, index)} />) )} */}
-            {products.map((item, index) => (
+          {products.map((item, index) => (<OrderCell item={item} key={item.FID} index={index} hasIcon={Boolean(true)} onHanleClick={this.handleRemoveItem.bind(this, index)} />) )}
+            {/* {products.map((item, index) => (
               <View key={item.FID} className='order-item'>
                 <Image className='m-img' src={item.MaterialUrl}></Image>
                 <View>
@@ -215,7 +208,7 @@ export default class Detail extends Component {
                 </View>
                 <AtIcon onClick={this.handleRemoveItem.bind(this, index)} value='subtract-circle' size='30' color='#F00'></AtIcon>
               </View>
-            ))}
+            ))} */}
           </View>
           <View>
             <Button onClick={this.handleNavProdSel} style='background-color: #1fb7a6;' className='custom-button' size='large'>添加商品</Button>
@@ -228,7 +221,7 @@ export default class Detail extends Component {
         </View>
         <View className='order-wrapper order-footer'>
           <View>
-            <Text>应收金额</Text>
+            <Text>结算金额</Text>
             <Input value={amountRRR} disabled type='digit' placeholder='0.00' className='input-amount'></Input>
           </View>
           <View>

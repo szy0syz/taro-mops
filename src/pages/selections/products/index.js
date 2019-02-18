@@ -24,6 +24,7 @@ export default class ProductSelect extends Component {
     this.state = {
       isShowModal: false,
       qty: '',
+      giftQty: 0,
       amount: 0,
       defaultAmount: 0,
       currentItem: {
@@ -91,6 +92,7 @@ export default class ProductSelect extends Component {
     let product = Object.assign(this.state.currentItem, {
       MaterialPrice: Number(this.state.currentItem.MaterialPrice),
       qty: Number(this.state.qty),
+      giftQty: Number(this.state.giftQty),
       amount: Number(this.state.amount),
       defaultAmount: Number(this.state.defaultAmount),
     })
@@ -101,7 +103,11 @@ export default class ProductSelect extends Component {
         products
       }
     })
-    this.setState({ isShowModal: false })
+    this.setState({
+      isShowModal: false, 
+      qty: '',
+      giftQty: 0,
+    })
   }
 
 
@@ -118,6 +124,9 @@ export default class ProductSelect extends Component {
       case 'qty':
         this.setState({ qty: val }, calcAmount)
         break;
+      case 'giftQty':
+        this.setState({ giftQty: val })
+        break;
       case 'price':
         currentItem = Object.assign(this.state.currentItem, { MaterialPrice: val })
         this.setState({ currentItem }, calcAmount)
@@ -130,7 +139,7 @@ export default class ProductSelect extends Component {
   }
 
   render() {
-    const { currentItem, isShowModal, qty } = this.state;
+    const { currentItem, isShowModal, qty, giftQty } = this.state;
     const { productList, products, searchTypes } = this.props
     return (
       <View className='sel-product-page'>
@@ -190,6 +199,15 @@ export default class ProductSelect extends Component {
                   value={Number(this.state.amount).toFixed(4)}
                 >
                   <Text>元</Text>
+                </AtInput>
+                <AtInput
+                  name='qty'
+                  title='赠品数量：'
+                  type='number'
+                  value={giftQty}
+                  onChange={this.handleModalChange.bind(this, 'giftQty')}
+                >
+                  <Text>公斤</Text>
                 </AtInput>
               </AtForm>
             </View>
