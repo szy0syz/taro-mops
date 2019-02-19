@@ -10,6 +10,17 @@ class OrderCell extends Component {
     handleClick: PropTypes.func
   }
 
+  static defaultProps = {
+    item: {
+      qty: 0,
+      giftQty: 0,
+      MaterialPrice: 0,
+      DefaultPrice: 0,
+      amount: 0,
+      defaultAmount: 0,
+    }
+  }
+
   handleClick = index => {
     const { onHanleClick } = this.props
     onHanleClick(index)
@@ -30,9 +41,9 @@ class OrderCell extends Component {
             <View className='ellipsis'>结算价：￥{Number(item.MaterialPrice).toFixed(4)}</View>
           </View>
           <View className='at-row at-row--wrap'>
-            <View className='at-col at-col-12'>其中赠品：{Number(item.giftQty || 0).toFixed(2)}公斤</View>
-            <View className='at-col at-col-12'>开单金额：￥{Number(item.defaultAmount || 0).toFixed(4)}</View>
-            <View className='at-col at-col-12'>结算金额：￥{Number(item.amount || 0).toFixed(4)}</View>
+            <View className='at-col at-col-12'>其中赠品：{Number(item.giftQty).toFixed(2)}公斤</View>
+            <View className='at-col at-col-12'>开单金额：￥{Number(item.defaultAmount).toFixed(4)}</View>
+            <View className='at-col at-col-12'>结算金额：￥{Number(item.amount).toFixed(4)}</View>
           </View>
           {hasIcon ? (
             <View className='item-icon'>

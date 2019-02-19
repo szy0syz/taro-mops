@@ -5,10 +5,8 @@ import { connect } from '@tarojs/redux';
 import './index.scss';
 import message_img from '../../assets/images/user/message.png';
 
-@connect(({ user, common, login }) => ({
-  ...user,
-  ...common,
-  ...login
+@connect(({ login }) => ({
+  login
 }))
 export default class User extends Component {
   config = {
@@ -36,7 +34,7 @@ export default class User extends Component {
   }
 
   render() {
-    const { mobile, avatar, userName } = this.props;
+    const { mobile, avatar, userName } = this.props.login;
     return (
       <View className='user-page'>
         <View className='not-login'>
@@ -56,15 +54,6 @@ export default class User extends Component {
               <Image className='avatar' src={avatar} />
             </View>
           </View>
-          {/* <View className='list'>
-            {list && list.map((item, index) => (
-              <View className='item' key={index} data-url={`/pages/order/index?type=${index}`} onClick={this.goToPage}>
-                <Image mode='widthFix' src={item.img} />
-                <Text>{item.txt}</Text>
-                {item.num > 0 && <Icon className='num'>{item.num}</Icon>}
-              </View>
-            ))}
-          </View> */}
         </View>
         <View className='nav-list'>
           <AtList>
