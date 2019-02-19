@@ -37,6 +37,7 @@ class App extends Component {
       // ---- reports ----
       'pages/reports/index/index',
       'pages/reports/saleStats/index',
+      'pages/reports/orderStats/index',
       'pages/reports/inventory/index',
       'pages/reports/customerAR/index',
 

@@ -56,4 +56,9 @@
             margin-bottom: -10rpx;
         }
     }
+
+    .item-content {
+        white-space: nowrap;
+        flex: 0 0 100%;
+    }
 }

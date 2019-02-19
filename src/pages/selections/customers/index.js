@@ -34,6 +34,8 @@ export default class CustomerSelect extends Component {
   */
   handleSelected(customer) {
     const { prevModel, dispatch } = this.props
+    console.log('[page]customer select: prevModel', prevModel)
+    console.log('[page]customer select: prevModel', customer)
     if (prevModel) {
       dispatch({
         type: `${[prevModel]}/save`,
@@ -88,8 +90,7 @@ export default class CustomerSelect extends Component {
                   onClick={this.handleSelected.bind(this, item)}
                   title={item.CustomerName}
                   arrow='right'
-                  note={`应收款：￥${item.amountRec || 0}`}
-                  extraText={item.CustomerArea}
+                  note={`[${item.CustomerArea}] 应收款：￥${item.amountRec || 0}`}
                 />
               ))}
             </AtList>

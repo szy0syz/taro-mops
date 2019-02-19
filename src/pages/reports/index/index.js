@@ -13,8 +13,8 @@ export default class ReportList extends Component {
     this.state = {
       reportList: [
         {
-          name: '销售统计',
-          path: '/pages/reports/saleStats/index'
+          name: '订单统计',
+          path: '/pages/reports/orderStats/index'
         },
         {
           name: '客户对账',
@@ -26,7 +26,7 @@ export default class ReportList extends Component {
         },
         {
           name: '物料收发事物汇总表',
-          path: '/pages/reports/inventory/index'
+          path: '/pages/reports/index/index'
         }
       ]
     }

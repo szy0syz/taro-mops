@@ -7,6 +7,7 @@ import reports from '../pages/reports/model'
 import user from '../pages/user/model'
 import eas_detail from '../pages/eas/detail/model'
 import customerAR from '../pages/reports/customerAR/model'
+import orderStats from '../pages/reports/orderStats/model'
 import productSelect from '../pages/selections/products/model'
 import customerSelect from '../pages/selections/customers/model'
 
@@ -20,6 +21,7 @@ export default [
   reports,
   customerAR,
   eas_detail,
+  orderStats,
   productSelect,
   customerSelect,
 ]
