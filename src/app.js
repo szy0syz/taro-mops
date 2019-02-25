@@ -31,6 +31,7 @@ class App extends Component {
 
       'pages/saleOrder/create/index',
       'pages/saleOrder/detail/index',
+      'pages/saleOrder/edit/index',
 
       'pages/eas/detail/index',
       

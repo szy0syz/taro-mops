@@ -192,7 +192,7 @@ export default class List extends Component {
       Taro.showToast({ title: '同步单据无法修改，填写物流信息请到PC端', icon: 'none', duration: 4000 })
       return
     }
-    Taro.navigateTo({ url: `/pages/orderEdit/index?_id=${id}` })
+    Taro.navigateTo({ url: `/pages/saleOrder/edit/index?_id=${id}` })
   }
 
   render() {

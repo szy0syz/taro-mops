@@ -2,6 +2,7 @@ import common from './common'
 import list from '../pages/list/model'
 import login from '../pages/login/model'
 import order from '../pages/saleOrder/create/model'
+import order_edit from '../pages/saleOrder/edit/model'
 import detail from '../pages/saleOrder/detail/model'
 import reports from '../pages/reports/model'
 import user from '../pages/user/model'
@@ -20,6 +21,7 @@ export default [
   reports,
   customerAR,
   eas_detail,
+  order_edit,
   productSelect,
   customerSelect,
 ]
