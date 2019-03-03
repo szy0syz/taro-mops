@@ -1,26 +1,36 @@
 import dayjs from 'dayjs'
-import Taro from '@tarojs/taro'
-import * as Service from '../service'
-
+import * as Service from './service'
 
 export default {
-  namespace: 'order',
+  namespace: 'orderEdit',
   state: {
+    _id: '',
     billDate: dayjs().format('YYYY-MM-DD'),
+    number: '',
     customer: {},
     products: [],
     staff: '',
     amountRec: 0.00,
+    storekeeper: {
+      name: '李四四',
+      id: 'lss'
+    },
     paymentMethod: {
       name: '银行汇款',
       id: 'v1'
     },
-    billTags: [],
-    orderTags: [],
-    remark: '',
     isSynced: false,
-    isRemovedInEAS: false,
-    saleIssueBill: null,
+    orderTags: [],
+    express: {
+      name: '',
+      trackingNumber: '',
+      customerPhone: '',
+      staffPhone: '',
+      isSend: false,
+      sendCount: 0,
+      sendTime: ''
+    },
+    remark: '',
     tagList: [
       {
         value: 'shipped',
@@ -52,22 +62,45 @@ export default {
         name: '支付宝',
         id: 'v4'
       }
+    ],
+    storekeeperList: [
+      {
+        name: '李四四',
+        id: 'lss'
+      },
+      {
+        name: '王五五',
+        id: 'wmz'
+      }
     ]
   },
   effects: {
     * create({ payload }, { call }) {
       const { success } = yield call(Service.post, payload)
+
       return Boolean(success)
     },
-    * init(_, { select, put }) {
-      const { userId, userName, easid, easfid } = yield select(state => state.login)
-      yield put({
-        type: 'save',
-        payload: {
-          staff: { userId, userName, easid, easfid }
-        }
-      })
+
+    * update({ payload }, { call }) {
+      const { success } = yield call(Service.patchOrder, payload)
+
+      return Boolean(success)
     },
+
+    * syncOrder({ payload }, { select, call, put }) {
+      const { orderTags } = yield select(state => state.detail)
+      const { success = false } = yield call(Service.syncOrder, payload)
+      if (success) {
+        yield put({
+          type: 'save',
+          payload: {
+            isSynced: true,
+            orderTags: Array.from(new Set([...orderTags, 'uploaded']))
+          }
+        })
+      }
+      return success
+    }
   },
   reducers: {
     save(state, { payload }) {
@@ -80,12 +113,14 @@ export default {
     },
     empty(state) {
       const newBillData = {
-        billDate: dayjs().format('YYYY-MM-DD'),
-        orderTags: [],
+        billDate: new Date().toLocaleDateString().split(' ')[0].replace(/\//g, '-'),
         customer: '',
         products: [],
-        remark: '',
-        amountRec: 0.00
+        staff: null,
+        amountRec: 0.00,
+        storekeeper: null,
+        paymentMethod: null,
+        orderTags: []
       }
       return { ...state, ...newBillData }
     }

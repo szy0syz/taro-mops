@@ -4,19 +4,30 @@ import { connect } from '@tarojs/redux'
 import { View, Button, Text, Input, Picker } from '@tarojs/components'
 import { AtList, AtListItem, AtIcon, AtButton } from 'taro-ui'
 import { OrderCell } from '../../../components/OrderCell'
+import { fetchById } from './service'
 import './index.scss'
 
-@connect(({ order }) => ({
-  ...order,
+@connect(({ orderEdit }) => ({
+  ...orderEdit,
 }))
-export default class Detail extends Component {
+export default class OrderEdit extends Component {
   config = {
-    navigationBarTitleText: '销售订单',
+    navigationBarTitleText: '订单',
   }
 
-  componentDidMount = () => {
+  componentDidMount = async () => {
+    const { _id } = this.$router.params
+    const { userName, easid, easfid = null } = Taro.getStorageSync('userInfo')
+    let { data: payload } = await fetchById(_id)
+    payload.billDate = dayjs(payload.billDate).format('YYYY-MM-DD')
+    payload.staff = {
+      userName,
+      easid,
+      easfid
+    }
     this.props.dispatch({
-      type: 'order/init'
+      type: 'orderEdit/save',
+      payload
     })
   }
 
@@ -51,61 +62,48 @@ export default class Detail extends Component {
         break;
     }
     this.props.dispatch({
-      type: 'order/save',
+      type: 'orderEdit/save',
       payload
     })
   }
 
   handleBillDateChange(value) {
     this.props.dispatch({
-      type: 'order/save',
+      type: 'orderEdit/save',
       payload: {
-        billDate: dayjs(value.detail.value).format('YYYY-MM-DD')
+        billDate: value.detail.value
       }
     })
   }
 
-  handleSave() {
-    let { dispatch, billDate, orderTags, customer, products, remark, staff, paymentMethod } = this.props
-    
-    if (!customer.FID) {
-      Taro.showToast({title: '请选择客户', icon: 'none'})
-      return
-    }
+  handleWaiting() {
+    Taro.showToast({
+      icon: 'none',
+      title: '功能开发中'
+    })
+  }
 
-    if (products.length <= 0) {
-      Taro.showToast({title: '请选择商品', icon: 'none'})
-      return
-    }
-    
-    // 奇葩需求和奇葩api
-    billDate = dayjs()
-      .set('month', billDate.split('-')[1] - 1)
-      .set('date', billDate.split('-')[2])
-      .valueOf()
-    let payload = {
-      billDate: dayjs(billDate).format('YYYY-MM-DD'),
+  handleSave() {
+    let { id, billDate, orderTags, customer, products, remark, staff, storekeeper, paymentMethod } = this.props
+    let data = {
+      billDate,
       orderTags,
       customer,
       products,
       remark,
-      creator: staff.userId,
+      staff,
+      storekeeper,
       paymentMethod
     }
-    dispatch({
-      type: 'order/create',
-      payload
+
+    this.props.dispatch({
+      type: 'orderEdit/update',
+      payload: { data, id }
     }).then(isCreated => {
       if (isCreated) {
-        dispatch({
-          type: 'order/empty'
-        })
-        Taro.showToast({ title: '创建成功' })
         setTimeout(() => {
           Taro.switchTab({ url: '/pages/list/index' })
-        }, 2000)
-      } else {
-        Taro.showToast({ title: '创建失败' })
+        }, 1500)
       }
     })
   }
@@ -120,17 +118,29 @@ export default class Detail extends Component {
   }
 
   handleNavigate(path) {
+    let url = `/pages/${path}/index`;
+    if (path === 'productSelect') url += '?backPage=orderEdit'
     Taro.navigateTo({
-      url: path
+      url
     })
   }
 
   handleNavProdSel() {
-    Taro.navigateTo({ url: '/pages/selections/products/index?prevModel=order' })
+    Taro.navigateTo({ url: '/pages/selections/products/index?prevModel=orderEdit' })
   }
 
   handleNavCustSel() {
-    Taro.navigateTo({ url: '/pages/selections/customers/index?prevModel=order' })
+    Taro.navigateTo({ url: '/pages/selections/customers/index?prevModel=orderEdit' })
+  }
+
+  handleUploadImg() {
+    Taro.chooseImage({
+      count: 1,
+      sizeType: ['original', 'compressed'],
+      sourceType: ['album', 'camera'],
+    }).then(data => {
+      console.log(data)
+    })
   }
 
   handleScanCode() {
@@ -145,28 +155,47 @@ export default class Detail extends Component {
   handleRemoveItem(index) {
     const { dispatch } = this.props;
     dispatch({
-      type: 'order/removeProduct',
+      type: 'orderEdit/removeProduct',
       payload: { index },
     })
     this.forceUpdate()
   }
 
-  handleSyncOrder = () => {
-    Taro.showToast({
-      icon: 'none',
-      title: '请先保存再同步'
-    })
+  handleSyncOrder() {
+    const { _id, isSynced } = this.props
+    if (isSynced) {
+      Taro.showToast({
+        title: '该单据已同步'
+      })
+    } else {
+      this.props.dispatch({
+        type: 'detail/syncOrder',
+        payload: {
+          _id
+        }
+      }).then(success => {
+        if (success) {
+          Taro.showToast({
+            title: '同步成功',
+            icon: 'success'
+          })
+          setTimeout(() => {
+            Taro.navigateBack()
+          }, 2000);
+        }
+      })
+    }
   }
 
   render() {
-    const { products, customer, remark, staff } = this.props
-    const amountRRR = this.props.products.reduce((sum, item) => sum += item.amount, 0).toFixed(2)
+    const { products = [], billDate, customer, remark, isSynced, creator } = this.props
+    const amountRRR = products.reduce((sum, item) => sum += item.amount, 0).toFixed(2)
     return (
       <View className='order-page'>
         <View className='order-wrapper'>
           <Picker className='date-selector' mode='date' onChange={this.handleBillDateChange}>
             <View className='picker'>
-              {this.props.billDate}
+              {billDate}
               <AtIcon value='chevron-right' size='26' color='#c7c7cc'></AtIcon>
             </View>
           </Picker>
@@ -194,42 +223,18 @@ export default class Detail extends Component {
           </AtList>
         </View>
         <View className='order-content'>
-          {/* <View>
-            <Button onClick={this.handleWaiting} style='background-color: rgba(241, 181, 85, 1);' className='custom-button' size='mini'>调用模板</Button>
-            <Button onClick={this.handleWaiting} style='background-color: #1fb7a6;' className='custom-button' size='mini'>存为模板</Button>
-          </View> */}
-          <View></View>
+          <View>
+          </View>
           <View>
             <Text>选择货品({products.length || 0})</Text>
             <Text>开单金额：￥{products.reduce((sum, item) => sum += item.defaultAmount, 0).toFixed(2)}</Text>
           </View>
           <View>
-          {products.map((item, index) => (<OrderCell item={item} key={item.FID} index={index} hasIcon={Boolean(true)} onHanleClick={this.handleRemoveItem.bind(this, index)} />) )}
-            {/* {products.map((item, index) => (
-              <View key={item.FID} className='order-item'>
-                <Image className='m-img' src={item.MaterialUrl}></Image>
-                <View>
-                  <Text>{item.MaterialName}</Text>
-                  <View className='order-cell'>
-                    <Text>单价：￥{Number(item.MaterialPrice).toFixed(2)}</Text>
-                    <Text>数量：{Number(item.qty).toFixed(2)}公斤</Text>
-                  </View>
-                  <View className='order-cell'>
-                    <Text>规格：{item.MaterialModel}</Text>
-                    <Text>金额：￥{Number(item.amount).toFixed(2)}</Text>
-                  </View>
-                </View>
-                <AtIcon onClick={this.handleRemoveItem.bind(this, index)} value='subtract-circle' size='30' color='#F00'></AtIcon>
-              </View>
-            ))} */}
+            {products.map((item, index) => (<OrderCell item={item} key={item.FID} index={index} hasIcon={Boolean(true)} onHanleClick={this.handleRemoveItem.bind(this, index)} />) )}
+
           </View>
           <View>
             <Button onClick={this.handleNavProdSel} style='background-color: #1fb7a6;' className='custom-button' size='large'>添加商品</Button>
-            {/* <Image onClick={this.handleScanCode} src='http://cdn.jerryshi.com/picgo/scanAdd.png' />
-            <Image
-              onClick={this.handleNavigate.bind(this, 'productSelect')}
-              src='http://cdn.jerryshi.com/picgo/plusAdd.png'
-            /> */}
           </View>
         </View>
         <View className='order-wrapper order-footer'>
@@ -248,20 +253,17 @@ export default class Detail extends Component {
           </View>
           <View>
             <Text>业务员</Text>
-            <Text>{staff.userName}</Text>
+            <Text>{creator.userName}</Text>
           </View>
-          {/* <View>
-            <Text>出库员</Text>
-            <Picker mode='selector' range={this.props.storekeeperList} rangeKey='name' onChange={this.handleCommonChange.bind(this, 'storekeeper')}>
-              <View className='picker'>
-                {this.props.storekeeper.name}
-                <AtIcon value='chevron-right' size='22' color='#999'></AtIcon>
-              </View>
-            </Picker>
+          <View>
+          </View>
+          {/* <View onClick={this.handleNavigate.bind(this, 'delivery')}>
+            <Text>物流</Text>
+            <AtIcon value='chevron-right' size='22' color='#999'></AtIcon>
           </View> */}
           <View>
             {/* <Text>票据影像</Text>
-            <View onClick={this.handleWaiting} >
+            <View onClick={this.handleUploadImg} >
               <AtIcon value='camera' size='34' color='#fff'></AtIcon>
             </View> */}
           </View>
@@ -271,23 +273,23 @@ export default class Detail extends Component {
             <Input value={remark} onChange={this.handleCommonChange.bind(this, 'remark')} placeholder='备注(最多100字)'></Input>
           </View>
         </View>
-        {/* <View>
-          <AtCheckbox
+        <View>
+          {/* <AtCheckbox
             style='background-color: #aaa;'
             options={this.props.tagList}
             selectedList={this.props.orderTags}
             onChange={this.handleBillTagsChange}
-          />
-        </View> */}
+          /> */}
+        </View>
         <View className='toolbar'>
-          {/* <View onClick={this.handleWaiting.bind(this, '请先保存')} style='padding:8rpx;background-color: rgba(114, 192, 116, 1); border-radius: 14rpx;'>
-            <AtIcon value='iconfont icon-sharem1' size='34' color='#fff'></AtIcon>
+          {/* <View onClick={this.handleWaiting} style='padding:8rpx;background-color: rgba(114, 192, 116, 1); border-radius: 14rpx;'>
+            <AtIcon value='iconfont icon-sharem1' size='32' color='#fff'></AtIcon>
           </View> */}
           <AtButton onClick={this.handleAgain} size='normal' type='secondary'>再开一单</AtButton>
-          <AtButton onClick={this.handleSave} size='normal' type='primary'>确认保存</AtButton>
-          {/* <View onClick={this.handleSyncOrder} style='padding:6rpx;background-color: rgba(112, 159, 239, 1); border-radius: 14rpx;'>
-            <AtIcon value='iconfont icon-shangchuan' size='36' color='#fff'></AtIcon>
-          </View> */}
+          <AtButton onClick={this.handleSave} size='normal' type='primary'>确认修改</AtButton>
+          <View onClick={this.handleSyncOrder} style='padding:6rpx;background-color: rgba(112, 159, 239, 1); border-radius: 14rpx;'>
+            <AtIcon value={`iconfont ${isSynced ? 'icon-confirm' : 'icon-shangchuan'}`} size='34' color='#fff'></AtIcon>
+          </View>
         </View>
       </View>
     )

@@ -3,6 +3,7 @@ import list from '../pages/list/model'
 import login from '../pages/login/model'
 import order from '../pages/saleOrder/create/model'
 import detail from '../pages/saleOrder/detail/model'
+import order_edit from '../pages/saleOrder/edit/model'
 import reports from '../pages/reports/model'
 import user from '../pages/user/model'
 import eas_detail from '../pages/eas/detail/model'
@@ -22,6 +23,7 @@ export default [
   customerAR,
   eas_detail,
   orderStats,
+  order_edit,
   productSelect,
   customerSelect,
 ]

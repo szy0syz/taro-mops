@@ -60,6 +60,9 @@ export default class ProductSelect extends Component {
           payload: { productList: [] }
         })
         break
+      case 1:
+        Taro.showToast({title: '关键字最少两个字', icon: 'none'})
+        break
       default:
         this.props.dispatch({
           type: 'productSelect/fetchProducts',
@@ -70,18 +73,34 @@ export default class ProductSelect extends Component {
   }
 
   handleConfirm() {
-    if (this.backPage === 'orderEdit') {
-      const { products, dispatch, orderEdit } = this.props
+    const { products, dispatch, orderEdit, prevModel } = this.props
+    console.log('点击了选好了！！！！！', products, dispatch, orderEdit, prevModel)
+    if (prevModel) {
       dispatch({
-        type: 'order/save',
-        payload: { products: [] }
-      })
-      dispatch({
-        type: 'orderEdit/save',
+        type: `${[prevModel]}/save`,
         payload: { products: orderEdit.products.concat(products) }
       })
+      Taro.navigateBack()
+    } else {
+      dispatch({
+        type: 'customerSelect/save',
+        payload: { products }
+      })
+      Taro.switchTab({ url: '/pages/order/index' })
     }
-    Taro.navigateBack()
+    // if (this.backPage === 'orderEdit') {
+      
+    //   console.log('~~~~~~~~@@orderEdit@', orderEdit)
+    //   dispatch({
+    //     type: 'order/save',
+    //     payload: { products: [] }
+    //   })
+    //   dispatch({
+    //     type: 'orderEdit/save',
+    //     payload: { products: orderEdit.products.concat(products) }
+    //   })
+    // }
+    // Taro.navigateBack()
   }
 
   handleModalCancel() {
