@@ -1,12 +1,11 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text, ScrollView } from '@tarojs/components'
-import { AtIcon, AtAccordion, AtButton } from 'taro-ui'
+import { AtIcon, AtAccordion, AtCard } from 'taro-ui'
 import { connect } from '@tarojs/redux'
 import querystring from 'querystring'
 import dayjs from 'dayjs'
 import { baseUrl } from '../../../config'
 import ReportHeader from '../../../components/ReportHeader'
-import CardList from '../../../components/CardList'
 
 import './index.scss'
 
@@ -114,15 +113,19 @@ class OrderStats extends Component {
         payload = { isOpenAR: value }
         break;
       case 'CR':
-      payload = { isOpenCR: value }
+        payload = { isOpenCR: value }
         break;
     }
     this.setState({ ...payload })
   }
 
+  handleClick = (id) => {
+    Taro.navigateTo({ url: `/pages/saleOrder/detail/index?_id=${id}&basePath=saleOrders` })
+  }
+
   render() {
     const { isOpenAR } = this.state;
-    const { customer } = this.props
+    const { customer, bills = [], allAmount = 0, allDefAmount = 0 } = this.props
     return (
       <View className='CustomerAR-container'>
         <ReportHeader onBtnDateClick={this.handleDateBtnClick} dateStart={this.props.dateStart} dateEnd={this.props.dateEnd} onDateChange={this.handleDateChange}></ReportHeader>
@@ -134,10 +137,10 @@ class OrderStats extends Component {
           </View>
         </View>
         <View className='item item-amount'>
-          <Text>开单金额合计</Text><Text>￥{0}</Text>
+          <Text>开单金额合计</Text><Text>￥{allAmount}</Text>
         </View>
         <View className='item item-amount'>
-          <Text>结算金额合计</Text><Text>￥{0}</Text>
+          <Text>结算金额合计</Text><Text>￥{allDefAmount}</Text>
         </View>
         <View className='body'>
           <AtAccordion title='销售订单' open={isOpenAR} onClick={this.handleClickAccordion.bind(this, 'AR')} icon={{ value: 'menu', color: 'red', size: '22' }}>
@@ -145,15 +148,29 @@ class OrderStats extends Component {
               scrollY
               scrollWithAnimation
               className='bill-container'
-              style='height: 320px;'
+              style='height: 400px;'
             >
-              <CardList bills={[]}></CardList>
+              {bills.map(bill => (
+                <View
+                  key={bill._id}
+                  style='padding: 4px 0 8px 0;'
+                >
+                  <AtCard
+                    onClick={this.handleClick.bind(this, bill._id)}
+                    note={`开单金额：￥${Number(bill.totalDefAmount).toFixed(2)}  |  结算金额：￥${Number(bill.totalAmount).toFixed(2)}`}
+                    extra={bill.creator.userName}
+                    title={dayjs(bill.billDate).format('YYYY-MM-DD')}
+                  >
+                    <Text>单据编号：{bill.number}</Text>
+                  </AtCard>
+                </View>
+              ))}
             </ScrollView>
           </AtAccordion>
         </View>
-        <View className='open-report'>
+        {/* <View className='open-report'>
           <AtButton onClick={this.handleGetReport} type='primary' size='small'>阅读报表</AtButton>
-        </View>
+        </View> */}
       </View>
     )
   }

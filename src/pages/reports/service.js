@@ -13,3 +13,8 @@ export const fetchARdataByCustFID = data => Request({
   data
 })
 
+export const fetchOrdersByCust = data => Request({
+  url: '/report/saleOrderByCust',
+  method: 'GET',
+  data
+})
