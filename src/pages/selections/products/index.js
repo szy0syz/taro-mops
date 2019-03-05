@@ -61,7 +61,7 @@ export default class ProductSelect extends Component {
         })
         break
       case 1:
-        Taro.showToast({title: '关键字最少两个字', icon: 'none'})
+        Taro.showToast({ title: '关键字最少两个字', icon: 'none' })
         break
       default:
         this.props.dispatch({
@@ -89,7 +89,7 @@ export default class ProductSelect extends Component {
       Taro.switchTab({ url: '/pages/order/index' })
     }
     // if (this.backPage === 'orderEdit') {
-      
+
     //   console.log('~~~~~~~~@@orderEdit@', orderEdit)
     //   dispatch({
     //     type: 'order/save',
@@ -123,7 +123,7 @@ export default class ProductSelect extends Component {
       }
     })
     this.setState({
-      isShowModal: false, 
+      isShowModal: false,
       qty: '',
       giftQty: 0,
     })
@@ -253,11 +253,16 @@ export default class ProductSelect extends Component {
                   <View>
                     <Text>{item.MaterialName}</Text>
                     <View className='order-cell'>
-                      <Text>单价：￥{Number(item.MaterialPrice).toFixed(4)}</Text>
+                      <Text>开单价：￥{Number(item.MaterialPrice).toFixed(4)}</Text>
                     </View>
                     <View className='order-cell'>
                       <Text>规格：{item.MaterialModel}</Text>
                     </View>
+                    {item.Inventory && item.Inventory.map((invt, index) => (
+                      <View key={invt.FBaseQty} className='order-cell' style='font-size: 13px;'>
+                        <Text>库存{index + 1}：{`${invt.FBaseQty}${invt.FUnit} (${invt.FWarehouse}_${invt.FLocation})`}</Text>
+                      </View>
+                    ))}
                   </View>
                   <AtIcon style='padding: 16rpx 20rpx;' onClick={this.handleSelected.bind(this, item)} value='add' size='38' color='#2bb2a7'></AtIcon>
                 </View>
