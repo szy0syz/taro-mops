@@ -177,7 +177,7 @@ export default class ProductSelect extends Component {
                 <AtInput
                   name='qty'
                   title='数量：'
-                  type='number'
+                  type='digit'
                   value={qty}
                   onChange={this.handleModalChange.bind(this, 'qty')}
                 >
