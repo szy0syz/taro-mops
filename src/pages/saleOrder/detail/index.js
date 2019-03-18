@@ -3,7 +3,7 @@ import dayjs from 'dayjs'
 import { connect } from '@tarojs/redux'
 import { View, Text, Image, Input } from '@tarojs/components'
 import { AtList, AtListItem, } from 'taro-ui'
-import { fetchById } from './service'
+import { fetchById, fetchById_shared } from './service'
 import { OrderCell } from '../../../components/OrderCell'
 import './index.scss'
 
@@ -15,20 +15,41 @@ export default class Detail extends Component {
     navigationBarTitleText: '订单',
   }
 
+  state = {
+    billID: '',
+    isShared: false,
+  }
+
   componentDidMount = async () => {
-    const { _id } = this.$router.params
+    const { dispatch } = this.props;
+    // Notice: 修复因MongoDB，对undefined数据不传输，导致缓存遗留显示的问题；
+    await dispatch({ type: 'detail/empty' });
+    const { _id, isShared } = this.$router.params;
+    console.log('this.$router.params', this.$router.params)
+    console.log('isShared~~', isShared);
+    this.setState({ billID: _id });
     const { userName, easid, easfid = null } = Taro.getStorageSync('userInfo')
-    let { data: payload } = await fetchById(_id)
-    payload.billDate = dayjs(payload.billDate).format('YYYY-MM-DD')
-    payload.staff = {
+    let { data } = await fetchById(_id)
+
+    data.billDate = dayjs(data.billDate).format('YYYY-MM-DD')
+    data.staff = {
       userName,
       easid,
       easfid
     }
-    this.props.dispatch({
+    dispatch({
       type: 'detail/save',
-      payload
+      payload: data,
     })
+  }
+
+  onShareAppMessage() {
+    console.log(this.state)
+    const { billID } = this.state;
+    return {
+      title: '云农农业科技-MOPS系统',
+      path: `/pages/detail/index?_id=${billID}&basePath=saleOrders&isShared=true`,
+    }
   }
 
   handleBillTagsChange(orderTags) {
@@ -247,8 +268,8 @@ export default class Detail extends Component {
             <Input value={amountRRR} disabled type='digit' placeholder='0.00' className='input-amount'></Input>
           </View>
           <View>
-            <Text>结算方式</Text>
-            <Text>{this.props.paymentMethod.name}</Text>
+            {/* <Text>结算方式</Text>
+            <Text>{this.props.paymentMethod.name}</Text> */}
             {/* <Picker mode='selector' range={this.props.payTypes} rangeKey='name' onChange={this.handleCommonChange.bind(this, 'payment')}>
               <View className='picker'>
                 {this.props.paymentMethod.name}

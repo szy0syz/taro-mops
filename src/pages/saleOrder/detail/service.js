@@ -5,6 +5,11 @@ export const fetchById = _id => Request({
   method: 'GET'
 })
 
+export const fetchById_shared = _id => Request({
+  url: `/public/saleOrders/${_id}`,
+  method: 'GET'
+})
+
 export const patchOrder = data => Request({
   url: `/saleOrders`,
   method: 'PUT',

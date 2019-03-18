@@ -15,11 +15,11 @@ export default {
       name: '李四四',
       id: 'lss'
     },
+    isShare: false,
     paymentMethod: {
       name: '银行汇款',
       id: 'v1'
     },
-    isSynced: false,
     orderTags: [],
     express: {
       name: '',
@@ -108,14 +108,15 @@ export default {
     },
     empty(state) {
       const newBillData = {
-        billDate: new Date().toLocaleDateString().split(' ')[0].replace(/\//g, '-'),
+        billDate: '',
         customer: '',
         products: [],
         staff: null,
         amountRec: 0.00,
         storekeeper: null,
         paymentMethod: null,
-        orderTags: []
+        orderTags: [],
+        remark: '',
       }
       return { ...state, ...newBillData }
     }

@@ -1,6 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Text } from '@tarojs/components'
-import { Picker, AtIcon, AtInput } from 'taro-ui'
+import { Picker, View, Text } from '@tarojs/components'
+import { AtIcon, AtInput } from 'taro-ui'
 import dayjs from 'dayjs'
 import PropTypes from 'prop-types'
 
