@@ -33,14 +33,24 @@ export default class User extends Component {
     (/pages/i).test(url) ? Taro.navigateTo({ url }) : null
   }
 
+  getUserinfo = () => {
+    const { userName } = this.props.login;
+    if (userName) {
+      return this.props.login;
+    } else {
+      return Taro.getStorageSync('userInfo')
+    }
+  }
+
   render() {
+    const userinfo = this.getUserinfo();
     const { mobile, avatar, userName } = this.props.login;
     return (
       <View className='user-page'>
         <View className='not-login'>
           <View className='to-login' data-url='/pages/login/index' onClick={this.goPage}>
             <View className='left'>
-              <View className={mobile ? 'name black' : 'name '}>{userName || '请登录 >'}</View>
+              <View className={mobile ? 'name black' : 'name '}>{userName || userinfo && userinfo.userName }</View>
               <View>
                 <View className='msg' data-url='/pages/message/index' onClick={this.goToPage}>
                   <Image mode='widthFix' src={message_img} />

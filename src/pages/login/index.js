@@ -87,7 +87,7 @@ export default class Login extends Component {
     if (detail.errMsg === 'getUserInfo:ok') {
       // 获取用户信息成功
       const { avatarUrl: avatar, city, nickName, province } = detail.userInfo
-      console.log(detail.userInfo)
+
       this.props.dispatch({
         type: 'login/save',
         payload: { avatar, city, nickName, province }

@@ -12,7 +12,6 @@ export default class SaleStats extends Component {
   }
 
   handleClick(value) {
-    console.log(value)
     this.setState({
       open: value
     })

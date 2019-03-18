@@ -74,7 +74,6 @@ export default class ProductSelect extends Component {
 
   handleConfirm() {
     const { products, dispatch, orderEdit, prevModel } = this.props
-    console.log('点击了选好了！！！！！', products, dispatch, orderEdit, prevModel)
     if (prevModel) {
       dispatch({
         type: `${[prevModel]}/save`,

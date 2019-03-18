@@ -25,11 +25,18 @@ export default class Detail extends Component {
     // Notice: 修复因MongoDB，对undefined数据不传输，导致缓存遗留显示的问题；
     await dispatch({ type: 'detail/empty' });
     const { _id, isShared } = this.$router.params;
-    console.log('this.$router.params', this.$router.params)
-    console.log('isShared~~', isShared);
-    this.setState({ billID: _id });
+    this.setState({ billID: _id, isShared });
     const { userName, easid, easfid = null } = Taro.getStorageSync('userInfo')
-    let { data } = await fetchById(_id)
+    let data;
+    let res;
+    if (isShared === 'true') {
+      res = await fetchById_shared(_id);
+    } else {
+      res = await fetchById(_id);
+
+    }
+    data = res.data;
+    
 
     data.billDate = dayjs(data.billDate).format('YYYY-MM-DD')
     data.staff = {
@@ -44,11 +51,10 @@ export default class Detail extends Component {
   }
 
   onShareAppMessage() {
-    console.log(this.state)
     const { billID } = this.state;
     return {
       title: '云农农业科技-MOPS系统',
-      path: `/pages/detail/index?_id=${billID}&basePath=saleOrders&isShared=true`,
+      path: `/pages/saleOrder/detail/index?_id=${billID}&basePath=saleOrders&isShared=true`,
     }
   }
 
@@ -212,6 +218,7 @@ export default class Detail extends Component {
   render() {
     const { products, customer, remark, express, creator } = this.props
     const { fileList } = express;
+    const { isShared } = this.state;
     const amountRRR = this.props.products.reduce((sum, item) => sum += item.amount, 0).toFixed(2)
     const hasImgs = express && express.fileList && express.fileList.length > 0;
 
@@ -251,7 +258,7 @@ export default class Detail extends Component {
             <Text>开单金额：￥{products.reduce((sum, item) => sum += item.defaultAmount, 0).toFixed(2)}</Text>
           </View>
           <View>
-            {products.map(item => (<OrderCell item={item} key={item.FID} />) )}
+            {products.map(item => (<OrderCell isShared={isShared} item={item} key={item.FID} />) )}
           </View>
           <View>
             {/* <Button onClick={this.handleNavigate.bind(this, 'productSelect')} style='background-color: #1fb7a6;' className='custom-button' size='large'>选择商品</Button> */}
