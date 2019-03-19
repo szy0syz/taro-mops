@@ -1,6 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text, ScrollView } from '@tarojs/components'
-import { AtIcon, AtAccordion, AtCard } from 'taro-ui'
+import { AtIcon, AtAccordion, AtCard, AtButton } from 'taro-ui'
 import { connect } from '@tarojs/redux'
 import querystring from 'querystring'
 import dayjs from 'dayjs'
@@ -52,13 +52,13 @@ class OrderStats extends Component {
     const { dateStart, dateEnd, customer } = this.props
 
     const queryParams = {
-      customer: customer.FID,
+      customerFID: customer.FID,
       dateStart,
       dateEnd
     }
 
     const downloadTask = await Taro.downloadFile({
-      url: `${baseUrl}/eas/exptCustomerAR?${querystring.stringify(queryParams)}`,
+      url: `${baseUrl}/report/exportSaleOrders?${querystring.stringify(queryParams)}`,
       header: {
         'Authorization': `Bearer ${token}`
       }
@@ -168,9 +168,9 @@ class OrderStats extends Component {
             </ScrollView>
           </AtAccordion>
         </View>
-        {/* <View className='open-report'>
+        <View className='open-report'>
           <AtButton onClick={this.handleGetReport} type='primary' size='small'>阅读报表</AtButton>
-        </View> */}
+        </View>
       </View>
     )
   }

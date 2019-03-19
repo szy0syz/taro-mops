@@ -45,6 +45,8 @@ class App extends Component {
       // ---- selections ----
       'pages/selections/products/index',
       'pages/selections/customers/index',
+
+      'pages/about/index',
       
     ],
     window: {
