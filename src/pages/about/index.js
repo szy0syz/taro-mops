@@ -8,6 +8,9 @@ export default class About extends Component {
   config = {
     navigationBarTitleText: '关于'
   }
+
+  index = 0;
+
   constructor(props) {
     super(props);
     this.state = {
@@ -19,10 +22,10 @@ export default class About extends Component {
       canvasStatus: false,
       rssConfig: {
         width: 750,
-        height: 1000,
+        height: 1120,
         backgroundColor: '#fff',
         debug: false,
-        
+
         texts: [
           {
             x: 68,
@@ -69,9 +72,49 @@ export default class About extends Component {
           {
             x: 96,
             y: 560,
-            text: '[艾美乐]：42公斤 * 835元 = ￥35070元',
+            text: '「艾美乐」：5L*2瓶 德国拜耳',
             fontSize: 28,
-            color: '#333',
+            color: '#111',
+            opacity: 1,
+            baseLine: 'middle',
+            textAlign: 'left',
+            lineHeight: 36,
+            lineNum: 1,
+            zIndex: 999,
+          },
+          {
+            x: 116,
+            y: 600,
+            text: '明细：8公斤 * 98元 = ￥784元',
+            fontSize: 26,
+            color: '#444',
+            opacity: 1,
+            baseLine: 'middle',
+            textAlign: 'left',
+            lineHeight: 36,
+            lineNum: 1,
+            zIndex: 999,
+          },
+
+          {
+            x: 96,
+            y: 650,
+            text: '「艾美乐」：5L*2瓶 德国拜耳',
+            fontSize: 28,
+            color: '#111',
+            opacity: 1,
+            baseLine: 'middle',
+            textAlign: 'left',
+            lineHeight: 36,
+            lineNum: 1,
+            zIndex: 999,
+          },
+          {
+            x: 116,
+            y: 690,
+            text: '明细：8公斤 * 98元 = ￥784元',
+            fontSize: 26,
+            color: '#444',
             opacity: 1,
             baseLine: 'middle',
             textAlign: 'left',
@@ -81,30 +124,70 @@ export default class About extends Component {
           },
           {
             x: 96,
-            y: 610,
-            text: '[安泰生]：8公斤 * 98元 = ￥784元',
+            y: 730,
+            text: '「艾美乐」：5L*2瓶 德国拜耳',
             fontSize: 28,
-            color: '#333',
+            color: '#111',
             opacity: 1,
             baseLine: 'middle',
             textAlign: 'left',
             lineHeight: 36,
             lineNum: 1,
             zIndex: 999,
-          },  // '[极显]：4公斤 * 1200元 = ￥4800元'
+          },
+          {
+            x: 116,
+            y: 770,
+            text: '明细：8公斤 * 98元 = ￥784元',
+            fontSize: 26,
+            color: '#444',
+            opacity: 1,
+            baseLine: 'middle',
+            textAlign: 'left',
+            lineHeight: 36,
+            lineNum: 1,
+            zIndex: 999,
+          },
+          {
+            x: 96,
+            y: 820,
+            text: '「艾美乐」：5L*2瓶 德国拜耳',
+            fontSize: 28,
+            color: '#111',
+            opacity: 1,
+            baseLine: 'middle',
+            textAlign: 'left',
+            lineHeight: 36,
+            lineNum: 1,
+            zIndex: 999,
+          },
+          {
+            x: 116,
+            y: 860,
+            text: '明细：8公斤 * 98元 = ￥784元',
+            fontSize: 26,
+            color: '#444',
+            opacity: 1,
+            baseLine: 'middle',
+            textAlign: 'left',
+            lineHeight: 36,
+            lineNum: 1,
+            zIndex: 999,
+          },
+          
         ],
-        images: [ // http://cdn.ynagtech.com/oders/ynamp.png
-          // {
-          //   url: 'http://cdn.ynagtech.com/oders/ynamp.png',
-          //   width: 180,
-          //   height: 144,
-          //   y: 50,
-          //   x: 30,
-          //   borderRadius: 28,
-          //   zIndex: 99,
-          //   // borderWidth: 10,
-          //   // borderColor: 'gray',
-          // },
+        images: [
+          {
+            url: 'http://cdn.ynagtech.com/oders/ynamp.png',
+            width: 120,
+            height: 96,
+            y: 50,
+            x: 30,
+            borderRadius: 28,
+            zIndex: 99,
+            // borderWidth: 10,
+            // borderColor: 'gray',
+          },
           {
             url: 'http://cdn.jerryshi.com/picgo/order_banner.jpg',
             width: 710,
@@ -113,14 +196,12 @@ export default class About extends Component {
             x: 20,
             borderRadius: 28,
             zIndex: 10,
-            // borderWidth: 10,
-            // borderColor: 'gray',
           },
           {
             url: 'http://cdn.ynagtech.com/oders/%E7%AB%A0_%E4%BB%93%E5%BA%93%E7%BB%8F%E8%90%A5%E9%83%A83.gif',
             width: 180,
             height: 180,
-            y: 760,
+            y: 880,
             x: 500,
             borderRadius: 100,
             borderWidth: 0,
@@ -135,26 +216,18 @@ export default class About extends Component {
             endY: 511,
             width: 2,
             color: '#ddd',
+            zIndex: 999,
           },
-          // {
-          //   startY: 510,
-          //   startX: 80,
-          //   endX: 670,
-          //   endY: 511,
-          //   width: 2,
-          //   color: '#ddd',
-          // }
         ],
         blocks: [
           { // 最底层的色块
             x: 0,
             y: 0,
             width: 750,
-            height: 1000,
+            height: 1120,
             paddingLeft: 0,
             paddingRight: 0,
             borderWidth: 0,
-            // borderColor: '#ccc',
             backgroundColor: '#EFF3F5',
             borderRadius: 0,
           },
@@ -162,12 +235,13 @@ export default class About extends Component {
             x: 40,
             y: 40,
             width: 670,
-            height: 920,
+            height: 1040,
             paddingLeft: 0,
             paddingRight: 0,
             borderWidth: 0,
             backgroundColor: '#fff',
             borderRadius: 12,
+            zIndex: 2,
           }
         ],
       },
@@ -178,7 +252,7 @@ export default class About extends Component {
   canvasDrawFunc = (config = this.state.rssConfig) => {
     this.setState({
       canvasStatus: true,
-      config: config,
+      config,
     })
     Taro.showLoading({
       title: '绘制中...'
@@ -194,7 +268,7 @@ export default class About extends Component {
         shareImage: tempFilePath,
         // 重置 TaroCanvasDrawer 状态，方便下一次调用
         canvasStatus: false,
-        config: null
+        config: null,
       })
     } else {
       // 重置 TaroCanvasDrawer 状态，方便下一次调用
@@ -238,11 +312,12 @@ export default class About extends Component {
   }
 
   render() {
+    const { rssConfig } = this.state;
     return (
       <View className='index'>
         <View>
           <View className='flex-row'>
-            <Button onClick={this.canvasDrawFunc.bind(this, this.state.rssConfig)}>绘制</Button>
+            <Button onClick={this.canvasDrawFunc.bind(this, rssConfig)}>绘制</Button>
             <Button onClick={this.saveToAlbum}>保存到相册</Button>
           </View>
         </View>
