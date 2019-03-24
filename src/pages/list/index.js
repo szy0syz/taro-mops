@@ -4,6 +4,7 @@ import { View, Button } from '@tarojs/components'
 import { AtDrawer, AtTabs, AtTabsPane, AtCheckbox, AtModal, AtModalContent, AtModalAction } from 'taro-ui'
 import ListHeader from '../../components/ListHeader'
 import ListContent from '../../components/ListContent'
+import dayjs from 'dayjs'
 
 import './index.scss'
 
@@ -59,6 +60,7 @@ export default class List extends Component {
   }
 
   handleDateChange = (dataType, e) => {
+
     let { tabData } = this.props
     const { dispatch, tabIndex } = this.props
     if (dataType === 'dateStart') {
@@ -67,7 +69,13 @@ export default class List extends Component {
       tabData[tabIndex] = Object.assign({}, tabData[tabIndex], { dateEnd: e.detail.value })
     }
 
+    const { dateEnd, dateStart } = tabData[tabIndex];
     dispatch({ type: 'list/save', payload: { tabData: [...tabData] } })
+    // 只有开始日期比结束日期小时
+    if (dayjs(dateStart).isBefore(dayjs(dateEnd))) {
+      dispatch({ type: 'list/fetchBills' })
+    }
+
     // TODO: 待优化后就不需要 forceUpdate
     this.forceUpdate()
   }

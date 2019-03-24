@@ -46,38 +46,43 @@ export default class Login extends Component {
     })
   }
 
+  handleVerify = async () => {
+    Taro.showLoading({ title: '验证中', mask: false })
+
+    const res = await verify_v2()
+
+    if (res && res.success) {
+      if (res.data) {
+
+        this.showToast(res.data.userName + '，欢迎回来')
+        let payload = Taro.getStorageSync('userInfo')
+        payload = Object.assign(payload, res.data)
+
+        await this.props.dispatch({
+          type: 'login/save',
+          payload
+        })
+      }
+      setTimeout(() => {
+        Taro.switchTab({ url: '/pages/index/index' })
+      }, 2000)
+    }
+
+    Taro.hideLoading()
+  }
+
+  componentDidShow() {
+    this.handleVerify()
+  }
+
   componentDidMount = async () => {
     //-----------------------------------//
-    // 。
     const { toast, duration = 2500, msg } = this.$router.params
     // 判断1：如果是Token鉴权失败时，根据路由参数显示轻提示，但还是
     if (toast === '1') {
       this.showToast(msg, 'none', Number(duration))
     } else {
-      Taro.showLoading({ title: '验证中', mask: false })
-
-      const res = await verify_v2()
-
-      if (res && res.success) {
-        if (res.data) {
-
-          this.showToast(res.data.userName + '，欢迎回来')
-          let payload = Taro.getStorageSync('userInfo')
-          payload = Object.assign(payload, res.data)
-
-          await this.props.dispatch({
-            type: 'login/save',
-            payload
-          })
-        }
-        setTimeout(() => {
-          Taro.switchTab({ url: '/pages/index/index' })
-        }, 2000)
-
-        return false
-      }
-
-      Taro.hideLoading()
+      this.handleVerify();
     }
     //-----------------------------------//
   }

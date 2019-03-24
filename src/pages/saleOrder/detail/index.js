@@ -1,7 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
 import dayjs from 'dayjs'
 import { connect } from '@tarojs/redux'
-import { View, Text, Image, Input } from '@tarojs/components'
+import { View, Text, Image, Input, Button } from '@tarojs/components'
 import { AtList, AtListItem, } from 'taro-ui'
 import { fetchById, fetchById_shared } from './service'
 import { OrderCell } from '../../../components/OrderCell'
@@ -305,7 +305,7 @@ export default class Detail extends Component {
           <View>
             <Text>物流单据</Text>
             {/* <View onClick={this.handleUploadImg} > */}
-            <View className='img-list'>
+            <View className='img-list' style={{display: hasImgs ? 'block' : 'none'}}>
               { hasImgs ? 
                 fileList.map(item => {
                   return <Image onClick={this.handlePreviewImage.bind(this, item.url)} style='max-height:240rpx;max-width:240rpx;display:block;' key={item.uid} src={item.url}></Image>
@@ -319,6 +319,7 @@ export default class Detail extends Component {
             <Input value={remark} onChange={this.handleCommonChange.bind(this, 'remark')} placeholder='备注(最多100字)'></Input>
           </View>
         </View>
+        <Button onClick={this.handleNavigate.bind(this, 'saleOrder/poster')} style='margin-top: 20px;' >绘制分享图</Button>
         {/* <View>
           <AtCheckbox
             style='background-color: #aaa;'

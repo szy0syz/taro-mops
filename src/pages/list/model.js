@@ -216,7 +216,7 @@ export default {
           break;
         case 1: // 上周
           dateStart = dateHelp.getLastWeekStartDate()
-          dateEnd = dateHelp.getLastWeekEndDate()
+          dateEnd = dateHelp. getLastWeekEndDate()
           break;
         case 2: // 本周
           dateStart = dateHelp.getWeekStartDate()

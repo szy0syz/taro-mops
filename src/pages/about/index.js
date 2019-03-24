@@ -4,12 +4,63 @@ import TaroCanvasDrawer from '../../components/taro-plugin-canvas'; // 拷贝文
 // import { TaroCanvasDrawer  } from 'taro-plugin-canvas'; // npm 引入方式
 // import './index.scss'
 
+const BASE = {
+  y1_productName: 560,
+  lineSpace: 40,
+  y2_orderContent: 600,
+  itemSpace: 90,
+}
+
+function genCanvasText(products) {
+  let data = [];
+  const baseObj = [
+    {
+      x: 96,
+      y: 560,
+      text: '',
+      fontSize: 28,
+      color: '#111',
+      opacity: 1,
+      baseLine: 'middle',
+      textAlign: 'left',
+      lineHeight: 36,
+      lineNum: 1,
+      zIndex: 999,
+    },
+    {
+      x: 116,
+      y: 600,
+      text: '',
+      fontSize: 26,
+      color: '#444',
+      opacity: 1,
+      baseLine: 'middle',
+      textAlign: 'left',
+      lineHeight: 36,
+      lineNum: 1,
+      zIndex: 999,
+    }
+  ]
+  products.forEach((item, index) => {
+    const text_name = Object.assign({}, baseObj[0]);
+    const text_content = Object.assign({}, baseObj[1]);
+    text_name.y = BASE.y1_productName + (BASE.itemSpace * index);
+    text_name.text = `${item.MaterialName}: ${item.MaterialModel}`;
+    text_content.y = BASE.y2_orderContent + (BASE.itemSpace * index);
+    text_content.text = `明细：${parseFloat(item.qty)}公斤 * ${parseFloat(item.DefaultPrice)}元 = ${parseFloat(item.defaultAmount)}元`;
+    if(item.giftQty) text_content.text += ` (赠品${item.giftQty || 0})`
+    data.push(text_name);
+    data.push(text_content);
+  });
+
+  return data;
+}
+
+
 export default class About extends Component {
   config = {
     navigationBarTitleText: '关于'
   }
-
-  index = 0;
 
   constructor(props) {
     super(props);
@@ -22,7 +73,7 @@ export default class About extends Component {
       canvasStatus: false,
       rssConfig: {
         width: 750,
-        height: 1120,
+        height: 1050,
         backgroundColor: '#fff',
         debug: false,
 
@@ -44,13 +95,13 @@ export default class About extends Component {
           {
             x: 80,
             y: 460,
-            text: '曲靖市亿农家园农资有限责任公司',
-            fontSize: 36,
+            text: '曲靖市亿农家园农资有限责任公司公司',
+            fontSize: 32,
             color: '#000',
             opacity: 1,
             baseLine: 'middle',
             lineHeight: 48,
-            lineNum: 2,
+            lineNum: 1,
             textAlign: 'left',
             width: 580,
             zIndex: 999,
@@ -70,36 +121,23 @@ export default class About extends Component {
           },
           //-------------------
           {
-            x: 96,
-            y: 560,
-            text: '「艾美乐」：5L*2瓶 德国拜耳',
+            x: 34,
+            y: 160,
+            text: '云农股份',
             fontSize: 28,
-            color: '#111',
+            color: '#000',
             opacity: 1,
             baseLine: 'middle',
             textAlign: 'left',
             lineHeight: 36,
             lineNum: 1,
-            zIndex: 999,
-          },
-          {
-            x: 116,
-            y: 600,
-            text: '明细：8公斤 * 98元 = ￥784元',
-            fontSize: 26,
-            color: '#444',
-            opacity: 1,
-            baseLine: 'middle',
-            textAlign: 'left',
-            lineHeight: 36,
-            lineNum: 1,
-            zIndex: 999,
+            zIndex: 900,
           },
 
           {
-            x: 96,
-            y: 650,
-            text: '「艾美乐」：5L*2瓶 德国拜耳',
+            x: 480,
+            y: 980,
+            text: '2019年03月24日',
             fontSize: 28,
             color: '#111',
             opacity: 1,
@@ -107,74 +145,8 @@ export default class About extends Component {
             textAlign: 'left',
             lineHeight: 36,
             lineNum: 1,
-            zIndex: 999,
+            zIndex: 900,
           },
-          {
-            x: 116,
-            y: 690,
-            text: '明细：8公斤 * 98元 = ￥784元',
-            fontSize: 26,
-            color: '#444',
-            opacity: 1,
-            baseLine: 'middle',
-            textAlign: 'left',
-            lineHeight: 36,
-            lineNum: 1,
-            zIndex: 999,
-          },
-          {
-            x: 96,
-            y: 730,
-            text: '「艾美乐」：5L*2瓶 德国拜耳',
-            fontSize: 28,
-            color: '#111',
-            opacity: 1,
-            baseLine: 'middle',
-            textAlign: 'left',
-            lineHeight: 36,
-            lineNum: 1,
-            zIndex: 999,
-          },
-          {
-            x: 116,
-            y: 770,
-            text: '明细：8公斤 * 98元 = ￥784元',
-            fontSize: 26,
-            color: '#444',
-            opacity: 1,
-            baseLine: 'middle',
-            textAlign: 'left',
-            lineHeight: 36,
-            lineNum: 1,
-            zIndex: 999,
-          },
-          {
-            x: 96,
-            y: 820,
-            text: '「艾美乐」：5L*2瓶 德国拜耳',
-            fontSize: 28,
-            color: '#111',
-            opacity: 1,
-            baseLine: 'middle',
-            textAlign: 'left',
-            lineHeight: 36,
-            lineNum: 1,
-            zIndex: 999,
-          },
-          {
-            x: 116,
-            y: 860,
-            text: '明细：8公斤 * 98元 = ￥784元',
-            fontSize: 26,
-            color: '#444',
-            opacity: 1,
-            baseLine: 'middle',
-            textAlign: 'left',
-            lineHeight: 36,
-            lineNum: 1,
-            zIndex: 999,
-          },
-          
         ],
         images: [
           {
@@ -201,7 +173,7 @@ export default class About extends Component {
             url: 'http://cdn.ynagtech.com/oders/%E7%AB%A0_%E4%BB%93%E5%BA%93%E7%BB%8F%E8%90%A5%E9%83%A83.gif',
             width: 180,
             height: 180,
-            y: 880,
+            y: 810,
             x: 500,
             borderRadius: 100,
             borderWidth: 0,
@@ -224,7 +196,7 @@ export default class About extends Component {
             x: 0,
             y: 0,
             width: 750,
-            height: 1120,
+            height: 1050,
             paddingLeft: 0,
             paddingRight: 0,
             borderWidth: 0,
@@ -235,7 +207,7 @@ export default class About extends Component {
             x: 40,
             y: 40,
             width: 670,
-            height: 1040,
+            height: 970,
             paddingLeft: 0,
             paddingRight: 0,
             borderWidth: 0,
@@ -249,10 +221,40 @@ export default class About extends Component {
   }
 
   // 调用绘画 => canvasStatus 置为true、同时设置config
-  canvasDrawFunc = (config = this.state.rssConfig) => {
+  canvasDrawFunc = () => {
+    // -----------------
+    const products = [
+      {
+        DefaultPrice: 1300,
+        MaterialModel: "50% 500g*10瓶 日本",
+        MaterialName: "青劲保1",
+        defaultAmount: 78000,
+        qty: 60,
+      },
+      {
+        DefaultPrice: 1400.05,
+        MaterialModel: "50%50g*100瓶",
+        MaterialName: "青劲保2",
+        defaultAmount: 42000,
+        qty: 30,
+      },
+      {
+        DefaultPrice: 1100.2,
+        MaterialModel: "40% 200g * 20瓶",
+        MaterialName: "青劲保3",
+        defaultAmount: 62000,
+        qty: 60,
+      },
+    ]
+    const data = genCanvasText(products);
+
+    const { rssConfig } = this.state;
+    data.forEach(item => rssConfig.texts.push(item));
+
+    // -----------------
     this.setState({
       canvasStatus: true,
-      config,
+      config: this.state.rssConfig,
     })
     Taro.showLoading({
       title: '绘制中...'
@@ -312,12 +314,11 @@ export default class About extends Component {
   }
 
   render() {
-    const { rssConfig } = this.state;
     return (
       <View className='index'>
         <View>
           <View className='flex-row'>
-            <Button onClick={this.canvasDrawFunc.bind(this, rssConfig)}>绘制</Button>
+            <Button onClick={this.canvasDrawFunc}>绘制</Button>
             <Button onClick={this.saveToAlbum}>保存到相册</Button>
           </View>
         </View>

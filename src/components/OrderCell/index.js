@@ -47,7 +47,7 @@ class OrderCell extends Component {
             <View className='at-col at-col-12'>其中赠品：{Number(item.giftQty).toFixed(2)}公斤</View>
             <View className='at-col at-col-12'>开单金额：￥{Number(item.defaultAmount).toFixed(4)}</View>
             {/* <View className='at-col at-col-12'>结算金额{Number(item.amount).toFixed(4)}</View> */}
-            <Item isShow={!isShared} title='结算金额22' num={item.amount}></Item>
+            <Item isShow={!isShared} title='结算金额' num={item.amount}></Item>
           </View>
           {hasIcon ? (
             <View className='item-icon'>
