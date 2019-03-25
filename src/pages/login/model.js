@@ -28,8 +28,8 @@ export default {
 
   effects: {
     * login(_, { call, put, select }) {
-      const { openid, easid, nickName, mobile, password, avatar, city, province } = yield select(state => state.login)
-      const res = yield call(login.login_v2, { openid, easid, nickName, mobile, password, avatar, city, province })
+      const { jsCode, encryptedData, iv, easid, nickName, password, avatar, } = yield select(state => state.login)
+      const res = yield call(login.login_v2, { jsCode, encryptedData, iv, easid, nickName, password, avatar })
 
       if (res && res.success) {
         yield put({
