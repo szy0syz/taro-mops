@@ -89,7 +89,6 @@ export default class ProductSelect extends Component {
     }
     // if (this.backPage === 'orderEdit') {
 
-    //   console.log('~~~~~~~~@@orderEdit@', orderEdit)
     //   dispatch({
     //     type: 'order/save',
     //     payload: { products: [] }

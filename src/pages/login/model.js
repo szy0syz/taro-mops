@@ -12,6 +12,8 @@ export default {
     password: '',
     // ---------- 微信数据
     jsCode: '',
+    encryptedData: '',
+    iv: '',
     sessionKey: '',
     openid: '',
     avatar: '',
@@ -28,7 +30,8 @@ export default {
     * login(_, { call, put, select }) {
       const { openid, easid, nickName, mobile, password, avatar, city, province } = yield select(state => state.login)
       const res = yield call(login.login_v2, { openid, easid, nickName, mobile, password, avatar, city, province })
-      if (res.success) {
+
+      if (res && res.success) {
         yield put({
           type: 'save',
           payload: {

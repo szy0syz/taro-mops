@@ -1,7 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Input, Button } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
-import { verify_v2 } from './service'
+import { verify_v2, cryptData, code2Session } from './service'
 import './index.scss'
 
 @connect(({ login }) => ({
@@ -11,6 +11,8 @@ export default class Login extends Component {
   config = {
     navigationBarTitleText: ''
   }
+
+  verifyStatus = false;
 
   handleInputValue = (key, event) => {
     let payload, { value } = event.target
@@ -34,8 +36,9 @@ export default class Login extends Component {
   }
 
   handleLogin = () => {
-    // TODO: 检查easid 和 password
-    this.props.dispatch({ type: 'login/login' })
+    const { easid, password } = this.props;
+    if (!easid || !password) this.showToast('账号和密码不能为空');
+    else this.props.dispatch({ type: 'login/login' })
   }
 
   showToast(text, icon = 'none', duration = 2000) {
@@ -47,10 +50,9 @@ export default class Login extends Component {
   }
 
   handleVerify = async () => {
+    this.verifyStatus = true;
     Taro.showLoading({ title: '验证中', mask: false })
-
     const res = await verify_v2()
-
     if (res && res.success) {
       if (res.data) {
 
@@ -67,35 +69,40 @@ export default class Login extends Component {
         Taro.switchTab({ url: '/pages/index/index' })
       }, 2000)
     }
-
     Taro.hideLoading()
   }
 
   componentDidShow() {
-    this.handleVerify()
-  }
-
-  componentDidMount = async () => {
-    //-----------------------------------//
     const { toast, duration = 2500, msg } = this.$router.params
-    // 判断1：如果是Token鉴权失败时，根据路由参数显示轻提示，但还是
+    // 判断 === 1：如果是Token鉴权失败时，根据路由参数显示轻提示，但还是
     if (toast === '1') {
       this.showToast(msg, 'none', Number(duration))
     } else {
       this.handleVerify();
     }
-    //-----------------------------------//
+  }
+
+  componentDidMount = async () => {
+    const res = await Taro.login();
+    if (res.errMsg === 'login:ok') {
+      const { code } = res;
+      // 保存js_code 用于后台换取openid
+      this.props.dispatch({
+        type: 'login/save',
+        payload: { jsCode: code }
+      })
+    }
   }
 
   onGetUserInfo = async res => {
     const { detail } = res
     if (detail.errMsg === 'getUserInfo:ok') {
+      const { encryptedData, iv } = detail;
       // 获取用户信息成功
       const { avatarUrl: avatar, city, nickName, province } = detail.userInfo
-
       this.props.dispatch({
         type: 'login/save',
-        payload: { avatar, city, nickName, province }
+        payload: { avatar, city, nickName, province, encryptedData, iv }
       })
       this.handleLogin()
     }

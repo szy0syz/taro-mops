@@ -18,7 +18,6 @@ class DatePicker extends Component {
   }
 
   handleChange = e => {
-    console.log(e)
     this.props.onDateChange(e.currentTarget.dataset.name, e.detail.value)
   }
 
