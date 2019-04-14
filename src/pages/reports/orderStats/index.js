@@ -47,45 +47,46 @@ class OrderStats extends Component {
     Taro.navigateTo({ url: '/pages/selections/customers/index?prevModel=orderStats' })
   }
 
-  handleDownReport = async () => {
-    const token = Taro.getStorageSync('token')
-    const { dateStart, dateEnd, customer } = this.props
+  // handleDownReport = async () => {
+  //   const token = Taro.getStorageSync('token')
+  //   const { dateStart, dateEnd, customer } = this.props
 
-    const queryParams = {
-      customerFID: customer.FID,
-      dateStart,
-      dateEnd
-    }
+  //   const queryParams = {
+  //     customerFID: customer.FID,
+  //     dateStart,
+  //     dateEnd
+  //   }
 
-    const downloadTask = await Taro.downloadFile({
-      url: `${baseUrl}/report/exportSaleOrders?${querystring.stringify(queryParams)}`,
-      header: {
-        'Authorization': `Bearer ${token}`
-      }
-    })
-    if (downloadTask.statusCode === 200) {
-      await Taro.saveFile({ tempFilePath: downloadTask.tempFilePath, success: (res) => { console.log(res.savedFilePath) } })
-    }
-  }
+  //   const downloadTask = await Taro.downloadFile({
+  //     url: `${baseUrl}/report/exportSaleOrders?${querystring.stringify(queryParams)}`,
+  //     header: {
+  //       'Authorization': `Bearer ${token}`
+  //     }
+  //   })
+  //   if (downloadTask.statusCode === 200) {
+  //     await Taro.saveFile({ tempFilePath: downloadTask.tempFilePath, success: (res) => { console.log(res.savedFilePath) } })
+  //   }
+  // }
 
   handleGetReport = async () => {
     const token = Taro.getStorageSync('token')
     const { dateStart, dateEnd, customer } = this.props
-
     const queryParams = {
       customerFID: customer.FID,
       dateStart,
       dateEnd
     }
+    const filePath = wx.env.USER_DATA_PATH + '/' + Date.now() + '.xlsx';
 
     const downloadTask = await Taro.downloadFile({
       url: `${baseUrl}/report/exportSaleOrders?${querystring.stringify(queryParams)}`,
+      filePath,
       header: {
         'Authorization': `Bearer ${token}`
       }
     })
     if (downloadTask.statusCode === 200) {
-      await Taro.openDocument({ filePath: downloadTask.tempFilePath, fileType: 'xlsx' })
+      await Taro.openDocument({ filePath, fileType: 'xlsx' })
     }
   }
 
@@ -190,7 +191,7 @@ class OrderStats extends Component {
           </AtAccordion>
         </View>
         <View className='open-report'>
-          <AtButton onClick={this.handleDownReport} type='primary' size='small' style='margin-right:10px;'>报表下载</AtButton>
+          {/* <AtButton onClick={this.handleDownReport} type='primary' size='small' style='margin-right:10px;'>报表下载</AtButton> */}
           <AtButton onClick={this.handleGetReport} type='primary' size='small'>阅读报表</AtButton>
         </View>
       </View>
