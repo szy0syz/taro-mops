@@ -10,6 +10,7 @@ export default {
     bills: [],
     allAmount: 0,
     allDefAmount: 0,
+    isOnlyMe: true
   },
   effects: {
     * fetch(_, { call, select, put }) {

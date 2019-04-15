@@ -25,5 +25,11 @@
         position: fixed;
         bottom: 40px;
         right: 40px;
+        @include fja(space-between);
+
+        .export-settings {
+            margin-right: 18px;
+            margin-bottom: 12px; 
+        }
     }
 }

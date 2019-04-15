@@ -1,6 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Text, ScrollView } from '@tarojs/components'
-import { AtIcon, AtAccordion, AtCard, AtButton } from 'taro-ui'
+import { View, Text, ScrollView, Button } from '@tarojs/components'
+import { AtIcon, AtAccordion, AtCard, AtButton, AtModal, AtForm, AtSwitch, AtModalContent, AtModalHeader, AtModalAction } from 'taro-ui'
 import { connect } from '@tarojs/redux'
 import querystring from 'querystring'
 import dayjs from 'dayjs'
@@ -19,6 +19,8 @@ class OrderStats extends Component {
 
   state = {
     isOpenAR: false,
+    isShowSettingModal: false,
+    lab_expSet: '仅导出我创建的单据',
   }
 
   async componentDidShow() {
@@ -47,35 +49,16 @@ class OrderStats extends Component {
     Taro.navigateTo({ url: '/pages/selections/customers/index?prevModel=orderStats' })
   }
 
-  // handleDownReport = async () => {
-  //   const token = Taro.getStorageSync('token')
-  //   const { dateStart, dateEnd, customer } = this.props
-
-  //   const queryParams = {
-  //     customerFID: customer.FID,
-  //     dateStart,
-  //     dateEnd
-  //   }
-
-  //   const downloadTask = await Taro.downloadFile({
-  //     url: `${baseUrl}/report/exportSaleOrders?${querystring.stringify(queryParams)}`,
-  //     header: {
-  //       'Authorization': `Bearer ${token}`
-  //     }
-  //   })
-  //   if (downloadTask.statusCode === 200) {
-  //     await Taro.saveFile({ tempFilePath: downloadTask.tempFilePath, success: (res) => { console.log(res.savedFilePath) } })
-  //   }
-  // }
-
   handleGetReport = async () => {
     const token = Taro.getStorageSync('token')
-    const { dateStart, dateEnd, customer } = this.props
+    const { dateStart, dateEnd, customer, isOnlyMe } = this.props
     const queryParams = {
       customerFID: customer.FID,
       dateStart,
-      dateEnd
+      dateEnd,
+      isOnlyMe
     }
+    // eslint-disable-next-line no-undef
     const filePath = wx.env.USER_DATA_PATH + '/' + Date.now() + '.xlsx';
 
     const downloadTask = await Taro.downloadFile({
@@ -141,13 +124,28 @@ class OrderStats extends Component {
     this.setState({ ...payload })
   }
 
+  handleTaggleSettingModal = () => {
+    const { isShowSettingModal } = this.state;
+    this.setState({ isShowSettingModal: !isShowSettingModal })
+  }
+
   handleClick = (id) => {
     Taro.navigateTo({ url: `/pages/saleOrder/detail/index?_id=${id}&basePath=saleOrders` })
   }
 
+  handleSwitchChange = (val) => {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'orderStats/save',
+      payload: { isOnlyMe: val }
+    })
+    if (val === true) { this.setState({ lab_expSet: '仅导出我创建的单据' })}
+    else { this.setState({ lab_expSet: '导出所有单据' })}
+  }
+
   render() {
-    const { isOpenAR } = this.state;
-    const { customer, bills = [], allAmount = 0, allDefAmount = 0 } = this.props
+    const { isOpenAR, isShowSettingModal } = this.state;
+    const { customer, bills = [], allAmount = 0, allDefAmount = 0, isOnlyMe } = this.props
     return (
       <View className='CustomerAR-container'>
         <ReportHeader onBtnDateClick={this.handleDateBtnClick} dateStart={this.props.dateStart} dateEnd={this.props.dateEnd} onDateChange={this.handleDateChange}></ReportHeader>
@@ -191,9 +189,18 @@ class OrderStats extends Component {
           </AtAccordion>
         </View>
         <View className='open-report'>
-          {/* <AtButton onClick={this.handleDownReport} type='primary' size='small' style='margin-right:10px;'>报表下载</AtButton> */}
+          <AtIcon onClick={this.handleTaggleSettingModal} className='export-settings' value='settings' size='24'></AtIcon>
           <AtButton onClick={this.handleGetReport} type='primary' size='small'>阅读报表</AtButton>
         </View>
+        <AtModal isOpened={isShowSettingModal} onClose={this.handleTaggleSettingModal} >
+          <AtModalHeader>报表选项</AtModalHeader>
+          <AtModalContent>
+            <AtForm>
+              <AtSwitch title={this.state.lab_expSet} checked={isOnlyMe} onChange={this.handleSwitchChange} />
+            </AtForm>
+          </AtModalContent>
+          <AtModalAction> <Button onClick={this.handleTaggleSettingModal}>确定</Button> </AtModalAction>
+        </AtModal>
       </View>
     )
   }

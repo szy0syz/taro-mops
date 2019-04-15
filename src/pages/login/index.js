@@ -108,25 +108,6 @@ export default class Login extends Component {
     }
   }
 
-  // onGetPhoneNumber = async data => {
-  //   const { encryptedData, iv } = data.detail
-  //   const { sessionKey } = this.props
-  //   const res = await cryptData({
-  //     session_key: sessionKey,
-  //     encryptedData,
-  //     iv
-  //   })
-  //   const { purePhoneNumber: mobile } = res.data
-  //   if (mobile) {
-  //     this.props.dispatch({
-  //       type: 'login/save',
-  //       payload: { mobile }
-  //     })
-  //   } else {
-  //     this.showToast('验证手机号失败')
-  //   }
-  // }
-
   render() {
     return (
       <View className='login-page' id='login-page'>
@@ -161,7 +142,7 @@ export default class Login extends Component {
               登 录
             </Button>
             <View className='see-des'>
-              <Text>无需输入密码 后台审核登录</Text>
+              <Text>请输入账号密码</Text>
             </View>
           </View>
         </View>

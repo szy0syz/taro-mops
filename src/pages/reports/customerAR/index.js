@@ -59,22 +59,18 @@ class CustomerAR extends Component {
       dateEnd
     }
 
+    // eslint-disable-next-line no-undef
+    const filePath = wx.env.USER_DATA_PATH + '/' + Date.now() + '.xlsx';
+
     const downloadTask = await Taro.downloadFile({
       url: `${baseUrl}/eas/exptCustomerAR?${querystring.stringify(queryParams)}`,
+      filePath,
       header: {
         'Authorization': `Bearer ${token}`
       }
     })
     if (downloadTask.statusCode === 200) {
-      await Taro.openDocument({ filePath: downloadTask.tempFilePath, fileType: 'xlsx' })
-
-      // Taro.saveFile({
-      //   tempFilePath: downloadTask.tempFilePath
-      // }).then(res => {
-      //   console.log(res)
-      //   console.log('存储成功~~~~~')
-      //   // Taro.openDocument({filePath: res.savedFilePath, fileType: 'xlsx'})
-      // })
+      await Taro.openDocument({ filePath, fileType: 'xlsx' })
     }
   }
 
