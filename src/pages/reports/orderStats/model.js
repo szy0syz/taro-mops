@@ -10,7 +10,8 @@ export default {
     bills: [],
     allAmount: 0,
     allDefAmount: 0,
-    isOnlyMe: true
+    isOnlyMe: false,
+    noDefAmount: true,
   },
   effects: {
     * fetch(_, { call, select, put }) {
@@ -19,7 +20,6 @@ export default {
       if (customer && customer.FID) {
         const { data = {}, success } = yield call(fetchOrdersByCust, { customerFID: customer.FID, dateStart, dateEnd })
         if (success) {
-
           yield put({
             type: 'save',
             payload: { 

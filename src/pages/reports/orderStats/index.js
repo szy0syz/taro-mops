@@ -20,7 +20,8 @@ class OrderStats extends Component {
   state = {
     isOpenAR: false,
     isShowSettingModal: false,
-    lab_expSet: '仅导出我创建的单据',
+    lab_expSet: '包含所有创建的单据',
+    lab_noPrice: '不包含结算价',
   }
 
   async componentDidShow() {
@@ -51,12 +52,13 @@ class OrderStats extends Component {
 
   handleGetReport = async () => {
     const token = Taro.getStorageSync('token')
-    const { dateStart, dateEnd, customer, isOnlyMe } = this.props
+    const { dateStart, dateEnd, customer, isOnlyMe, noDefAmount } = this.props
     const queryParams = {
       customerFID: customer.FID,
       dateStart,
       dateEnd,
-      isOnlyMe
+      isOnlyMe,
+      noDefAmount
     }
     // eslint-disable-next-line no-undef
     const filePath = wx.env.USER_DATA_PATH + '/' + Date.now() + '.xlsx';
@@ -68,8 +70,14 @@ class OrderStats extends Component {
         'Authorization': `Bearer ${token}`
       }
     })
+    console.log('~~downloadTask.statusCode', downloadTask.statusCode)
     if (downloadTask.statusCode === 200) {
       await Taro.openDocument({ filePath, fileType: 'xlsx' })
+    } else {
+      Taro.showToast({
+        title: '没有数据',
+        icon: 'none',
+      })
     }
   }
 
@@ -143,9 +151,19 @@ class OrderStats extends Component {
     else { this.setState({ lab_expSet: '导出所有单据' })}
   }
 
+  handleSwitchNoDefPrice = (val) => {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'orderStats/save',
+      payload: { noDefAmount: val }
+    })
+    if (val === true) { this.setState({ lab_noPrice: '包含结算数据' })}
+    else { this.setState({ lab_noPrice: '不包含结算数据' })}
+  }
+
   render() {
     const { isOpenAR, isShowSettingModal } = this.state;
-    const { customer, bills = [], allAmount = 0, allDefAmount = 0, isOnlyMe } = this.props
+    const { customer, bills = [], allAmount = 0, allDefAmount = 0, isOnlyMe, noDefAmount } = this.props
     return (
       <View className='CustomerAR-container'>
         <ReportHeader onBtnDateClick={this.handleDateBtnClick} dateStart={this.props.dateStart} dateEnd={this.props.dateEnd} onDateChange={this.handleDateChange}></ReportHeader>
@@ -197,6 +215,7 @@ class OrderStats extends Component {
           <AtModalContent>
             <AtForm>
               <AtSwitch title={this.state.lab_expSet} checked={isOnlyMe} onChange={this.handleSwitchChange} />
+              <AtSwitch title={this.state.lab_noPrice} checked={noDefAmount} onChange={this.handleSwitchNoDefPrice} />
             </AtForm>
           </AtModalContent>
           <AtModalAction> <Button onClick={this.handleTaggleSettingModal}>确定</Button> </AtModalAction>
