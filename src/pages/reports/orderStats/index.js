@@ -70,7 +70,7 @@ class OrderStats extends Component {
         'Authorization': `Bearer ${token}`
       }
     })
-    console.log('~~downloadTask.statusCode', downloadTask.statusCode)
+
     if (downloadTask.statusCode === 200) {
       await Taro.openDocument({ filePath, fileType: 'xlsx' })
     } else {

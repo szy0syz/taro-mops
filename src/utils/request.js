@@ -49,5 +49,14 @@ export default (options = { method: 'GET', data: {} }) => {
       })
       // throw new Error(`网络请求错误，状态码${statusCode}`);
     }
+  }).catch(({ errMsg }) => {
+    let error = '';
+    if (errMsg.indexOf('request:fail') > -1) {
+      error = 'request:fail';
+      Taro.showToast({ title: '服务器连接失败', icon: 'none' })
+    } else {
+      Taro.showToast({title: errMsg, icon: 'none'})
+    }
+    return { success: false, error }
   })
 }

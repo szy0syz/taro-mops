@@ -56,8 +56,9 @@ export default {
   },
   effects: {
     * create({ payload }, { call }) {
-      const { success } = yield call(Service.post, payload)
-      return Boolean(success)
+      const resp = yield call(Service.post, payload)
+      console.log('~~resp~~', resp)
+      return resp && resp.success === true
     },
     * init(_, { select, put }) {
       const { userId, userName, easid, easfid } = yield select(state => state.login)

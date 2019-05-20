@@ -30,7 +30,7 @@ export default {
         type: 'save',
         payload
       })
-      if (res.data.length > 0) {
+      if (res && res.data && res.data.length > 0) {
         yield put({
           type: 'save',
           payload: {
@@ -38,11 +38,14 @@ export default {
           }
         })
       } else {
-        Taro.showToast({
-          title: '没有对应商品',
-          icon: 'none',
-          duration: 2200,
-        });
+        const { error } = res;
+        if (!error === 'request:fail') {
+          Taro.showToast({
+            title: '没有对应客户',
+            icon: 'none',
+            duration: 2200,
+          });
+        }
       }
     }
   },

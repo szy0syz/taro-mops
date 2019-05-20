@@ -29,24 +29,34 @@ export default {
   },
   effects: {
     * getCustomers({ payload }, { put, call }) {
-      const res = yield call(Service.getCustomers, payload)
-      yield put({
-        type: 'save',
-        payload
-      })
-      if (res.data.length > 0) {
+      try {
+        const res = yield call(Service.getCustomers, payload)
         yield put({
           type: 'save',
-          payload: {
-            customerList: res.data
-          }
+          payload
         })
-      } else {
-        Taro.showToast({
-          title: '没有对应客户',
-          icon: 'none',
-          duration: 2200,
-        });
+        if (res && res.data && res.data.length > 0) {
+          yield put({
+            type: 'save',
+            payload: {
+              customerList: res.data
+            }
+          })
+        } else {
+          const { error } = res;
+          if (!error === 'request:fail') {
+            Taro.showToast({
+              title: '没有对应客户',
+              icon: 'none',
+              duration: 2200,
+            });
+          }
+        }
+      } catch ({ errMsg = 'error' }) {
+        console.log('====================================');
+        console.log(errMsg)
+        console.log('====================================');
+        return;
       }
     }
   },

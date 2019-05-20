@@ -51,7 +51,7 @@ export default class ProductSelect extends Component {
     })
   }
 
-  handleSearch = (type, keyword = '') => {
+  handleSearch = (colName, keyword = '') => {
     const { dispatch } = this.props
     switch (keyword.length) {
       case 0:
