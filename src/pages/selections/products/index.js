@@ -220,7 +220,7 @@ export default class ProductSelect extends Component {
                 <AtInput
                   name='qty'
                   title='赠品数量：'
-                  type='number'
+                  type='digit'
                   value={giftQty}
                   onChange={this.handleModalChange.bind(this, 'giftQty')}
                 >
