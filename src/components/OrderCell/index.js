@@ -19,6 +19,7 @@ class OrderCell extends Component {
       DefaultPrice: 0,
       amount: 0,
       defaultAmount: 0,
+      remark: ''
     }
   }
 
@@ -29,7 +30,7 @@ class OrderCell extends Component {
 
   render() {
     const { item, hasIcon = false, index, isShared = false } = this.props;
-    
+
     return (
       <View className='order-cell'>
         <View className='title'>
@@ -49,11 +50,15 @@ class OrderCell extends Component {
             {/* <View className='at-col at-col-12'>结算金额{Number(item.amount).toFixed(4)}</View> */}
             <Item isShow={!isShared} title='结算金额' num={item.amount}></Item>
           </View>
+
           {hasIcon ? (
             <View className='item-icon'>
               <AtIcon onClick={this.handleClick.bind(this, index)} value='subtract-circle' size='30' color='#F00'></AtIcon>
             </View>
           ) : null}
+        </View>
+        <View className='at-row' style={{ marginTop: 10}}>
+          <View className='at-col at-col-24'>备  注：{item.remark}</View>
         </View>
       </View>
     )

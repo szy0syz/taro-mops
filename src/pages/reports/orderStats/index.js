@@ -2,8 +2,8 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Text, ScrollView, Button } from '@tarojs/components'
 import { AtIcon, AtAccordion, AtCard, AtButton, AtModal, AtForm, AtSwitch, AtModalContent, AtModalHeader, AtModalAction } from 'taro-ui'
 import { connect } from '@tarojs/redux'
-import querystring from 'querystring'
 import dayjs from 'dayjs'
+import stringify from '../../../utils/stringify'
 import { baseUrl } from '../../../config'
 import ReportHeader from '../../../components/ReportHeader'
 
@@ -64,7 +64,7 @@ class OrderStats extends Component {
     const filePath = wx.env.USER_DATA_PATH + '/' + Date.now() + '.xlsx';
 
     const downloadTask = await Taro.downloadFile({
-      url: `${baseUrl}/report/exportSaleOrders?${querystring.stringify(queryParams)}`,
+      url: `${baseUrl}/report/exportSaleOrders?${stringify(queryParams)}`,
       filePath,
       header: {
         'Authorization': `Bearer ${token}`

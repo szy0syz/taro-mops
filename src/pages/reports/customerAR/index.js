@@ -2,8 +2,8 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Text, ScrollView } from '@tarojs/components'
 import { AtIcon, AtAccordion, AtButton } from 'taro-ui'
 import { connect } from '@tarojs/redux'
-import querystring from 'querystring'
 import dayjs from 'dayjs'
+import stringify from '../../../utils/stringify'
 import { baseUrl } from '../../../config'
 import ReportHeader from '../../../components/ReportHeader'
 import CardList from '../../../components/CardList'
@@ -63,7 +63,7 @@ class CustomerAR extends Component {
     const filePath = wx.env.USER_DATA_PATH + '/' + Date.now() + '.xlsx';
 
     const downloadTask = await Taro.downloadFile({
-      url: `${baseUrl}/eas/exptCustomerAR?${querystring.stringify(queryParams)}`,
+      url: `${baseUrl}/eas/exptCustomerAR?${stringify(queryParams)}`,
       filePath,
       header: {
         'Authorization': `Bearer ${token}`

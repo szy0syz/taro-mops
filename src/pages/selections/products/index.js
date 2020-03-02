@@ -26,6 +26,7 @@ export default class ProductSelect extends Component {
       qty: '',
       giftQty: 0,
       amount: 0,
+      remark: '',
       defaultAmount: 0,
       currentItem: {
         MaterialName: '商品名称',
@@ -112,6 +113,7 @@ export default class ProductSelect extends Component {
       giftQty: Number(this.state.giftQty),
       amount: Number(this.state.amount),
       defaultAmount: Number(this.state.defaultAmount),
+      remark: this.state.remark
     })
     let products = Array.from(new Set([...this.props.products, product]))
     this.props.dispatch({
@@ -156,7 +158,7 @@ export default class ProductSelect extends Component {
   }
 
   render() {
-    const { currentItem, isShowModal, qty, giftQty } = this.state;
+    const { currentItem, isShowModal, qty, giftQty, remark } = this.state;
     const { productList, products, searchTypes } = this.props
     return (
       <View className='sel-product-page'>
@@ -225,6 +227,14 @@ export default class ProductSelect extends Component {
                   onChange={this.handleModalChange.bind(this, 'giftQty')}
                 >
                   <Text>公斤</Text>
+                </AtInput>
+                <AtInput
+                  name='remark'
+                  title='备注：'
+                  type='string'
+                  value={remark}
+                  onChange={(val) => this.setState({ remark: val })}
+                >
                 </AtInput>
               </AtForm>
             </View>
