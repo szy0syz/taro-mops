@@ -57,9 +57,12 @@ class OrderCell extends Component {
             </View>
           ) : null}
         </View>
-        <View className='at-row' style={{ marginTop: 10}}>
-          <View className='at-col at-col-24'>备  注：{item.remark}</View>
-        </View>
+        {item.remark ? (
+          <View className='at-row' style={{ marginTop: 10}}>
+            <View className='at-col at-col-24'>备  注：{item.remark}</View>
+          </View>
+          ) : null
+        }
       </View>
     )
   }
